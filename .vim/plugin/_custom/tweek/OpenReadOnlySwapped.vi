@@ -1,0 +1,7 @@
+augroup NoSimultaneousEdits
+  autocmd!
+  autocmd SwapExists * let v:swapchoice = 'o'
+  "autocmd SwapExists * echomsg ErrorMsg
+  autocmd SwapExists * echo 'Duplicate edit session (readonly)'
+  "autocmd SwapExists * echohl None
+augroup END
