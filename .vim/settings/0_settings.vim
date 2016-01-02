@@ -28,7 +28,7 @@ set switchbuf=useopen
 set showtabline=2                     " always show tab
 set wildmode=longest,list             " use emacs-style tab completion when selecting files, etc
 set wildmenu                          " make tab completion for files/buffers act like bash
-" set key=			                        " disable encryption
+set key=			                        " disable encryption
 "set synmaxcol=128
 set viminfo=			                    " disable .viminfo file
 set ttyfast                           " send more chars while redrawing
@@ -43,7 +43,6 @@ set incsearch                         " incremental search
 syntax enable
 set t_Co=256
 colorscheme darcula
-" colorscheme darcula
 
 set nobackup                          " no *~ backup files
 set noswapfile
@@ -70,9 +69,9 @@ set t_vb=
 set tm=500
 
 " file encoding
-" set encoding=utf-8
-" set fileencodings=ucs-bom,utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1,euc-jp,utf-16le,latin1
-" set fenc=utf-8 enc=utf-8 tenc=utf-8
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1,euc-jp,utf-16le,latin1
+set fenc=utf-8 enc=utf-8 tenc=utf-8
 scriptencoding utf-8
 
 " ignores
