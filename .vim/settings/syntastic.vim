@@ -6,7 +6,7 @@ let s:puppet_new = "puppet-3.4.3"
 " let g:syntastic_error_symbol = emoji#for('no_entry')
 " let g:syntastic_warning_symbol = emoji#for('warning')
 let g:syntastic_enable_highlighting = 1
-" let g:syntastic_python_checkers=['python2']
+" let g:syntastic_python_checkers=['python']
 let g:syntastic_python_checkers=['flake8']
 " let g:syntastic_python_flake8_args=''
 let g:syntastic_python_flake8_args='--ignore=E501'
