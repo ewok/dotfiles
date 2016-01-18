@@ -136,21 +136,11 @@ function setjdk() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
  }
 
+setjdk "1.7.0_80"
+
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# Caching some variables
-vars="$HOME/.local/vars.src"
-function updatevars(){
-    echo "updating stack path"
-    echo "export PATH=$(stack --verbosity 0 path --bin-path)" > $vars
-}
-if [[ ! -e "$vars" ]]; then
-    echo "vars not exists"
-    updatevars
-elif test `find "$vars" -mmin +1000`; then
-    updatevars
-elif [[ -z $(cat "$vars") ]]; then
-    echo "vars empy"
-    updatevars;
-fi
-source $vars
+export PATH=$(stack --verbosity 0 path --bin-path)
+
+# added by travis gem
+[ -f /Users/arturtaranchiev/.travis/travis.sh ] && source /Users/arturtaranchiev/.travis/travis.sh
