@@ -52,3 +52,8 @@ nnoremap <f16> cw<c-a>
 nnoremap <a-j> av<c-g><c-g><c-m>j
 nnoremap <a-k> av<c-g><c-g><c-m>k
 
+" Tmux plugin navigator
+nnoremap <c-h> :!tmux select-pane -L<cr>
+nnoremap <c-j> :!tmux select-pane -D<cr>
+nnoremap <c-k> :!tmux select-pane -U<cr>
+nnoremap <c-l> :!tmux select-pane -R<cr>
