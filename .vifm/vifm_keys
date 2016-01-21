@@ -1,0 +1,54 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+
+" Start shell in current directory
+nnoremap s :shell<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+nnoremap o :!open %f<cr>
+nnoremap O :!open %f<cr>
+
+" Yank current directory path into the clipboard
+nnoremap yd :!echo %d | xclip %i<cr>
+
+" Yank current file path into the clipboard
+nnoremap yf :!echo %c:p | xclip %i<cr>
+
+" Mappings for faster renaming
+nnoremap I cw<c-a>
+nnoremap cc cw<c-u>
+nnoremap A cw<c-w>
+
+" Open vim to edit vifmrc and apply settings after returning to vifm
+nnoremap ,c :write | execute ':!vim $MYVIFMRC' | restart<cr>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+" Example of standard two-panel file managers mappings
+nnoremap <f3> :!mcview %f<cr>
+nnoremap <f4> :edit<cr>
+nnoremap <f5> :copy<cr>
+nnoremap <f6> :move
+nnoremap <f7> :mkdir<space>
+nnoremap <f8> :delete
+nnoremap <f10> :q<cr>
+
+" Like in MC
+nnoremap <c-s> /
+nnoremap <a-u> <space>:cd <c-x><c-x>d<cr><space>
+nnoremap <a-o> <space>:cd <c-x><c-x>d/<c-x><c-x>c<cr><space>j
+nnoremap <a-x> :q<cr>
+nnoremap <a-?> :find<space>
+nnoremap <f16> cw<c-a>
+
+" Selecting like in MC
+nnoremap <a-j> av<c-g><c-g><c-m>j
+nnoremap <a-k> av<c-g><c-g><c-m>k
+

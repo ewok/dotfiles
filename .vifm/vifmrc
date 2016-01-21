@@ -1,0 +1,147 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+
+" Используем vim как редактор по умолчанию, список файлов открываем в табах
+set vicmd="vim -p"
+
+" Включяем корзину. Лучше ее включить. Позволяет делать move удаляя файлы.
+
+set trash
+
+" История
+
+set history=1000
+
+" Automatically resolve symbolic links on l or Enter.
+
+set nofollowlinks
+
+" With this option turned on you can run partially entered commands with
+" unambiguous beginning using :! (e.g. :!Te instead of :!Terminal or :!Te<tab>).
+
+set fastrun
+
+" Natural sort of (version) numbers within text.
+
+set sortnumbers
+
+" Maximum number of changes that can be undone.
+
+set undolevels=1000
+
+" If you installed the vim.txt help file set vimhelp.
+" If would rather use a plain text help file set novimhelp.
+
+set novimhelp
+
+" If you would like to run an executable file when you
+" press return on the file name set this.
+
+set runexec
+
+" Use KiB, MiB, ... instead of KB, MB, ...
+
+set noiec
+
+" hide .. directory everywhere
+set dotdirs=
+
+" custom ruler format
+set rulerformat="%2l-%S%[ +%0-%]"
+
+" ==============================================================================
+" appearance
+
+" hide side borders
+set tuioptions-=s
+
+" change appearance of middle border
+set fillchars=vborder:|
+
+" Selected color scheme
+
+colorscheme zenburn_1
+
+" ===============================================================================
+" The FUSE_HOME directory will be used as a root dir for all FUSE mounts.
+" Unless it exists with write/exec permissions set, vifm will attempt to
+" create it.
+
+set fusehome=/tmp/vifm_FUSE
+
+" Format for displaying time in file list. For example:
+" TIME_STAMP_FORMAT=%m/%d-%H:%M
+" See man date or man strftime for details.
+
+set timefmt=%m/%d\ %H:%M:%S
+
+" Show list of matches on tab complition in command-line mode
+
+set wildmenu
+
+" Ignore case in search patterns unless it contains at least one uppercase
+" letter
+
+set ignorecase
+set smartcase
+
+" Don't highlight search results automatically
+
+set nohlsearch
+
+" Use increment searching (search while typing)
+set incsearch
+
+" Try to leave some space from cursor to upper/lower border in lists
+
+set scrolloff=4
+
+" Don't do to much requests to slow file systems
+
+set slowfs=curlftpfs
+
+" Set custom status line look
+
+set statusline="  %t%= %A %10u:%-7g %15s %20d  "
+
+" ------------------------------------------------------------------------------
+
+" What should be saved automatically between vifm runs
+" Like in previous versions of vifm
+" set vifminfo=options,filetypes,commands,bookmarks,dhistory,state,cs
+" Like in vi
+set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks
+
+" ------------------------------------------------------------------------------
+
+" Examples of configuring both panels
+
+" Customize view columns a bit (enable ellipsis for truncated file names)
+"
+" "windo set viewcolumns=−80%{name},{size},{owner},{group},15%{ext},5%{mtime}
+windo set viewcolumns=-40{name}...,{size},7{mode},-{uname}..,-{gname}..,{mtime},4{nlinks}
+
+" Filter-out build and temporary files
+"
+" windo filter! /^.*\.(lo|o|d|class|py[co])$|.*~$/
+
+" ==============================================================================
+" load marks
+source $VIFM/vifm_marks
+
+" ==============================================================================
+" load commands
+source $VIFM/vifm_commands
+
+" ==============================================================================
+" load keymapping
+source $VIFM/vifm_keys
+
+" ==============================================================================
+" load file extensions settings
+source $VIFM/vifm_ext
+
+" ==============================================================================
+" load custom settings
+source $VIFM/vifm_custom
