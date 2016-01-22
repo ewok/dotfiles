@@ -57,3 +57,6 @@ nnoremap <c-h> :!tmux select-pane -L<cr>
 nnoremap <c-j> :!tmux select-pane -D<cr>
 nnoremap <c-k> :!tmux select-pane -U<cr>
 nnoremap <c-l> :!tmux select-pane -R<cr>
+
+" Autojump
+nnoremap J :j<space>

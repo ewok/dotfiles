@@ -23,10 +23,12 @@ command! vgrep vim "+grep %a"
 
 command! reload :write | restart
 
-command! j :!cd $(autojump %a)
+command! j :execute 'cd' system('autojump %a')
 
 command! vim vim %a
 
 command! zip zip -r %f.zip %f
 command! targz tar -zcvf %f.tar.gz %f
 command! tarbz tar -ycvf %f.tar.bz2 %f
+
+command! github github
