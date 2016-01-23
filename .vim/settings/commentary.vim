@@ -5,3 +5,5 @@ call neobundle#end()
 autocmd FileType python  setlocal commentstring=#\ %s
 autocmd FileType vim     setlocal commentstring=\"\ %s
 autocmd FileType config  setlocal commentstring=#\ %s
+autocmd FileType puppet  setlocal commentstring=#\ %s
+autocmd FileType rubby   setlocal commentstring=#\ %s
