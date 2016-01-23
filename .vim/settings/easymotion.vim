@@ -6,7 +6,7 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
+nmap ss <Plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 "
@@ -21,7 +21,7 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
 " Gif config
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
+map sl <Plug>(easymotion-lineforward)
+map sj <Plug>(easymotion-j)
+map sk <Plug>(easymotion-k)
+map sh <Plug>(easymotion-linebackward)
