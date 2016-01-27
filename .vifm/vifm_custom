@@ -1,11 +1,14 @@
 " vim: filetype=vim :
 " ------------------------------------------------------------------------------
 
-" Use ag (the silver searcher) instead of grep
-set grepprg=ag\ --line-numbers\ %i\ %a\ %s
-
-set findprg="find %s %a -print"
-
+if system('uname') == 'Linux'
+    set deleteprg=trash-put
+else
+    " Installation: brew install trash
+    " set deleteprg=Trash
+    set grepprg=ag\ --line-numbers\ %i\ %a\ %s
+    set findprg="find %s %a -print"
+endif
 " Add additional place to look for executables
 " let $PATH=$HOME.'/bin/fuse:'.$PATH
 
