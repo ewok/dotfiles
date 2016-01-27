@@ -10,7 +10,9 @@ let g:jedi#goto_assignments_command = "<leader>gog"
 let g:jedi#goto_command = "<c-]>"
 let g:jedi#goto_definitions_command = ""
 let g:jedi#rename_command = "<leader>jr"
-let g:jedi#usages_command = "<leader>ju"" let b:SuperTabDefaultCompletionType = '<c-space>'
+let g:jedi#usages_command = "<leader>ju"
+
+" let b:SuperTabDefaultCompletionType = '<c-space>'
 
 
 function! LoadPython()
@@ -20,6 +22,6 @@ function! LoadPython()
     set foldmethod=indent
     set foldlevel=0
     set foldnestmax=2
-    set autoindent
+    " set autoindent
 endfunction
 au FileType python call LoadPython()

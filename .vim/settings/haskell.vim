@@ -30,7 +30,7 @@ function! LoadHaskell()
   endif
   let b:did_ftplugin_b = 1
 
-  set smartindent
+  " set smartindent
 
   " map <buffer> <leader>tu :!codex update --force<CR>:call system("git-hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
   map <buffer> <leader>tu :!hasktags --ignore-close-implementation --ctags .; sort tags<CR>:call system("git-hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>

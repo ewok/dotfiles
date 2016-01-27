@@ -28,12 +28,14 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Required:
 call neobundle#end()
 
-" Required:
-filetype plugin indent on
-
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 autocmd VimEnter * NeoBundleCheck
 " NeoBundleCheck
-
 runtime! settings/*.vim
+"
+" Required:
+filetype on
+filetype plugin on
+filetype indent on
+
