@@ -50,7 +50,7 @@ SHARE_HISTORY="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(emoji jira stack brew-cask catimg colored-man-pages)
+plugins=(ssh-agent emoji jira stack brew-cask catimg colored-man-pages)
 JIRA_URL='https://hq-online.megafon.ru/jira'
 source $ZSH/oh-my-zsh.sh
 
@@ -67,7 +67,7 @@ export GOBIN=/usr/local/opt/go/libexec/bin
 
 # Set our default path
 #PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-PATH="$HOME/bin:$GOPATH/bin:$GOBIN:$HOME/.local/bin:$PATH"
+PATH="$HOME/bin:$GOPATH/bin:$GOBIN:$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH
 
 
