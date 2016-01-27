@@ -31,4 +31,7 @@ command! zip zip -r %f.zip %f
 command! targz tar -zcvf %f.tar.gz %f
 command! tarbz tar -ycvf %f.tar.bz2 %f
 
+command! utargz tar -zxvf %f
+command! utarbz tar -yxvf %f
+
 command! github github
