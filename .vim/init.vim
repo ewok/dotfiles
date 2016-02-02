@@ -39,3 +39,10 @@ filetype on
 filetype plugin on
 filetype indent on
 
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  " Hack to get C-h working in neovim
+  nmap <BS> <C-h>
+  tnoremap <Esc> <C-\><C-n>
+endif
+

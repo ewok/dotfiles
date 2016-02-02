@@ -15,17 +15,17 @@
 " %m run the command in a menu window
 
 command! df df -h %m 2> /dev/null
-command! diff vim -d %f %F
+command! diff nvim -d %f %F
 command! run !! ./%f
 command! make !!make %a
 command! mkcd :mkdir %a | cd %a
-command! vgrep vim "+grep %a"
+command! vgrep nvim "+grep %a"
 
 command! reload :write | restart
 
 command! j :execute 'cd' system('autojump %a')
 
-command! vim vim %a
+command! vim nvim %a
 
 command! zip zip -r %f.zip %f
 command! targz tar -zcvf %f.tar.gz %f
