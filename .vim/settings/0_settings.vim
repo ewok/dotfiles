@@ -28,7 +28,7 @@ set switchbuf=useopen
 set showtabline=2                     " always show tab
 set wildmode=longest,list             " use emacs-style tab completion when selecting files, etc
 set wildmenu                          " make tab completion for files/buffers act like bash
-set key=			                        " disable encryption
+" set key=			                        " disable encryption
 "set synmaxcol=128
 set viminfo=			                    " disable .viminfo file
 set ttyfast                           " send more chars while redrawing
@@ -43,6 +43,8 @@ set incsearch                         " incremental search
 syntax enable
 set t_Co=256
 colorscheme darcula
+" colorscheme alduin
+" colorscheme github
 
 set nobackup                          " no *~ backup files
 set noswapfile
@@ -61,7 +63,7 @@ set confirm
 " Prevent timount for leader key
 set notimeout
 set ttimeout
-
+set ttimeoutlen=100
 " disable sound on errors
 set visualbell
 set noerrorbells
