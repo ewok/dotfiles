@@ -7,14 +7,15 @@ NeoBundle "junegunn/vim-emoji"
 NeoBundle "junegunn/vim-peekaboo"
 NeoBundle "plasticboy/vim-markdown"
 NeoBundle "rizzatti/dash.vim"
-NeoBundle "terryma/vim-multiple-cursors"
+" NeoBundle "terryma/vim-multiple-cursors"
 NeoBundle "tpope/vim-repeat"
-NeoBundle "tpope/vim-speeddating"
-NeoBundle "vim-ruby/vim-ruby"
+" NeoBundle "tpope/vim-speeddating"
+" NeoBundle "vim-ruby/vim-ruby"
 NeoBundle "vitorgalvao/autoswap_mac"
-NeoBundle "wellle/visual-split.vim"
+" NeoBundle "wellle/visual-split.vim"
 NeoBundle "xolox/vim-misc"
 NeoBundle "tomtom/tlib_vim"
 call neobundle#end()
 
-let g:AutoPairsFlyMode = 1
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/usr/local/bin/python'

@@ -1,6 +1,6 @@
 call neobundle#append()
-NeoBundle "Shougo/neosnippet-snippets"
-NeoBundle "Shougo/neosnippet.vim"
+" NeoBundle "Shougo/neosnippet-snippets"
+" NeoBundle "Shougo/neosnippet.vim"
 NeoBundle "SirVer/ultisnips"
 NeoBundle "honza/vim-snippets"
 call neobundle#end()
