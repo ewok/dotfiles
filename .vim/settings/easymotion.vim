@@ -17,8 +17,8 @@ nmap ss <Plug>(easymotion-overwin-f)
 let g:EasyMotion_smartcase = 1
 
 " Gif config
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+" map  / <Plug>(easymotion-sn)
+" omap / <Plug>(easymotion-tn)
 
 " Gif config
 map sl <Plug>(easymotion-lineforward)
