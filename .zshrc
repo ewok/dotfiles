@@ -61,6 +61,7 @@ PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)
 export GOPATH=$HOME/documents/projects/go
 export GOPATH
 export GOBIN=/usr/local/opt/go/libexec/bin
+export GO15VENDOREXPERIMENT=1 
 
 #export HASKELLPATH=$HOME/Library/Haskell
 #export HASKELLPATH
