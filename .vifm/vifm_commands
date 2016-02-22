@@ -39,3 +39,6 @@ command! bzip unset DECOMP; case %f in; *.bz2) DECOMP=-d;;; esac; bzip2 $DECOMP 
 
 command! github github
 command! idea open -a "IntelliJ IDEA 15 CE EAP" .
+
+command! hugo hugo "%a"
+command! hugonew hugo new "%a" && vim "content/%a"
