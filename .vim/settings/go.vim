@@ -28,6 +28,8 @@ au FileType go nmap <F5> <Plug>(go-run)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap K <Plug>(go-doc)
+au FileType go nmap <Leader>i <Plug>(go-info)
 
  let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
