@@ -1,5 +1,10 @@
+" for macvim install with env
+" PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin/ bash install.sh --clang-completer
 if has('nvim')
 else
+    if has('gui_running')
+    else
+
     call neobundle#append()
     NeoBundle "Valloric/YouCompleteMe"
     call neobundle#end()
@@ -24,13 +29,14 @@ else
     let g:ycm_collect_identifiers_from_tags_files = 1
 
     " <TAB>: completion.
-    " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " <C-h>, <BS>: close popup and delete backword char.
-    " inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
     " Close popup by <Space>.
-    " inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+    inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
     "
+    endif
 endif

@@ -15,6 +15,7 @@ NeoBundle "vitorgalvao/autoswap_mac"
 " NeoBundle "wellle/visual-split.vim"
 NeoBundle "xolox/vim-misc"
 NeoBundle "tomtom/tlib_vim"
+NeoBundle "chaoren/vim-wordmotion"
 call neobundle#end()
 
 if has('nvim')
