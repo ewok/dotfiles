@@ -15,15 +15,16 @@ let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 
 " Shortcuts
-nnoremap <F5><F5> :w<CR>:GoImports<CR>:GoRun<CR>
-nnoremap <F5><F6> :w<CR>:GoImports<CR>:GoTest<CR>
-nnoremap <F5><F7> :w<CR>:GoImports<CR>:GoCoverage<CR>
+au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GoRun<CR>
+au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GoTest<CR>
+au FileType go nnoremap <F5><F7> :w<CR>:GoImports<CR>:GoBuild<CR>
+au FileType go nnoremap <F5><F8> :w<CR>:GoImports<CR>:GoCoverage<CR>
 
 " Fix syntastic lags
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
-au FileType go nmap <F5> <Plug>(go-run)
+" au FileType go nmap <F5> <Plug>(go-run)
 
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
