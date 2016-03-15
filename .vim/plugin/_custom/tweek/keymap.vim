@@ -12,6 +12,12 @@ nnoremap <C-W>C :bd<CR>
 nnoremap <F1> :Dash<CR>
 inoremap <F1> <ESC>:Dash<CR>a
 
+" Buffers
+nnoremap <leader>bc :bd<CR>
+
+" Windows
+nnoremap <leader>wc :close<CR>
+
 " Keymap for folding
 inoremap <F9> <C-O>za
 nnoremap <F9> za

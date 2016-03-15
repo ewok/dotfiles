@@ -1,0 +1,14 @@
+call neobundle#append()
+NeoBundle "wincent/command-t"
+call neobundle#end()
+" INSTALLATION
+" cd ~/.vim/bundle/command-t/ruby/command-t
+" ruby extconf.rb
+" make
+
+nnoremap <silent> <c-p>p :CommandT<cr>
+nnoremap <silent> <c-p><c-p> :CommandT<cr>
+nnoremap <silent> <c-p>t :CommandTTag<cr>
+nnoremap <silent> <c-p><c-t> :CommandTTag<cr>
+nnoremap <silent> <c-p>b :CommandTBuffer<cr>
+nnoremap <silent> <c-p><c-b> :CommandTBuffer<cr>
