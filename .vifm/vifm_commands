@@ -26,6 +26,7 @@ command! reload :write | restart
 command! j :execute 'cd' system('autojump %a')
 
 command! vim vim %a
+command! nvim nvim %a
 
 command! zip for f in %f; do zip -r "$f.zip" "$f"; done
 command! zipto zip -r %a.zip %f
@@ -38,7 +39,7 @@ command! gz unset DECOMP; case %f in; *.gz) DECOMP=-d;;; *.[zZ]) DECOMP=-d;;; es
 command! bzip unset DECOMP; case %f in; *.bz2) DECOMP=-d;;; esac; bzip2 $DECOMP -v %f
 
 command! github github
-command! idea open -a "IntelliJ IDEA 15 CE EAP" .
+command! idea open -a "IntelliJ IDEA" .
 
 command! hugo hugo "%a"
 command! hugonew hugo new "%a" && vim "content/%a"
