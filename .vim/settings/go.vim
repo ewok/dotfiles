@@ -1,6 +1,7 @@
 call neobundle#append()
 NeoBundle 'fatih/vim-go'
 NeoBundle 'garyburd/go-explorer'
+NeoBundle "benmills/vimux-golang"
 call neobundle#end()
 
 " let g:go_highlight_functions = 1
@@ -15,8 +16,10 @@ let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 
 " Shortcuts
-au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GoRun<CR>
-au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GoTest<CR>
+au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GolangRun<CR>
+" au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GoRun<CR>
+au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GolangTestCurrentPackage<CR>
+" au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GoTest<CR>
 au FileType go nnoremap <F5><F7> :w<CR>:GoImports<CR>:GoBuild<CR>
 au FileType go nnoremap <F5><F8> :w<CR>:GoImports<CR>:GoCoverage<CR>
 
