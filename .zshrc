@@ -162,3 +162,6 @@ source $vars
 
 # added by travis gem
 [ -f /Users/arturtaranchiev/.travis/travis.sh ] && source /Users/arturtaranchiev/.travis/travis.sh
+
+# Groovy
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
