@@ -16,6 +16,8 @@ NeoBundle "vitorgalvao/autoswap_mac"
 NeoBundle "xolox/vim-misc"
 NeoBundle "tomtom/tlib_vim"
 " NeoBundle "chaoren/vim-wordmotion"
+NeoBundle "itchyny/vim-cursorword"
+NeoBundle "qpkorr/vim-bufkill"
 call neobundle#end()
 
 if has('nvim')

@@ -15,16 +15,6 @@ call neobundle#begin(expand('~/.vim/bundle'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Add or remove your Bundles here:
-"NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'ctrlpvim/ctrlp.vim'
-"NeoBundle 'flazz/vim-colorschemes'
-
-" You can specify revision/branch/tag.
-" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
 " Required:
 call neobundle#end()
 
@@ -32,6 +22,7 @@ call neobundle#end()
 " this will conveniently prompt you to install them.
 autocmd VimEnter * NeoBundleCheck
 " NeoBundleCheck
+runtime! settings/plugin/*.vim
 runtime! settings/*.vim
 "
 " Required:

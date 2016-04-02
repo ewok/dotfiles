@@ -8,12 +8,12 @@ map gr gT
 
 " Some shortcuts
 nnoremap <C-W>t :tabnew<CR>
-nnoremap <C-W>C :bd<CR>
+nnoremap <C-W>C :BD<CR>
 nnoremap <F1> :Dash<CR>
 inoremap <F1> <ESC>:Dash<CR>a
 
 " Buffers
-nnoremap <leader>bc :bd<CR>
+nnoremap <leader>bc :BD<CR>
 
 " Windows
 nnoremap <leader>wc :close<CR>
