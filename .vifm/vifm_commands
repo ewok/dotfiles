@@ -24,9 +24,12 @@ command! vgrep vim "+grep %a"
 command! reload :write | restart
 
 command! j :execute 'cd' system('autojump %a')
+command! jd !!autojump -d %a
+command! ji !!autojump -i %a
 
 command! vim vim %a
 command! nvim nvim %a
+command! mvim mvim %a
 
 command! zip for f in %f; do zip -r "$f.zip" "$f"; done
 command! zipto zip -r %a.zip %f

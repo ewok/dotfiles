@@ -27,7 +27,7 @@ set sortnumbers
 
 " Maximum number of changes that can be undone.
 
-set undolevels=1000
+set undolevels=100
 
 " If you installed the vim.txt help file set vimhelp.
 " If would rather use a plain text help file set novimhelp.
