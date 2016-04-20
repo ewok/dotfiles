@@ -30,7 +30,8 @@ set wildmode=longest,list             " use emacs-style tab completion when sele
 set wildmenu                          " make tab completion for files/buffers act like bash
 " set key=			                        " disable encryption
  set synmaxcol=200
-set viminfo=			                    " disable .viminfo file
+" set viminfo=			                    " disable .viminfo file
+set viminfo='50,\"100,:20,%,n~/.viminfo
 set ttyfast                           " send more chars while redrawing
 
 filetype on                           " enable filetype detection
@@ -103,4 +104,4 @@ cnoremap %% <C-R>=expand('%:h').'/'<CR>
 " Autosave
 au FocusLost * :wa
 
-noremap <CR> :nohlsearch<CR>
+" noremap <CR> :nohlsearch<CR>
