@@ -1,8 +1,6 @@
-if has('nvim')
-else
-    call neobundle#append()
-    NeoBundle "https://github.com/airblade/vim-gitgutter"
-    call neobundle#end()
+call neobundle#append()
+NeoBundle "https://github.com/airblade/vim-gitgutter"
+call neobundle#end()
 
     silent! if emoji#available()
     let g:gitgutter_sign_added = emoji#for('seedling')
