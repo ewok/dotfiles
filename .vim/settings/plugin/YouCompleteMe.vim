@@ -6,8 +6,14 @@ else
     else
 
     call neobundle#append()
-    NeoBundle "Valloric/YouCompleteMe"
+    NeoBundleLazy "Valloric/YouCompleteMe"
     call neobundle#end()
+    augroup load_us_ycm
+      autocmd!
+      " autocmd InsertEnter * NeoBundleSource YouCompleteMe
+      autocmd FileType puppet,python,go,ruby,lua,haskell,java,c NeoBundleSource YouCompleteMe
+                         \| call youcompleteme#Enable() | autocmd! load_us_ycm
+    augroup END
 
     let g:ycm_semantic_triggers =  {
                 \   'c' : ['->', '.'],
