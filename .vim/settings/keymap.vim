@@ -26,3 +26,13 @@ vnoremap <F9> zf
 
 nnoremap <space> za
 vnoremap <space> zf
+
+imap  <up>    <Nop>
+imap  <down>  <Nop>
+imap  <left>  <Nop>
+imap  <right> <Nop>
+
+nmap  <up>    <Nop>
+nmap  <down>  <Nop>
+nmap  <left>  <Nop>
+nmap  <right> <Nop>
