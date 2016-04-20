@@ -98,7 +98,7 @@ set scrolloff=4
 
 " Don't do to much requests to slow file systems
 
-set slowfs=curlftpfs
+set slowfs=curlftpfs,smbfs,osxfusefs
 
 " Set custom status line look
 
