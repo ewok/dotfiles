@@ -2,6 +2,9 @@ call neobundle#append()
 NeoBundle 'fatih/vim-go'
 NeoBundle 'garyburd/go-explorer'
 NeoBundle "benmills/vimux-golang"
+if has('nvim')
+    NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
+endif
 call neobundle#end()
 
 " let g:go_highlight_functions = 1
@@ -25,7 +28,7 @@ au FileType go nnoremap <F5><F8> :w<CR>:GoImports<CR>:GoCoverage<CR>
 
 " Fix syntastic lags
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " au FileType go nmap <F5> <Plug>(go-run)
 
