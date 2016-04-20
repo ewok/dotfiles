@@ -1,0 +1,14 @@
+if has('nvim')
+else
+    call neobundle#append()
+    NeoBundleLazy "https://github.com/jmcantrell/vim-virtualenv.git"
+    call neobundle#end()
+
+    augroup load_venv
+      autocmd!
+        autocmd FileType python NeoBundleSource vim-virtualenv
+                         \| autocmd! load_venv
+    augroup END
+
+    let g:virtualenv_directory = "~/share"
+endif
