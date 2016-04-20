@@ -1,3 +1,8 @@
+if has('unix')
+    language messages C
+else
+    language messages en
+endif
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   if &compatible
@@ -22,8 +27,8 @@ call neobundle#end()
 " this will conveniently prompt you to install them.
 autocmd VimEnter * NeoBundleCheck
 " NeoBundleCheck
-runtime! settings/plugin/*.vim
 runtime! settings/*.vim
+runtime! settings/plugin/*.vim
 "
 " Required:
 filetype on
