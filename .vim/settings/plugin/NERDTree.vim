@@ -1,11 +1,13 @@
 call neobundle#append()
-NeoBundle "scrooloose/nerdtree"
-NeoBundle "Xuyuanp/nerdtree-git-plugin"
-NeoBundle "jistr/vim-nerdtree-tabs"
+NeoBundleLazy "scrooloose/nerdtree"
+NeoBundleLazy "Xuyuanp/nerdtree-git-plugin"
+NeoBundleLazy "jistr/vim-nerdtree-tabs"
 call neobundle#end()
 
+nnoremap <F2> :NeoBundleSource nerdtree|NeoBundleSource nerdtree-git-plugin|NeoBundleSource vim-nerdtree-tabs|unmap <F2>|nnoremap <silent> <F2> :NERDTreeMirrorToggle<CR><CR>
 "nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
-nnoremap <silent> <F2> :NERDTreeMirrorToggle<CR>
+" nnoremap <silent> <F2> :NERDTreeMirrorToggle<CR>
+
 let NERDTreeShowBookmarks=0
 let NERDTreeChDirMode=2
 let NERDTreeMouseMode=2
