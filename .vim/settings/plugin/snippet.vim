@@ -3,6 +3,7 @@ call neobundle#append()
 " NeoBundle "Shougo/neosnippet.vim"
 NeoBundle "SirVer/ultisnips"
 NeoBundle "honza/vim-snippets"
+NeoBundle "kiith-sa/DSnips"
 call neobundle#end()
 
 " let g:UltiSnipsExpandTrigger="<enter>"

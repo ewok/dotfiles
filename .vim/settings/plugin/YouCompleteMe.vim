@@ -11,7 +11,7 @@ else
     augroup load_us_ycm
       autocmd!
       " autocmd InsertEnter * NeoBundleSource YouCompleteMe
-      autocmd FileType puppet,python,go,ruby,lua,haskell,java,c NeoBundleSource YouCompleteMe
+      autocmd FileType puppet,python,go,ruby,lua,haskell,java,c,d NeoBundleSource YouCompleteMe
                          \| call youcompleteme#Enable() | autocmd! load_us_ycm
     augroup END
 
