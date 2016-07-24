@@ -50,7 +50,11 @@ SHARE_HISTORY="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(ssh-agent emoji jira stack brew-cask catimg colored-man-pages)
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure
+
+plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions)
 JIRA_URL='https://hq-online.megafon.ru/jira'
 source $ZSH/oh-my-zsh.sh
 
@@ -67,7 +71,7 @@ export GO15VENDOREXPERIMENT=1
 #export HASKELLPATH
 
 # Set our default path
-#PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+# PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 PATH="$HOME/bin:$GOPATH/bin:$GOBIN:$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH
 
@@ -137,31 +141,45 @@ function setjdk() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
  }
 
-setjdk "1.7.0_80"
+setjdk "1.8.0_51"
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 #
 # export PATH=$(stack --verbosity 0 path --bin-path)
 # Caching some variables
-vars="$HOME/.local/vars.src"
-function updatevars(){
-    echo "updating stack path"
-    echo "export PATH=$(stack --verbosity 0 path --bin-path)" > $vars
-}
-if [[ ! -e "$vars" ]]; then
-    echo "vars not exists"
-    updatevars
-elif test `find "$vars" -mmin +1000`; then
-    updatevars
-elif [[ -z $(cat "$vars") ]]; then
-    echo "vars empy"
-    updatevars;
-fi
-source $vars
+# vars="$HOME/.local/vars.src"
+# function updatevars(){
+#     echo "updating stack path"
+#     echo "export PATH=$(stack --verbosity 0 path --bin-path)" > $vars
+# }
+# if [[ ! -e "$vars" ]]; then
+#     echo "vars not exists"
+#     updatevars
+# elif test `find "$vars" -mmin +1000`; then
+#     updatevars
+# elif [[ -z $(cat "$vars") ]]; then
+#     echo "vars empy"
+#     updatevars;
+# fi
+# source $vars
 
 # added by travis gem
 [ -f /Users/arturtaranchiev/.travis/travis.sh ] && source /Users/arturtaranchiev/.travis/travis.sh
 
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+# # SSH completion
+# h=()
+# if [[ -r ~/.ssh/config ]]; then
+#   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+# fi
+# if [[ -r ~/.ssh/known_hosts ]]; then
+#   h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+# fi
+# if [[ $#h -gt 0 ]]; then
+#   zstyle ':completion:*:ssh:*' hosts $h
+#   zstyle ':completion:*:slogin:*' hosts $h
+# fi
+
