@@ -29,3 +29,7 @@ nnoremap <s-left> <nop>
 nnoremap <s-up> <nop>
 nnoremap <s-down> <nop>
 nnoremap <s-right> <nop>
+
+nnoremap da :%d
+
+set confirm=permdelete
