@@ -122,7 +122,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
 " "windo set viewcolumns=−80%{name},{size},{owner},{group},15%{ext},5%{mtime}
-windo set viewcolumns=-40{name}...,{size},6{mode},-10{uname}...,-{gname}..,14{mtime}
+windo set viewcolumns=-35{name}...,{size},7{mode},-10{uname},-7{gname},14{mtime}
 
 " Filter-out build and temporary files
 "
