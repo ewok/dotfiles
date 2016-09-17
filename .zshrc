@@ -141,7 +141,8 @@ function setjdk() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
  }
 
-setjdk "1.8.0_51"
+setjdk "1.7.0_80"
+# setjdk "1.8.0_51"
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
