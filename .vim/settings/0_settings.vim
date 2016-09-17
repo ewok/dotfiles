@@ -102,6 +102,6 @@ autocmd WinLeave * setlocal nocursorline
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
 " Autosave
-au FocusLost * :wa
+" au FocusLost * :wa
 
 " noremap <CR> :nohlsearch<CR>
