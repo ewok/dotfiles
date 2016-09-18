@@ -28,7 +28,8 @@ call neobundle#end()
 autocmd VimEnter * NeoBundleCheck
 " NeoBundleCheck
 runtime! settings/*.vim
-runtime! settings/plugin/*.vim
+runtime! settings/settings.d/*.vim
+runtime! settings/plugins.d/*.vim
 "
 " Required:
 filetype on
