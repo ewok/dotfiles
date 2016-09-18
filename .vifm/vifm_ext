@@ -195,7 +195,7 @@ fileviewer *.7z 7z l %c
 " For *nix:
 " filetype * xdg-open
 " For OS X:
-filetype * vim
+filetype * nvim
 " For Windows:
 " filetype * start, explorer
 

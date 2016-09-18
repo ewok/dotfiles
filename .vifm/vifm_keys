@@ -61,6 +61,6 @@ nnoremap <c-l> :!tmux select-pane -R<cr>
 " Autojump
 nnoremap J :j<space>
 
-nnoremap ii :!vim %f<cr>
+nnoremap ii :vim %f<cr>
 nnoremap im :mvim %f<cr>
 nnoremap in :nvim %f<cr>
