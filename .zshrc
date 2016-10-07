@@ -51,11 +51,7 @@ SHARE_HISTORY="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure
-
 plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions)
-JIRA_URL='https://hq-online.megafon.ru/jira'
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -181,4 +177,8 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 #   zstyle ':completion:*:ssh:*' hosts $h
 #   zstyle ':completion:*:slogin:*' hosts $h
 # fi
+
+# SSH-AGENT
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure
 
