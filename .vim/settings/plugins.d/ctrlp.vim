@@ -12,3 +12,6 @@ nnoremap <silent> <c-p>t :CtrlPTag<cr>
 nnoremap <silent> <c-p><c-t> :CtrlPTag<cr>
 nnoremap <silent> <c-p>b :CtrlPBuffer<cr>
 nnoremap <silent> <c-p><c-b> :CtrlPBuffer<cr>
+
+" Use regex instead of mru
+let g:ctrlp_regexp = 1
