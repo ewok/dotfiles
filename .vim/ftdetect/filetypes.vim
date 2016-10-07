@@ -24,3 +24,6 @@ autocmd! BufNewFile,BufRead *.hs,*.lhs set filetype=haskell
 
 " Config
 autocmd! BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
+
+" Ansible/Yaml
+autocmd! BufNewFile,BufRead *.yaml,*.yml set filetype=ansible
