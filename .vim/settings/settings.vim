@@ -44,6 +44,8 @@ set incsearch                         " incremental search
 syntax enable
 set t_Co=256
 colorscheme darcula
+
+set background=dark
 " colorscheme alduin
 " colorscheme github
 
