@@ -3,7 +3,8 @@
 if has('nvim')
 else
     call neobundle#append()
-    NeoBundle "scrooloose/syntastic"
+    " NeoBundle "scrooloose/syntastic"
+    NeoBundle "w0rp/ale"
     call neobundle#end()
 
     let s:puppet_new = "puppet-3.4.3"
