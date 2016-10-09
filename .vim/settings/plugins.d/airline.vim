@@ -2,7 +2,7 @@
 "
 call neobundle#append()
 NeoBundle "vim-airline/vim-airline"
-NeoBundle "vim-airline/vim-airline-themes"
+" NeoBundle "vim-airline/vim-airline-themes"
 call neobundle#end()
 
 let g:airline_powerline_fonts=1
@@ -10,4 +10,4 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#tabline#buffer_nr_format='%s: '
 let g:airline#extensions#virtualenv#enabled = 1
-let g:airline_theme='luna'
+let g:airline_theme='onedark'
