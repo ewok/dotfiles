@@ -1,6 +1,7 @@
 " Sessions
 "
 call neobundle#append()
+NeoBundle "xolox/vim-misc"
 NeoBundle "xolox/vim-session"
 call neobundle#end()
 
