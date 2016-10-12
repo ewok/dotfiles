@@ -64,3 +64,4 @@ nnoremap J :j<space>
 nnoremap ii :vim %f<cr>
 nnoremap im :mvim %f<cr>
 nnoremap in :nvim %f<cr>
+nnoremap ie :emacs %f<cr>
