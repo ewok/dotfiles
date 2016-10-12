@@ -29,9 +29,9 @@ set showtabline=2                     " always show tab
 set wildmode=longest,list             " use emacs-style tab completion when selecting files, etc
 set wildmenu                          " make tab completion for files/buffers act like bash
 " set key=			                        " disable encryption
- set synmaxcol=200
-" set viminfo=			                    " disable .viminfo file
-set viminfo='50,\"100,:20,%,n~/.viminfo
+ " set synmaxcol=200
+set viminfo=			                    " disable .viminfo file
+" set viminfo='50,\"100,:20,%,n~/.viminfo
 set ttyfast                           " send more chars while redrawing
 
 filetype on                           " enable filetype detection
