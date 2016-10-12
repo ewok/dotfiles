@@ -83,8 +83,10 @@ TZ='Europe/Moscow'; export TZ
 # Preferred editor for local and remote sessions */
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
+  export VISUAL='nvim'
 else
   export EDITOR='nvim'
+  export VISUAL='nvim'
 fi
 alias vim='/usr/local/bin/nvim'
 alias vi='/usr/local/bin/nvim'
