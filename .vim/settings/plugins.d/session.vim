@@ -14,8 +14,8 @@ let g:session_autoload = 'no'
 let g:session_persist_font = 0
 "let g:session_persist_colors = 0
 
-nnoremap <silent> <leader>o :OpenSession<CR>
-nnoremap <silent> <leader>s :SaveSession<CR>
-nnoremap <silent> <leader>qq :wa<CR>:CloseSession<CR>:q<CR>
-nnoremap <silent> <leader>qw :wa<CR>:CloseSession<CR>
+nnoremap <silent> <leader>so :OpenSession<CR>
+nnoremap <silent> <leader>ss :SaveSession<CR>
+nnoremap <silent> <leader>sq :wa<CR>:CloseSession<CR>:q<CR>
+nnoremap <silent> <leader>sw :wa<CR>:CloseSession<CR>
 set sessionoptions-=buffers,blank,curdir,help,

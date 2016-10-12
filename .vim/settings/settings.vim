@@ -1,4 +1,4 @@
-let mapleader = ","
+let mapleader = " "
 
 set nocompatible                      " not compatible with the old-fashion vi mode
 set backspace=2                       " allow backspacing over everything in insert nc >kkmode
@@ -65,9 +65,9 @@ set shortmess=Ia                      " remove splash wording
 set confirm
 
 " Prevent timount for leader key
-set notimeout
-set ttimeout
-set ttimeoutlen=100
+" set notimeout
+" set ttimeout
+" set ttimeoutlen=100
 " disable sound on errors
 set visualbell
 set noerrorbells

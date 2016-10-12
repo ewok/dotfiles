@@ -17,6 +17,11 @@ nnoremap <leader>bc :BD<CR>
 
 " Windows
 nnoremap <leader>wc :close<CR>
+nnoremap <leader>ws :split<CR>
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wn :new<CR>
+nnoremap <leader>wo :only<CR>
+nnoremap <leader>wt :tabnew<CR>
 
 " Keymap for folding
 inoremap <F9> <C-O>za
@@ -24,8 +29,8 @@ nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
 
-nnoremap <space> za
-vnoremap <space> zf
+" nnoremap <space> za
+" vnoremap <space> zf
 
 imap  <up>    <Nop>
 imap  <down>  <Nop>

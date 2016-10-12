@@ -21,12 +21,10 @@ let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 
 " Shortcuts
-au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GolangRun<CR>
-" au FileType go nnoremap <F5><F5> :w<CR>:GoImports<CR>:GoRun<CR>
-au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GolangTestCurrentPackage<CR>
-" au FileType go nnoremap <F5><F6> :w<CR>:GoImports<CR>:GoTest<CR>
-au FileType go nnoremap <F5><F7> :w<CR>:GoImports<CR>:GoBuild<CR>
-au FileType go nnoremap <F5><F8> :w<CR>:GoImports<CR>:GoCoverage<CR>
+au FileType go nnoremap <silent> <leader>rr :w<CR>:GoImports<CR>:GolangRun<CR>
+au FileType go nnoremap <silent> <leader>rt :w<CR>:GoImports<CR>:GolangTestCurrentPackage<CR>
+au FileType go nnoremap <silent> <leader>rb :w<CR>:GoImports<CR>:GoBuild<CR>
+au FileType go nnoremap <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverage<CR>
 
 " Fix syntastic lags
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
@@ -38,7 +36,7 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap K <Plug>(go-doc)
-au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>di <Plug>(go-info)
 
  let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
