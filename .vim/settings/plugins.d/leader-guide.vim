@@ -33,12 +33,6 @@ let g:lmap.w = { 'name' : 'Window' }
 "                 \'w' : ['Gwrite',  'Git Write'],
 "                 \}
 "
-" If you use NERDCommenter:
-let g:lmap.c = { 'name' : 'Comments' }
-" Define some descriptions
-let g:lmap.c.c = [':Commentary<CR>','Comment']
-
-
 
 call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
