@@ -119,6 +119,7 @@ compdef mosh=ssh
 
 bindkey -s '^[x' '^Uexit^M'
 bindkey -s '^[x' '^Uexit^M'
+bindkey -s '^D'  '^Uexit^M'
 
 ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
@@ -183,4 +184,8 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure
+
+
+export FZF_COMPLETION_TRIGGER='*'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
