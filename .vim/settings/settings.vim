@@ -108,3 +108,9 @@ cnoremap %% <C-R>=expand('%:h').'/'<CR>
 " au FocusLost * :wa
 
 " noremap <CR> :nohlsearch<CR>
+"
+
+" Load project specific files
+"
+set exrc
+set secure
