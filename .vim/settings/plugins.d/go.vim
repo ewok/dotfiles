@@ -9,12 +9,14 @@ if has('nvim')
 endif
 call neobundle#end()
 
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_interfaces = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
+if has('nvim')
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_interfaces = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_build_constraints = 1
+endif
 
 let g:go_auto_type_info = 1
 " let g:go_fmt_autosave = 0
@@ -38,30 +40,3 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap K <Plug>(go-doc)
 au FileType go nmap <Leader>di <Plug>(go-info)
 
- let g:tagbar_type_go = {  
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }

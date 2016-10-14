@@ -12,15 +12,14 @@ call neobundle#end()
 " shortcuts mapping
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gC :Gcommit<CR>
 nnoremap <silent> <leader>gps :Git push<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>gW :Gwrite<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gR :Gread<CR>
 nnoremap <silent> <leader>gpl :Git pull --rebase<CR>
 nnoremap <silent> <leader>gg :Gbrowse<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
+" nnoremap <silent> <leader>ge :Gedit<CR>
 
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:fugitive_gitlab_domains = ['https://gitlab.kyc.megafon.ru']
@@ -36,11 +35,11 @@ endif
 
 let g:gitgutter_map_keys = 0
 
-nmap <Leader>gt <Plug>GitGutterStageHunk
-nmap <Leader>gu <Plug>GitGutterRevertHunk
+nmap <Leader>gS <Plug>GitGutterStageHunk
+nmap <Leader>gU <Plug>GitGutterRevertHunk
 
 nmap [c <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
 
 " Gitv options
-nnoremap <silent> <leader>gh :Gitv<CR>
+nnoremap <silent> <leader>gH :Gitv<CR>

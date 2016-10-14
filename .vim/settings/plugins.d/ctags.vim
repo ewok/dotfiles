@@ -4,9 +4,9 @@ call neobundle#append()
 NeoBundle "majutsushi/tagbar"
 call neobundle#end()
 
-map <F3> :TagbarToggle<CR>
+map <leader>tt :TagbarToggle<CR>
 
-map <leader>tu :!rm -f tags<CR>:!ctags -R --exclude=.git --exclude=.idea --exclude=log *<CR>
+map <leader>tu :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
 
 set tags=tags;/,codex.tags;/
 
@@ -53,3 +53,31 @@ let g:tagbar_type_haskell = {
         \ 'type'   : 't'
     \ }
     \ }
+
+ let g:tagbar_type_go = {  
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
