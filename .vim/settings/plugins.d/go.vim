@@ -19,14 +19,15 @@ if has('nvim')
 endif
 
 let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
 " let g:go_fmt_autosave = 0
 let g:go_fmt_command = "goimports"
 
 " Shortcuts
-au FileType go nnoremap <silent> <leader>rr :w<CR>:GoImports<CR>:GolangRun<CR>
-au FileType go nnoremap <silent> <leader>rt :w<CR>:GoImports<CR>:GolangTestCurrentPackage<CR>
+au FileType go nnoremap <silent> <leader>rr :w<CR>:GoImports<CR>:GoRun<CR>
+au FileType go nnoremap <silent> <leader>rt :w<CR>:GoImports<CR>:GoTest<CR>
 au FileType go nnoremap <silent> <leader>rb :w<CR>:GoImports<CR>:GoBuild<CR>
-au FileType go nnoremap <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverage<CR>
+au FileType go nnoremap <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverageToggle<CR>
 
 " Fix syntastic lags
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
