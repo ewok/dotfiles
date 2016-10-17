@@ -19,6 +19,7 @@ nnoremap <silent> <leader>gB :BCommits<cr>
 
 command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <silent> <leader>ft :FT<cr>
+nnoremap <silent> <leader>ff :Ag<CR>
 
 " Customize fzf colors to match your color scheme
 " let g:fzf_colors =

@@ -2,7 +2,7 @@
 "
 call neobundle#append()
 if has('nvim')
-    NeoBundle "eugen0329/vim-esearch"
+    " NeoBundle "eugen0329/vim-esearch"
 else
     NeoBundle "mileszs/ack.vim"
 endif
