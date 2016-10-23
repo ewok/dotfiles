@@ -12,14 +12,16 @@ let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
 nnoremap <silent> <leader>pt :Tags<cr>
 nnoremap <silent> <leader>pp :Files<cr>
+nnoremap <silent> <leader>pm :Marks<cr>
 
 nnoremap <silent> <leader>gf :GFiles?<cr>
 nnoremap <silent> <leader>gh :Commits<cr>
 nnoremap <silent> <leader>gB :BCommits<cr>
 
+
 command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <silent> <leader>ft :FT<cr>
-nnoremap <silent> <leader>ff :Ag<CR>
+" nnoremap <silent> <leader>ff :Ag<CR>
 
 " Customize fzf colors to match your color scheme
 " let g:fzf_colors =

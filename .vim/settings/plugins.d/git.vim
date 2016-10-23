@@ -35,8 +35,8 @@ endif
 
 let g:gitgutter_map_keys = 0
 
-nmap <Leader>gS <Plug>GitGutterStageHunk
-nmap <Leader>gU <Plug>GitGutterRevertHunk
+nmap <silent> <Leader>gS :GitGutterStageHunk<cr>
+nmap <silent> <Leader>gU :GitGutterUndoHunk<cr>
 
 nmap [c <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
