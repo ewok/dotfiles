@@ -29,7 +29,7 @@ command! ji !!autojump -i %a
 
 command! vim nvim %a
 command! nvim nvim %a
-command! mvim mvim %a
+command! vimr vimr %a
 
 command! zip for f in %f; do zip -r "$f.zip" "$f"; done
 command! zipto zip -r %a.zip %f

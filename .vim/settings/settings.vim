@@ -42,11 +42,13 @@ syntax on                             " syntax highlight
 set hlsearch                          " search highlighting
 set incsearch                         " incremental search
 syntax enable
-set t_Co=256
-let g:onedark_termcolors=256
-colorscheme onedark
 
 set background=dark
+" set t_Co=256
+
+colorscheme onedark
+" colorscheme darcula
+
 " colorscheme alduin
 " colorscheme github
 
