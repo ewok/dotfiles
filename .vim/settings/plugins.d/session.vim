@@ -21,4 +21,4 @@ nnoremap <silent> <leader>sq :wa<CR>:CloseSession<CR>:q<CR>
 nnoremap <silent> <leader>sx :wa<CR>:CloseSession<CR>
 nnoremap <silent> <leader>sk :DeleteSession<CR>
 
-set sessionoptions-=buffers,help
+set sessionoptions-=buffers,help,options

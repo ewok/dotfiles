@@ -13,6 +13,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 nnoremap <silent> <leader>pt :Tags<cr>
 nnoremap <silent> <leader>pp :Files<cr>
 nnoremap <silent> <leader>pm :Marks<cr>
+nnoremap <silent> <leader>pb :Buffers<cr>
 
 nnoremap <silent> <leader>gf :GFiles?<cr>
 nnoremap <silent> <leader>gh :Commits<cr>

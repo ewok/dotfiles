@@ -22,29 +22,31 @@ let NERDTreeDirArrows=1
 let g:NERDTreeWinSize=30
 let NERDTreeIgnore=['\.pyc$']
 
- "NERDTree git
-" silent! if emoji#available()
-"   let g:NERDTreeIndicatorMapCustom = {
-"       \     "Modified"  : "✏️ ",
-"       \     "Staged"    : "👍 ",
-"       \     "Untracked" : "👣 ",
-"       \     "Renamed"   : "🌀 ",
-"       \     "Unmerged"  : "💔 ",
-"       \     "Deleted"   : "💀 ",
-"       \     "Dirty"     : "💩 ",
-"       \     "Clean"     : "☀️  ",
-"       \     "Unknown"   : "❓  "
-"       \}
-" else
-"   let g:NERDTreeIndicatorMapCustom = {
-"       \     "Modified"  : "~",
-"       \     "Staged"    : "s",
-"       \     "Untracked" : "+",
-"       \     "Renamed"   : "r",
-"       \     "Unmerged"  : "±",
-"       \     "Deleted"   : "-",
-"       \     "Dirty"     : "d",
-"       \     "Clean"     : "c",
-"       \     "Unknown"   : "u"
-"       \}
-" endif
+"NERDTree git
+silent! if emoji#available()
+  let g:NERDTreeIndicatorMapCustom = {
+      \     "Modified"  : "🛠",
+      \     "Staged"    : "📎",
+      \     "Untracked" : "🌱",
+      \     "Renamed"   : "🌀",
+      \     "Unmerged"  : "💔",
+      \     "Deleted"   : "💀",
+      \     "Dirty"     : "💩",
+      \     "Clean"     : "😀",
+      \     "Unknown"   : "❓"
+      \}
+else
+  let g:NERDTreeIndicatorMapCustom = {
+      \     "Modified"  : "~",
+      \     "Staged"    : "s",
+      \     "Untracked" : "+",
+      \     "Renamed"   : "r",
+      \     "Unmerged"  : "±",
+      \     "Deleted"   : "-",
+      \     "Dirty"     : "d",
+      \     "Clean"     : "c",
+      \     "Unknown"   : "u"
+      \}
+endif
+
+
