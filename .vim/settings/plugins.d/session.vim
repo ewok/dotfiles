@@ -1,24 +1,117 @@
 " Sessions
 "
-call neobundle#append()
-NeoBundle "xolox/vim-misc"
-NeoBundle "xolox/vim-session"
-call neobundle#end()
+let g:sessiondir = $HOME . "/.vim/sessions"
 
-" Autosave and load sessions
-let g:session_autosave = 'yes'
-"let g:session_autosave_to = 'default'
-let g:session_autosave_periodic = 'yes'
-let g:session_autoload = 'no'
-let g:session_command_aliases = 1
-let g:session_persist_font = 0
-let g:session_persist_colors = 0
-let g:session_lock_enabled = 0
+function! MakeSession(file)
 
-nnoremap <silent> <leader>so :OpenSession<CR>
-nnoremap <silent> <leader>ss :SaveSession<CR>
-nnoremap <silent> <leader>sq :wa<CR>:CloseSession<CR>:q<CR>
-nnoremap <silent> <leader>sx :wa<CR>:CloseSession<CR>
-nnoremap <silent> <leader>sk :DeleteSession<CR>
+  let file = a:file
 
-set sessionoptions-=buffers,help,options
+  if (file == "")
+      if (exists('g:sessionfile'))
+          let b:sessiondir = g:sessiondir
+          let file = g:sessionfile
+      else
+          let b:sessiondir = g:sessiondir . getcwd()
+          let file = "session"
+      endif
+  else
+      let b:sessiondir = g:sessiondir
+      let g:sessionfile = file
+  endif
+
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+  let b:filename = b:sessiondir . '/' . file . '.vim'
+
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+  NERDTreeClose
+  endif
+
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession(file)
+
+  let file = a:file
+
+  if (file == "")
+      if (exists('g:sessionfile'))
+          let b:sessiondir = g:sessiondir
+          let file = g:sessionfile
+      else
+          let b:sessiondir = g:sessiondir . getcwd()
+          let file = "session"
+      endif
+  else
+      let b:sessiondir = g:sessiondir
+      let g:sessionfile = file
+  endif
+
+  let b:sessionfile = b:sessiondir . '/' . file . '.vim'
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+function! DeleteSession(file)
+
+  let file = a:file
+
+  if (file == "")
+      if (exists('g:sessionfile'))
+          let b:sessiondir = g:sessiondir
+          let file = g:sessionfile
+      else
+          let b:sessiondir = g:sessiondir . getcwd()
+          let file = "session"
+      endif
+  else
+      let b:sessiondir = g:sessiondir
+  endif
+
+  let b:sessionfile = b:sessiondir . '/' . file . '.vim'
+  if (filereadable(b:sessionfile))
+    exe 'silent !rm -f ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+function! CloseSession()
+  if (exists('g:sessionfile'))
+    call MakeSession(g:sessionfile)
+    unlet g:sessionfile
+  else
+    call MakeSession("")
+  endif
+    exe 'wa | %bd!'
+endfunction
+
+function! CloseSessionAndExit()
+    call CloseSession()
+    exe 'qa'
+endfunction
+
+fun! ListSessions(A,L,P)
+    return system("ls " . g:sessiondir . ' | grep .vim | sed s/\.vim$//')
+endfun
+
+command! -nargs=1 -range -complete=custom,ListSessions MakeSession :call MakeSession("<args>")
+command! -nargs=1 -range -complete=custom,ListSessions LoadSession :call LoadSession("<args>")
+command! -nargs=1 -range -complete=custom,ListSessions DeleteSession :call DeleteSession("<args>")
+command! MakeSessionCurrent :call MakeSession("")
+command! LoadSessionCurrent :call LoadSession("")
+command! DeleteSessionCurrent :call DeleteSession("")
+command! CloseSession :call CloseSession()
+command! CloseSessionAndExitCurrent :call CloseSessionAndExit()
+
+nnoremap <leader>so :LoadSession 
+nnoremap <leader>su :LoadSessionCurrent<CR>
+nnoremap <leader>ss :MakeSessionCurrent<CR>
+nnoremap <leader>sq :CloseSessionAndExit<CR>
+nnoremap <leader>sx :CloseSession<CR>
+nnoremap <leader>sk :DeleteSessionCurrent<CR>
