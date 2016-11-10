@@ -51,7 +51,7 @@ SHARE_HISTORY="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions)
+plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions golang tmux vault)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -184,7 +184,7 @@ fi
 
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure
+zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure id_rsa_ml
 
 
 export FZF_COMPLETION_TRIGGER='*'
