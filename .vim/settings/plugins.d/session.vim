@@ -29,7 +29,7 @@ function! MakeSession(file)
   NERDTreeClose
   endif
 
-  exe "mksession! " . b:filename
+  exe "silent mksession! " . b:filename
 endfunction
 
 function! LoadSession(file)
@@ -51,7 +51,7 @@ function! LoadSession(file)
 
   let b:sessionfile = b:sessiondir . '/' . file . '.vim'
   if (filereadable(b:sessionfile))
-    exe 'source ' b:sessionfile
+    exe 'silent source ' b:sessionfile
   else
     echo "No session loaded."
   endif
@@ -88,12 +88,12 @@ function! CloseSession()
   else
     call MakeSession("")
   endif
-    exe 'wa | %bd!'
+    exe 'silent wa | %bd!'
 endfunction
 
 function! CloseSessionAndExit()
     call CloseSession()
-    exe 'qa'
+    exe 'silent qa'
 endfunction
 
 fun! ListSessions(A,L,P)
@@ -109,7 +109,7 @@ command! DeleteSessionCurrent :call DeleteSession("")
 command! CloseSession :call CloseSession()
 command! CloseSessionAndExitCurrent :call CloseSessionAndExit()
 
-nnoremap <leader>so :LoadSession 
+nnoremap <leader>so :LoadSession<SPACE>
 nnoremap <leader>su :LoadSessionCurrent<CR>
 nnoremap <leader>ss :MakeSessionCurrent<CR>
 nnoremap <leader>sq :CloseSessionAndExit<CR>
