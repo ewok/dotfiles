@@ -190,3 +190,5 @@ zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+source ~/.zsh/custom/*.zsh
+
