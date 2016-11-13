@@ -52,6 +52,7 @@ SHARE_HISTORY="false"
 # Add wisely, as too many plugins slow down shell startup.
 
 plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions golang tmux vault)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -61,7 +62,7 @@ PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)
 export GOPATH=$HOME/documents/projects/go
 export GOPATH
 export GOBIN=/usr/local/opt/go/libexec/bin
-export GO15VENDOREXPERIMENT=1 
+export GO15VENDOREXPERIMENT=1
 
 #export HASKELLPATH=$HOME/Library/Haskell
 #export HASKELLPATH
@@ -91,32 +92,9 @@ fi
 alias vim='/usr/local/bin/nvim'
 alias vi='/usr/local/bin/nvim'
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 alias exit='sync; sync; sync; clear; exit'
 
 alias tailf='tail -f'
-
-# alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-#alias ytdown='source start-docker.sh && docker run --rm -v ${PWD}:/data vimagick/youtube-dl'
-# alias ytdown='source start-docker.sh && docker run -ti -w /tmp --rm -v ${PWD}/:/tmp jbergknoff/youtube-dl'
-
-compdef assh=ssh
-compdef mosh=ssh
-compdef telnet=ssh
-
 
 bindkey -s '^[x' '^Uexit^M'
 bindkey -s '^[x' '^Uexit^M'
@@ -144,32 +122,17 @@ setjdk "1.7.0_80"
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-#
-# export PATH=$(stack --verbosity 0 path --bin-path)
-# Caching some variables
-# vars="$HOME/.local/vars.src"
-# function updatevars(){
-#     echo "updating stack path"
-#     echo "export PATH=$(stack --verbosity 0 path --bin-path)" > $vars
-# }
-# if [[ ! -e "$vars" ]]; then
-#     echo "vars not exists"
-#     updatevars
-# elif test `find "$vars" -mmin +1000`; then
-#     updatevars
-# elif [[ -z $(cat "$vars") ]]; then
-#     echo "vars empy"
-#     updatevars;
-# fi
-# source $vars
-
 # added by travis gem
-[ -f /Users/arturtaranchiev/.travis/travis.sh ] && source /Users/arturtaranchiev/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 # SSH completion
+compdef assh=ssh
+compdef mosh=ssh
+compdef telnet=ssh
+
 h=()
 if [[ -r ~/.ssh/config ]]; then
   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
@@ -190,5 +153,7 @@ zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/.zsh/custom/*.zsh
+for item in ~/.zsh/custom/*.zsh; do
+    source $item
+done
 

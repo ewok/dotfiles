@@ -5,6 +5,7 @@ loadvenv() {
 }
 
 alias venv=loadvenv
+alias v=loadvenv
 
 _venv() {
   local -a commands
