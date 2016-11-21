@@ -39,3 +39,9 @@ nmap  <up>    <Nop>
 nmap  <down>  <Nop>
 nmap  <left>  <Nop>
 nmap  <right> <Nop>
+
+nnoremap H 0
+vnoremap H 0
+nnoremap L $
+vnoremap L $
+

@@ -14,6 +14,6 @@ endfunction
 
 autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
 
-nnoremap <leader>qf :QFix<CR>
+nnoremap <leader>qq :QFix<CR>
 nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qc :cclose<CR>
