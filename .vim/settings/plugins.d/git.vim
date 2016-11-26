@@ -17,7 +17,8 @@ nnoremap <silent> <leader>gps :Git push<CR>
 nnoremap <silent> <leader>gW :Gwrite<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gR :Gread<CR>
-nnoremap <silent> <leader>gpl :Git pull --rebase<CR>
+nnoremap <silent> <leader>gplr :Git pull --rebase<CR>
+nnoremap <silent> <leader>gplm :Git pull<CR>
 nnoremap <silent> <leader>gg :Gbrowse<CR>
 " nnoremap <silent> <leader>ge :Gedit<CR>
 
