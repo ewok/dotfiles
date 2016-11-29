@@ -77,17 +77,17 @@ source $ZSH/oh-my-zsh.sh
 PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
 # GO
-export GOPATH=$HOME/documents/projects/go
-export GOPATH
-export GOBIN=/usr/local/opt/go/libexec/bin
-export GO15VENDOREXPERIMENT=1
+export GOPATH=$HOME/Documents/projects/go
+# export GOPATH
+export GOBIN=$GOPATH/bin
+# export GO15VENDOREXPERIMENT=1
 
 #export HASKELLPATH=$HOME/Library/Haskell
 #export HASKELLPATH
 
 # Set our default path
 # PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-PATH="$HOME/bin:$GOPATH/bin:$GOBIN:$HOME/.local/bin:/usr/local/sbin:$PATH"
+PATH="$HOME/bin:$GOBIN:$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH
 
 
