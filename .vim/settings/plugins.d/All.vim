@@ -23,3 +23,4 @@ NeoBundle "qpkorr/vim-bufkill"
 
 call neobundle#end()
 
+let g:peekaboo_delay = 1000
