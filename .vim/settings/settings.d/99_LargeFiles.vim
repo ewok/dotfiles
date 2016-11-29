@@ -12,7 +12,19 @@ if !exists("my_auto_commands_loaded")
   " undolevels=-1 (no undo possible)
   let g:LargeFile = 1024 * 1024 * 10
   augroup LargeFile
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set inccommand= | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | let b:syntastic_mode="passive" | let b:ycm_auto_trigger=0 | else | set eventignore-=FileType | endif
+    autocmd BufReadPre *
+                \ let f=expand("<afile>")
+                \ | if getfsize(f) > g:LargeFile
+                    \ | if input("Large file detected, turn off features? (y/n) ", "y") == "y"
+                        \ | set inccommand=
+                        \ | set eventignore+=FileType
+                        \ | setlocal noswapfile bufhidden=unload undolevels=-1
+                        \ | let b:syntastic_mode="passive"
+                        \ | let b:ycm_auto_trigger=0
+                    \ | endif
+                        \ | else
+                        \ | set eventignore-=FileType
+                    \ | endif
     " autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
   endif
