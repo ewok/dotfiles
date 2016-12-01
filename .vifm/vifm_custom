@@ -32,4 +32,4 @@ nnoremap <s-right> <nop>
 
 nnoremap da :%d
 
-set confirm=permdelete
+" set confirm=permdelete
