@@ -14,6 +14,7 @@ nnoremap <silent> <leader>pt :Tags<cr>
 nnoremap <silent> <leader>pp :Files<cr>
 nnoremap <silent> <leader>pm :Marks<cr>
 nnoremap <silent> <leader>pb :Buffers<cr>
+nnoremap <silent> <leader>pf :Filetypes<cr>
 
 nnoremap <silent> <leader>gf :GFiles?<cr>
 nnoremap <silent> <leader>gh :Commits<cr>
