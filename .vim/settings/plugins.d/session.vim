@@ -4,6 +4,10 @@ let g:sessiondir = $HOME . "/.vim/sessions"
 
 function! MakeSession(file)
 
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+  exe ':tabdo NERDTreeClose'
+  endif
+
   let file = a:file
 
   if (file == "")
@@ -24,10 +28,6 @@ function! MakeSession(file)
     redraw!
   endif
   let b:filename = b:sessiondir . '/' . file . '.vim'
-
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-  NERDTreeClose
-  endif
 
   exe "silent mksession! " . b:filename
 endfunction
