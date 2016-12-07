@@ -20,6 +20,7 @@ nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wn :new<CR>
 nnoremap <leader>wo :only<CR>
 nnoremap <leader>wt :tabnew<CR>
+nnoremap <leader>wC :BD<CR>
 
 " Keymap for folding
 inoremap <F9> <C-O>za
