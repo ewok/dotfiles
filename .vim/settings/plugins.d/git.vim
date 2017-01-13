@@ -4,7 +4,8 @@ call neobundle#append()
 NeoBundle "tpope/vim-fugitive"
 NeoBundle "shumphrey/fugitive-gitlab.vim"
 NeoBundle "https://github.com/airblade/vim-gitgutter"
-NeoBundle "gregsexton/gitv"
+" NeoBundle "gregsexton/gitv"
+NeoBundle "junegunn/gv.vim"
 call neobundle#end()
 
 " Fugitive options
@@ -15,7 +16,8 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gC :Gcommit<CR>
 nnoremap <silent> <leader>gps :Git push<CR>
 nnoremap <silent> <leader>gW :Gwrite<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gbl :Gblame<CR>
+nnoremap <silent> <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
 nnoremap <silent> <leader>gR :Gread<CR>
 nnoremap <silent> <leader>gplr :Git pull --rebase<CR>
 nnoremap <silent> <leader>gplm :Git pull<CR>
@@ -36,4 +38,5 @@ nmap [c <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
 
 " Gitv options
-nnoremap <silent> <leader>gH :Gitv<CR>
+" nnoremap <silent> <leader>gH :Gitv<CR>
+nnoremap <silent> <leader>gH :GV<CR>

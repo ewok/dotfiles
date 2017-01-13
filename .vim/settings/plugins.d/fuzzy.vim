@@ -18,7 +18,7 @@ nnoremap <silent> <leader>pf :Filetypes<cr>
 
 nnoremap <silent> <leader>gf :GFiles?<cr>
 nnoremap <silent> <leader>gh :Commits<cr>
-nnoremap <silent> <leader>gB :BCommits<cr>
+nnoremap <silent> <leader>gbc :BCommits<cr>
 
 
 command! -bang FT call fzf#vim#filetypes(<bang>0)
