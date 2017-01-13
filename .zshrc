@@ -181,3 +181,7 @@ alias vim='/usr/local/bin/nvim'
 alias resetsound="ps aux | grep 'coreaudio[d]' | awk '{print \$2}' | xargs sudo kill"
 alias resetdns='sudo killall -HUP mDNSResponder && sudo pkill dnsmasq && echo DNS cleared'
 alias gitk='open -a "SmartGit" --args ${PWD}/'
+
+# fzf
+alias cdf="cd \$(dirname \"\$(fzf)\")"
+
