@@ -1,0 +1,39 @@
+--langdef=puppet
+--langmap=puppet:.pp
+--regex-puppet=/^class[ \t ]*['"]*([:a-zA-Z0-9_\-]+)['"]*[ \t ]*/\1/c,class/
+--regex-puppet=/^site[ \t ]*([a-zA-Z0-9_\-]+)[ \t ]*/\1/s,site/
+--regex-puppet=/^node[ \t ]*['"]*([.a-zA-Z0-9_\-]+)['"]*[ \t ]*/\1/n,node/
+--regex-puppet=/^define[ \t ]*['"]*([:a-zA-Z0-9_\-]+)]['"]*[ \t ]*/\1/d,definition/
+--regex-puppet=/^ *([a-zA-Zi:_]+) *{ *['"](.*)['"] *:/\2 [\1]/r,resource/
+--regex-puppet=/^ *([A-Z][a-zA-Z0-9_:]+) *{/\1/f,default/
+
+--langdef=ansible
+--langmap=ansible:.yml.yaml
+--regex-ansible=/^\s*- name:(.*)/\1/t,task/
+--exclude=./inventory
+
+# --langdef=ansiblevars
+# --langmap=ansiblevars:.
+# --regex-ansiblevars=/^([^#-].*):/\1/v,var/
+# --links=no
+# --exclude=./roles
+
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
+--regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
+--regex-markdown=/^####[ \t]+(.*)/\1/k,Heading_L4/
+--regex-markdown=/^#####[ \t]+(.*)/\1/k,Heading_L5/
+--regex-markdown=/^######[ \t]+(.*)/\1/k,Heading_L6/
+
+--exclude=.git
+--exclude=.svn
+--exclude=.hg
+--exclude=vendor
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=\*.pyc
+--exclude=\*.class
+--exclude=\*.cache
+--exclude=tags
