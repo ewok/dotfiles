@@ -6,6 +6,13 @@ if has('nvim')
     NeoBundle "benekastah/neomake"
     call neobundle#end()
     " autocmd! BufWritePost * Neomake
-    autocmd! BufWritePost,BufEnter * Neomake
+
+    function! NeomakeIfModified()
+        if &modified > 0
+            Neomake
+        endif
+    endfunction
+    autocmd! BufWritePre * call NeomakeIfModified()
+    autocmd! BufEnter * Neomake
 endif
 
