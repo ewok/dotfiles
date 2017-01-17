@@ -34,6 +34,8 @@ function! LoadPython()
     set foldlevel=0
     set foldnestmax=2
     " set autoindent
+    
+    let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
 endfunction
 
 au FileType python call LoadPython()
