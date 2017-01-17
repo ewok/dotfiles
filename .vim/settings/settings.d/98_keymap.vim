@@ -21,6 +21,10 @@ nnoremap <leader>wn :new<CR>
 nnoremap <leader>wo :only<CR>
 nnoremap <leader>wt :tabnew<CR>
 nnoremap <leader>wC :BD<CR>
+nnoremap <silent><leader>wS :!tmux split-window -v -p 30<CR><CR>
+nnoremap <silent><C-W>S :!tmux split-window -v -p 30<CR><CR>
+nnoremap <silent><leader>wV :!tmux split-window -h -p 30<CR><CR>
+nnoremap <silent><C-W>V :!tmux split-window -h -p 30<CR><CR>
 
 " Keymap for folding
 inoremap <F9> <C-O>za
