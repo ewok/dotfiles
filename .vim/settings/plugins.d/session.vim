@@ -7,6 +7,7 @@ function! MakeSession(file)
   if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
   exe ':tabdo NERDTreeClose'
   endif
+  exe ':lclose|cclose'
 
   let file = a:file
 
