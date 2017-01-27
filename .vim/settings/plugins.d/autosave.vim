@@ -5,7 +5,7 @@
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 
-au FileType vim,python,golang,ansible,puppet,json let b:auto_save = 1
+au FileType vim,python,golang,go,ansible,puppet,json let b:auto_save = 1
 
 set updatetime=2000
 
@@ -75,6 +75,20 @@ endfunction
 function! DoSave()
     silent! w
 endfunction
+
+function! ToggleAutoSave()
+        if !exists("b:auto_save")
+            let b:auto_save = 0
+        endif
+
+        if b:auto_save == 0
+            let b:auto_save = 1
+        else
+            let b:auto_save = 0
+        end
+endfunction
+
+command! ToggleAutoSave :call ToggleAutoSave()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
