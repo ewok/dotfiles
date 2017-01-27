@@ -6,12 +6,13 @@ NeoBundle "shumphrey/fugitive-gitlab.vim"
 NeoBundle "https://github.com/airblade/vim-gitgutter"
 " NeoBundle "gregsexton/gitv"
 NeoBundle "junegunn/gv.vim"
+NeoBundle 'jreybert/vimagit'
 call neobundle#end()
 
 " Fugitive options
 "
 " shortcuts mapping
-nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gS :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gC :Gcommit<CR>
 nnoremap <silent> <leader>gps :Git push<CR>
@@ -23,6 +24,7 @@ nnoremap <silent> <leader>gplr :Git pull --rebase<CR>
 nnoremap <silent> <leader>gplm :Git pull<CR>
 nnoremap <silent> <leader>gg :Gbrowse<CR>
 " nnoremap <silent> <leader>ge :Gedit<CR>
+let g:magit_show_magit_mapping='<leader>gs'
 
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:fugitive_gitlab_domains = ['https://gitlab.kyc.megafon.ru']
@@ -31,8 +33,8 @@ let g:fugitive_gitlab_domains = ['https://gitlab.kyc.megafon.ru']
 "
 let g:gitgutter_map_keys = 0
 
-nmap <silent> <Leader>gS :GitGutterStageHunk<cr>
-nmap <silent> <Leader>gU :GitGutterUndoHunk<cr>
+" nmap <silent> <Leader>gS :GitGutterStageHunk<cr>
+" nmap <silent> <Leader>gU :GitGutterUndoHunk<cr>
 
 nmap [c <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
