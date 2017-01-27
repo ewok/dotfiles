@@ -24,7 +24,7 @@ let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
 
 " Shortcuts
-au FileType go nnoremap <buffer> <silent> <leader>rr :w<CR>:GoImports<CR>:GoRun<CR>
+au FileType go nnoremap <buffer> <silent> <leader>rr :w<CR>:GoImports<CR>:silent GoRun<CR>
 au FileType go nnoremap <buffer> <silent> <leader>rt :w<CR>:GoImports<CR>:GoTest<CR>
 au FileType go nnoremap <buffer> <silent> <leader>rb :w<CR>:GoImports<CR>:GoBuild<CR>
 au FileType go nnoremap <buffer> <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverageToggle<CR>
