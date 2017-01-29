@@ -7,4 +7,4 @@ if g:largefile != 1
 endif
 
 
-nnoremap <silent> <leader><Space> za
+nnoremap <silent> <leader><Space> zA
