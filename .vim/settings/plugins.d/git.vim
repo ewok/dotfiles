@@ -15,13 +15,13 @@ call neobundle#end()
 nnoremap <silent> <leader>gS :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gC :Gcommit<CR>
-nnoremap <silent> <leader>gps :Git push<CR>
+nnoremap <silent> <leader>gps :silent Git push<CR>
 nnoremap <silent> <leader>gW :Gwrite<CR>
 nnoremap <silent> <leader>gbl :Gblame<CR>
 nnoremap <silent> <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
 nnoremap <silent> <leader>gR :Gread<CR>
-nnoremap <silent> <leader>gplr :Git pull --rebase<CR>
-nnoremap <silent> <leader>gplm :Git pull<CR>
+nnoremap <silent> <leader>gplr :silent Git pull --rebase<CR>
+nnoremap <silent> <leader>gpll :silent Git pull<CR>
 nnoremap <silent> <leader>gg :Gbrowse<CR>
 " nnoremap <silent> <leader>ge :Gedit<CR>
 let g:magit_show_magit_mapping='<leader>gs'

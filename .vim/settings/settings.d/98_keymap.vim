@@ -50,3 +50,18 @@ vnoremap H 0
 nnoremap L $
 vnoremap L $
 
+nnoremap Y y$
+
+" Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+"
+" Don't cancel visual select when shifting
+xnoremap <  <gv
+xnoremap >  >gv
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
+" [S]plit line (sister to [J]oin lines) S is covered by cc.
+nnoremap S mzi<CR><ESC>`z
