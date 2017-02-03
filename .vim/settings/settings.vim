@@ -65,7 +65,7 @@ set expandtab                         " replace <TAB> with spaces
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
-set shortmess=IaF                    " remove splash wording
+set shortmess=Ia                    " remove splash wording
 set confirm
 
 " Prevent timount for leader key

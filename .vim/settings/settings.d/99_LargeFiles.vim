@@ -20,15 +20,16 @@ if !exists("my_auto_commands_loaded")
                     \ let f=expand("<afile>")
                     \ | if getfsize(f) > g:LargeFile
                         \ | if input("Large file detected, turn off features? (y/n) ", "y") == "y"
-                            \ | set inccommand=
-                            \ | set eventignore+=FileType
+                            \ | setlocal inccommand=
+                            \ | setlocal eventignore+=FileType
                             \ | setlocal noswapfile bufhidden=unload undolevels=-1
                             \ | let b:syntastic_mode="passive"
                             \ | let b:ycm_auto_trigger=0
                             \ | let g:largefile=1
                             \ | endif
                         \ | else
-                            \ | set eventignore-=FileType
+                            \ | setlocal eventignore-=FileType
+                            \ | let g:largefile=0
                             \ | endif
         " autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
