@@ -7,6 +7,7 @@ NeoBundle "benmills/vimux-golang"
 if has('nvim')
     NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
 endif
+NeoBundle 'jodosha/vim-godebug'
 call neobundle#end()
 
 if has('nvim')

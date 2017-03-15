@@ -1,12 +1,12 @@
 call neobundle#append()
-NeoBundle 'rhysd/vim-grammarous'
+" NeoBundle 'rhysd/vim-grammarous'
 NeoBundle 'https://github.com/junegunn/goyo.vim'
 NeoBundle 'https://github.com/junegunn/limelight.vim'
 call neobundle#end()
 
-" Grammar
-let g:grammarous#languagetool_cmd = 'languagetool'
-let g:grammarous#use_vim_spelllang = 1
+" " Grammar
+" let g:grammarous#languagetool_cmd = 'languagetool'
+" let g:grammarous#use_vim_spelllang = 1
 
 " Spell Check
 let g:myLangList=["nospell","en_us", "ru_ru"]
@@ -23,10 +23,10 @@ function! ToggleSpell()
   if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
   if b:myLang==0
     setlocal nospell
-    exe "GrammarousReset"
+    " exe "GrammarousReset"
   else
     execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
-    execute "GrammarousCheck"
+    " execute "GrammarousCheck"
   endif
   echo "spell checking language:" g:myLangList[b:myLang]
 endfunction
