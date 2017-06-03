@@ -1,0 +1,89 @@
+" Surround plugin
+set surround
+
+let mapleader = " "
+set tm=1500
+set clipboard+=unnamed
+set hlsearch
+
+" MAP
+
+map gr gT
+
+" Windows
+nnoremap <leader>wc :close<CR>
+nnoremap <leader>ws :split<CR>
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wo <C-W>o
+
+imap  <up>    <Nop>
+imap  <down>  <Nop>
+imap  <left>  <Nop>
+imap  <right> <Nop>
+
+nmap  <up>    <Nop>
+nmap  <down>  <Nop>
+nmap  <left>  <Nop>
+nmap  <right> <Nop>
+
+nnoremap H 0
+vnoremap H 0
+nnoremap L $
+vnoremap L $
+
+nnoremap Y y$
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
+" [S]plit line (sister to [J]oin lines) S is covered by cc.
+nnoremap S mzi<CR><ESC>`z
+
+" Idea specific
+nnoremap <leader>gs :action Vcs.Show.Local.Changes<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gc :action ChangesView.Commit<CR>
+nnoremap <leader>gps :action Vcs.Push<CR>
+nnoremap <leader>gbl :action Annotate<CR>
+nnoremap <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
+nnoremap <leader>gpl :action Vcs.UpdateProject<CR>
+nnoremap <leader>gg :action Vcs.QuickListPopupAction<CR>
+nnoremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
+nnoremap <leader>gH :action Vcs.Show.Log<CR>
+
+nnoremap <leader>fp :action SelectInProjectView<CR>
+
+" Comments
+nnoremap gcc :action CommentByLineComment<CR>
+vnoremap gcc :action CommentByBlockComment<CR>
+
+nnoremap <leader>u :action LocalHistory.ShowHistory<CR>
+
+" Find
+nnoremap <leader>ff :action FindInPath<CR>
+nnoremap <leader>fr :action ReplaceInPath<CR>
+
+" Scratch
+nnoremap <leader>cc :action Scratch.OpenDefaultScratch<CR>
+nnoremap <leader>cs :action Scratch.OpenScratchList<CR>
+nnoremap <leader>ca :action Scratch.NewScratch<CR>
+
+nnoremap <C-W>S :action ActivateTerminalToolWindow<CR>
+
+" Sessions
+"
+nnoremap <leader>sq :action CloseProject<CR>
+nnoremap <leader>sn :action NewProject<CR>
+nnoremap <leader>so :action ManageRecentProjects<CR>
+nnoremap <leader>ss :action SaveAll<CR>
+
+
+" Run/Debug
+"
+nnoremap <leader>rr :action Run<CR>
+nnoremap <leader>rd :action Debug<CR>
+nnoremap <leader>rb :action ToggleLineBreakpoint<CR>
+nnoremap <leader>re :action editRunConfigurations<CR>
+
+nmap MR :%s/\(<C-R>/\)/
+vmap MR :s/\(<C-R>/\)/
