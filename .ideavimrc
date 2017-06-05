@@ -47,7 +47,8 @@ nnoremap <leader>gps :action Vcs.Push<CR>
 nnoremap <leader>gbl :action Annotate<CR>
 nnoremap <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
 nnoremap <leader>gpl :action Vcs.UpdateProject<CR>
-nnoremap <leader>gg :action Vcs.QuickListPopupAction<CR>
+nnoremap <leader>gm :action Vcs.QuickListPopupAction<CR>
+nnoremap <leader>gg :action RemoteRepositoryMapper.Open.File.In.Git.Host.Action<CR>
 nnoremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
 nnoremap <leader>gH :action Vcs.Show.Log<CR>
 
