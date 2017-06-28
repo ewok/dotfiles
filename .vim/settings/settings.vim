@@ -34,7 +34,7 @@ set viminfo=			                    " disable .viminfo file
 " set viminfo='50,\"100,:20,%,n~/.viminfo
 set ttyfast                           " send more chars while redrawing
 set mouse=                            " completely turn off mouse
-set cmdheight=1
+set cmdheight=2
 
 filetype on                           " enable filetype detection
 filetype indent on                    " enable filetype-specific indenting

@@ -77,7 +77,7 @@ source $ZSH/oh-my-zsh.sh
 PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
 # GO
-export GOPATH=$HOME/Documents/projects/go
+export GOPATH=$HOME/projects/go
 # export GOPATH
 export GOBIN=$GOPATH/bin
 # export GO15VENDOREXPERIMENT=1
@@ -142,10 +142,6 @@ setjdk "1.8.0_51"
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
-# SSH completion
-compdef assh=ssh
-compdef mosh=ssh
-compdef telnet=ssh
 
 h=()
 if [[ -r ~/.ssh/config ]]; then
@@ -156,13 +152,20 @@ if [[ -r ~/.ssh/known_hosts ]]; then
 fi
 if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:assh:*' hosts $h
+  zstyle ':completion:*:telnet:*' hosts $h
+  zstyle ':completion:*:mosh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
 
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_backup id_rsa_old id_rsa_insecure id_rsa_ml
+zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa
 
+# SSH completion
+compdef assh=ssh
+compdef mosh=ssh
+compdef telnet=ssh
 
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
