@@ -160,7 +160,7 @@ fi
 
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa
+zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
 
 # SSH completion
 compdef assh=ssh
@@ -186,7 +186,29 @@ alias resetdns='sudo killall -HUP mDNSResponder && sudo pkill dnsmasq && echo DN
 # alias gitk='open -a "SmartGit" --args ${PWD}/'
 alias gitk='open -a SourceTree --args "${PWD}/"'
 
-
 # fzf
 alias cdf="cd \$(dirname \"\$(fzf)\")"
 
+export GTM_STATUS=""
+export GTM_NEXT_UPDATE=0
+export GTM_LAST_DIR="$(PWD)"
+
+function gtm_record_terminal() {
+  let epoch=$((`date +%s`))
+  if [ "${GTM_LAST_DIR}" != "${PWD}" ] || [ $epoch -ge $GTM_NEXT_UPDATE ]; then
+    export GTM_NEXT_UPDATE=$(( $epoch + 30 ))
+    export GTM_LAST_DIR="${PWD}"
+    if [ "$GTM_STATUS_ONLY" = true ]; then
+        GTM_STATUS=$(gtm status -total-only)
+    else
+        GTM_STATUS=$(gtm record -terminal -status)
+    fi
+    if [ $? -ne 0 ]; then
+        echo "Error running 'gtm record -terminal', you may need to install gtm or upgrade to the latest"
+        echo "See http://www.github.com/git-time-metric/gtm for how to install"
+    fi
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd gtm_record_terminal
