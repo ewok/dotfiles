@@ -212,3 +212,7 @@ function gtm_record_terminal() {
 
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd gtm_record_terminal
+
+if [ -f ~/.zshrc.local ];then
+    source ~/.zshrc.local
+fi
