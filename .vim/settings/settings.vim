@@ -16,6 +16,7 @@ set nofoldenable
 set number
 set numberwidth=4
 set title
+set titlestring=%F
 set showmode
 set nobomb                            " no BOM(Byte Order Mark)
 set nostartofline
