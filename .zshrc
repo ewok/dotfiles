@@ -99,6 +99,10 @@ ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+# SSH-AGENT
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
+
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
@@ -108,6 +112,7 @@ export FZF_COMPLETION_TRIGGER='*'
 for item in ~/.zsh/custom/*.zsh; do
     source $item
 done
+
 
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local

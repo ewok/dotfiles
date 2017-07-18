@@ -19,10 +19,6 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:slogin:*' hosts $h
 fi
 
-# SSH-AGENT
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
-
 # SSH completion
 compdef assh=ssh
 compdef mosh=ssh
