@@ -3,16 +3,17 @@
 "
 if has('nvim')
     call neobundle#append()
-    NeoBundle "benekastah/neomake"
+    " NeoBundle "benekastah/neomake"
+    NeoBundle "w0rp/ale"
     call neobundle#end()
     " autocmd! BufWritePost * Neomake
 
-    function! NeomakeIfModified()
-        if &modified > 0
-            Neomake
-        endif
-    endfunction
-    autocmd! BufWritePre * call NeomakeIfModified()
-    autocmd! BufEnter * Neomake
+    " function! NeomakeIfModified()
+    "     if &modified > 0
+    "         Neomake
+    "     endif
+    " endfunction
+    " autocmd! BufWritePre * call NeomakeIfModified()
+    " autocmd! BufEnter * Neomake
 endif
 
