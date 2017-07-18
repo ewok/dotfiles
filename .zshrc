@@ -76,28 +76,11 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
-# GO
-export GOPATH=$HOME/projects/go
-# export GOPATH
-export GOBIN=$GOPATH/bin
-# export GO15VENDOREXPERIMENT=1
-
-#export HASKELLPATH=$HOME/Library/Haskell
-#export HASKELLPATH
-
 # Set our default path
-# PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-PATH="$HOME/bin:$GOBIN:$HOME/.local/bin:/usr/local/sbin:$PATH"
+PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH
 
-
 TZ='Europe/Moscow'; export TZ
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions */
 if [[ -n $SSH_CONNECTION ]]; then
@@ -108,64 +91,16 @@ else
   export VISUAL='nvim'
 fi
 
-
-
 bindkey -s '^[x' '^Uexit^M'
 bindkey -s '^[x' '^Uexit^M'
 bindkey -s '^D'  '^Uexit^M'
 
 ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
-[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
-
-function setjdk() {
-  if [ $# -ne 0 ]; then
-   removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
-   if [ -n "${JAVA_HOME+x}" ]; then
-    removeFromPath $JAVA_HOME
-   fi
-   export JAVA_HOME=`/usr/libexec/java_home -v $@`
-   export PATH=$JAVA_HOME/bin:$PATH
-  fi
- }
- function removeFromPath() {
-  export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
- }
-
-# setjdk "1.7.0_80"
-setjdk "1.8.0_51"
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
-
-
-h=()
-if [[ -r ~/.ssh/config ]]; then
-  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-fi
-if [[ -r ~/.ssh/known_hosts ]]; then
-  h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
-fi
-if [[ $#h -gt 0 ]]; then
-  zstyle ':completion:*:ssh:*' hosts $h
-  zstyle ':completion:*:assh:*' hosts $h
-  zstyle ':completion:*:telnet:*' hosts $h
-  zstyle ':completion:*:mosh:*' hosts $h
-  zstyle ':completion:*:slogin:*' hosts $h
-fi
-
-# SSH-AGENT
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
-
-# SSH completion
-compdef assh=ssh
-compdef mosh=ssh
-compdef telnet=ssh
 
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -173,45 +108,6 @@ export FZF_COMPLETION_TRIGGER='*'
 for item in ~/.zsh/custom/*.zsh; do
     source $item
 done
-
-# Aliases block
-alias tailf='tail -f'
-alias exit='sync; sync; sync; clear; exit'
-alias vi='/usr/local/bin/nvim'
-alias vim='/usr/local/bin/nvim'
-
-# MacOs aliases
-alias resetsound="ps aux | grep 'coreaudio[d]' | awk '{print \$2}' | xargs sudo kill"
-alias resetdns='sudo killall -HUP mDNSResponder && sudo pkill dnsmasq && echo DNS cleared'
-# alias gitk='open -a "SmartGit" --args ${PWD}/'
-alias gitk='open -a SourceTree --args "${PWD}/"'
-
-# fzf
-alias cdf="cd \$(dirname \"\$(fzf)\")"
-
-export GTM_STATUS=""
-export GTM_NEXT_UPDATE=0
-export GTM_LAST_DIR="$(PWD)"
-
-function gtm_record_terminal() {
-  let epoch=$((`date +%s`))
-  if [ "${GTM_LAST_DIR}" != "${PWD}" ] || [ $epoch -ge $GTM_NEXT_UPDATE ]; then
-    export GTM_NEXT_UPDATE=$(( $epoch + 30 ))
-    export GTM_LAST_DIR="${PWD}"
-    if [ "$GTM_STATUS_ONLY" = true ]; then
-        GTM_STATUS=$(gtm status -total-only)
-    else
-        GTM_STATUS=$(gtm record -terminal -status)
-    fi
-    if [ $? -ne 0 ]; then
-        echo "Error running 'gtm record -terminal', you may need to install gtm or upgrade to the latest"
-        echo "See http://www.github.com/git-time-metric/gtm for how to install"
-    fi
-  fi
-}
-
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd gtm_record_terminal
 
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
