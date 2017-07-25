@@ -13,6 +13,7 @@ fi
 
 if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:scp:*' hosts $h
   zstyle ':completion:*:assh:*' hosts $h
   zstyle ':completion:*:telnet:*' hosts $h
   zstyle ':completion:*:mosh:*' hosts $h
