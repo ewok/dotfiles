@@ -2,6 +2,7 @@
 "
 call neobundle#append()
 NeoBundle "tpope/vim-fugitive"
+NeoBundle "tpope/vim-rhubarb"
 NeoBundle "shumphrey/fugitive-gitlab.vim"
 NeoBundle "https://github.com/airblade/vim-gitgutter"
 " NeoBundle "gregsexton/gitv"
