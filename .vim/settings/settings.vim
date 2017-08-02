@@ -46,12 +46,13 @@ set hlsearch                          " search highlighting
 set incsearch                         " incremental search
 syntax enable
 
-set background=dark
 " set t_Co=256
 
-colorscheme onedark
-" colorscheme darcula
 
+set background=dark
+colorscheme neodark
+" colorscheme onedark
+" colorscheme darcula
 " colorscheme alduin
 " colorscheme github
 
