@@ -7,7 +7,7 @@ au FocusGained,BufEnter,WinEnter * :silent! !
 
 au FileType vim,python,golang,go,ansible,puppet,json let b:auto_save = 1
 
-set updatetime=2000
+set updatetime=500
 
 let s:save_cpo = &cpo
 set cpo&vim
