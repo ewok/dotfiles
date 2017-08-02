@@ -25,10 +25,10 @@ nnoremap <silent> <leader>gplr :silent Git pull --rebase<CR>
 nnoremap <silent> <leader>gpll :silent Git pull<CR>
 nnoremap <silent> <leader>gg :Gbrowse<CR>
 " nnoremap <silent> <leader>ge :Gedit<CR>
-let g:magit_show_magit_mapping='<leader>gs'
 
-let g:Gitv_DoNotMapCtrlKey = 1
-let g:fugitive_gitlab_domains = ['https://gitlab.kyc.megafon.ru']
+" Magit option
+"
+let g:magit_show_magit_mapping='<leader>gs'
 
 " Gitgutter options
 "
@@ -40,6 +40,9 @@ let g:gitgutter_map_keys = 0
 nmap [c <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
 
+let g:gitgutter_override_sign_column_highlight = 0
+
 " Gitv options
 " nnoremap <silent> <leader>gH :Gitv<CR>
+let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <silent> <leader>gH :GV<CR>
