@@ -48,13 +48,10 @@ syntax enable
 
 " set t_Co=256
 
+let g:neodark#background = '#282c34'
 
-set background=dark
 colorscheme neodark
-" colorscheme onedark
-" colorscheme darcula
-" colorscheme alduin
-" colorscheme github
+set background=dark
 
 set nobackup                          " no *~ backup files
 set noswapfile
