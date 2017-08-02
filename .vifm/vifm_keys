@@ -63,6 +63,6 @@ nnoremap <c-l> :!tmux select-pane -R<cr>
 nnoremap J :j<space>
 
 nnoremap ii :vim %f<cr>
-nnoremap it :!tmux new-window vim %f<CR>
-nnoremap is :!tmux split-window -v -p 80 vim %f<CR>
-nnoremap iv <c-w>o:!tmux split-window -h -p 80 vim %f<CR>
+nnoremap it :!tmux new-window reattach-to-user-namespace -l vim %f<CR>
+nnoremap is :!tmux split-window -v -p 80 reattach-to-user-namespace -l vim %f<CR>
+nnoremap iv <c-w>o:!tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f<CR>
