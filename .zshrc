@@ -43,7 +43,7 @@ ZSH_THEME="norm"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/.zsh/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -69,7 +69,7 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions golang tmux vault)
+plugins=(ssh-agent emoji colored-man-pages zsh-autosuggestions golang tmux vault_patched)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,9 +109,9 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-for item in ~/.zsh/custom/*.zsh; do
-    source $item
-done
+# for item in ~/.zsh/custom/*.zsh; do
+#     source $item
+# done
 
 
 if [ -f ~/.zshrc.local ];then
