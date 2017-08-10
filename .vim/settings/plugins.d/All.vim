@@ -1,25 +1,22 @@
 " Other small plugins
 
-call neobundle#append()
-NeoBundle "Shougo/vimproc.vim"
-NeoBundle "bronson/vim-trailing-whitespace"
-NeoBundle "jiangmiao/auto-pairs"
-NeoBundle "powerline/fonts"
-NeoBundle "junegunn/vim-emoji"
-NeoBundle "junegunn/vim-peekaboo"
-NeoBundle "tpope/vim-repeat"
-NeoBundle "vitorgalvao/autoswap_mac"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "itchyny/vim-cursorword"
-NeoBundle "qpkorr/vim-bufkill"
+Plug 'Shougo/vimproc.vim'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'jiangmiao/auto-pairs'
+Plug 'powerline/fonts'
+Plug 'junegunn/vim-emoji'
+Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-repeat'
+Plug 'vitorgalvao/autoswap_mac'
+Plug 'tomtom/tlib_vim'
+Plug 'itchyny/vim-cursorword'
+Plug 'qpkorr/vim-bufkill'
 
 " Turned off
-" NeoBundle "chaoren/vim-wordmotion"
-" NeoBundle "terryma/vim-multiple-cursors"
-" NeoBundle "tpope/vim-speeddating"
-" NeoBundle "vim-ruby/vim-ruby"
-" NeoBundle "wellle/visual-split.vim"
-
-call neobundle#end()
+" Plug 'chaoren/vim-wordmotion'
+" Plug 'terryma/vim-multiple-cursors'
+" Plug 'tpope/vim-speeddating'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'wellle/visual-split.vim'
 
 let g:peekaboo_delay = 1000

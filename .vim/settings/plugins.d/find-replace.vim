@@ -1,6 +1,6 @@
-call neobundle#append()
-NeoBundle 'brooth/far.vim'
-call neobundle#end()
+" Find and Replace
+
+Plug 'brooth/far.vim'
 
 if has('nvim')
     let g:far#source = 'agnvim'

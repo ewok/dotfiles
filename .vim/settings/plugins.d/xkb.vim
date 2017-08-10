@@ -1,8 +1,6 @@
 " Auto input switcher
 "
-call neobundle#append()
-NeoBundle "lyokha/vim-xkbswitch"
-call neobundle#end()
+Plug 'lyokha/vim-xkbswitch'
 
 " git clone https://github.com/vovkasm/input-source-switcher.git
 " cd input-source-switcher

@@ -1,8 +1,6 @@
 " Drag and drop vertical blocks
 "
-call neobundle#append()
-NeoBundle 'zirrostig/vim-schlepp'
-call neobundle#end()
+Plug 'zirrostig/vim-schlepp'
 
 vmap <unique> <up>    <Plug>SchleppUp
 vmap <unique> <down>  <Plug>SchleppDown

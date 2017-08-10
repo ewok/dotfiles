@@ -1,10 +1,8 @@
 " Quick jump to buffet/mru/tag
 "
-call neobundle#append()
-" NeoBundle "ctrlpvim/ctrlp.vim"
-NeoBundle 'junegunn/fzf'
-NeoBundle 'junegunn/fzf.vim'
-call neobundle#end()
+" Plug "ctrlpvim/ctrlp.vim"
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
@@ -43,5 +41,4 @@ nnoremap <silent> <leader>ff :Ag<CR>
 nnoremap <silent> <c-p><c-p> <nop>
 nnoremap <silent> <c-p><c-t> <nop>
 nnoremap <silent> <c-p><c-b> <nop>
-
 

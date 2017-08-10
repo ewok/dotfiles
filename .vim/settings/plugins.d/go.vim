@@ -1,14 +1,14 @@
 " Golang support
 "
-call neobundle#append()
-NeoBundle 'fatih/vim-go'
-" NeoBundle 'garyburd/go-explorer'
-NeoBundle "benmills/vimux-golang"
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+" Plug 'garyburd/go-explorer'
+Plug 'benmills/vimux-golang', { 'for': 'go' }
+
 if has('nvim')
-    NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
+    Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
 endif
-NeoBundle 'jodosha/vim-godebug'
-call neobundle#end()
+
+Plug 'jodosha/vim-godebug', { 'for': 'go' }
 
 if has('nvim')
     let g:go_highlight_functions = 1

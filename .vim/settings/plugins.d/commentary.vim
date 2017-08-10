@@ -1,8 +1,6 @@
 " Toggle comments in code
 "
-call neobundle#append()
-NeoBundle "https://github.com/tpope/vim-commentary.git"
-call neobundle#end()
+Plug 'https://github.com/tpope/vim-commentary.git'
 
 set commentstring=#\ %s
 autocmd FileType python  setlocal commentstring=#\ %s

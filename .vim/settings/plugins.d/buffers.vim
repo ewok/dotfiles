@@ -1,8 +1,6 @@
 " Control your buffers
 "
-call neobundle#append()
-NeoBundle "jeetsukumaran/vim-buffergator"
-call neobundle#end()
+Plug 'jeetsukumaran/vim-buffergator'
 
 let g:buffergator_suppress_keymaps=1
 let g:buffergator_viewport_split_policy="B"

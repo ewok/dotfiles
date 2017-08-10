@@ -1,8 +1,6 @@
-call neobundle#append()
-" NeoBundle 'rhysd/vim-grammarous'
-NeoBundle 'https://github.com/junegunn/goyo.vim'
-NeoBundle 'https://github.com/junegunn/limelight.vim'
-call neobundle#end()
+" Plug 'rhysd/vim-grammarous'
+Plug 'https://github.com/junegunn/goyo.vim'
+Plug 'https://github.com/junegunn/limelight.vim'
 
 " " Grammar
 " let g:grammarous#languagetool_cmd = 'languagetool'

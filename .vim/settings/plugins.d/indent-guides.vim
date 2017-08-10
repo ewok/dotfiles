@@ -1,8 +1,6 @@
 " Visual indent lines
 "
-call neobundle#append()
-NeoBundle "nathanaelkane/vim-indent-guides"
-call neobundle#end()
+Plug 'nathanaelkane/vim-indent-guides'
 
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=237

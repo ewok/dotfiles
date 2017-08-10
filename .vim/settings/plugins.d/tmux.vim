@@ -2,10 +2,8 @@
 "
 if has('gui_running')
 else
-    call neobundle#append()
-    NeoBundle "christoomey/vim-tmux-navigator"
-    NeoBundle "benmills/vimux"
-    call neobundle#end()
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'benmills/vimux'
 
     if has('nvim')
         nnoremap <silent> <BS> :TmuxNavigateLeft<cr>

@@ -1,8 +1,6 @@
 " Keep undo history across sessions, by storing in file.
 "
-call neobundle#append()
-NeoBundleLazy "simnalamburt/vim-mundo"
-call neobundle#end()
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
 "augroup load_mundo
 "  autocmd!

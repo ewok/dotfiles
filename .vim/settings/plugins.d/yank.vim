@@ -1,8 +1,6 @@
 " Replace finded template
 "
-call neobundle#append()
-NeoBundle "idanarye/vim-yankitute"
-call neobundle#end()
+Plug 'idanarye/vim-yankitute'
 
 nmap <expr>  MR  ':%s/\(' . @/ . '\)//g<LEFT><LEFT>'
 nmap <expr>  MY  ':%Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'

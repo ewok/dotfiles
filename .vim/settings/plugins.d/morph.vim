@@ -1,7 +1,5 @@
 " Morph your text
 "
-call neobundle#append()
-NeoBundleLazy "d0c-s4vage/vim-morph"
-call neobundle#end()
+Plug 'd0c-s4vage/vim-morph', { 'on': 'MorphEnable' }
 
-command! MorphEnable silent :NeoBundleSource vim-morph|delcommand MorphEnable
+command! MorphEnable echom 'Morph enabled'|delcommand MorphEnable

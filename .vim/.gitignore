@@ -2,6 +2,7 @@
 .DS_Store
 sessions
 bundle
+plugged
 backups
 .cache
 .vbuf

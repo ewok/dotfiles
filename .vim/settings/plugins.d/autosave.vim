@@ -1,7 +1,3 @@
-" call neobundle#append()
-" NeoBundle '907th/vim-auto-save'
-" call neobundle#end()
-
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 

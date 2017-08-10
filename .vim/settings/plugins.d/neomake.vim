@@ -2,9 +2,7 @@
 " (neovim only)
 "
  if has('nvim')
-     call neobundle#append()
-     NeoBundle "benekastah/neomake"
-     call neobundle#end()
+     Plug 'benekastah/neomake'
 
      function! NeomakeIfModified()
          if &modified > 0

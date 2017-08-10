@@ -3,9 +3,7 @@
 "
 if has('nvim')
 
-    call neobundle#append()
-    NeoBundle "https://github.com/Shougo/deoplete.nvim.git"
-    call neobundle#end()
+    Plug 'https://github.com/Shougo/deoplete.nvim.git'
     let g:deoplete#enable_at_startup = 1
 
     " Recommended key-mappings.

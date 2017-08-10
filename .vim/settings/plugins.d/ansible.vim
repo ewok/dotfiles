@@ -1,13 +1,8 @@
 " Ansible support
 "
-call neobundle#append()
-NeoBundle "pearofducks/ansible-vim"
-" NeoBundle "MicahElliott/Rocannon"
-call neobundle#end()
+Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+autocmd! User ansible-vim call LoadAnsible()
 
-"let g:rocannon_bypass_colorscheme = 1
-"
-"inoremap <Nul> <C-x><C-o>
 function! LoadAnsible()
 
     if exists('g:loaded_ansible')
@@ -29,7 +24,3 @@ function! LoadAnsible()
 
     let g:neomake_ansible_enabled_makers = ['myansiblelint', 'myyamllint']
 endfunction
-
-au FileType ansible call LoadAnsible()
-
-

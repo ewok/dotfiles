@@ -1,8 +1,7 @@
 " Leader key hints(awesome plugin!)
 "
-call neobundle#append()
-NeoBundle "hecal3/vim-leader-guide"
-call neobundle#end()
+Plug 'hecal3/vim-leader-guide'
+autocmd! User vim-leader-guide call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 
 " Define prefix dictionary
 let g:lmap =  {}
@@ -36,7 +35,6 @@ let g:lmap.w = { 'name' : 'Window' }
 "                 \}
 "
 
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 

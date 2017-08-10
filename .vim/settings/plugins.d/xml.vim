@@ -1,5 +1,3 @@
 " XML support
 "
-call neobundle#append()
-NeoBundle "sukima/xmledit"
-call neobundle#end()
+Plug 'sukima/xmledit', { 'do': 'make', 'for': ['xml', 'html'] }

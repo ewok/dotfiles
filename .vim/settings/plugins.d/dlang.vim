@@ -1,14 +1,9 @@
 " DLang support
 "
-call neobundle#append()
-NeoBundleLazy 'idanarye/vim-dutyl'
-call neobundle#end()
+Plug 'idanarye/vim-dutyl', { 'for': 'd'  }
 
+autocmd! User vim-dutyl call Load_dutyl()
 
-augroup load_dutyl
-  autocmd!
-    autocmd FileType d NeoBundleSource vim-dutyl
-                     \| autocmd! load_dutyl
+function! Load_dutyl()
     let g:dutyl_stdImportPaths=['/Library/D/dmd/src/druntime/import','/Library/D/dmd/src/phobos']
-augroup END
-
+endfunction

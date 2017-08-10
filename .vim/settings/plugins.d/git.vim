@@ -1,14 +1,12 @@
 " GIT support
 "
-call neobundle#append()
-NeoBundle "tpope/vim-fugitive"
-NeoBundle "tpope/vim-rhubarb"
-NeoBundle "shumphrey/fugitive-gitlab.vim"
-NeoBundle "https://github.com/airblade/vim-gitgutter"
-" NeoBundle "gregsexton/gitv"
-NeoBundle "junegunn/gv.vim"
-NeoBundle 'jreybert/vimagit'
-call neobundle#end()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'https://github.com/airblade/vim-gitgutter'
+" Plug 'gregsexton/gitv'
+Plug 'junegunn/gv.vim'
+Plug 'jreybert/vimagit'
 
 " Fugitive options
 "

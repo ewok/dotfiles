@@ -1,8 +1,6 @@
 " Puppet support
 "
-call neobundle#append()
-NeoBundle "rodjek/vim-puppet"
-call neobundle#end()
+Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 
 " Prevent puppet plugin change alligment
 let g:puppet_align_hashes = 0

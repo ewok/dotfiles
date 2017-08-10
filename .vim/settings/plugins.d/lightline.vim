@@ -1,13 +1,14 @@
 " Lightline
 "
-call neobundle#append()
-NeoBundle "itchyny/lightline.vim"
-call neobundle#end()
+Plug 'itchyny/lightline.vim'
+autocmd! User lightline call LoadLight()
 
-if !has('gui_running')
-  set t_Co=256
-endif
+function LoadLight()
+    if !has('gui_running')
+        set t_Co=256
+    endif
 
-let g:lightline = {
-      \ 'colorscheme': 'neodark',
-      \ }
+    let g:lightline = {}
+    let g:lightline.colorscheme = 'neodark'
+
+endfunction

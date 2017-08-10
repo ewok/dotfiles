@@ -1,13 +1,11 @@
 " Python support
 "
-call neobundle#append()
 if has('nvim')
-    NeoBundle 'zchee/deoplete-jedi'
-    " NeoBundle 'zchee/deoplete-jedi', {'build': {'unix': 'make'}}
+    Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': 'make' }
+    autocmd! User deoplete-jedi call LoadPython()
 else
-    NeoBundle "https://github.com/davidhalter/jedi-vim.git"
+    Plug 'https://github.com/davidhalter/jedi-vim.git', { 'for': 'python' }
 endif
-call neobundle#end()
 
 " let g:jedi#completions_command = "<nop>"
 " let g:jedi#auto_vim_configuration = 0
@@ -38,4 +36,3 @@ function! LoadPython()
     let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
 endfunction
 
-au FileType python call LoadPython()

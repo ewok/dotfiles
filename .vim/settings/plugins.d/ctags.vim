@@ -1,8 +1,6 @@
 " Tag everything
 "
-call neobundle#append()
-NeoBundle "majutsushi/tagbar"
-call neobundle#end()
+Plug 'majutsushi/tagbar'
 
 map <leader>tt :TagbarToggle<CR>
 

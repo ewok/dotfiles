@@ -1,8 +1,6 @@
 " Is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.
 "
-call neobundle#append()
-NeoBundle "tpope/vim-surround"
-call neobundle#end()
+Plug 'tpope/vim-surround'
 
 let g:surround_113="#{\r}"     " v
 let g:surround_35="#{\r}"      " #

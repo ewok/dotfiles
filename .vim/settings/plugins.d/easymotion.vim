@@ -1,8 +1,6 @@
 " Easy motion in text
 "
-call neobundle#append()
-NeoBundle "easymotion/vim-easymotion"
-call neobundle#end()
+Plug 'easymotion/vim-easymotion'
 
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 

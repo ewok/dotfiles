@@ -1,12 +1,10 @@
 " Snippets
 "
-call neobundle#append()
-" NeoBundle "Shougo/neosnippet-snippets"
-" NeoBundle "Shougo/neosnippet.vim"
-NeoBundle "SirVer/ultisnips"
-NeoBundle "honza/vim-snippets"
-NeoBundle "kiith-sa/DSnips"
-call neobundle#end()
+" Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'kiith-sa/DSnips'
 
 " let g:UltiSnipsExpandTrigger="<enter>"
 " let g:UltiSnipsJumpForwardTrigger="<c-n>"

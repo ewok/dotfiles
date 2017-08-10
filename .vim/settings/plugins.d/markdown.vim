@@ -1,6 +1,6 @@
-call neobundle#append()
-NeoBundle "godlygeek/tabular"
-NeoBundle "plasticboy/vim-markdown"
-NeoBundle "suan/vim-instant-markdown"
-call neobundle#end()
+" MarkDown
+"
+Plug 'godlygeek/tabular', { 'for': 'md' }
+Plug 'plasticboy/vim-markdown', { 'for': 'md' }
+Plug 'suan/vim-instant-markdown', { 'for': 'md' }
 

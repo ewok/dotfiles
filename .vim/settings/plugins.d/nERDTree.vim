@@ -1,13 +1,11 @@
 " NERDTree
 "
-call neobundle#append()
-NeoBundleLazy "scrooloose/nerdtree"
-NeoBundleLazy "Xuyuanp/nerdtree-git-plugin"
-NeoBundleLazy "jistr/vim-nerdtree-tabs"
-call neobundle#end()
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
 
-nnoremap <F2> :NeoBundleSource nerdtree|NeoBundleSource nerdtree-git-plugin|NeoBundleSource vim-nerdtree-tabs|unmap <F2>|nnoremap <silent> <F2> :NERDTreeMirrorToggle<CR><CR>
-map <leader>fp :NERDTreeFind<cr>
+nnoremap <F2> :NERDTreeMirrorToggle<CR>
+nnoremap <leader>fp :NERDTreeFind<CR>
 
 let NERDTreeShowBookmarks=0
 let NERDTreeChDirMode=2
@@ -21,32 +19,3 @@ let NERDTreeMinimalUI=1
 let NERDTreeDirArrows=1
 let g:NERDTreeWinSize=30
 let NERDTreeIgnore=['\.pyc$']
-
-" "NERDTree git
-" silent! if emoji#available()
-"   let g:NERDTreeIndicatorMapCustom = {
-"       \     "Modified"  : "🛠",
-"       \     "Staged"    : "📎",
-"       \     "Untracked" : "🌱",
-"       \     "Renamed"   : "🌀",
-"       \     "Unmerged"  : "💔",
-"       \     "Deleted"   : "💀",
-"       \     "Dirty"     : "💩",
-"       \     "Clean"     : "😀",
-"       \     "Unknown"   : "❓"
-"       \}
-" else
-"   let g:NERDTreeIndicatorMapCustom = {
-"       \     "Modified"  : "~",
-"       \     "Staged"    : "s",
-"       \     "Untracked" : "+",
-"       \     "Renamed"   : "r",
-"       \     "Unmerged"  : "±",
-"       \     "Deleted"   : "-",
-"       \     "Dirty"     : "d",
-"       \     "Clean"     : "c",
-"       \     "Unknown"   : "u"
-"       \}
-" endif
-
-

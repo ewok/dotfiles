@@ -1,6 +1,5 @@
-call neobundle#append()
-NeoBundle 'takac/vim-hardtime'
-call neobundle#end()
+" Hard Time
+Plug 'takac/vim-hardtime'
 
 let g:hardtime_ignore_quickfix = 1
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "magit*" ]
