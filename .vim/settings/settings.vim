@@ -46,13 +46,6 @@ set hlsearch                          " search highlighting
 set incsearch                         " incremental search
 syntax enable
 
-" set t_Co=256
-
-" let g:neodark#background = '#282c34'
-
-" colorscheme neodark
-" set background=dark
-
 set nobackup                          " no *~ backup files
 set noswapfile
 set nowritebackup
