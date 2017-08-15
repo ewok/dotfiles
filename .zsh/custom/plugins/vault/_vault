@@ -344,7 +344,7 @@ __vault_read() {
     else
         FIND=${PREFIX%/*}
     fi
-    readv=($(vault list $FIND | grep -v 'Keys' | grep -v '\-\-\-\-' | sed "s~.*~$FIND/&~")) 2>/dev/null
+    readv=($(vault list $FIND | grep -v 'Keys' | grep -v '\-\-\-\-' | grep -v '^$' | sed "s~.*~$FIND/&:[&]~")) 2>/dev/null
 
     local -a options 
     options=('-c:description for -c opt' '-d:description for -d opt')
@@ -367,7 +367,7 @@ __vault_list() {
     else
         FIND=${PREFIX%/*}
     fi
-    listv=($(vault list $FIND | grep -v 'Keys' | grep -v '\-\-\-\-' | grep -e '/' | sed "s~.*~$FIND/&:[&]~")) 2>/dev/null
+    listv=($(vault list $FIND | grep -v 'Keys' | grep -v '\-\-\-\-' | grep -e '/' | grep -v '^$' | sed "s~.*~$FIND/&:[&]~")) 2>/dev/null
     _describe -t listv 'listv' listv && ret=0
 }
 
