@@ -10,3 +10,4 @@ backups
 spell/
 *.vi
 utils/lint
+*.old

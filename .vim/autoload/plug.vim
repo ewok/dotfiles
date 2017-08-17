@@ -1536,6 +1536,7 @@ class Command(object):
       return result
     except:
       self.terminate()
+      raise
 
   def terminate(self):
     """ Terminate process and cleanup. """
