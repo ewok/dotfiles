@@ -3,7 +3,9 @@
 "
 if has('nvim')
 
-    Plug 'https://github.com/Shougo/deoplete.nvim.git'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': ['go', 'python', 'd', 'vim', 'bash', 'ansible', 'sh'] }
+    autocmd! User deoplete call LoadDeoplete()
+
     let g:deoplete#enable_at_startup = 1
 
     " Recommended key-mappings.
