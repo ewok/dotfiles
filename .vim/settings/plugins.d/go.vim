@@ -14,8 +14,7 @@ Plug 'jodosha/vim-godebug', { 'for': 'go' }
 function! LoadGo()
 
     let $GOPATH = $HOME . '/share/gopath/' . fnamemodify(getcwd(), ':t')
-    let $GOBIN = $HOME . '/share/gopath/vim-bin'
-    let $PATH .= ':' . $HOME . '/share/gopath/vim-bin'
+    let $GOBIN = $HOME . '/.local/bin'
 
     if has('nvim')
         let g:go_highlight_functions = 1
