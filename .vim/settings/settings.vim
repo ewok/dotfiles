@@ -35,7 +35,7 @@ set wildmenu                          " make tab completion for files/buffers ac
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set ttyfast                           " send more chars while redrawing
 set mouse=                            " completely turn off mouse
-set cmdheight=2
+set cmdheight=1
 
 filetype on                           " enable filetype detection
 filetype indent on                    " enable filetype-specific indenting
@@ -57,7 +57,7 @@ set expandtab                         " replace <TAB> with spaces
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
-set shortmess=Ia                    " remove splash wording
+set shortmess=aOtT                    " remove splash wording
 set confirm
 
 " Prevent timount for leader key

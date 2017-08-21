@@ -66,3 +66,4 @@ nnoremap ii :vim %f<cr>
 nnoremap it :!tmux new-window reattach-to-user-namespace -l vim %f<CR>
 nnoremap is :!tmux split-window -v -p 80 reattach-to-user-namespace -l vim %f<CR>
 nnoremap iv <c-w>o:!tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f<CR>
+nnoremap ir :vimr %f<cr>
