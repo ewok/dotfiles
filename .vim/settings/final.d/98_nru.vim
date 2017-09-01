@@ -11,3 +11,4 @@ endfunc
 set rnu
 au InsertEnter * :set nornu
 au InsertLeave * :set rnu
+

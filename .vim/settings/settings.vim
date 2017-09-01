@@ -30,7 +30,7 @@ set showtabline=2                     " always show tab
 set wildmode=longest,list             " use emacs-style tab completion when selecting files, etc
 set wildmenu                          " make tab completion for files/buffers act like bash
 " set key=			                        " disable encryption
- " set synmaxcol=200
+" set synmaxcol=200
 " set viminfo=			                    " disable .viminfo file
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set ttyfast                           " send more chars while redrawing
@@ -91,22 +91,8 @@ set wildignore+=tmp/**
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 
-" ======================================
-"  custom key and plugin configurations
-" ======================================
-" remove tailing whitespace
-"autocmd BufWritePre * :%s/\s\+$//e
-
 " return current opened file's dirctory
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
-" Autosave
-" au FocusLost * :wa
-
-" noremap <CR> :nohlsearch<CR>
-"
-
-" Load project specific files
-"
 set exrc
 set secure
