@@ -3,7 +3,7 @@
 
 " Start shell in current directory
 nnoremap s :!if [ -n "$TMUX" ]; then tmux split-window -p 30;else zsh; fi<cr>
-nnoremap v :!if [ -n "$TMUX" ]; then I=$(T=$(tty);tmux lsp -F'#{pane_tty} #{pane_index}'|grep ^$T|cut -f2 -d' ');ALL=$(tmux lsp|wc -l); if [ $((ALL-I)) -le 1 ];then I=$(($I-1));fi; tmux split-window -p 30 -h -t $((I+1)) ;else zsh; fi<cr>
+nnoremap v :!if [ -n "$TMUX" ]; then I=$(T=$(tty);tmux lsp -F'#{pane_tty} #{pane_index}'|grep ^$T|cut -f2 -d' ');ALL=$(tmux lsp|wc -l); if [ $((ALL-I)) -le 1 ];then I=$(($I-1));fi; tmux split-window -p 40 -h -t $((I+1)) ;else zsh; fi<cr>
 
 " Display sorting dialog
 nnoremap S :sort<cr>
