@@ -2,7 +2,8 @@
 "
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!npm install -g livedown' }
 
-let g:instant_markdown_allow_external_content = 1
-
+let g:livedown_browser = 'Safari'
+let g:livedown_autorun = 1
+let g:livedown_port = 14545
