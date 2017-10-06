@@ -2,7 +2,7 @@
 "
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 autocmd! User vim-go call LoadGo()
-" Plug 'garyburd/go-explorer'
+
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 
 if has('nvim')
@@ -35,12 +35,6 @@ function! LoadGo()
     au FileType go nnoremap <buffer> <silent> <leader>rt :w<CR>:GoImports<CR>:GoTest<CR>
     au FileType go nnoremap <buffer> <silent> <leader>rb :w<CR>:GoImports<CR>:GoBuild<CR>
     au FileType go nnoremap <buffer> <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverageToggle<CR>
-
-    " Fix syntastic lags
-    " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-    " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-    " au FileType go nmap <F5> <Plug>(go-run)
 
     au FileType go nmap <buffer> <Leader>ds <Plug>(go-def-split)
     au FileType go nmap <buffer> <Leader>dv <Plug>(go-def-vertical)

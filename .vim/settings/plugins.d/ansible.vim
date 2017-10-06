@@ -5,22 +5,18 @@ autocmd! User ansible-vim call LoadAnsible()
 
 function! LoadAnsible()
 
-    if exists('g:loaded_ansible')
-        return
-    endif
-    let g:loaded_ansible = 1
-
     let g:neomake_ansible_myansiblelint_maker = {
                 \ 'exe': 'ansible-lint',
-                \ 'args': ['-p', '--nocolor', '-r', '~/.vim/utils/lint'],
+                \ 'args': ['-p', '--nocolor', '-r', '~/.vim/local/utils/lint'],
                 \ 'errorformat': '%f:%l: [ER%n] %m',
                 \ }
 
     let g:neomake_ansible_myyamllint_maker = {
                 \ 'exe': 'yamllint',
-                \ 'args': "-f parsable -d ~/.vim/utils/lint/linter.yaml",
+                \ 'args': "-f parsable -d ~/.vim/local/utils/lint/linter.yaml",
                 \ 'errorformat': '%E%f:%l:%c: [error] %m,%W%f:%l:%c: [warning] %m',
                 \ }
 
     let g:neomake_ansible_enabled_makers = ['myansiblelint', 'myyamllint']
+
 endfunction

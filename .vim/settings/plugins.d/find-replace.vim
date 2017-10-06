@@ -1,5 +1,5 @@
 " Find and Replace
-
+"
 Plug 'brooth/far.vim'
 
 if has('nvim')

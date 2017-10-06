@@ -1,9 +1,3 @@
-" Map ctrl-movement keys to window switching
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-l> <C-w>l
-" nnoremap <C-h> <C-w>h
-
 map gr gT
 
 " Some shortcuts

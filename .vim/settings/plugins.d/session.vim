@@ -1,6 +1,6 @@
 " Sessions
 "
-let g:sessiondir = $HOME . "/.vim/sessions"
+let g:sessiondir = $HOME . "/.vim/local/sessions"
 
 function! MakeSession(file)
 

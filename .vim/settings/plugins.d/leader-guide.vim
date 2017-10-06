@@ -22,6 +22,7 @@ let g:lmap.s = { 'name' : 'Session' }
 let g:lmap.t = { 'name' : 'Tags' }
 let g:lmap.v = { 'name' : 'VBuf' }
 let g:lmap.w = { 'name' : 'Window' }
+let g:lmap.z = { 'name' : 'Zoom' }
 
 
 " Create new menus not based on existing mappings:

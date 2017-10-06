@@ -1,10 +1,7 @@
-" Plug 'rhysd/vim-grammarous'
+" Text focusing
+"
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/junegunn/limelight.vim'
-
-" " Grammar
-" let g:grammarous#languagetool_cmd = 'languagetool'
-" let g:grammarous#use_vim_spelllang = 1
 
 " Spell Check
 let g:myLangList=["nospell","en_us", "ru_ru"]
@@ -42,6 +39,7 @@ function! s:goyo_enter()
   set scrolloff=999
   set wrap
   Limelight
+  HardTimeOff
   " ...
 endfunction
 
@@ -53,6 +51,7 @@ function! s:goyo_leave()
   set scrolloff=5
   set nowrap
   Limelight!
+  HardTimeOn
   " ...
 endfunction
 

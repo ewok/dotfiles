@@ -1,4 +1,5 @@
-
+" Dash integration
+"
 Plug 'rizzatti/dash.vim'
 
 nnoremap <F1> :set isk+=.<CR>:Dash <cword><CR>:set isk-=.<CR>

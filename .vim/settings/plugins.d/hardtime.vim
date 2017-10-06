@@ -1,4 +1,5 @@
 " Hard Time
+"
 Plug 'takac/vim-hardtime'
 
 let g:hardtime_ignore_quickfix = 1

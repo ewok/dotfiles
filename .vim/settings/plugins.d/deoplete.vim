@@ -12,8 +12,6 @@ if has('nvim')
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-        " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-        " For no inserting <CR> key.
         return pumvisible() ? "\<C-y>" : "\<CR>"
     endfunction
 
@@ -23,12 +21,4 @@ if has('nvim')
     inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
-    " Enable omni completion.
-    "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    "autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    "" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    "autocmd FileType python setlocal omnifunc=jedi#completions
-    "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    "autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 endif

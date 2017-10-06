@@ -9,8 +9,3 @@ endif
 if has('nvim')
     map <C-W><BS> :vertical resize -6<CR>
 endif
-" make the current window bigger
-"set winheight=5
-"set winminheight=5
-"set winheight=999
-

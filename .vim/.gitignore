@@ -11,3 +11,4 @@ spell/
 *.vi
 utils/lint
 *.old
+local

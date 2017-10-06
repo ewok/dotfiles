@@ -7,7 +7,7 @@ endif
 runtime! settings/*.vim
 runtime! settings/first.d/*.vim
 
-call plug#begin()
+call plug#begin('~/.vim/local/plugged')
 runtime! settings/plugins.d/*.vim
 call plug#end()
 

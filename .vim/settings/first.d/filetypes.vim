@@ -27,6 +27,10 @@ autocmd! BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
 
 " Ansible/Yaml
 autocmd! BufNewFile,BufRead *.yaml,*.yml set filetype=ansible
-"
+
 " Aurora
 autocmd! BufNewFile,BufRead *.aurora set filetype=python
+
+" Morph
+autocmd! BufNewFile,BufRead *.b64,*.base64 set filetype=base64
+autocmd! BufNewFile,BufRead *.enc,*.gpg set filetype=encrypted
