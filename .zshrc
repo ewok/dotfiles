@@ -117,3 +117,4 @@ export FZF_COMPLETION_TRIGGER='*'
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi
+export PATH="/usr/local/opt/unzip/bin:$PATH"

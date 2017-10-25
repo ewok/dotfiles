@@ -18,6 +18,7 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:telnet:*' hosts $h
   zstyle ':completion:*:mosh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
+  zstyle ':completion:*:ping:*' hosts $h
 fi
 
 # SSH completion
