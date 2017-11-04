@@ -1,9 +1,6 @@
 " Other small plugins
 
-if has('nvim')
-    Plug 'sheerun/vim-polyglot'
-endif
-
+Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'

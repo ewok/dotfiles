@@ -5,9 +5,7 @@ else
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'benmills/vimux'
 
-    if has('nvim')
-        nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
-    endif
+    nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
     let g:tmux_navigator_save_on_switch = 2
     let g:tmux_navigator_disable_when_zoomed = 1

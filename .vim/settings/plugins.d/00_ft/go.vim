@@ -3,32 +3,28 @@
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 autocmd! User vim-go call LoadGo()
 
-Plug 'benmills/vimux-golang', { 'for': 'go' }
+" Plug 'benmills/vimux-golang', { 'for': 'go' }
 
-if has('nvim')
-    Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
-endif
+" Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
 
-Plug 'jodosha/vim-godebug', { 'for': 'go' }
+" Plug 'jodosha/vim-godebug', { 'for': 'go' }
 
 function! LoadGo()
 
     let $GOPATH = $HOME . '/share/gopath/' . fnamemodify(getcwd(), ':t')
     let $GOBIN = $HOME . '/.local/bin'
 
-    if has('nvim')
-        let g:go_highlight_functions = 1
-        let g:go_highlight_methods = 1
-        let g:go_highlight_structs = 1
-        let g:go_highlight_interfaces = 1
-        let g:go_highlight_operators = 1
-        let g:go_highlight_build_constraints = 1
-    endif
+    " let g:go_highlight_functions = 1
+    " let g:go_highlight_methods = 1
+    " let g:go_highlight_structs = 1
+    " let g:go_highlight_interfaces = 1
+    " let g:go_highlight_operators = 1
+    " let g:go_highlight_build_constraints = 1
 
     " let g:go_auto_type_info = 1
     let g:go_auto_sameids = 1
     " let g:go_fmt_autosave = 0
-    let g:go_fmt_command = "goimports"
+    " let g:go_fmt_command = "goimports"
 
     " Shortcuts
     au FileType go nnoremap <buffer> <silent> <leader>rr :w<CR>:GoImports<CR>:silent GoRun<CR>
@@ -39,7 +35,7 @@ function! LoadGo()
     au FileType go nmap <buffer> <Leader>ds <Plug>(go-def-split)
     au FileType go nmap <buffer> <Leader>dv <Plug>(go-def-vertical)
     au FileType go nmap <buffer> <Leader>dt <Plug>(go-def-tab)
-    au FileType go nmap <buffer> K <Plug>(go-doc)
+    " au FileType go nmap <buffer> K <Plug>(go-doc)
     au FileType go nmap <buffer> <Leader>di <Plug>(go-info)
 
 endfunction

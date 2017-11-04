@@ -6,6 +6,4 @@ if bufwinnr(1)
   map <C-W><C-H> :vertical resize -6<CR>
 endif
 
-if has('nvim')
-    map <C-W><BS> :vertical resize -6<CR>
-endif
+map <C-W><BS> :vertical resize -6<CR>
