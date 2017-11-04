@@ -1,0 +1,30 @@
+# Copyright (c) 2013-2014 Will Thames <will@thames.id.au>
+import os
+
+from ansiblelint import AnsibleLintRule
+try:
+    from ansible.utils.boolean import boolean
+except ImportError:
+    from ansible.utils import boolean
+
+
+class CommandsInsteadOfArgumentsRule(AnsibleLintRule):
+    id = 'R301'
+    shortdesc = 'Using command rather than an argument to e.g. file'
+    description = 'Executing a command when there is are arguments to modules ' + \
+                  'is generally a bad idea'
+    tags = ['resources']
+
+    _commands = ['command', 'shell', 'raw']
+    _arguments = {'chown': 'owner', 'chmod': 'mode', 'chgrp': 'group',
+                  'ln': 'state=link', 'mkdir': 'state=directory',
+                  'rmdir': 'state=absent', 'rm': 'state=absent'}
+
+    def matchtask(self, file, task):
+        if task["action"]["__ansible_module__"] in self._commands and \
+                task["action"]["__ansible_arguments__"]:
+            executable = os.path.basename(task["action"]["__ansible_arguments__"][0])
+            if executable in self._arguments and \
+                    boolean(task['action'].get('warn', True)):
+                message = "{0} used in place of argument {1} to file module"
+                return message.format(executable, self._arguments[executable])
