@@ -12,6 +12,3 @@ alias gitk='open -a SourceTree --args "${PWD}/"'
 
 # fzf
 alias cdf="cd \$(dirname \"\$(fzf)\")"
-
-# github hub
-alias git=hub
