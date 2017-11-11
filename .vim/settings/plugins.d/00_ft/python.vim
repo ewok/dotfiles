@@ -6,13 +6,13 @@ autocmd! FileType python call LoadPython()
 
 function! LoadPython()
 
-    let g:jedi#completions_command = "<c-space>"
-    let g:jedi#documentation_command = "K"
-    let g:jedi#goto_assignments_command = "<leader>jg"
-    let g:jedi#goto_command = "<c-]>"
-    let g:jedi#goto_definitions_command = ""
-    let g:jedi#rename_command = "<leader>jr"
-    let g:jedi#usages_command = "<leader>ju"
+    " let g:jedi#completions_command = "<c-space>"
+    " let g:jedi#documentation_command = "K"
+    " let g:jedi#goto_assignments_command = "<leader>jg"
+    " let g:jedi#goto_command = "<c-]>"
+    " let g:jedi#goto_definitions_command = ""
+    " let g:jedi#rename_command = "<leader>jr"
+    " let g:jedi#usages_command = "<leader>ju"
 
     set foldmethod=indent
     set foldlevel=0
