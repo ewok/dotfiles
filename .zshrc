@@ -69,7 +69,7 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-plugins=(ssh-agent emoji colored-man-pages golang tmux vault)
+plugins=(ssh-agent emoji colored-man-pages golang tmux vault vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
