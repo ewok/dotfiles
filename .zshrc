@@ -69,12 +69,12 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-plugins=(ssh-agent emoji colored-man-pages golang tmux vault vi-mode)
+plugins=(ssh-agent emoji colored-man-pages golang tmux vault)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
 # Set our default path
 PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
