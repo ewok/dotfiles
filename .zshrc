@@ -74,7 +74,7 @@ plugins=(ssh-agent emoji colored-man-pages golang tmux vault vi-mode vi-mode-pat
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
 # Set our default path
 PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
@@ -118,3 +118,6 @@ if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi
 export PATH="/usr/local/opt/unzip/bin:$PATH"
+
+export LC_ALL=ru_RU.UTF-8
+export LANG=ru_RU.UTF-8
