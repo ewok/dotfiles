@@ -105,8 +105,6 @@ gen### Vim template
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
 [._]sw[a-p]
-# session
-Session.vim
 # temporary
 .netrwhist
 *~

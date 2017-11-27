@@ -1,15 +1,10 @@
 .netrwhist
 .DS_Store
-sessions
-bundle
-plugged
-backups
 .cache
 .vbuf
 *~
 spell/
 *.vi
-utils/lint
 *.old
-local
+local/
 *.pyc
