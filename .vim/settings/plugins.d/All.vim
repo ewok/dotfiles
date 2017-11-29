@@ -12,7 +12,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'qpkorr/vim-bufkill'
 Plug 'dhruvasagar/vim-zoom'
-Plug 'chaoren/vim-wordmotion'
+" Plug 'chaoren/vim-wordmotion'
 
 " Fonts
 Plug 'powerline/fonts'
