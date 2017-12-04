@@ -1,10 +1,10 @@
 " NERDTree
 "
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeFind'] }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeTabsToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeTabsToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeTabsToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
 
-nnoremap <F2> :NERDTreeMirrorToggle<CR>
+nnoremap <F2> :NERDTreeTabsToggle<CR>
 nnoremap <leader>fp :NERDTreeFind<CR>
 
 let NERDTreeShowBookmarks=0
