@@ -5,6 +5,7 @@
 " one 'uber' configuration file.
 " Enjoy reading.
 " }}}
+
 " Something... ------------------------------------------------------------ {{{
 if has('unix')
     language messages C
@@ -16,7 +17,7 @@ endif
 " Basic options ----------------------------------------------------------- {{{
 let mapleader = " "
 
-" A big mess, should be reviewed {{{
+" -> A big mess, should be reviewed {{{
 set autoread
 set backspace=2
 set clipboard+=unnamedplus
@@ -82,10 +83,11 @@ scriptencoding utf-8
 
 
 " }}}
-" Wildmenu completion {{{
+" -> Wildmenu completion {{{
 "
 set wildmenu
 set wildmode=longest,list
+
 " ignores
 set wildignore+=*.o,*.obj,*.pyc
 set wildignore+=*.png,*.jpg,*.gif,*.ico
@@ -98,7 +100,8 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 
 " }}}
-" Cursorline {{{
+" -> Cursorline {{{
+"
 " cursorline switched while focus is switched to another split window
 
 augroup cline
@@ -107,14 +110,8 @@ augroup cline
     au WinEnter,InsertLeave * set cursorline
 augroup END
 
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:⌴
-    au InsertLeave * :set listchars+=trail:⌴
-augroup END
-
 " }}}
-" Restore cursor {{{
+" -> Restore cursor {{{
 
 augroup line_return
     au!
@@ -125,141 +122,8 @@ augroup line_return
 augroup END
 
 " }}}
-" }}}
-" Keymaps ----------------------------------------------------------------- {{{
-map gr gT
-
-" Some shortcuts
-nnoremap <C-W>t :tabnew<CR>
-nnoremap <C-W>C :BD<CR>
-
-" Buffers
-nnoremap <leader>bc :BD<CR>
-
-" Windows
-nnoremap <leader>wc :close<CR>
-nnoremap <leader>ws :split<CR>
-nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wn :new<CR>
-nnoremap <leader>wo :only<CR>
-nnoremap <leader>wt :tabnew<CR>
-nnoremap <leader>wC :BD<CR>
-nnoremap <silent><leader>wS :!tmux split-window -v -p 30<CR><CR>
-nnoremap <silent><C-W>S :!tmux split-window -v -p 30<CR><CR>
-nnoremap <silent><leader>wV :!tmux split-window -h -p 30<CR><CR>
-nnoremap <silent><C-W>V :!tmux split-window -h -p 30<CR><CR>
-
-" Keymap for folding
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
-
-" nnoremap <space> za
-" vnoremap <space> zf
-
-imap  <up>    <Nop>
-imap  <down>  <Nop>
-imap  <left>  <Nop>
-imap  <right> <Nop>
-
-nmap  <up>    <Nop>
-nmap  <down>  <Nop>
-nmap  <left>  <Nop>
-nmap  <right> <Nop>
-
-nnoremap H 0
-vnoremap H 0
-nnoremap L $
-vnoremap L $
-
-nnoremap Y y$
-
-" Don't yank to default register when changing something
-nnoremap c "xc
-xnoremap c "xc
+" -> NeoVim settings  {{{
 "
-" Don't cancel visual select when shifting
-xnoremap <  <gv
-xnoremap >  >gv
-
-" Keep the cursor in place while joining lines
-nnoremap J mzJ`z
-
-" [S]plit line (sister to [J]oin lines) S is covered by cc.
-nnoremap S mzi<CR><ESC>`z
-
-" split window resize
-if bufwinnr(1)
-  map <C-W><C-J> :resize +5<CR>
-  map <C-W><C-K> :resize -5<CR>
-  map <C-W><C-L> :vertical resize +6<CR>
-  map <C-W><C-H> :vertical resize -6<CR>
-endif
-
-map <C-W><BS> :vertical resize -6<CR>
-
-" Don't move cursor when searching via *
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
-
-" Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-" }}}
-" Folding ----------------------------------------------------------------- {{{
-" Thx Steve Losh
-set foldlevelstart=0
-
-" Space to toggle folds.
-nnoremap <silent> <leader><Space> za
-
-" Make zO recursively open whatever fold we're in, even if it's partially open.
-nnoremap zO zczO
-
-" "Focus" the current line.  Basically:
-"
-" 1. Close all folds.
-" 2. Open just the folds containing the current line.
-" 3. Move the line to a little bit (15 lines) above the center of the screen.
-"
-" This mapping wipes out the z mark, which I never use.
-"
-" I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> mzzMzvzz15<c-e>`z
-
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-set foldtext=MyFoldText()
-
-" }}}
-" Filetype-specific ------------------------------------------------------- {{{
-" Vim {{{
-augroup ft_vim
-    au!
-
-    au FileType vim setlocal foldmethod=marker keywordprg=:help
-    au FileType help setlocal textwidth=78
-    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
-
-    au FileType vim inoremap <c-n> <c-x><c-n>
-augroup END
-
-" }}}
-" }}}
-" NeoVim settings --------------------------------------------------------- {{{
 " Settigns for nvim only
 "
 set inccommand=nosplit
@@ -273,13 +137,12 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 nmap <BS> <C-h>
 tnoremap <Esc> <C-\><C-n>
 
-
 if (has("termguicolors"))
     set termguicolors
 endif
 
 " }}}
-" Deal with largefiles ---------------------------------------------------- {{{
+" -> Deal with largefiles  {{{
 "
 " Protect large files from sourcing and other overhead.
 " Files become read only
@@ -318,144 +181,203 @@ if !exists("my_auto_commands_loaded")
     augroup END
 endif
 " }}}
-" AutoSave feature -------------------------------------------------------- {{{
-"
-" Trigger autoread when changing buffers or coming back to vim.
-au FocusGained,BufEnter,WinEnter * :silent! !
-
-au! FileType vim,python,golang,go,ansible,puppet,json,sh call DefaultOn()
-
-function! DefaultOn()
-        if !exists("b:auto_save")
-            let b:auto_save = 1
-        endif
-endfunction
-
-set updatetime=4000
-
-let s:save_cpo = &cpo
-set cpo&vim
-
-if !exists("g:auto_save_silent")
-  let g:auto_save_silent = 0
-endif
-
-if !exists("g:auto_save_events")
-  let g:auto_save_events = ["CursorHold","BufLeave","FocusLost","WinLeave"]
-  " let g:auto_save_events = ["InsertLeave", "TextChanged", "CursorHold"]
-endif
-
-" Check all used events exist
-for event in g:auto_save_events
-  if !exists("##" . event)
-    let eventIndex = index(g:auto_save_events, event)
-    if (eventIndex >= 0)
-      call remove(g:auto_save_events, eventIndex)
-      echo "(AutoSave) Save on " . event . " event is not supported for your Vim version!"
-      echo "(AutoSave) " . event . " was removed from g:auto_save_events variable."
-      echo "(AutoSave) Please, upgrade your Vim to a newer version or use other events in g:auto_save_events!"
-    endif
+" -> Number Toggle  {{{
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
   endif
-endfor
+endfunc
 
-augroup auto_save
-  autocmd!
-  for event in g:auto_save_events
-    execute "au " . event . " * nested call AutoSave()"
-  endfor
+set rnu
+
+augroup rnu
+    au!
+    au InsertEnter * :set nornu
+    au InsertLeave * :set rnu
 augroup END
 
-function! AutoSave()
-    if &modified > 0
-        if !exists("b:auto_save")
-            let b:auto_save = 0
-        endif
-
-        if b:auto_save == 0
-            return
-        end
-
-
-        let was_modified = &modified
-
-        " Preserve marks that are used to remember start and
-        " end position of the last changed or yanked text (`:h '[`).
-        let first_char_pos = getpos("'[")
-        let last_char_pos = getpos("']")
-
-        call DoSave()
-
-        call setpos("'[", first_char_pos)
-        call setpos("']", last_char_pos)
-
-        if was_modified && !&modified
-            if g:auto_save_silent == 0
-                echo "(AutoSave) saved at " . strftime("%H:%M:%S")
-            endif
-        endif
-    endif
-endfunction
-
-function! DoSave()
-    silent! w
-endfunction
-
-function! ToggleAutoSave()
-        if !exists("b:auto_save")
-            let b:auto_save = 0
-        endif
-
-        if b:auto_save == 0
-            let b:auto_save = 1
-        else
-            let b:auto_save = 0
-        end
-endfunction
-
-command! ToggleAutoSave :call ToggleAutoSave()
-
-let &cpo = s:save_cpo
-unlet s:save_cpo
+" }}}
 
 " }}}
-" Filetypes determination ------------------------------------------------- {{{
+" Keymaps ----------------------------------------------------------------- {{{
+" -> Tabs {{{
+map gr gT
+nnoremap <C-W>t :tabnew<CR>
+
+"  }}}
+" -> Windows {{{
+nnoremap <leader>wc :close<CR>
+nnoremap <leader>ws :split<CR>
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wn :new<CR>
+nnoremap <leader>wo :only<CR>
+nnoremap <leader>wt :tabnew<CR>
+nnoremap <leader>wC :BD<CR>
+
+" Tmux?
+if exists('$TMUX')
+    nnoremap <silent><leader>wS :!tmux split-window -v -p 30<CR><CR>
+    nnoremap <silent><C-W>S :!tmux split-window -v -p 30<CR><CR>
+    nnoremap <silent><leader>wV :!tmux split-window -h -p 30<CR><CR>
+    nnoremap <silent><C-W>V :!tmux split-window -h -p 30<CR><CR>
+endif
+
+" split window resize
+if bufwinnr(1)
+  map <C-W><C-J> :resize +5<CR>
+  map <C-W><C-K> :resize -5<CR>
+  map <C-W><C-L> :vertical resize +6<CR>
+  map <C-W><C-H> :vertical resize -6<CR>
+  map <C-W><BS> :vertical resize -6<CR>
+endif
+
+"  }}}
+" -> Buffers {{{
+nnoremap <C-W>C :BD<CR>
+nnoremap <leader>bc :BD<CR>
+
+"  }}}
+" -> Folding {{{
+" Space to toggle folds.
+nnoremap <silent> <leader><Space> za
+vnoremap <silent> <leader><Space> zf
+
+" Make zO recursively open whatever fold we're in, even if it's partially open.
+nnoremap zO zczO
+
+" Close recursively
+nnoremap zC zcV:foldc!<CR>
+
+nnoremap <c-z> mzzMzvzz15<c-e>`z
+
+" }}}
+" -> Extra buffer {{{
+" Allow to copy/paste between VIM instances
+" "copy the current visual selection to ~/.vbuf
+vmap <Leader>vy :w! ~/.vim/.vbuf<CR>
+" "copy the current line to the buffer file if no visual selection
+nmap <Leader>vy :.w! ~/.vim/.vbuf<CR>
+" "paste the contents of the buffer file
+nmap <Leader>vp :r ~/.vim/.vbuf<CR>
+
+" }}}
+" -> Switch off bad habits {{{
+imap  <up>    <Nop>
+imap  <down>  <Nop>
+imap  <left>  <Nop>
+imap  <right> <Nop>
+
+nmap  <up>    <Nop>
+nmap  <down>  <Nop>
+nmap  <left>  <Nop>
+nmap  <right> <Nop>
+
+"  }}}
+" -> Some vim tunings {{{
+nnoremap Y y$
+
+" Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
 "
-" Objective-C
-autocmd! BufNewFile,BufRead *.m set filetype=objc
+" Don't cancel visual select when shifting
+xnoremap <  <gv
+xnoremap >  >gv
 
-" SCSS
-autocmd! BufNewFile,BufRead *.scss set filetype=scss.css
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
 
-" eRuby
-autocmd! BufNewFile,BufRead *.erb set filetype=eruby.html
+" [S]plit line (sister to [J]oin lines) S is covered by cc.
+nnoremap S mzi<CR><ESC>`z
 
-" JSON
-autocmd! BufNewFile,BufRead *.json set filetype=javascript
+" Don't move cursor when searching via *
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-" GitIgnore
-autocmd! BufNewFile,BufRead *.gitignore set filetype=gitignore
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
-" ZSH
-autocmd! BufNewFile,BufRead *.zsh-theme set filetype=zsh
+"  }}}
 
-" CocoaPods
-autocmd! BufNewFile,BufRead Podfile,*.podspec set filetype=ruby
+" }}}
+" Filetypes --------------------------------------------------------------- {{{
 
-" Haskell
-autocmd! BufNewFile,BufRead *.hs,*.lhs set filetype=haskell
+" -> Ansible/Yaml {{{
+augroup ft_ansible
+    au!
+    au BufNewFile,BufRead *.yaml,*.yml set filetype=ansible
+    au FileType ansible   setlocal commentstring=#\ %s
+augroup END
+"  }}}
+" -> Config {{{
+augroup ft_config
+    au!
+    au BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
+    au FileType config  setlocal commentstring=#\ %s
+augroup END
+"  }}}
+" -> GitIgnore {{{
+augroup ft_git
+    au!
+    au BufNewFile,BufRead *.gitignore set filetype=gitignore
+augroup END
+"  }}}
+" -> JSON {{{
+augroup ft_json
+    au!
+    au BufNewFile,BufRead *.json set filetype=javascript
+augroup END
+"  }}}
+" -> Haskell {{{
+augroup ft_haskell
+    au!
+    au BufNewFile,BufRead *.hs,*.lhs set filetype=haskell
+augroup END
+"  }}}
+" -> Morph {{{
+augroup ft_morph
+    au!
+    au BufNewFile,BufRead *.b64,*.base64 set filetype=base64
+    au BufNewFile,BufRead *.enc,*.gpg set filetype=encrypted
+augroup END
+"  }}}
+" -> Python {{{
+augroup ft_python
+    au!
+    au FileType python  setlocal commentstring=#\ %s
+augroup END
+"  }}}
+" -> Puppet {{{
+augroup ft_puppet
+    au!
+    au FileType puppet  setlocal commentstring=#\ %s
+augroup END
+"  }}}
+" -> Vim {{{
+augroup ft_vim
+    au!
 
-" Config
-autocmd! BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
+    au FileType vim setlocal foldmethod=marker keywordprg=:help
+    au FileType help setlocal textwidth=78
+    au FileType vim  setlocal commentstring=\"\ %s
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
-" Ansible/Yaml
-autocmd! BufNewFile,BufRead *.yaml,*.yml set filetype=ansible
+    au FileType vim inoremap <c-n> <c-x><c-n>
+    au FileType vim vnoremap <leader>S y:@"<CR>
+    au FileType vim nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
-" Aurora
-autocmd! BufNewFile,BufRead *.aurora set filetype=python
+augroup END
 
-" Morph
-autocmd! BufNewFile,BufRead *.b64,*.base64 set filetype=base64
-autocmd! BufNewFile,BufRead *.enc,*.gpg set filetype=encrypted
+" }}}
+" -> ZSH {{{
+augroup ft_zsh
+    au!
+    au BufNewFile,BufRead *.zsh-theme set filetype=zsh
+augroup END
+"  }}}
+
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
@@ -463,7 +385,6 @@ call plug#begin('~/.vim/local/plugged')
 
 " Small plugins {{{
 "
-
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim'
 Plug 'bronson/vim-trailing-whitespace'
@@ -476,7 +397,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'qpkorr/vim-bufkill'
 Plug 'dhruvasagar/vim-zoom'
-" Plug 'chaoren/vim-wordmotion'
+Plug 'chaoren/vim-wordmotion'
 
 " Fonts
 Plug 'powerline/fonts'
@@ -485,7 +406,7 @@ Plug 'powerline/fonts'
 Plug 'KeitaNakamura/neodark.vim'
 
 " Git time manager
-Plug 'git-time-metric/gtm-vim-plugin'
+" Plug 'git-time-metric/gtm-vim-plugin'
 
 let g:peekaboo_delay = 1000
 
@@ -496,37 +417,37 @@ endif
 
 " }}}
 " Filetype plugins {{{
-" Ansible {{{
+" -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 autocmd! User ansible-vim call LoadAnsible()
 
-function! LoadAnsible()
+function! LoadAnsible() " {{{
     let g:ale_ansible_yamllint_options = '-d ~/.vim/ansible_lint/linter.yaml'
     let g:ale_linters = {'ansible': ['ansible-custom', 'yamllint']}
-endfunction
+endfunction " }}}
+
 " }}}
-" CSV {{{
+" -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " }}}
-" Dlang {{{
+" -> Dlang {{{
 Plug 'idanarye/vim-dutyl', { 'for': 'd'  }
 autocmd! User vim-dutyl call Load_dutyl()
 
-function! Load_dutyl()
+function! Load_dutyl() " {{{
     let g:dutyl_stdImportPaths=['/Library/D/dmd/src/druntime/import','/Library/D/dmd/src/phobos']
-endfunction
+endfunction " }}}
+
 " }}}
-" Go {{{
+" -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
-
 " Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
-
 " Plug 'jodosha/vim-godebug', { 'for': 'go' }
 
-function! LoadGo()
+function! LoadGo() " {{{
 
     let $GOPATH = $HOME . '/share/gopath/' . fnamemodify(getcwd(), ':t')
     let $GOBIN = $HOME . '/.local/bin'
@@ -555,9 +476,10 @@ function! LoadGo()
     " au FileType go nmap <buffer> K <Plug>(go-doc)
     au FileType go nmap <buffer> <Leader>di <Plug>(go-info)
 
-endfunction
+endfunction " }}}
+
 " }}}
-" Markdown {{{
+" -> Markdown {{{
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!npm install -g livedown' }
@@ -566,22 +488,22 @@ let g:livedown_browser = 'Safari'
 " let g:livedown_autorun = 1
 let g:livedown_port = 14545
 " }}}
-" Org mode {{{
+" -> Org mode {{{
 Plug 'tpope/vim-speeddating', { 'for': ['org','orgtodo', 'orgagenda'] }
 Plug 'jceb/vim-orgmode', { 'for': ['org','orgtodo', 'orgagenda'] }
 " }}}
-" Puppet {{{
+" -> Puppet {{{
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 
 " Prevent puppet plugin change alligment
 let g:puppet_align_hashes = 0
 " }}}
-" Python {{{
+" -> Python {{{
 " Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': 'make' }
 " autocmd! User deoplete-jedi call LoadPython()
 autocmd! FileType python call LoadPython()
 
-function! LoadPython()
+function! LoadPython() " {{{
 
     " let g:jedi#completions_command = "<c-space>"
     " let g:jedi#documentation_command = "K"
@@ -601,28 +523,34 @@ function! LoadPython()
     au FileType python map <silent> <buffer> <leader>b oimport pdb; pdb.set_trace()<esc>
     au FileType python map <silent> <buffer> <leader>B Oimport pdb; pdb.set_trace()<esc>
 
-endfunction
+endfunction " }}}
 
 " }}}
-" Salt {{{
+" -> Salt {{{
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 " }}}
-" SQL {{{
+" -> SQL {{{
 Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
-" VIM {{{
+" -> VIM {{{
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 autocmd! User neco-vim call LoadNeco()
-function! LoadNeco()
-    au FileType vim nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
-endfunction
+
+function! LoadNeco() " {{{
+    augroup ft_vim
+        au!
+        au FileType vim nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
+    augroup END
+endfunction " }}}
+
 " }}}
-" XML {{{
+" -> XML {{{
 Plug 'sukima/xmledit', { 'do': 'make', 'for': ['xml', 'html'] }
+
 " }}}
 " }}}
 " Info plugins {{{
-" Dash {{{
+" -> Dash {{{
 Plug 'rizzatti/dash.vim'
 
 nnoremap <F1> :set isk+=.<CR>:Dash <cword><CR>:set isk-=.<CR>
@@ -630,7 +558,7 @@ inoremap <F1> <ESC>:set isk+=.<CR>:Dash <cword><CR>:set isk-=.<CR>a
 " }}}
 " }}}
 " Motion plugins {{{
-" Easymotion {{{
+" -> Easymotion {{{
 Plug 'easymotion/vim-easymotion'
 
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -651,12 +579,12 @@ map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
 map sh <Plug>(easymotion-linebackward)
 " }}}
-" FML {{{
+" -> FML {{{
 Plug 'ktonga/vim-follow-my-lead'
 
 let g:fml_all_sources = 1
 " }}}
-" Hardtime {{{
+" -> Hardtime {{{
 Plug 'takac/vim-hardtime'
 
 let g:hardtime_ignore_quickfix = 1
@@ -670,7 +598,8 @@ let g:list_of_disabled_keys = []
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
 " }}}
-" Leaderguide {{{
+" -> Leaderguide {{{
+" TODO: Doesn't work labels
 Plug 'hecal3/vim-leader-guide'
 autocmd! User vim-leader-guide call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 
@@ -713,7 +642,7 @@ vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " }}}
 " }}}
 " Text plugins {{{
-" Drag blocks {{{
+" -> Drag blocks {{{
 Plug 'zirrostig/vim-schlepp'
 
 vmap <unique> <up>    <Plug>SchleppUp
@@ -721,13 +650,13 @@ vmap <unique> <down>  <Plug>SchleppDown
 vmap <unique> <left>  <Plug>SchleppLeft
 vmap <unique> <right> <Plug>SchleppRight
 " }}}
-" Easyalign {{{
+" -> Easyalign {{{
 Plug 'junegunn/vim-easy-align'
 
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 " }}}
-" Find and Replace {{{
+" -> Find and Replace {{{
 Plug 'brooth/far.vim'
 
 let g:far#source = 'agnvim'
@@ -737,11 +666,14 @@ nnoremap <leader>fr :Far<space>
 vnoremap <leader>fr :Far<space>
 
 " }}}
-" Morph {{{
+" -> Morph {{{
 Plug 'd0c-s4vage/vim-morph', { 'on': 'Morph' }
 " , { 'for': [ 'base64', 'encrypted']}
 
-au! FileType base64,encrypted :Morph
+augroup ft_morph
+    au!
+    au FileType base64,encrypted :Morph
+augroup END
 
 command! Morph call Morph()
 
@@ -754,7 +686,7 @@ function! Morph()
 endfunction
 
 " }}}
-" Mundo {{{
+" -> Mundo {{{
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
 nnoremap <silent> <leader>u :MundoToggle<CR><CR>
@@ -765,7 +697,7 @@ if has('persistent_undo')
   set undofile
 endif
 " }}}
-" Surround {{{
+" -> Surround {{{
 Plug 'tpope/vim-surround'
 
 let g:surround_113="#{\r}"     " v
@@ -778,7 +710,7 @@ let g:surround_{char2nr("d")} = "<div\1id: \r..*\r id=\"&\"\1>\r</div>"
 " xml
 let g:surround_{char2nr("x")} = "<\1id: \r..*\r&\1>\r</\1\1>"
 " }}}
-" Texting {{{
+" -> Texting {{{
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/junegunn/limelight.vim'
 
@@ -839,7 +771,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 map <silent> <F8> :Goyo<CR>
 " }}}
-" Xkb {{{
+" -> Xkb {{{
 Plug 'lyokha/vim-xkbswitch'
 
 " git clone https://github.com/vovkasm/input-source-switcher.git
@@ -855,7 +787,7 @@ let g:XkbSwitchEnabled = 1
 let g:XkbSwitchSkipFt = [ 'nerdtree' ]
 
 " }}}
-" Yank {{{
+" -> Yank {{{
 Plug 'idanarye/vim-yankitute'
 
 nmap <expr>  MR  ':%s/\(' . @/ . '\)//g<LEFT><LEFT>'
@@ -865,7 +797,7 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 " }}}
 " }}}
 " UI plugins {{{
-" Buffers {{{
+" -> Buffers {{{
 Plug 'jeetsukumaran/vim-buffergator', { 'on': 'BuffergatorToggle' }
 
 let g:buffergator_suppress_keymaps=1
@@ -874,7 +806,7 @@ let g:buffergator_viewport_split_policy="B"
 nnoremap <silent> <F4> :BuffergatorToggle<CR>
 nnoremap <silent> <leader>pB :BuffergatorToggle<CR>
 " }}}
-" Fuzzy {{{
+" -> Fuzzy {{{
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -913,7 +845,7 @@ let g:fzf_action = {
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " }}}
-" Indent-guides {{{
+" -> Indent-guides {{{
 Plug 'nathanaelkane/vim-indent-guides'
 
 let g:indent_guides_auto_colors = 0
@@ -927,7 +859,7 @@ if g:largefile != 1
     autocmd VimEnter * :IndentGuidesEnable
 endif
 " }}}
-" Lightline {{{
+" -> Lightline {{{
 Plug 'itchyny/lightline.vim'
 autocmd! User lightline call LoadLight()
 
@@ -938,12 +870,12 @@ function LoadLight()
 
 endfunction
 " }}}
-" NERTree {{{
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeTogle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeTogle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeTogle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+" -> NERTree {{{
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
 
-nnoremap <F2> :NERDTreeTogle<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <leader>fp :NERDTreeFind<CR>
 
 let NERDTreeShowBookmarks=0
@@ -962,7 +894,7 @@ let NERDTreeIgnore=['\.pyc$']
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapOpenSplit='s'
 " }}}
-" Tmux {{{
+" -> Tmux {{{
 if has('gui_running')
 else
     Plug 'christoomey/vim-tmux-navigator'
@@ -978,18 +910,12 @@ endif
 " }}}
 " }}}
 " Code plugins {{{
-" Commentary {{{
+" -> Commentary {{{
 Plug 'https://github.com/tpope/vim-commentary.git'
 
 set commentstring=#\ %s
-autocmd FileType python  setlocal commentstring=#\ %s
-autocmd FileType vim     setlocal commentstring=\"\ %s
-autocmd FileType config  setlocal commentstring=#\ %s
-autocmd FileType puppet  setlocal commentstring=#\ %s
-autocmd FileType rubby   setlocal commentstring=#\ %s
-autocmd FileType ansible   setlocal commentstring=#\ %s
 " }}}
-" Autocompletion {{{
+" -> Autocompletion {{{
 Plug 'roxma/nvim-completion-manager'
 
 " don't give |ins-completion-menu| messages.  For example,
@@ -1000,7 +926,7 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
 imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
 " }}}
-" Ctags {{{
+" -> Ctags {{{
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 autocmd! User tagbar call LoadTagBar()
 
@@ -1095,7 +1021,7 @@ function! LoadTagBar()
 
 endfunction
 " }}}
-" TODO: Check actuality Folding  {{{
+" -> TODO: Check actuality Folding  {{{
 Plug 'pseewald/vim-anyfold'
 
 if g:largefile != 1
@@ -1103,7 +1029,7 @@ if g:largefile != 1
 endif
 
 " }}}
-" Git {{{
+" -> Git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
@@ -1141,7 +1067,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <silent> <leader>gH :GV<CR>
 " }}}
-" Langserver {{{
+" -> Langserver {{{
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 " Required for operations modifying multiple buffers like rename.
@@ -1159,7 +1085,7 @@ nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 " nnoremap <silent>  :call LanguageClient_textDocument_rename()<CR>
 " }}}
-" Linter {{{
+" -> Linter {{{
 Plug 'w0rp/ale'
 
 " let g:ale_set_loclist = 0
@@ -1169,7 +1095,7 @@ let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 
 " }}}
-" Snippet {{{
+" -> Snippet {{{
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'kiith-sa/DSnips'
@@ -1188,10 +1114,13 @@ endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 " }}}
+
 call plug#end()
+
 " }}}
-" My plugins -------------------------------------------------------------- {{{
-" Sessions {{{
+" Simple plugins ---------------------------------------------------------- {{{
+
+" -> Sessions {{{
 let g:sessiondir = $HOME . "/.vim/local/sessions"
 
 function! MakeSession(file)
@@ -1309,17 +1238,137 @@ nnoremap <leader>sq :CloseSessionAndExit<CR>
 nnoremap <leader>sx :CloseSession<CR>
 nnoremap <leader>sk :DeleteSessionCurrent<CR>
 " }}}
+" -> Folding {{{
+" Thx Steve Losh
+set foldlevelstart=0
+
+" "Focus" the current line.  Basically:
+"
+" 1. Close all folds.
+" 2. Open just the folds containing the current line.
+" 3. Move the line to a little bit (15 lines) above the center of the screen.
+"
+" This mapping wipes out the z mark, which I never use.
+"
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
+set foldtext=MyFoldText()
+
 " }}}
-" Colorscheme ------------------------------------------------------------- {{{
-let g:neodark#background = '#282c34'
+" -> AutoSave feature {{{
+"
+" Trigger autoread when changing buffers or coming back to vim.
+au FocusGained,BufEnter,WinEnter * :silent! !
 
-colorscheme neodark
+au! FileType vim,python,golang,go,ansible,puppet,json,sh call DefaultOn()
 
-let g:lightline = {}
-let g:lightline.colorscheme = 'neodark'
+function! DefaultOn()
+        if !exists("b:auto_save")
+            let b:auto_save = 1
+        endif
+endfunction
+
+set updatetime=4000
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+if !exists("g:auto_save_silent")
+  let g:auto_save_silent = 0
+endif
+
+if !exists("g:auto_save_events")
+  let g:auto_save_events = ["CursorHold","BufLeave","FocusLost","WinLeave"]
+  " let g:auto_save_events = ["InsertLeave", "TextChanged", "CursorHold"]
+endif
+
+" Check all used events exist
+for event in g:auto_save_events
+  if !exists("##" . event)
+    let eventIndex = index(g:auto_save_events, event)
+    if (eventIndex >= 0)
+      call remove(g:auto_save_events, eventIndex)
+      echo "(AutoSave) Save on " . event . " event is not supported for your Vim version!"
+      echo "(AutoSave) " . event . " was removed from g:auto_save_events variable."
+      echo "(AutoSave) Please, upgrade your Vim to a newer version or use other events in g:auto_save_events!"
+    endif
+  endif
+endfor
+
+augroup auto_save
+  autocmd!
+  for event in g:auto_save_events
+    execute "au " . event . " * nested call AutoSave()"
+  endfor
+augroup END
+
+function! AutoSave()
+    if &modified > 0
+        if !exists("b:auto_save")
+            let b:auto_save = 0
+        endif
+
+        if b:auto_save == 0
+            return
+        end
+
+
+        let was_modified = &modified
+
+        " Preserve marks that are used to remember start and
+        " end position of the last changed or yanked text (`:h '[`).
+        let first_char_pos = getpos("'[")
+        let last_char_pos = getpos("']")
+
+        call DoSave()
+
+        call setpos("'[", first_char_pos)
+        call setpos("']", last_char_pos)
+
+        if was_modified && !&modified
+            if g:auto_save_silent == 0
+                echo "(AutoSave) saved at " . strftime("%H:%M:%S")
+            endif
+        endif
+    endif
+endfunction
+
+function! DoSave()
+    silent! w
+endfunction
+
+function! ToggleAutoSave()
+        if !exists("b:auto_save")
+            let b:auto_save = 0
+        endif
+
+        if b:auto_save == 0
+            let b:auto_save = 1
+        else
+            let b:auto_save = 0
+        end
+endfunction
+
+command! ToggleAutoSave :call ToggleAutoSave()
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " }}}
-" Quickfix ---------------------------------------------------------------- {{{
+" -> Quickfix {{{
 "
 " QuickFix Window, which is borrowed from c9s
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
@@ -1334,7 +1383,6 @@ function! QFixToggle(forced)
   endif
 endfunction
 
-
 autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
 
 nnoremap <leader>qq :QFix<CR>
@@ -1342,29 +1390,17 @@ nnoremap <leader>qco :copen<CR>
 nnoremap <leader>qcc :cclose<CR>
 nnoremap <leader>qlo :lopen<CR>
 nnoremap <leader>qlc :lclose<CR>
-" }}}
-" Extra buffer -----------------------------------------------------------  {{{
-" Allow to copy/paste between VIM instances
-" "copy the current visual selection to ~/.vbuf
-vmap <Leader>vy :w! ~/.vim/.vbuf<CR>
-" "copy the current line to the buffer file if no visual selection
-nmap <Leader>vy :.w! ~/.vim/.vbuf<CR>
-" "paste the contents of the buffer file
-nmap <Leader>vp :r ~/.vim/.vbuf<CR>
 
 " }}}
-" Number Toggle ----------------------------------------------------------- {{{
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set nornu
-  else
-    set rnu
-  endif
-endfunc
 
-set rnu
-au InsertEnter * :set nornu
-au InsertLeave * :set rnu
+" }}}
+" Colorscheme ------------------------------------------------------------- {{{
+let g:neodark#background = '#282c34'
+
+colorscheme neodark
+
+let g:lightline = {}
+let g:lightline.colorscheme = 'neodark'
 
 " }}}
 
