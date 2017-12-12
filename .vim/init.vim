@@ -479,6 +479,9 @@ function! LoadGo() " {{{
 endfunction " }}}
 
 " }}}
+" -> Logstash {{{
+Plug 'robbles/logstash.vim'
+"  }}}
 " -> Markdown {{{
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
