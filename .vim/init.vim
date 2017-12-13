@@ -336,6 +336,12 @@ augroup ft_haskell
     au BufNewFile,BufRead *.hs,*.lhs set filetype=haskell
 augroup END
 "  }}}
+" -> Logstash {{{
+augroup ft_logstash
+    au!
+    au FileType logstash setlocal foldmethod=marker|setlocal foldmarker={,}
+augroup END
+"  }}}
 " -> Morph {{{
 augroup ft_morph
     au!
