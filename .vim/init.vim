@@ -339,7 +339,7 @@ augroup END
 " -> Logstash {{{
 augroup ft_logstash
     au!
-    au FileType logstash setlocal foldmethod=marker|setlocal foldmarker={,}
+    au FileType logstash setlocal foldmethod=marker|setlocal foldmarker={,}|setlocal wrap
 augroup END
 "  }}}
 " -> Morph {{{
