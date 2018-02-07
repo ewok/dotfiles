@@ -356,6 +356,9 @@ augroup END
 augroup ft_python
     au!
     au FileType python  setlocal commentstring=#\ %s
+    au FileType python map <buffer> <leader>rr :w\|!python % <CR>
+    au FileType python map <silent> <buffer> <leader>b oimport pudb; pudb.set_trace()<esc>
+    au FileType python map <silent> <buffer> <leader>B Oimport pudb; pudb.set_trace()<esc>
 augroup END
 "  }}}
 " -> Puppet {{{
@@ -531,10 +534,6 @@ function! LoadPython() " {{{
     set foldnestmax=2
 
     let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
-
-    au FileType python map <buffer> <leader>rr :w\|!python % <CR>
-    au FileType python map <silent> <buffer> <leader>b oimport pdb; pdb.set_trace()<esc>
-    au FileType python map <silent> <buffer> <leader>B Oimport pdb; pdb.set_trace()<esc>
 
 endfunction " }}}
 
