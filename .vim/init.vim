@@ -48,7 +48,7 @@ set title
 set titlestring=%F
 set ttyfast
 set undolevels=100
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set viminfo='5,\"10,:10,n~/.viminfo
 set exrc
 set secure
 
