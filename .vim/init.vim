@@ -201,6 +201,23 @@ augroup END
 " }}}
 
 " }}}
+
+" -> Leader Initialisation {{{
+" Define prefix dictionary
+let g:lmap =  {}
+let g:lmap.r = { 'name': 'Run/' }
+let g:lmap.w = { 'name': 'Window/' }
+let g:lmap.b = { 'name': 'Buffer/' }
+let g:lmap.f = { 'name': 'Find/' }
+let g:lmap.p = { 'name': 'CtrlP/'}
+let g:lmap.g = { 'name': 'Git/'}
+let g:lmap.o = { 'name': 'Options/'}
+let g:lmap.t = { 'name': 'Tags/' }
+let g:lmap.s = { 'name': 'Session/' }
+let g:lmap.q = { 'name': 'QFix/' }
+
+"  }}}
+
 " Keymaps ----------------------------------------------------------------- {{{
 " -> Tabs {{{
 map gr gT
@@ -208,20 +225,22 @@ nnoremap <C-W>t :tabnew<CR>
 
 "  }}}
 " -> Windows {{{
-nnoremap <leader>wc :close<CR>
-nnoremap <leader>ws :split<CR>
-nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wn :new<CR>
-nnoremap <leader>wo :only<CR>
-nnoremap <leader>wt :tabnew<CR>
-nnoremap <leader>wC :BD<CR>
+let g:lmap.w.c = [ 'close', 'close' ]
+let g:lmap.w.s = [ 'split', 'split' ]
+let g:lmap.w.v = [ 'vsplit', 'vsplit' ]
+let g:lmap.w.n = [ 'new', 'new' ]
+let g:lmap.w.o = [ 'only', 'only' ]
+let g:lmap.w.t = [ 'tabnew', 'new-tab' ]
 
 " Tmux?
 if exists('$TMUX')
-    nnoremap <silent><leader>wS :!tmux split-window -v -p 30<CR><CR>
-    nnoremap <silent><C-W>S :!tmux split-window -v -p 30<CR><CR>
-    nnoremap <silent><leader>wV :!tmux split-window -h -p 30<CR><CR>
-    nnoremap <silent><C-W>V :!tmux split-window -h -p 30<CR><CR>
+    nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 30<CR><CR>
+    nmap <leader>wS <Plug>(window_split-tmux)
+    nmap <silent><C-W>S <Plug>(window_split-tmux)
+
+    nnoremap <Plug>(window_vsplit-tmux) :!tmux split-window -h -p 30<CR><CR>
+    nmap <leader>wV <Plug>(window_vsplit-tmux)
+    nmap <silent><C-W>V <Plug>(window_vsplit-tmux)
 endif
 
 " split window resize
@@ -235,14 +254,24 @@ endif
 
 "  }}}
 " -> Buffers {{{
-nnoremap <C-W>C :BD<CR>
-nnoremap <leader>bc :BD<CR>
+" Allow to copy/paste between VIM instances
+" "copy the current visual selection to ~/.vbuf
+vmap <Plug>(buffer_VYank) :w! ~/.vim/.vbuf<CR>
+vmap <leader>by <Plug>(buffer_VYank)
 
-"  }}}
+" "copy the current line to the buffer file if no visual selection
+nmap <Plug>(buffer_Yank) :.w! ~/.vim/.vbuf<CR>
+nmap <leader>by <Plug>(buffer_Yank)
+
+" "paste the contents of the buffer file
+nmap <Plug>(buffer_Paste) :r ~/.vim/.vbuf<CR>
+nmap <leader>bp <Plug>(buffer_Paste)
+
+" }}}
 " -> Folding {{{
 " Space to toggle folds.
-nnoremap <silent> <leader><Space> za
-vnoremap <silent> <leader><Space> zf
+nnoremap <silent> <leader><leader> za
+vnoremap <silent> <leader><leader> zf
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
@@ -251,16 +280,6 @@ nnoremap zO zczO
 nnoremap zC zcV:foldc!<CR>
 
 nnoremap <c-z> mzzMzvzz15<c-e>`z
-
-" }}}
-" -> Extra buffer {{{
-" Allow to copy/paste between VIM instances
-" "copy the current visual selection to ~/.vbuf
-vmap <Leader>vy :w! ~/.vim/.vbuf<CR>
-" "copy the current line to the buffer file if no visual selection
-nmap <Leader>vy :.w! ~/.vim/.vbuf<CR>
-" "paste the contents of the buffer file
-nmap <Leader>vp :r ~/.vim/.vbuf<CR>
 
 " }}}
 " -> Switch off bad habits {{{
@@ -306,7 +325,6 @@ nnoremap L $
 
 " }}}
 " Filetypes --------------------------------------------------------------- {{{
-
 " -> Ansible/Yaml {{{
 augroup ft_ansible
     au!
@@ -357,8 +375,9 @@ augroup ft_python
     au!
     au FileType python  setlocal commentstring=#\ %s
     au FileType python map <buffer> <leader>rr :w\|!python % <CR>
-    au FileType python map <silent> <buffer> <leader>b oimport pudb; pudb.set_trace()<esc>
-    au FileType python map <silent> <buffer> <leader>B Oimport pudb; pudb.set_trace()<esc>
+
+    nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
+    au FileType python map <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
 augroup END
 "  }}}
 " -> Puppet {{{
@@ -377,8 +396,8 @@ augroup ft_vim
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
     au FileType vim inoremap <c-n> <c-x><c-n>
-    au FileType vim vnoremap <leader>S y:@"<CR>
-    au FileType vim nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+    au FileType vim vnoremap <leader>rS y:@"<CR>
+    au FileType vim nnoremap <leader>rS ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
 augroup END
 
@@ -407,8 +426,6 @@ Plug 'tpope/vim-repeat'
 Plug 'vitorgalvao/autoswap_mac'
 Plug 'tomtom/tlib_vim'
 Plug 'itchyny/vim-cursorword'
-Plug 'qpkorr/vim-bufkill'
-Plug 'dhruvasagar/vim-zoom'
 Plug 'chaoren/vim-wordmotion'
 
 " Fonts
@@ -421,11 +438,6 @@ Plug 'KeitaNakamura/neodark.vim'
 " Plug 'git-time-metric/gtm-vim-plugin'
 
 let g:peekaboo_delay = 1000
-
-" vim-zoom
-if !hasmapto('<Plug>(zoom-toggle)')
-    nnoremap <silent> <Leader>z :call zoom#toggle()<CR>
-endif
 
 " }}}
 " Filetype plugins {{{
@@ -477,16 +489,22 @@ function! LoadGo() " {{{
     " let g:go_fmt_command = "goimports"
 
     " Shortcuts
-    au FileType go nnoremap <buffer> <silent> <leader>rr :w<CR>:GoImports<CR>:silent GoRun<CR>
-    au FileType go nnoremap <buffer> <silent> <leader>rt :w<CR>:GoImports<CR>:GoTest<CR>
-    au FileType go nnoremap <buffer> <silent> <leader>rb :w<CR>:GoImports<CR>:GoBuild<CR>
-    au FileType go nnoremap <buffer> <silent> <leader>rc :w<CR>:GoImports<CR>:GoCoverageToggle<CR>
+    nmap <Plug>(go_Run) :silent GoRun<CR>
+    nmap <Plug>(go_Test) :GoTest<CR>
+    nmap <Plug>(go_Build) :GoBuild<CR>
+    nmap <Plug>(go_Coverage-Toggle) :GoCoverageToggle<CR>
 
-    au FileType go nmap <buffer> <Leader>ds <Plug>(go-def-split)
-    au FileType go nmap <buffer> <Leader>dv <Plug>(go-def-vertical)
-    au FileType go nmap <buffer> <Leader>dt <Plug>(go-def-tab)
+    au FileType go map <buffer> <silent> <leader>rr <Plug>(go_Run)
+    au FileType go map <buffer> <silent> <leader>rt <Plug>(go_Test)
+    au FileType go map <buffer> <silent> <leader>rb <Plug>(go_Build)
+    au FileType go map <buffer> <silent> <leader>rc <Plug>(go_Coverage-Toggle)
+
+    let g:lmap.r.d = { 'name': 'Definition' }
+    au FileType go nmap <buffer> <Leader>rds <Plug>(go-def-split)
+    au FileType go nmap <buffer> <Leader>rdv <Plug>(go-def-vertical)
+    au FileType go nmap <buffer> <Leader>rdt <Plug>(go-def-tab)
     " au FileType go nmap <buffer> K <Plug>(go-doc)
-    au FileType go nmap <buffer> <Leader>di <Plug>(go-info)
+    au FileType go nmap <buffer> <Leader>rdi <Plug>(go-info)
 
 endfunction " }}}
 
@@ -594,6 +612,8 @@ map sh <Plug>(easymotion-linebackward)
 " -> FML {{{
 Plug 'ktonga/vim-follow-my-lead'
 
+let g:lmap.f.m = { 'name': "My/" }
+
 let g:fml_all_sources = 1
 " }}}
 " -> Hardtime {{{
@@ -611,46 +631,24 @@ let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
 " }}}
 " -> Leaderguide {{{
-" TODO: Doesn't work labels
 Plug 'hecal3/vim-leader-guide'
-autocmd! User vim-leader-guide call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 
-" Define prefix dictionary
-let g:lmap =  {}
-
-" Second level dictionaries:
-let g:lmap.b = { 'name' : 'Buffer' }
-let g:lmap.f = { 'name' : 'Find' }
-let g:lmap.f.m = { 'name' : ':Follow my' }
-let g:lmap.g = { 'name' : 'Git' }
-let g:lmap.g.p = { 'name' : ':Push OR :Pull' }
-let g:lmap.i = { 'name' : 'Indent' }
-" let g:lmap.m = { 'name' : 'Markdown' }
-" let g:lmap.m.p = { 'name' : ':Preview' }
-let g:lmap.p = { 'name' : 'PopUp' }
-let g:lmap.q = { 'name' : 'Quick' }
-let g:lmap.r = { 'name' : 'Run' }
-let g:lmap.s = { 'name' : 'Session' }
-let g:lmap.t = { 'name' : 'Tags' }
-let g:lmap.v = { 'name' : 'VBuf' }
-let g:lmap.w = { 'name' : 'Window' }
-let g:lmap.z = { 'name' : 'Zoom' }
-
-
-" Create new menus not based on existing mappings:
-" let g:lmap.g = {
-"                 \'name' : 'Git Menu',
-"                 \'s' : ['Gstatus', 'Git Status'],
-"                 \'p' : ['Gpull',   'Git Pull'],
-"                 \'u' : ['Gpush',   'Git Push'],
-"                 \'c' : ['Gcommit', 'Git Commit'],
-"                 \'w' : ['Gwrite',  'Git Write'],
-"                 \}
-"
+function! s:my_displayfunc()
+        let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
+        let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '^<Plug>(.*_\(.*\))', '\1', '')
+        let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '[-_]', ' ', '')
+        let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '[:]', '', '')
+endfunction
+let g:leaderGuide_displayfunc = [function("s:my_displayfunc")]
 
 nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 
+" }}}
 " }}}
 " }}}
 " Text plugins {{{
@@ -701,7 +699,8 @@ endfunction
 " -> Mundo {{{
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-nnoremap <silent> <leader>u :MundoToggle<CR><CR>
+nmap <Plug>(undo_Undo) :MundoToggle<CR><CR>
+nmap <silent> <leader>u <Plug>(undo_Undo)
 "
 if has('persistent_undo')
   silent !mkdir ~/.vim/local/backups > /dev/null 2>&1
@@ -816,7 +815,7 @@ let g:buffergator_suppress_keymaps=1
 let g:buffergator_viewport_split_policy="B"
 
 nnoremap <silent> <F4> :BuffergatorToggle<CR>
-nnoremap <silent> <leader>pB :BuffergatorToggle<CR>
+nnoremap <silent> <leader>bb :BuffergatorToggle<CR>
 " }}}
 " -> Fuzzy {{{
 Plug 'junegunn/fzf'
@@ -830,14 +829,21 @@ nnoremap <silent> <leader>pm :Marks<cr>
 nnoremap <silent> <leader>pb :Buffers<cr>
 nnoremap <silent> <leader>pf :Filetypes<cr>
 
-nnoremap <silent> <leader>gf :GFiles?<cr>
-nnoremap <silent> <leader>gh :Commits<cr>
-nnoremap <silent> <leader>gbc :BCommits<cr>
+nnoremap <Plug>(git_Files) :GFiles?<cr>
+nnoremap <Plug>(git_History) :Commits<cr>
+nnoremap <Plug>(git_File-History) :BCommits<cr>
+
+nmap <silent> <leader>gf <Plug>(git_Files)
+nmap <silent> <leader>gh  <Plug>(git_History)
+nmap <silent> <leader>gbc <Plug>(git_File-History)
 
 
 command! -bang FT call fzf#vim#filetypes(<bang>0)
-nnoremap <silent> <leader>ft :FT<cr>
-nnoremap <silent> <leader>ff :Ag<CR>
+nnoremap <Plug>(options_File-Type) :FT<CR>
+nmap <silent> <leader>ot <Plug>(options_File-Type)
+
+nnoremap <Plug>(find_String) :Ag<CR>
+nmap <silent> <leader>ff <Plug>(find_String)
 
 nnoremap <silent> <c-p><c-p> <nop>
 nnoremap <silent> <c-p><c-t> <nop>
@@ -866,6 +872,7 @@ hi IndentGuidesEven ctermbg=236
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
+let g:indent_guides_default_mapping = 0
 
 if g:largefile != 1
     autocmd VimEnter * :IndentGuidesEnable
@@ -888,7 +895,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen
 Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
 
 nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <leader>fp :NERDTreeFind<CR>
+
+nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
+nmap <leader>fp <Plug>(find_Path)
 
 let NERDTreeShowBookmarks=0
 let NERDTreeChDirMode=2
@@ -945,7 +954,8 @@ autocmd! User tagbar call LoadTagBar()
 nnoremap <leader>tt :TagbarToggle<CR>
 nnoremap <F3> :TagbarToggle<CR>
 
-nnoremap <leader>tu :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
+nnoremap <Plug>(tags_Update) :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
+nmap <leader>tu <Plug>(tags_Update)
 
 set tags=tags;/,codex.tags;/
 
@@ -1042,6 +1052,11 @@ endif
 
 " }}}
 " -> Git {{{
+"  -> Leader Git menu {{{
+let g:lmap.g.b = { 'name': 'Blame/' }
+let g:lmap.g.p = { 'name': 'Push&Pull/' }
+let g:lmap.g.p.l = { 'name': 'Pull/' }
+"  }}}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
@@ -1052,20 +1067,31 @@ Plug 'jreybert/vimagit'
 " Fugitive options
 "
 " shortcuts mapping
-nnoremap <silent> <leader>gS :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gC :Gcommit<CR>
-nnoremap <silent> <leader>gps :silent Git push<CR>
-nnoremap <silent> <leader>gW :Gwrite<CR>
-nnoremap <silent> <leader>gbl :Gblame<CR>
-nnoremap <silent> <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
-nnoremap <silent> <leader>gR :Gread<CR>
-nnoremap <silent> <leader>gplr :silent Git pull --rebase<CR>
-nnoremap <silent> <leader>gpll :silent Git pull<CR>
-nnoremap <silent> <leader>gg :Gbrowse<CR>
+nnoremap <Plug>(git_Status) :Gstatus<CR>
+nnoremap <Plug>(git_Diff) :Gdiff<CR>
+nnoremap <Plug>(git_Commit) :Gcommit<CR>
+nnoremap <Plug>(git_Push) :silent Git push<CR>
+nnoremap <Plug>(git_Write) :Gwrite<CR>
+nnoremap <Plug>(git_Blame) :Gblame<CR>
+nnoremap <Plug>(git_Read) :Gread<CR>
+nnoremap <Plug>(git_Rebase) :silent Git pull --rebase<CR>
+nnoremap <Plug>(git_Merge) :silent Git pull<CR>
+nnoremap <Plug>(git_Browse) :Gbrowse<CR>
+
+nmap <silent> <leader>gS <Plug>(git_Status)
+nmap <silent> <leader>gd <Plug>(git_Diff)
+nmap <silent> <leader>gC <Plug>(git_Commit)
+nmap <silent> <leader>gps <Plug>(git_Push)
+nmap <silent> <leader>gW <Plug>(git_Write)
+nmap <silent> <leader>gbl <Plug>(git_Blame)
+nmap <silent> <leader>gR <Plug>(git_Read)
+nmap <silent> <leader>gplr <Plug>(git_Rebase)
+nmap <silent> <leader>gplm <Plug>(git_Merge)
+nmap <silent> <leader>gg <Plug>(git_Browse)
 
 " Magit option
-let g:magit_show_magit_mapping='<leader>gs'
+nmap <silent> <leader>gs <Plug>(git_Magit)
+let g:magit_show_magit_mapping='<Plug>(git_Magit)'
 
 " Gitgutter options
 let g:gitgutter_map_keys = 0
@@ -1077,7 +1103,8 @@ let g:gitgutter_override_sign_column_highlight = 0
 
 " Gitv options
 let g:Gitv_DoNotMapCtrlKey = 1
-nnoremap <silent> <leader>gH :GV<CR>
+nnoremap <Plug>(git_Full-History) :GV<CR>
+nmap <silent> <leader>gH <Plug>(git_Full-History)
 " }}}
 " -> Langserver {{{
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
@@ -1243,12 +1270,19 @@ command! DeleteSessionCurrent :call DeleteSession("")
 command! CloseSession :call CloseSession()
 command! CloseSessionAndExitCurrent :call CloseSessionAndExit()
 
-nnoremap <leader>so :LoadSession<SPACE>
-nnoremap <leader>su :LoadSessionCurrent<CR>
-nnoremap <leader>ss :MakeSessionCurrent<CR>
-nnoremap <leader>sq :CloseSessionAndExit<CR>
-nnoremap <leader>sx :CloseSession<CR>
-nnoremap <leader>sk :DeleteSessionCurrent<CR>
+nnoremap <Plug>(session_Load) :LoadSession<SPACE>
+nnoremap <Plug>(session_Load-Current) :LoadSessionCurrent<CR>
+nnoremap <Plug>(session_Make) :MakeSessionCurrent<CR>
+nnoremap <Plug>(session_Exit) :CloseSessionAndExit<CR>
+nnoremap <Plug>(session_Close) :CloseSession<CR>
+nnoremap <Plug>(session_Delete) :DeleteSessionCurrent<CR>
+
+nnoremap <leader>so <Plug>(session_Load)
+nnoremap <leader>su <Plug>(session_Load-Current)
+nnoremap <leader>ss <Plug>(session_Make)
+nnoremap <leader>sq <Plug>(session_Exit)
+nnoremap <leader>sx <Plug>(session_Close)
+nnoremap <leader>sd <Plug>(session_Delete)
 " }}}
 " -> Folding {{{
 " Thx Steve Losh
@@ -1397,15 +1431,23 @@ endfunction
 
 autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
 
-nnoremap <leader>qq :QFix<CR>
-nnoremap <leader>qco :copen<CR>
-nnoremap <leader>qcc :cclose<CR>
-nnoremap <leader>qlo :lopen<CR>
-nnoremap <leader>qlc :lclose<CR>
+nnoremap <Plug>(qfix_Toggle) :QFix<CR>
+nnoremap <Plug>(qfix_Open) :copen<CR>
+nnoremap <Plug>(qfix_Close) :cclose<CR>
+nnoremap <Plug>(qfix_LOpen) :lopen<CR>
+nnoremap <Plug>(qfix_LClose) :lclose<CR>
+
+nmap <leader>qq  <Plug>(qfix_Toggle)
+nmap <leader>qco <Plug>(qfix_Open)
+nmap <leader>qcc <Plug>(qfix_Close)
+nmap <leader>qlo <Plug>(qfix_LOpen)
+nmap <leader>qlc <Plug>(qfix_LClose)
 
 " }}}
 
 " }}}
+" Leader Finish
+call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 " Colorscheme ------------------------------------------------------------- {{{
 let g:neodark#background = '#282c34'
 
