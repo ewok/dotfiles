@@ -1277,12 +1277,12 @@ nnoremap <Plug>(session_Exit) :CloseSessionAndExit<CR>
 nnoremap <Plug>(session_Close) :CloseSession<CR>
 nnoremap <Plug>(session_Delete) :DeleteSessionCurrent<CR>
 
-nnoremap <leader>so <Plug>(session_Load)
-nnoremap <leader>su <Plug>(session_Load-Current)
-nnoremap <leader>ss <Plug>(session_Make)
-nnoremap <leader>sq <Plug>(session_Exit)
-nnoremap <leader>sx <Plug>(session_Close)
-nnoremap <leader>sd <Plug>(session_Delete)
+nmap <leader>so <Plug>(session_Load)
+nmap <leader>su <Plug>(session_Load-Current)
+nmap <leader>ss <Plug>(session_Make)
+nmap <leader>sq <Plug>(session_Exit)
+nmap <leader>sx <Plug>(session_Close)
+nmap <leader>sd <Plug>(session_Delete)
 " }}}
 " -> Folding {{{
 " Thx Steve Losh
