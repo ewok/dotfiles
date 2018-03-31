@@ -14,6 +14,8 @@
 " %D the other window directory name.
 " %m run the command in a menu window
 
+command! cp if [ -n "$TMUX" ]; then tmux split-window -p 1 "for f in %f; do rsync -av --append --progress %d/\$f %D/; done"\; last-pane;fi
+
 command! df df -h %m 2> /dev/null
 command! diff nvim -d %f %F
 command! run !! ./%f

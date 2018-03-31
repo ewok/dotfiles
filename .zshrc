@@ -121,3 +121,4 @@ export PATH="/usr/local/opt/unzip/bin:$PATH"
 
 export LC_ALL=ru_RU.UTF-8
 export LANG=ru_RU.UTF-8
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
