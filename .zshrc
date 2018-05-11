@@ -40,7 +40,7 @@ ZSH_THEME="norm"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=~/.zsh/custom
@@ -69,12 +69,13 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-plugins=(ssh-agent emoji colored-man-pages golang tmux vault vi-mode vi-mode-patch)
+plugins=(colored-man-pages golang tmux vault vi-mode vi-mode-patch autojump docker git iterm2 jira)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+RPROMPT="[%*]"
 
 # Set our default path
 PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
@@ -109,11 +110,6 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export FZF_COMPLETION_TRIGGER='*'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# for item in ~/.zsh/custom/*.zsh; do
-#     source $item
-# done
-
-
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi
@@ -122,3 +118,4 @@ export PATH="/usr/local/opt/unzip/bin:$PATH"
 export LC_ALL=ru_RU.UTF-8
 export LANG=ru_RU.UTF-8
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export JIRA_DEFAULT_ACTION=branch
