@@ -78,7 +78,7 @@ PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)
 RPROMPT="[%*]"
 
 # Set our default path
-PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
+PATH="/usr/local/opt/unzip/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH
 
 TZ='Europe/Moscow'; export TZ
@@ -113,9 +113,13 @@ export FZF_COMPLETION_TRIGGER='*'
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi
-export PATH="/usr/local/opt/unzip/bin:$PATH"
 
 export LC_ALL=ru_RU.UTF-8
 export LANG=ru_RU.UTF-8
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export JIRA_DEFAULT_ACTION=branch
+
+# PyENV
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$(pyenv root)"
