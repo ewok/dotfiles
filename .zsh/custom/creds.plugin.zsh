@@ -1,6 +1,6 @@
 #!/bin/zsh
 
 creds() {
+    pyenv shell 2.7.15
     source ~/bin/creds.sh
-    source ~/share/venv_1f/bin/activate
 }
