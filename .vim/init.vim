@@ -128,15 +128,15 @@ augroup END
 "
 set inccommand=nosplit
 
-" let g:python3_host_prog = '~/.pyenv/versions/3.6.5/in/python'
-" let g:python_host_prog = '~/.pyenv/versions/2.7.15/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/usr/local/bin/python2'
 
-let g:python_version = matchstr(system("python --version | cut -f2 -d' '"), '^[0-9]')
-if g:python_version =~ 3
-    let g:python2_host_prog = "~/.pyenv/versions/2.7.15/bin/python"
-else
-    let g:python3_host_prog = "~/.pyenv/versions/3.6.5/in/python"
-endif
+" let g:python_version = matchstr(system("python --version | cut -f2 -d' '"), '^[0-9]')
+" if g:python_version =~ 3
+"     let g:python2_host_prog = "~/.pyenv/versions/2.7.15/bin/python"
+" else
+"     let g:python3_host_prog = "~/.pyenv/versions/3.6.5/in/python"
+" endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
