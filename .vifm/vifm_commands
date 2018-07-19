@@ -33,6 +33,8 @@ command! vim nvim %a
 command! nvim nvim %a
 command! vimr vimr %a
 
+command! code code %a
+
 command! zip for f in %f; do zip -r "$f.zip" "$f"; done
 command! zipto zip -r %a.zip %f
 command! targz for f in %f; do unset CMD; CMD="tar -zcvf \"$f.tar.gz\" $f"; case "$f" in; *.tar.gz) CMD="tar -zxvf \"$f\"";;; esac; sh -c $CMD;done

@@ -68,3 +68,4 @@ nnoremap it :!if [ -n "$TMUX" ]; then tmux new-window reattach-to-user-namespace
 nnoremap is :!if [ -n "$TMUX" ]; then tmux split-window -v -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
 nnoremap iv :!if [ -n "$TMUX" ]; then tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
 nnoremap ir :vimr %f<cr>
+nnoremap ic :code %f<cr>
