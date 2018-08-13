@@ -941,7 +941,8 @@ Plug 'https://github.com/tpope/vim-commentary.git'
 set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
-Plug 'roxma/nvim-completion-manager'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 
 " don't give |ins-completion-menu| messages.  For example,
 " '-- XXX completion (YYY)', 'match 1 of 2', 'The only match',
