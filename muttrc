@@ -1,0 +1,91 @@
+source ~/.mutt/aliases
+source ~/.mutt/colors
+
+set mailcap_path = ~/.mutt/mailcap
+
+set sort="threads"
+set strict_threads="yes"
+
+set sort_browser="reverse-date"
+set sort_aux="reverse-last-date-received"
+
+unset collapse_unread
+
+bind index - collapse-thread
+bind index _ collapse-all
+
+# render HTML and some other types as text
+auto_view text/html application/text application/pdf
+
+# many companies send very poor text/plain parts, so prefer html to text/plain
+alternative_order text/enriched text/html text/plain text
+
+set date_format="%m/%d %I:%M"
+set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
+
+set markers = no
+set mark_old = no
+set mime_forward = yes
+set smtp_authenticators = 'gssapi:login'
+set wait_key = no
+set rfc2047_parameters = yes
+
+# General remappings
+bind editor <space> noop
+bind index g noop
+bind pager g noop
+bind index G last-entry
+bind index gg first-entry
+bind pager j next-line
+bind pager k previous-line
+bind pager gg top
+bind pager G bottom
+bind index d half-down
+bind index u half-up
+bind index D delete-message
+bind index U undelete-message
+bind index F search
+bind index,pager R group-reply
+macro index,pager S '<sync-mailbox><shell-escape>pkill -RTMIN+12 i3blocks<enter>'
+macro index,pager \Cu |urlview\n
+macro index,pager ,, |urlview\n
+bind index F imap-fetch-mail
+
+# View attachments properly.
+bind attach <return> view-mailcap
+set fast_reply           # skip to compose when replying
+set fcc_attach           # save attachments with the body
+unset mime_forward       # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set forward_quote                    # include message in forwards
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+
+# Try and prevent imap timeouts
+set imap_keepalive = 300
+
+# Use gmail IMAP IDLE support.
+set imap_idle
+set imap_check_subscribed
+unset imap_passive
+unset imap_peek
+
+# Sidebar mappings
+set sidebar_visible = yes
+set sidebar_width = 20
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Cp sidebar-prev-new
+bind index,pager \Cn sidebar-next-new
+bind index,pager B sidebar-toggle-visible
+
+macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
+macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
+
+source ~/.mutt/profile_main

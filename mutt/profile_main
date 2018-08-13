@@ -1,0 +1,34 @@
+set imap_user = `cat ~/.mutt_main`
+set imap_pass = `security find-generic-password -w -s mutt -a "$(cat ~/.mutt_main)"`
+set smtp_pass = `security find-generic-password -w -s mutt -a "$(cat ~/.mutt_main)"`
+set smtp_url = "smtp://`cat ~/.mutt_main`@smtp.gmail.com:587/"
+set from = `cat ~/.mutt_main`
+set realname = "Artur Taranchiev"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set record = /dev/null
+set postponed = "+[Gmail]/Drafts"
+set header_cache = ~/tmp/mutt/main/cache/headers
+set message_cachedir = ~/tmp/mutt/main/cache/bodies
+set certificate_file = ~/tmp/mutt/main/certificates
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
+set trash="imaps://imap.gmail.com/[Gmail]/Trash"
+
+# Try and prevent imap timeouts
+set imap_keepalive = 300
+
+# Use gmail IMAP IDLE support.
+set imap_idle
+set imap_check_subscribed
+unset imap_passive
+unset imap_peek
+
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+macro index,pager D "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"

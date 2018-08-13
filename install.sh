@@ -9,6 +9,8 @@ ln -s ${PWD}/.vim $HOME/.vim
 ln -s ${PWD}/.vim $HOME/.config/nvim
 ln -s ${PWD}/.zsh $HOME/.zsh
 ln -s ${PWD}/.ideavimrc $HOME/.ideavimrc
+ln -s ${PWD}/muttrc $HOME/.muttrc
+ln -s ${PWD}/mutt $HOME/.mutt
 
 mkdir $HOME/.vim/bundle
 git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle
