@@ -22,6 +22,8 @@ alternative_order text/enriched text/html text/plain text
 
 set date_format="%m/%d %I:%M"
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
+set pager_context = 3
+set pager_index_lines   = 10
 
 set markers = no
 set mark_old = no
@@ -32,7 +34,6 @@ set rfc2047_parameters = yes
 # General remappings
 bind editor <space> noop
 bind index D delete-message
-bind index F search
 bind index G last-entry
 bind index U undelete-message
 bind index,pager d half-down
@@ -41,6 +42,8 @@ bind index,pager g noop
 bind index gg first-entry
 bind index,pager u half-up
 bind index,pager \Cu half-up
+bind index j next-entry
+bind index k previous-entry
 
 bind pager G bottom
 bind pager gg top
