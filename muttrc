@@ -44,12 +44,15 @@ bind index,pager u half-up
 bind index,pager \Cu half-up
 bind index j next-entry
 bind index k previous-entry
-
 bind pager G bottom
 bind pager gg top
 bind pager j next-line
 bind pager k previous-line
+bind index,pager S save-message
+bind index s sort-mailbox
 bind index,pager R group-reply
+bind pager \Cp previous-undeleted
+bind pager \Cn next-undeleted
 
 # Tag bindings
 bind index \Ct noop
@@ -86,11 +89,9 @@ set sidebar_short_path = yes
 set sidebar_next_new_wrap = yes
 set mail_check_stats
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
-bind index,pager \Ck sidebar-prev
-bind index,pager \Cj sidebar-next
-bind index,pager \Co sidebar-open
-bind index,pager \Cp sidebar-prev-new
-bind index,pager \Cn sidebar-next-new
+bind index o sidebar-open
+bind index \Cp sidebar-prev
+bind index \Cn sidebar-next
 bind index,pager B sidebar-toggle-visible
 
 macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
