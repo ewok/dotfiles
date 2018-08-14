@@ -88,4 +88,8 @@ bind index,pager B sidebar-toggle-visible
 macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
 macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
 
+reply-hook . 'set mailcap_path = ~/.mutt/mailcap_reply'
+save-hook . 'set mailcap_path = ~/.mutt/mailcap'
+
+
 source ~/.mutt/profile_main
