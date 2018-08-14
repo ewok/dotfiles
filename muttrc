@@ -26,29 +26,34 @@ set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
 set markers = no
 set mark_old = no
 set mime_forward = yes
-set smtp_authenticators = 'gssapi:login'
 set wait_key = no
 set rfc2047_parameters = yes
 
 # General remappings
 bind editor <space> noop
-bind index g noop
-bind pager g noop
+bind index D delete-message
+bind index F search
 bind index G last-entry
+bind index U undelete-message
+bind index,pager d half-down
+bind index,pager \Cd half-down
+bind index,pager g noop
 bind index gg first-entry
+bind index,pager u half-up
+bind index,pager \Cu half-up
+
+bind pager G bottom
+bind pager gg top
 bind pager j next-line
 bind pager k previous-line
-bind pager gg top
-bind pager G bottom
-bind index d half-down
-bind index u half-up
-bind index D delete-message
-bind index U undelete-message
-bind index F search
 bind index,pager R group-reply
-macro index,pager S '<sync-mailbox><shell-escape>pkill -RTMIN+12 i3blocks<enter>'
-macro index,pager \Cu |urlview\n
-macro index,pager ,, |urlview\n
+
+# Tag bindings
+bind index \Ct noop
+bind index \Ctt tag-thread
+bind index \Ctp tag-pattern
+bind index \Ctu untag-pattern
+
 bind index F imap-fetch-mail
 
 # View attachments properly.
@@ -87,9 +92,9 @@ bind index,pager B sidebar-toggle-visible
 
 macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
 macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
+macro index g3 '<sync-mailbox><enter-command>source ~/.mutt/profile_mf<enter><change-folder>!<enter>'
 
 reply-hook . 'set mailcap_path = ~/.mutt/mailcap_reply'
 save-hook . 'set mailcap_path = ~/.mutt/mailcap'
-
 
 source ~/.mutt/profile_main

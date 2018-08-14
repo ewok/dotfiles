@@ -13,6 +13,7 @@ set message_cachedir = ~/tmp/mutt/main/cache/bodies
 set certificate_file = ~/tmp/mutt/main/certificates
 set ssl_starttls = yes
 set ssl_force_tls = yes
+set smtp_authenticators = 'gssapi:login'
 
 set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
 set trash="imaps://imap.gmail.com/[Gmail]/Trash"
@@ -26,7 +27,7 @@ set imap_check_subscribed
 unset imap_passive
 unset imap_peek
 
-macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+macro index,pager A "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
 macro index,pager D "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
 macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
