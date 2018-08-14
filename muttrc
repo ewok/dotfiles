@@ -98,7 +98,8 @@ macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><
 macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
 macro index g3 '<sync-mailbox><enter-command>source ~/.mutt/profile_mf<enter><change-folder>!<enter>'
 
-reply-hook . 'set mailcap_path = ~/.mutt/mailcap_reply'
-save-hook . 'set mailcap_path = ~/.mutt/mailcap'
+# View and reply with different formats
+reply-hook . '`touch /tmp/reply_flag`'
+message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
 
 source ~/.mutt/profile_main
