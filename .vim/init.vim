@@ -1112,8 +1112,12 @@ nnoremap <Plug>(git_Full-History) :GV<CR>
 nmap <silent> <leader>gH <Plug>(git_Full-History)
 " }}}
 " -> Langserver {{{
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
