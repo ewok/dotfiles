@@ -3,6 +3,7 @@ source ~/.mutt/colors
 
 set mailcap_path = ~/.mutt/mailcap
 
+# Main
 set sort="threads"
 set strict_threads="yes"
 
@@ -11,14 +12,12 @@ set sort_aux="reverse-last-date-received"
 
 unset collapse_unread
 
-bind index - collapse-thread
-bind index _ collapse-all
+set new_mail_command="terminal-notifier -title '%v' -subtitle 'New Mail' \
+-message '%n new messages, %u unread.' -activate 'com.apple.Terminal'"
 
-# render HTML and some other types as text
-auto_view text/html application/text application/pdf
-
-# many companies send very poor text/plain parts, so prefer html to text/plain
-alternative_order text/enriched text/html text/plain text
+# View and reply with different formats
+reply-hook . '`touch /tmp/reply_flag`'
+message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
 
 set date_format="%m/%d %I:%M"
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
@@ -31,7 +30,26 @@ set mime_forward = yes
 set wait_key = no
 set rfc2047_parameters = yes
 
+# View attachments properly.
+bind attach <return> view-mailcap
+set fast_reply           # skip to compose when replying
+set fcc_attach           # save attachments with the body
+unset mime_forward       # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set forward_quote                    # include message in forwards
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+
+# render HTML and some other types as text
+auto_view text/html application/text application/pdf
+
+# many companies send very poor text/plain parts, so prefer html to text/plain
+alternative_order text/enriched text/html text/plain text
 # General remappings
+bind index - collapse-thread
+bind index _ collapse-all
+
 bind editor <space> noop
 bind index D delete-message
 bind index G last-entry
@@ -63,17 +81,6 @@ bind index \Ctu untag-pattern
 
 bind index F imap-fetch-mail
 
-# View attachments properly.
-bind attach <return> view-mailcap
-set fast_reply           # skip to compose when replying
-set fcc_attach           # save attachments with the body
-unset mime_forward       # forward attachments as part of body
-set forward_format = "Fwd: %s"       # format of subject when forwarding
-set forward_decode                   # decode when forwarding
-set forward_quote                    # include message in forwards
-set reverse_name                     # reply as whomever it was to
-set include                          # include message in replies
-
 # Try and prevent imap timeouts
 set imap_keepalive = 300
 
@@ -95,12 +102,9 @@ bind index \Cp sidebar-prev
 bind index \Cn sidebar-next
 bind index,pager B sidebar-toggle-visible
 
+# Profiles mappings
 macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
 macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
 macro index g3 '<sync-mailbox><enter-command>source ~/.mutt/profile_mf<enter><change-folder>!<enter>'
-
-# View and reply with different formats
-reply-hook . '`touch /tmp/reply_flag`'
-message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
 
 source ~/.mutt/profile_main
