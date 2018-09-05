@@ -9,6 +9,8 @@ set strict_threads="yes"
 
 set sort_browser="reverse-date"
 set sort_aux="reverse-last-date-received"
+set mail_check=60
+set timeout=15
 
 unset collapse_unread
 
