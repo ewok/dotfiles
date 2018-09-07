@@ -469,6 +469,7 @@ endfunction " }}}
 " }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+Plug 'ncm2/ncm2-go', { 'for': 'go' }
 autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
@@ -477,8 +478,11 @@ autocmd! User vim-go call LoadGo()
 
 function! LoadGo() " {{{
 
-    let $GOPATH = $HOME . '/share/gopath/' . fnamemodify(getcwd(), ':t')
+    let $GOPATH = $HOME . '/share/gopath/default'
+    " TODO: Make it getting from .gopath
+    ". fnamemodify(getcwd(), ':t')
     let $GOBIN = $HOME . '/.local/bin'
+    let $PATH = $PATH . ':' . $GOBIN
 
     " let g:go_highlight_functions = 1
     " let g:go_highlight_methods = 1
@@ -537,7 +541,7 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-" Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': 'make' }
+Plug 'ncm2/ncm2-jedi', { 'for': 'python' }
 " autocmd! User deoplete-jedi call LoadPython()
 autocmd! FileType python call LoadPython()
 
@@ -567,6 +571,7 @@ Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
 " -> VIM {{{
+Plug 'ncm2/ncm2-vim', { 'for': 'vim' }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 autocmd! User neco-vim call LoadNeco()
 
@@ -951,9 +956,20 @@ set shortmess+=c
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
 imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
+
 " }}}
 " -> Ctags {{{
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+"
+" ncm2
+Plug 'jsfaint/gen_tags.vim'
+
 autocmd! User tagbar call LoadTagBar()
 
 nnoremap <leader>tt :TagbarToggle<CR>
@@ -1111,28 +1127,6 @@ let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <Plug>(git_Full-History) :GV<CR>
 nmap <silent> <leader>gH <Plug>(git_Full-History)
 " }}}
-" -> Langserver {{{
-" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
-    \ 'go': ['go-langserver'],
-    \ }
-
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent>  :call LanguageClient_textDocument_rename()<CR>
-" }}}
 " -> Linter {{{
 Plug 'w0rp/ale'
 
@@ -1144,6 +1138,7 @@ let g:ale_sign_warning = '-'
 
 " }}}
 " -> Snippet {{{
+Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'kiith-sa/DSnips'
