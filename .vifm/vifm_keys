@@ -52,6 +52,8 @@ nnoremap <f16> cw<c-a>
 " Selecting like in MC
 nnoremap <a-j> av<c-g><c-g><c-m>j
 nnoremap <a-k> av<c-g><c-g><c-m>k
+nnoremap J av<c-g><c-g><c-m>j
+nnoremap K av<c-g><c-g><c-m>k
 
 " Tmux plugin navigator
 nnoremap <BS> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
@@ -59,9 +61,6 @@ nnoremap <c-h> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
 nnoremap <c-j> :!if [ -n "$TMUX" ]; then tmux select-pane -D;fi<cr>
 nnoremap <c-k> :!if [ -n "$TMUX" ]; then tmux select-pane -U;fi<cr>
 nnoremap <c-l> :!if [ -n "$TMUX" ]; then tmux select-pane -R;fi<cr>
-
-" Autojump
-nnoremap J :j<space>
 
 nnoremap ii :vim %f<cr>
 nnoremap it :!if [ -n "$TMUX" ]; then tmux new-window reattach-to-user-namespace -l vim %f;fi<CR>
