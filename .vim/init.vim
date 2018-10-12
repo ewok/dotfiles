@@ -469,11 +469,10 @@ endfunction " }}}
 " }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-Plug 'ncm2/ncm2-go', { 'for': 'go' }
 autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
-" Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
 " Plug 'jodosha/vim-godebug', { 'for': 'go' }
 
 function! LoadGo() " {{{
@@ -541,9 +540,9 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'ncm2/ncm2-jedi', { 'for': 'python' }
-" autocmd! User deoplete-jedi call LoadPython()
-autocmd! FileType python call LoadPython()
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+autocmd! User deoplete-jedi call LoadPython()
+" autocmd! FileType python call LoadPython()
 
 function! LoadPython() " {{{
 
@@ -571,7 +570,6 @@ Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
 " -> VIM {{{
-Plug 'ncm2/ncm2-vim', { 'for': 'vim' }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 autocmd! User neco-vim call LoadNeco()
 
@@ -946,28 +944,19 @@ Plug 'https://github.com/tpope/vim-commentary.git'
 set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-
-" don't give |ins-completion-menu| messages.  For example,
-" '-- XXX completion (YYY)', 'match 1 of 2', 'The only match',
-set shortmess+=c
-
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 " -> Ctags {{{
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 "
-" ncm2
 Plug 'jsfaint/gen_tags.vim'
 
 autocmd! User tagbar call LoadTagBar()
@@ -1138,7 +1127,6 @@ let g:ale_sign_warning = '-'
 
 " }}}
 " -> Snippet {{{
-Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'kiith-sa/DSnips'
