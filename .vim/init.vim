@@ -447,6 +447,7 @@ let g:peekaboo_delay = 1000
 " Filetype plugins {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+
 autocmd! User ansible-vim call LoadAnsible()
 
 function! LoadAnsible() " {{{

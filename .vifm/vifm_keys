@@ -50,8 +50,7 @@ nnoremap <a-?> :find<space>
 nnoremap <f16> cw<c-a>
 
 " Selecting like in MC
-nnoremap <a-j> av<c-g><c-g><c-m>j
-nnoremap <a-k> av<c-g><c-g><c-m>k
+nnoremap <a-j> :j<space>
 nnoremap J av<c-g><c-g><c-m>j
 nnoremap K av<c-g><c-g><c-m>k
 
