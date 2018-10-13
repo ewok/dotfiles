@@ -586,6 +586,13 @@ endfunction " }}}
 Plug 'sukima/xmledit', { 'do': 'make', 'for': ['xml', 'html'] }
 
 " }}}
+" -> NodeJSX {{{
+Plug 'ternjs/tern_for_vim'
+Plug 'mxw/vim-jsx'
+" , { 'for': 'javascript.jsx' }
+Plug 'mattn/emmet-vim'
+" , { 'for': 'javascript.jsx' }
+"  }}}
 " }}}
 " Info plugins {{{
 " -> Dash {{{
