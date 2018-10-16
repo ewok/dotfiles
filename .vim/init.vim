@@ -1094,7 +1094,8 @@ nnoremap <Plug>(git_Blame) :Gblame<CR>
 nnoremap <Plug>(git_Read) :Gread<CR>
 nnoremap <Plug>(git_Rebase) :silent Git pull --rebase<CR>
 nnoremap <Plug>(git_Merge) :silent Git pull<CR>
-nnoremap <Plug>(git_Browse) :Gbrowse<CR>
+nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
+vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
 
 nmap <silent> <leader>gS <Plug>(git_Status)
 nmap <silent> <leader>gd <Plug>(git_Diff)
@@ -1106,6 +1107,7 @@ nmap <silent> <leader>gR <Plug>(git_Read)
 nmap <silent> <leader>gplr <Plug>(git_Rebase)
 nmap <silent> <leader>gplm <Plug>(git_Merge)
 nmap <silent> <leader>gg <Plug>(git_Browse)
+vmap <silent> <leader>gg <Plug>(git_VBrowse)
 
 " Magit option
 nmap <silent> <leader>gs <Plug>(git_Magit)
