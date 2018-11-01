@@ -904,31 +904,22 @@ function LoadLight()
 
 endfunction
 " }}}
-" -> NERTree {{{
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+" -> Dirvish {{{
+Plug 'justinmk/vim-dirvish'
+Plug 'kristijanhusak/vim-dirvish-git'
+Plug 'bounceme/remote-viewer'
 
-nnoremap <F2> :NERDTreeToggle<CR>
+augroup dirvish_config
+	autocmd!
+	autocmd FileType dirvish silent! unmap <buffer> q
+	autocmd FileType dirvish silent! map <buffer> q :bd<CR>
+augroup END
+let g:dirvish_mode = ':sort ,^.*[\/],'
 
-nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
-nmap <leader>fp <Plug>(find_Path)
+nnoremap <leader>fp :Ldirvish %<CR>
+nnoremap <silent> <F2> :Ldirvish<CR>
 
-let NERDTreeShowBookmarks=0
-let NERDTreeChDirMode=2
-let NERDTreeMouseMode=2
-let g:nerdtree_tabs_focus_on_files=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" make nerdtree look nice
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-let g:NERDTreeWinSize=30
-let NERDTreeIgnore=['\.pyc$']
-
-" ReMaps
-let NERDTreeMapOpenVSplit='v'
-let NERDTreeMapOpenSplit='s'
+command! -nargs=? -complete=dir Ldirvish leftabove 25vsplit | silent Dirvish <args>
 " }}}
 " -> Tmux {{{
 if has('gui_running')
