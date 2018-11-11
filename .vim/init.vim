@@ -128,12 +128,15 @@ augroup END
 "
 set inccommand=nosplit
 
-let g:python_version = matchstr(system("python --version | cut -f2 -d' '"), '^[0-9]')
-if g:python_version =~ 3
-    let g:python_host_prog = "/usr/local/bin/python2"
-else
-    let g:python3_host_prog = "/usr/local/bin/python3"
-endif
+let g:python_host_prog = $HOME . "/share/venv/neovim2/bin/python2"
+let g:python3_host_prog = $HOME . "/share/venv/neovim3/bin/python3"
+
+" let g:python_version = matchstr(system("python --version | cut -f2 -d' '"), '^[0-9]')
+" if g:python_version =~ 3
+"     let g:python_host_prog = $HOME . "/share/venv/neovim2/bin/python2"
+" else
+"     let g:python3_host_prog = $HOME . "/share/venv/neovim3/bin/python3"
+" endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -541,19 +544,43 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': ':UpdateRemotePlugins' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'fisadev/vim-isort', { 'for': 'python' }
 autocmd! User deoplete-jedi call LoadPython()
 " autocmd! FileType python call LoadPython()
 
 function! LoadPython() " {{{
 
-    " let g:jedi#completions_command = "<c-space>"
-    " let g:jedi#documentation_command = "K"
-    " let g:jedi#goto_assignments_command = "<leader>jg"
-    " let g:jedi#goto_command = "<c-]>"
-    " let g:jedi#goto_definitions_command = ""
-    " let g:jedi#rename_command = "<leader>jr"
-    " let g:jedi#usages_command = "<leader>ju"
+    " Be extra sure that jedi works
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#completions_enabled = 0
+    let g:jedi#popup_on_dot = 0
+    let g:jedi#popup_select_first = 0
+    let g:jedi#show_call_signatures = 0
+    let g:jedi#smart_auto_mappings = 0
+
+    " let g:jedi#completions_command = "<leader><tab>"
+    let g:jedi#documentation_command = "K"
+    let g:jedi#goto_assignments_command = "<leader>jgc"
+    let g:jedi#goto_command = "<c-]>"
+    let g:jedi#goto_definitions_command = "<leader>jgd"
+    let g:jedi#rename_command = "<leader>jr"
+    let g:jedi#usages_command = "<leader>ju"
+
+    if !exists('g:deoplete#sources')
+        let g:deoplete#sources = {}
+    endif
+    if !exists('g:deoplete#keyword_patterns')
+        let g:deoplete#keyword_patterns = {}
+    endif
+    if !exists('g:deoplete#omni#input_patterns')
+        let g:deoplete#omni#input_patterns = {}
+    endif
+
+    let g:deoplete#sources#jedi#show_docstring = 1
+    let g:deoplete#sources.python = ['buffer', 'member', 'file', 'omni']
+    let g:deoplete#omni#input_patterns.python = '([^. \t]\.|^\s*@|^\s*from\s.+ import |^\s*from |^\s*import )\w*'
 
     set foldmethod=indent
     set foldlevel=0
