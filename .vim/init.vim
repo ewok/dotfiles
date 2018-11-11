@@ -586,7 +586,16 @@ function! LoadPython() " {{{
     set foldlevel=0
     set foldnestmax=2
 
-    let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
+    " let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
+    let g:ale_python_flake8_executable = 'flake8'
+    let g:ale_python_flake8_options = '--ignore E501'
+    let g:ale_python_flake8_use_global = 0
+    let g:ale_python_mypy_executable = 'mypy'
+    let g:ale_python_mypy_options = ''
+    let g:ale_python_mypy_use_global = 0
+    let g:ale_python_pylint_executable = 'pylint'
+    let g:ale_python_pylint_options = '--disable C0301,C0111,C0103'
+    let g:ale_python_pylint_use_global = 0
 
 endfunction " }}}
 
