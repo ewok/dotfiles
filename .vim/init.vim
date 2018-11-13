@@ -213,7 +213,7 @@ augroup END
 " Define prefix dictionary
 let g:lmap =  {}
 let g:lmap.r = { 'name': 'Run/' }
-let g:lmap.w = { 'name': 'Window/' }
+let g:lmap.w = { 'name': 'Wiki/' }
 let g:lmap.b = { 'name': 'Buffer/' }
 let g:lmap.f = { 'name': 'Find/' }
 let g:lmap.p = { 'name': 'CtrlP/'}
@@ -232,21 +232,13 @@ nnoremap <C-W>t :tabnew<CR>
 
 "  }}}
 " -> Windows {{{
-let g:lmap.w.c = [ 'close', 'close' ]
-let g:lmap.w.s = [ 'split', 'split' ]
-let g:lmap.w.v = [ 'vsplit', 'vsplit' ]
-let g:lmap.w.n = [ 'new', 'new' ]
-let g:lmap.w.o = [ 'only', 'only' ]
-let g:lmap.w.t = [ 'tabnew', 'new-tab' ]
 
 " Tmux?
 if exists('$TMUX')
     nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 30<CR><CR>
-    nmap <leader>wS <Plug>(window_split-tmux)
     nmap <silent><C-W>S <Plug>(window_split-tmux)
 
     nnoremap <Plug>(window_vsplit-tmux) :!tmux split-window -h -p 30<CR><CR>
-    nmap <leader>wV <Plug>(window_vsplit-tmux)
     nmap <silent><C-W>V <Plug>(window_vsplit-tmux)
 endif
 
@@ -856,6 +848,15 @@ nmap <expr>  MR  ':%s/\(' . @/ . '\)//g<LEFT><LEFT>'
 nmap <expr>  MY  ':%Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 vmap <expr>  MR  ':s/\(' . @/ . '\)//g<LEFT><LEFT>'
 vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
+" }}}
+" -> VimWiki {{{
+"
+Plug 'vimwiki/vimwiki'
+
+let g:vimwiki_list = [{'path': '~/Disk/Notes/',
+                    \ 'syntax': 'markdown', 'ext': '.md',
+                    \ 'auto_toc': 1, 'auto_tags': 1}]
+
 " }}}
 " }}}
 " UI plugins {{{
