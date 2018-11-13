@@ -856,6 +856,7 @@ Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '~/Disk/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
                     \ 'auto_toc': 1, 'auto_tags': 1}]
+map <Leader>w<CR> <Plug>VimwikiToggleListItem
 
 " }}}
 " }}}
