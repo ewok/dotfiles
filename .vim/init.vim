@@ -853,12 +853,24 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 "
 Plug 'vimwiki/vimwiki'
 
+autocmd! VimEnter * call LoadVimwiki()
+
+function! LoadVimwiki()
+    map <Leader>w<CR> <Plug>VimwikiToggleListItem
+    nunmap <Leader>ww
+    map <Leader>ww :call VimwikiIndexCd()<CR>
+endfunction
+
+function! VimwikiIndexCd()
+    VimwikiIndex
+    cd %:h
+endfunction
+
 let g:vimwiki_list = [{'path': '~/Disk/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
                     \ 'auto_toc': 1,
                     \ 'list_margin': 0,'auto_tags': 1}]
 
-map <Leader>w<CR> <Plug>VimwikiToggleListItem
 
 " }}}
 " }}}
