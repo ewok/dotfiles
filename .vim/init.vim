@@ -855,7 +855,9 @@ Plug 'vimwiki/vimwiki'
 
 let g:vimwiki_list = [{'path': '~/Disk/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
-                    \ 'auto_toc': 1, 'auto_tags': 1}]
+                    \ 'auto_toc': 1,
+                    \ 'list_margin': 0,'auto_tags': 1}]
+
 map <Leader>w<CR> <Plug>VimwikiToggleListItem
 
 " }}}
@@ -1350,7 +1352,7 @@ set foldtext=MyFoldText()
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 
-au! FileType vim,python,golang,go,ansible,puppet,json,sh call DefaultOn()
+au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki call DefaultOn()
 
 function! DefaultOn()
         if !exists("b:auto_save")

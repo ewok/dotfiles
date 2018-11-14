@@ -1,0 +1,14 @@
+diff --git a/syntax/vimwiki_markdown.vim b/syntax/vimwiki_markdown.vim
+index 5962699..a56c7a9 100644
+--- a/syntax/vimwiki_markdown.vim
++++ b/syntax/vimwiki_markdown.vim
+@@ -98,7 +98,8 @@ let s:markdown_syntax.bold_search = '\%(^\|\s\|[[:punct:]]\)\@<=\*\zs'.
+       \ '\%([^*`[:space:]][^*`]*[^*`[:space:]]\|[^*`[:space:]]\)\ze\*\%([[:punct:]]\|\s\|$\)\@='
+ let s:markdown_syntax.bold_match = '\%(^\|\s\|[[:punct:]]\)\@<=\*__Text__\*'.
+       \ '\%([[:punct:]]\|\s\|$\)\@='
+-let s:markdown_syntax.wikilink = '\[\[\zs[^\\\]|]\+\ze\%(|[^\\\]]\+\)\?\]\]'
++let s:markdown_syntax.wikilink = '[^!]\[.*\](\zs.*\ze)'
++" let s:markdown_syntax.wikilink = '\[\[\zs[^\\\]|]\+\ze\%(|[^\\\]]\+\)\?\]\]'
+ let s:markdown_syntax.tag_search = '\(^\|\s\)\zs:\([^:''[:space:]]\+:\)\+\ze\(\s\|$\)'
+ let s:markdown_syntax.tag_match = '\(^\|\s\):\([^:''[:space:]]\+:\)*__Tag__:'.
+       \ '\([^:[:space:]]\+:\)*\(\s\|$\)'
