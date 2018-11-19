@@ -869,10 +869,17 @@ endfunction
 let g:vimwiki_list = [{'path': '~/Disk/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
                     \ 'auto_toc': 1,
-                    \ 'list_margin': 0,'auto_tags': 1}]
+                    \ 'list_margin': 0,
+                    \ 'custom_wiki2html': 'vimwiki-godown',
+                    \ 'auto_tags': 1}]
+
+let g:vimwiki_folding = 'expr'
 
 
 " }}}
+" -> TaskWiki {{{
+Plug 'tbabej/taskwiki'
+"  }}}
 " }}}
 " UI plugins {{{
 " -> Buffers {{{
