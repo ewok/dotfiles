@@ -879,6 +879,7 @@ let g:vimwiki_folding = 'expr'
 " }}}
 " -> TaskWiki {{{
 Plug 'tbabej/taskwiki'
+Plug 'farseer90718/vim-taskwarrior'
 "  }}}
 " }}}
 " UI plugins {{{
