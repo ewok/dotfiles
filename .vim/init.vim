@@ -437,6 +437,23 @@ function! Load_dutyl() " {{{
 endfunction " }}}
 
 " }}}
+" -> Rust {{{
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+autocmd! User rust.vim call LoadRust()
+
+function! LoadRust()
+
+    au FileType rust nmap <buffer> gd <Plug>(rust-def)
+    au FileType rust nmap <buffer> gs <Plug>(rust-def-split)
+    au FileType rust nmap <buffer> gx <Plug>(rust-def-vertical)
+    au FileType rust nmap <buffer> K <Plug>(rust-doc)
+
+    let g:racer_experimental_completer = 1
+
+endfunction
+
+"  }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 autocmd! User vim-go call LoadGo()
