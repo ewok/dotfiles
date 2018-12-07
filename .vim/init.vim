@@ -449,6 +449,10 @@ function! LoadRust()
     au FileType rust nmap <buffer> gx <Plug>(rust-def-vertical)
     au FileType rust nmap <buffer> K <Plug>(rust-doc)
 
+    au FileType rust map <buffer> <silent> <leader>rr :RustRun<CR>
+    au FileType rust map <buffer> <silent> <leader>rt :RustTest<CR>
+    au FileType rust map <buffer> <silent> <leader>rf :RustFmt<CR>
+
     let g:racer_experimental_completer = 1
 
 endfunction
