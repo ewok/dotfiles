@@ -11,10 +11,7 @@ set hlsearch
 map gr gT
 
 " Windows
-nnoremap <leader>wc :close<CR>
-nnoremap <leader>ws :split<CR>
-nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wo <C-W>o
+nnoremap <C-w>q :close<CR>
 
 imap  <up>    <Nop>
 imap  <down>  <Nop>

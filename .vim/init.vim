@@ -418,7 +418,6 @@ call plug#begin('~/.vim/local/plugged')
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 
 autocmd! User ansible-vim call LoadAnsible()
-
 function! LoadAnsible() " {{{
     let g:ale_ansible_yamllint_options = '-d ~/.vim/ansible_lint/linter.yaml'
     let g:ale_linters = {'ansible': ['ansible-custom', 'yamllint']}
@@ -431,7 +430,6 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " -> Dlang {{{
 Plug 'idanarye/vim-dutyl', { 'for': 'd'  }
 autocmd! User vim-dutyl call Load_dutyl()
-
 function! Load_dutyl() " {{{
     let g:dutyl_stdImportPaths=['/Library/D/dmd/src/druntime/import','/Library/D/dmd/src/phobos']
 endfunction " }}}
@@ -693,7 +691,7 @@ vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " }}}
 " }}}
 " }}}
-" Text plugins {{{
+" Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
 Plug 'zirrostig/vim-schlepp'
 
@@ -877,7 +875,7 @@ let g:vimwiki_folding = 'expr'
 
 " }}}
 " }}}
-" UI plugins {{{
+" UI plugins -------------------------------------------------------------- {{{
 " -> Buffers {{{
 Plug 'jeetsukumaran/vim-buffergator', { 'on': 'BuffergatorToggle' }
 
@@ -999,7 +997,7 @@ else
 endif
 " }}}
 " }}}
-" Code plugins {{{
+" Code plugins ------------------------------------------------------------ {{{
 " -> Commentary {{{
 Plug 'https://github.com/tpope/vim-commentary.git'
 
@@ -1401,7 +1399,7 @@ set foldtext=MyFoldText()
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 
-au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki call DefaultOn()
+au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki,rust call DefaultOn()
 
 function! DefaultOn()
         if !exists("b:auto_save")
