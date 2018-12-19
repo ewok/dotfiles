@@ -38,14 +38,14 @@ nnoremap S mzi<CR><ESC>`z
 
 " Idea specific
 nnoremap <leader>gs :action Vcs.Show.Local.Changes<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gc :action ChangesView.Commit<CR>
+nnoremap <leader>gd :action Compare.LastVersion<CR>
+nnoremap <leader>gc :action CheckinProject<CR>
 nnoremap <leader>gps :action Vcs.Push<CR>
 nnoremap <leader>gbl :action Annotate<CR>
 nnoremap <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
 nnoremap <leader>gpl :action Vcs.UpdateProject<CR>
 nnoremap <leader>gm :action Vcs.QuickListPopupAction<CR>
-nnoremap <leader>gg :action RemoteRepositoryMapper.Open.File.In.Git.Host.Action<CR>
+nnoremap <leader>gg :action Github.Open.In.Browser<CR>
 nnoremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
 nnoremap <leader>gH :action Vcs.Show.Log<CR>
 
@@ -53,7 +53,7 @@ nnoremap <leader>fp :action SelectInProjectView<CR>
 
 " Comments
 nnoremap gcc :action CommentByLineComment<CR>
-vnoremap gcc :action CommentByBlockComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
 
 nnoremap <leader>u :action LocalHistory.ShowHistory<CR>
 
@@ -82,6 +82,14 @@ nnoremap <leader>rr :action Run<CR>
 nnoremap <leader>rd :action Debug<CR>
 nnoremap <leader>rb :action ToggleLineBreakpoint<CR>
 nnoremap <leader>re :action editRunConfigurations<CR>
+nnoremap <leader>rt :action Refactorings.QuickListPopupAction<CR>
+
+" Bookmarks
+"
+nnoremap <leader>pm :action ShowBookmarks<CR>
+nnoremap <leader>m :action ToggleBookmark<CR>
+nnoremap m :action ToggleBookmarkWithMnemonic<CR>
+
 
 nmap MR :%s/\(<C-R>/\)/
 vmap MR :s/\(<C-R>/\)/
