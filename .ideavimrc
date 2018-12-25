@@ -42,6 +42,7 @@ nnoremap <leader>gd :action Compare.LastVersion<CR>
 nnoremap <leader>gc :action CheckinProject<CR>
 nnoremap <leader>gps :action Vcs.Push<CR>
 nnoremap <leader>gbl :action Annotate<CR>
+nnoremap <leader>gbr :action Git.Branches<CR>
 nnoremap <leader>gB :!open -a "DeepGit" --args "%:p" --line-number <C-r>=line('.')<CR><CR><CR>
 nnoremap <leader>gpl :action Vcs.UpdateProject<CR>
 nnoremap <leader>gm :action Vcs.QuickListPopupAction<CR>
