@@ -13,4 +13,4 @@ function setjdk() {
  }
 
 # setjdk "1.7.0_80"
-setjdk "1.8.0_51"
+# setjdk "1.8.0_51"

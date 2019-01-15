@@ -78,7 +78,7 @@ PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)
 RPROMPT="[%*]"
 
 # Set our default path
-PATH="/usr/local/opt/unzip/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
+PATH="/usr/local/opt/unzip/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 export PATH
 
 TZ='Europe/Moscow'; export TZ
