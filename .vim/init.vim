@@ -1538,3 +1538,12 @@ let g:lightline.colorscheme = 'neodark'
 
 " }}}
 
+" Load local vars {{{
+"
+try
+    source ~/.vimrc.local
+    autocmd VimEnter * echo "Local vimrc has been read!"
+catch
+    " Ignoring
+endtry
+" }}}
