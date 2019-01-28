@@ -13,6 +13,4 @@ alias gitk='open -a SourceTree --args "${PWD}/"'
 # fzf
 alias cdf="cd \$(dirname \"\$(fzf)\")"
 
-# hub
-alias git=hub
 alias idea='open -a "IntelliJ IDEA CE" .'
