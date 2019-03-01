@@ -15,3 +15,6 @@ alias git='LANGUAGE=en_US.UTF-8 git'
 alias cdf="cd \$(dirname \"\$(fzf)\")"
 
 alias idea='open -a "IntelliJ IDEA CE" .'
+
+#k8s
+alias k='kubectl'
