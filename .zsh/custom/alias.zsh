@@ -18,3 +18,4 @@ alias idea='open -a "IntelliJ IDEA CE" .'
 
 #k8s
 alias k='kubectl'
+alias kx='kubectx'
