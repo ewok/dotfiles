@@ -98,7 +98,7 @@ bindkey -s '^D'  '^Uexit^M'
 
 ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
 
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+#TODO [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
