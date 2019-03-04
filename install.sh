@@ -15,3 +15,4 @@ ln -s ${PWD}/mutt $HOME/.mutt
 ln -s ${PWD}/.vifm $HOME/.vifm
 ls -s ${PWD}/.i3 $HOME/.i3
 ln -s ${PWD}/.ctags $HOME/.ctags
+ln -s ${PWD}/.i3status.conf $HOME/.i3status.conf
