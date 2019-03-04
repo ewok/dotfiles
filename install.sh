@@ -13,3 +13,4 @@ ln -s ${PWD}/.ideavimrc $HOME/.ideavimrc
 ln -s ${PWD}/muttrc $HOME/.muttrc
 ln -s ${PWD}/mutt $HOME/.mutt
 ln -s ${PWD}/.vifm $HOME/.vifm
+ls -s ${PWD}/.i3 $HOME/.i3
