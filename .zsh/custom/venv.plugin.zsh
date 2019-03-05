@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-VENV_PATH="$HOME/share/venv"
+VENV_PATH="${VENV_PATH:-$HOME/share/venv}"
 
 if [ ! -d $VENV_PATH ]; then
     mkdir -p $VENV_PATH
