@@ -327,7 +327,7 @@ nnoremap L $
 " -> Ansible/Yaml {{{
 augroup ft_ansible
     au!
-    au BufNewFile,BufRead *.yaml,*.yml set filetype=ansible
+    au BufNewFile,BufRead */playbooks/*.yaml,*/playbooks/*.yml set filetype=yaml.ansible
     au FileType ansible   setlocal commentstring=#\ %s
 augroup END
 "  }}}
@@ -415,7 +415,7 @@ call plug#begin('~/.vim/local/plugged')
 
 " Filetype plugins {{{
 " -> Ansible {{{
-Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
 
 autocmd! User ansible-vim call LoadAnsible()
 function! LoadAnsible() " {{{
@@ -1117,7 +1117,7 @@ endfunction
 Plug 'pseewald/vim-anyfold'
 
 if g:largefile != 1
-    autocmd Filetype python,ansible,puppet,go,xml,json,sh,zsh :AnyFoldActivate
+    autocmd Filetype python,yaml.ansible,puppet,go,xml,json,sh,zsh :AnyFoldActivate
 endif
 
 " }}}
@@ -1399,7 +1399,7 @@ set foldtext=MyFoldText()
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 
-au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki,rust call DefaultOn()
+au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki,rust,yaml call DefaultOn()
 
 function! DefaultOn()
         if !exists("b:auto_save")
