@@ -46,6 +46,7 @@ nnoremap <c-s> /
 nnoremap <a-i> <space>:cd <c-x><c-x>d<cr><space>
 nnoremap <a-o> <space>:cd <c-x><c-x>d/<c-x><c-x>c<cr><space>j
 nnoremap <a-x> :q<cr>
+nnoremap <m-x> :q<cr>
 nnoremap <a-?> :find<space>
 nnoremap <f16> cw<c-a>
 
