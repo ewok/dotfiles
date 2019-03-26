@@ -284,7 +284,7 @@ exec --no-startup-id blueman-applet
 exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
 exec --no-startup-id todoist
 exec --no-startup-id yandex-disk-indicator
 exec --no-startup-id ~/.xprofile
