@@ -1,1 +1,0 @@
-/home/ewok/dotfiles/.vim
