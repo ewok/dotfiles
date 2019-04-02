@@ -12,8 +12,8 @@ nnoremap S :sort<cr>
 nnoremap w :view<cr>
 vnoremap w :view<cr>gv
 
-nnoremap o :!open %f<cr>
-nnoremap O :!open %f<cr>
+nnoremap o :!$OPEN_CMD %f<cr>
+nnoremap O :!$OPEN_CMD %f<cr>
 
 " Yank current directory path into the clipboard
 nnoremap yd :!echo %d | xclip %i<cr>

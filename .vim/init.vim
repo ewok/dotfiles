@@ -863,7 +863,7 @@ function! VimwikiIndexCd()
     cd %:h
 endfunction
 
-let g:vimwiki_list = [{'path': '~/Disk/Notes/',
+let g:vimwiki_list = [{'path': '~/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
                     \ 'auto_toc': 1,
                     \ 'list_margin': 0,
