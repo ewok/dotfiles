@@ -1,0 +1,26 @@
+---
+
+install_packages:
+  - rclone
+  - neovim
+  - python2
+  - python3
+  - python-virtualenv
+  - zsh
+  - zsh-autosuggestions
+  - git
+  - tmux
+  - xst
+  - ttf-font-awesome
+  - adobe-source-code-pro-fonts
+  - kubectl
+  - kubectx
+  - unzip
+  - trash-cli
+  - the_silver_searcher
+  - ctags
+  - namhyung-global-git
+
+remove_packages:
+  - vim
+  - palemoon-bin

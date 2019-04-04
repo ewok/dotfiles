@@ -1,0 +1,27 @@
+---
+
+install_packages:
+  - 7zip
+  - deluge
+  - jdk8
+  - lockhunter
+  - neovim
+  - sandboxie
+  - Sudo
+  - telnet
+  - vcxsrv
+  - vifm
+  - you-need-a-budget
+  - zeal
+  - autohotkey
+  - 1password
+  - telegram
+  - slack
+  - vscode
+  - firefox
+  - openvpn
+  - virtualbox
+  - vagrant
+
+
+remove_packages:

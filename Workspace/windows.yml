@@ -1,0 +1,8 @@
+---
+
+- name: Base
+  hosts: win
+  connection: local
+  roles:
+    - windows_packages
+

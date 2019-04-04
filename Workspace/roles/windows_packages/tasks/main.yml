@@ -1,0 +1,11 @@
+---
+
+- name: "Removing {{ remove_packages }}"
+  win_chocolatey:
+    name: "{{ remove_packages }}"
+    state: absent
+
+- name: "Installing {{ install_packages }}"
+  win_chocolatey:
+    name: "{{ install_packages }}"
+    state: present

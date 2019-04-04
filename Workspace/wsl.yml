@@ -1,0 +1,22 @@
+---
+
+- name: Base
+  hosts: local
+  connection: local
+  roles:
+    - arch_wsl_packages
+
+- name: WSL tuning
+  hosts: local
+  connection: local
+  become: True
+  tasks:
+    - name: WSL config
+      copy:
+        content: |
+          [automount]
+          enabled=true
+          options=metadata,uid=1000,gid=1000,umask=077
+        dest: /etc/wsl.conf
+
+

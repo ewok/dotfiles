@@ -1,0 +1,12 @@
+---
+
+- name: "Removing {{ remove_packages }}"
+  pacman:
+    name: "{{ remove_packages }}"
+    state: absent
+
+- name: "Installing {{ install_packages }}"
+  aur:
+    name: "{{ install_packages }}"
+    skip_installed: yes
+    upgrade: no
