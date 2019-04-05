@@ -1,11 +1,11 @@
-# [local]
-# localhost
+[local]
+localhost
 
-[win]
-127.0.0.1
+# [win]
+# 127.0.0.1
 
-[win:vars]
-ansible_user=user
-ansible_password=password
-ansible_connection=winrm
-ansible_winrm_server_cert_validation=ignore
+# [win:vars]
+# ansible_user=user
+# ansible_password=password
+# ansible_connection=winrm
+# ansible_winrm_server_cert_validation=ignore
