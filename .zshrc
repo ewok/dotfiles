@@ -8,7 +8,7 @@ HIST_STAMPS="yyyy-mm-dd"
 ZSH_CUSTOM=~/.zsh/custom
 
 # Plugins
-plugins=(fzf colored-man-pages golang tmux vault vi-mode vi-mode-patch autojump docker git iterm2 jira)
+plugins=(fzf colored-man-pages golang tmux vault ssh-agent autojump docker git)
 
 # HISTORY_OPTION
 HISTFILE="$HOME/.zsh_history"
@@ -55,7 +55,7 @@ ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Add ssh keys
-zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
+zstyle :omz:plugins:ssh-agent identities id_ed25519
 
 ## FZF
 # https://github.com/junegunn/fzf
