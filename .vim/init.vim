@@ -222,6 +222,7 @@ let g:lmap.o = { 'name': 'Options/'}
 let g:lmap.t = { 'name': 'Tags/' }
 let g:lmap.s = { 'name': 'Session/' }
 let g:lmap.q = { 'name': 'QFix/' }
+let g:lmap.z = { 'name': 'Zeal/' }
 
 "  }}}
 
@@ -811,6 +812,7 @@ map <silent> <F8> :Goyo<CR>
 " -> Xkb {{{
 Plug 'lyokha/vim-xkbswitch'
 
+" OSX
 " git clone https://github.com/vovkasm/input-source-switcher.git
 " cd input-source-switcher
 " mkdir build && cd build
@@ -818,7 +820,10 @@ Plug 'lyokha/vim-xkbswitch'
 " make
 " make install
 "
-let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
+" Arch:
+" yay -S xkb-switch
+"
+" let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchSkipFt = [ 'nerdtree' ]
@@ -1192,6 +1197,13 @@ endfunction
 
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
+" -> Zeal {{{
+Plug 'KabbAmine/zeavim.vim'
+nmap <silent> <leader>zi <Plug>Zeavim
+vmap <silent> <leader>z <Plug>ZVVisSelection
+nmap gz <Plug>ZVOperator
+nmap <leader>zo <Plug>ZVKeyDocset
+"  }}}
 " }}}
 " Small plugins {{{
 "
