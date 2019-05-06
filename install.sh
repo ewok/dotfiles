@@ -25,9 +25,6 @@ function update()
     elif [ -h $2 ]
     then
         rm -f $2
-    else
-        echo "Couldn't delete $2"
-        exit 1
     fi
 
     ln -s $1 $2
