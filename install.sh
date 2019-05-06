@@ -22,6 +22,9 @@ function update()
     elif [ -d $2 ]
     then
         rm -rf $2
+    elif [ -h $2 ]
+    then
+        rm -f $2
     else
         echo "Couldn't delete $2"
         exit 1
