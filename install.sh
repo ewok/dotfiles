@@ -4,15 +4,16 @@ set -xe
 
 if [[ -d $HOME/.tmux/resurrect ]]; then rm -rf $HOME/.tmux/resurrect;fi
 
-git clone https://github.com/tmux-plugins/tmux-resurrect $HOME/.tmux/resurrect
+git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $HOME/.tmux/resurrect
 
 if [ -d $HOME/.oh-my-zsh ]; then rm -rf $HOME/.oh-my-zsh;fi
 
-git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+git clone --depth 1 git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
 if [ -d $HOME/bin ]; then rm -rf $HOME/bin;fi
 
-git clone https://github.com/ewok/bin.git $HOME/bin
+git clone --depth 1 https://github.com/ewok/bin.git $HOME/bin
+
 
 function update()
 {
@@ -43,6 +44,13 @@ update ${PWD}/.vifm $HOME/.vifm
 update ${PWD}/.i3 $HOME/.i3
 update ${PWD}/.ctags $HOME/.ctags
 update ${PWD}/.i3status.conf $HOME/.i3status.conf
+
+
+# FZF
+if [ -d $HOME/.fzf ]; then rm -rf $HOME/.fzf;fi
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+$HOME/.fzf/install
 
 
 # VIM
