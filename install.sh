@@ -43,3 +43,19 @@ update ${PWD}/.vifm $HOME/.vifm
 update ${PWD}/.i3 $HOME/.i3
 update ${PWD}/.ctags $HOME/.ctags
 update ${PWD}/.i3status.conf $HOME/.i3status.conf
+
+
+# VIM
+mkdir -p ~/share/venv/neovim2
+virtualenv -p python2 ~/share/venv/neovim2
+source ~/share/venv/neovim2/bin/activate
+pip install neovim
+deactivate
+
+mkdir -p ~/share/venv/neovim3
+virtualenv -p python3 ~/share/venv/neovim3
+source ~/share/venv/neovim3/bin/activate
+pip install neovim
+deactivate
+
+vim +PlugInstall +qall
