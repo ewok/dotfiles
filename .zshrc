@@ -31,7 +31,7 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 RPROMPT="[%*]"
 
 # Set our default path
