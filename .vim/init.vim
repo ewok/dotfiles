@@ -471,11 +471,11 @@ function! LoadGo() " {{{
         let g:polyglot_disabled = ['go']
     endif
 
-    let $GOPATH = $HOME . '/share/gopath/default'
+    " let $GOPATH = $HOME . '/share/gopath/default'
     " TODO: Make it getting from .gopath
     ". fnamemodify(getcwd(), ':t')
-    let $GOBIN = $HOME . '/.local/bin'
-    let $PATH = $PATH . ':' . $GOBIN
+    " let $GOBIN = $HOME . '/.local/bin'
+    " let $PATH = $PATH . ':' . $GOBIN
 
     " let g:go_highlight_functions = 1
     " let g:go_highlight_methods = 1
@@ -519,7 +519,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!npm install -g livedown' }
 
 let g:vim_markdown_folding_disabled = 1
-let g:livedown_browser = 'Safari'
+let g:livedown_browser = 'Firefox'
 " let g:livedown_autorun = 1
 let g:livedown_port = 14545
 " }}}
@@ -621,12 +621,13 @@ Plug 'mattn/emmet-vim'
 "  }}}
 " }}}
 " Info plugins {{{
-" -> Dash {{{
-Plug 'rizzatti/dash.vim'
-
-nnoremap <F1> :set isk+=.<CR>:Dash <cword><CR>:set isk-=.<CR>
-inoremap <F1> <ESC>:set isk+=.<CR>:Dash <cword><CR>:set isk-=.<CR>a
-" }}}
+" -> Zeal {{{
+Plug 'KabbAmine/zeavim.vim'
+nmap <silent> <leader>zi <Plug>Zeavim
+vmap <silent> <leader>z <Plug>ZVVisSelection
+nmap gz <Plug>ZVOperator
+nmap <leader>zo <Plug>ZVKeyDocset
+"  }}}
 " }}}
 " Motion plugins {{{
 " -> Easymotion {{{
@@ -677,7 +678,6 @@ vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 
 " }}}
 " }}}
-" }}}
 " Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
 Plug 'zirrostig/vim-schlepp'
@@ -704,23 +704,7 @@ vnoremap <leader>fr :Far<space>
 
 " }}}
 " -> Morph {{{
-Plug 'd0c-s4vage/vim-morph', { 'on': 'Morph' }
-" , { 'for': [ 'base64', 'encrypted']}
-
-augroup ft_morph
-    au!
-    au FileType base64,encrypted :Morph
-augroup END
-
-command! Morph call Morph()
-
-function! Morph()
-    if exists('b:morphed')
-        return
-    endif
-    let b:morphed = 1
-    edit
-endfunction
+Plug 'd0c-s4vage/vim-morph', { 'for': [ 'base64', 'encrypted']}
 
 " }}}
 " -> Mundo {{{
@@ -1197,13 +1181,6 @@ endfunction
 
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
-" -> Zeal {{{
-Plug 'KabbAmine/zeavim.vim'
-nmap <silent> <leader>zi <Plug>Zeavim
-vmap <silent> <leader>z <Plug>ZVVisSelection
-nmap gz <Plug>ZVOperator
-nmap <leader>zo <Plug>ZVKeyDocset
-"  }}}
 " }}}
 " Small plugins {{{
 "

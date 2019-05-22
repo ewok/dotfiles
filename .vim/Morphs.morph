@@ -36,6 +36,6 @@ MorphEnd
 # MorphEnd
 
 Morph *.enc
-    openssl enc -e -aes256 -kfile ~/Documents/Encrypted/.pass
-    openssl enc -d -aes256 -kfile ~/Documents/Encrypted/.pass
+    openssl enc -e -aes256 -pbkdf2 -kfile ~/Documents/Encrypted/.pass
+    openssl enc -d -aes256 -pbkdf2 -kfile ~/Documents/Encrypted/.pass
 MorphEnd
