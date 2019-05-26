@@ -4,9 +4,6 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="norm"
 HIST_STAMPS="yyyy-mm-dd"
 
-# My customs
-ZSH_CUSTOM=~/.zsh/custom
-
 # Plugins
 plugins=(fzf colored-man-pages golang tmux vault ssh-agent autojump docker git)
 
@@ -27,6 +24,9 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+# My customs
+ZSH_CUSTOM=~/.zsh/custom
 
 source $ZSH/oh-my-zsh.sh
 
