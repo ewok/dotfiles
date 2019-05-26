@@ -54,7 +54,6 @@ nnoremap <f16> cw<c-a>
 nnoremap <a-j> :j<space>
 nnoremap J av<c-g><c-g><c-m>j
 nnoremap K av<c-g><c-g><c-m>k
-
 " Tmux plugin navigator
 nnoremap <BS> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
 nnoremap <c-h> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
@@ -68,3 +67,6 @@ nnoremap is :!if [ -n "$TMUX" ]; then tmux split-window -v -p 80 reattach-to-use
 nnoremap iv :!if [ -n "$TMUX" ]; then tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
 nnoremap ir :vimr %f<cr>
 nnoremap ic :code %f<cr>
+
+" Autojump
+nnoremap gj :J<Space>
