@@ -90,7 +90,7 @@ bspc rule -a Todoist desktop=2
 bspc rule -a TelegramDesktop desktop=2
 bspc rule -a "Syncthing GTK" state=floating center=false
 bspc rule -a "Blueman-manager" state=floating center=false
-" state=floating center=true
+# state=floating center=true
 bspc rule -a clipit state=floating center=true
 
 
@@ -120,7 +120,10 @@ bspc config external_rules_command /usr/bin/pseudo_automatic_mode
 
 # Alter compton settings if using intel graphics
 GRAPHIC_CARD=$(lspci | grep -i "vga" | sed 's/.*://' | sed 's/(.*//' | sed 's/^[ \t]*//')
-if [[ $(echo $GRAPHIC_CARD | grep -i 'intel\|lenovo') != "" ]]; then MCODE='initrd=\intel-ucode.img'
-  sed -i 's/"xrender"/"glx"/' ~/.config/compton.conf
-  grep -q 'vsync = "opengl-swc";' ~/.config/compton.conf || echo 'vsync = "opengl-swc";' >> ~/.config/compton.conf
+
+if [[ $(echo $GRAPHIC_CARD | grep -i 'intel\|lenovo') != "" ]]; then
+    MCODE='initrd=\intel-ucode.img'
+    sed -i 's/"xrender"/"glx"/' ~/.config/compton.conf
+    grep -q 'vsync = "opengl-swc";' ~/.config/compton.conf || echo 'vsync = "opengl-swc";' >> ~/.config/compton.conf
 fi
+

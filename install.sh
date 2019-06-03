@@ -47,13 +47,18 @@ update ${PWD}/.i3status.conf $HOME/.i3status.conf
 update ${PWD}/ranger $HOME/.config/ranger
 update ${PWD}/sxhkd $HOME/.config/sxhkd
 update ${PWD}/bspwm $HOME/.config/bspwm
+update ${PWD}/.xinitrc $HOME/.xinitrc
+update ${PWD}/.xprofile $HOME/.xprofile
+update ${PWD}/.Xresources $HOME/.Xresources
+update ${PWD}/.zprofile $HOME/.zprofile
+update ${PWD}/.profile $HOME/.profile
 
 
 # FZF
 if [ -d $HOME/.fzf ]; then rm -rf $HOME/.fzf;fi
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-$HOME/.fzf/install
+$HOME/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
 
 
 # VIM

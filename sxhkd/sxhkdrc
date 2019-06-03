@@ -255,10 +255,11 @@ mod1 + @button1
 #
 
 # run applications
-super + space
-	dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
+# alt + d
+# 	dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
 
-super + shift + space
+# super + shift + space
+alt + d
 	rofi -show
 
 #super + p
@@ -292,13 +293,13 @@ super + Print
 #
 
 XF86AudioRaiseVolume
-	volume up
+	changeVolume 2dB+ unmute
 
 XF86AudioLowerVolume
-	volume down
+	changeVolume 2dB- unmute
 
 XF86AudioMute
-	volume mute
+	changeVolume 0dB mute
 
 XF86MonBrightnessDown
  light -U 5

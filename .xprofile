@@ -1,0 +1,3 @@
+xset r rate 220 25
+setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:alt_space_toggle,caps:ctrl_modifier"
+xinput --set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1

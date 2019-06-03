@@ -76,4 +76,4 @@ blueman-applet &
 zeal &
 gxkb &
 pa-applet &
-
+cbatticon -l 30 -r 10 &

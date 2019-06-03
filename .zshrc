@@ -34,33 +34,11 @@ source $ZSH/oh-my-zsh.sh
 PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 RPROMPT="[%*]"
 
-# Set our default path
-PATH="$HOME/go/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH"
-export PATH
-
-TZ='Europe/Moscow'; export TZ
-
-# Preferred editor for local and remote sessions */
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-  export VISUAL='nvim'
-else
-  export EDITOR='nvim'
-  export VISUAL='nvim'
-fi
-
-ANSIBLE_LIBRARY=$HOME/.ansible/plugins/core:$HOME/.ansible/plugins/extras
-
 # SSH-AGENT
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Add ssh keys
 zstyle :omz:plugins:ssh-agent identities id_ed25519
-
-## FZF
-# https://github.com/junegunn/fzf
-export FZF_COMPLETION_TRIGGER='*'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ## Local specific settings
 # You may want to override this options:
@@ -73,4 +51,3 @@ export OPEN_CMD=open
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi
-
