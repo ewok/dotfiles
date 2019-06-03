@@ -1,6 +1,6 @@
 #! /bin/sh
 gap=10
-PANEL_HEIGHT=25
+PANEL_HEIGHT=30
 export gap
 export PANEL_HEIGHT
 
@@ -15,7 +15,7 @@ bspc config bottom_padding -$gap
 bspc config gapless_monocle     false #Default setup uses negative padding, and gapless monocle looks really weird like that
 bspc config borderless_monocle  true
 bspc config single_monocle true
-bspc config paddingless_monocle false
+# bspc config paddingless_monocle false
 #bspc config ignore_ewmh_focus      true
 #bspc config initial_polarity second_child
 bspc config remove_disabled_monitors true
@@ -42,10 +42,10 @@ bspc config split_ratio         0.52
 #bspc monitor -d I II III IV V VI VII VIII IX X
 #bspc monitor -d • • • • • • • • • •
 #bspc monitor -d I II III IV V VI
-bspc monitor -d 1 2 3 4 5 6 7 8 9
+bspc monitor -d 1 2 3 4
 
 ###This creates and names desktops for multiple monitors.
-workspaces_multimonitor &
+# workspaces_multimonitor &
 
 bspc rule -a screenkey --unmanage
 bspc rule -a gcolor2 state=floating center=true
@@ -86,6 +86,10 @@ bspc rule -a 9menu border=off manage=off
 bspc rule -a tint2 border=off manage=off
 #bspc desktop I --layout monocle
 #bspc desktop II --layout monocle
+bspc rule -a todoist desktop=2
+bspc rule -a telegram-desktop desktop=2
+bspc rule -a syncthing-gtk state=floating center=true
+bspc rule -a clipit state=floating center=true
 
 
 ##  Autogap adjusts windowgap automatically according to the number of
@@ -93,7 +97,7 @@ bspc rule -a tint2 border=off manage=off
 #autogap &
 
 ##  This script balances all windows when new one is spawned 
-#euclid_balancer &
+# euclid_balancer &
 
 ##Edge-switcher switches to next workspace when moves moves to the 
 ##edge of the monitor (behavior similar to enlightenment)
@@ -108,9 +112,10 @@ bspc config external_rules_command /usr/bin/pseudo_automatic_mode
 ##Autostart apps
 #Keybindings daemon
 #sxhkd &
+
 #Source autostartfile. Uncomment this if you use bspwm-git
 #. $HOME/.config/bspwm/autostart
-limepanel &
+
 # Alter compton settings if using intel graphics
 GRAPHIC_CARD=$(lspci | grep -i "vga" | sed 's/.*://' | sed 's/(.*//' | sed 's/^[ \t]*//')
 if [[ $(echo $GRAPHIC_CARD | grep -i 'intel\|lenovo') != "" ]]; then MCODE='initrd=\intel-ucode.img'

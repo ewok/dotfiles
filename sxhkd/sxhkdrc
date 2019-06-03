@@ -282,7 +282,10 @@ super + e
 
 # TODO: Add selective screenshot
 Print
-	scrot
+	flameshot full -p ~/Pictures/Screenshots/
+
+super + Print
+    flameshot gui -p ~/Pictures/Screenshots/
 
 #
 # Media keys
