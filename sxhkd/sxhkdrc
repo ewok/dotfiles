@@ -278,7 +278,7 @@ alt + shift + b
 	$BROWSER
 
 super + e
-	default-terminal vifm
+	default-terminal ranger
 #spacefm -n
 
 # TODO: Add selective screenshot
