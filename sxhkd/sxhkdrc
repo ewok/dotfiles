@@ -105,17 +105,17 @@ alt + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} ^{1-9,10}
 
 ## Alternative: i3 style behavior (focus nth, desktop of the focused monitor)
-#super + {1-9,0}
-#	focusdesktopofthismonitor {1-9}
-#super + shift + {1-9,0}
-#	movetodesktopofthismonitor {1-9,10}
+# super + {1-9,0}
+# 	focusdesktopofthismonitor {1-9}
+# super + shift + {1-9,0}
+# 	movetodesktopofthismonitor {1-9,10}
 
 ## Another alternative: xmonad style desktops. You have 10 desktops shared between all monitors,
 ## and focusing a desktop focuses it on the currently focused monitor
-#super + {1-9,0}
-#	summondesktop.sh {1-9,10}
-#super + shift + {1-9,0}
-#	bspc node -d ^{1-9,10}
+# super + {1-9,0}
+# 	summondesktop.sh {1-9,10}
+# super + shift + {1-9,0}
+# 	bspc node -d ^{1-9,10}
 
 # Select previous / next desktop
 alt + {m,n}
@@ -246,6 +246,13 @@ mod1 + @button1
 	BspwmWindowMenu
 # mygtkmenui -- .config/GTKmenu/BspwmWindowMenui
 
+### Three finger swipe (left or right) to change desktop
+@button{10,11}
+    bspc desktop -f {prev,next}
+
+### Three finger swipe (up) to launch dswitcher
+@button8
+    dswitcher & xdotool mousemove 640 400
 
 #
 # Touchpad "gestures" (depend on your touchpad driver, very likely to be unavailable)
@@ -292,14 +299,14 @@ super + Print
 # Media keys
 #
 
-XF86AudioRaiseVolume
-	changeVolume 2dB+ unmute
+# XF86AudioRaiseVolume
+# 	changeVolume 2dB+ unmute
 
-XF86AudioLowerVolume
-	changeVolume 2dB- unmute
+# XF86AudioLowerVolume
+# 	changeVolume 2dB- unmute
 
-XF86AudioMute
-	changeVolume 0dB mute
+# XF86AudioMute
+# 	changeVolume 0dB mute
 
 XF86MonBrightnessDown
  light -U 5

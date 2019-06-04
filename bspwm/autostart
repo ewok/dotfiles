@@ -14,11 +14,12 @@ nitrogen --restore &
 #run_once unclutter &
 
 ## Automount removable media
-devmon &
+run_once devmon &
 
 ## Panel. The default is lemonbar script. Xfce4-panel can be more 
 ## easily configurable if you prefer that. Not installed by default
-run_once xfce4-panel -d
+# run_once xfce4-panel -d
+run_once polybar main &
 
 i3lock-wait-for-suspend &
 #
@@ -30,15 +31,14 @@ update-checker 7200 &
 dbus-launch gsettings set org.mate.NotificationDaemon theme 'slider' && sed -i '/gsettings/d' ~/.config/bspwm/autostart &
 #lxpolkit &
 
-telegram-desktop &
-todoist &
-clipit &
-syncthing-gtk &
-flameshot &
-redshift-gtk &
-nm-applet &
-blueman-applet &
-zeal &
-gxkb &
-pa-applet &
-cbatticon -l 30 -r 10 &
+run_once telegram-desktop &
+run_once todoist &
+run_once clipit &
+run_once syncthing-gtk &
+run_once flameshot &
+run_once redshift-gtk &
+run_once nm-applet &
+run_once blueman-applet &
+run_once zeal &
+# run_once volumeicon &
+# run_once cbatticon -l 30 -r 10 &

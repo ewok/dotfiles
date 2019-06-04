@@ -52,6 +52,7 @@ update ${PWD}/.xprofile $HOME/.xprofile
 update ${PWD}/.Xresources $HOME/.Xresources
 update ${PWD}/.zprofile $HOME/.zprofile
 update ${PWD}/.profile $HOME/.profile
+update ${PWD}/.polybar $HOME/.polybar
 
 
 # FZF
