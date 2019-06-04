@@ -37,7 +37,7 @@ font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
 font-4 = "Noto Sans Symbols2"
 
-modules-left = powermenu bspwm xwindows
+modules-left = powermenu bspwm xwindows apps
 modules-center = date
 modules-right = memory cpu filesystem xbacklight wlan eth battery pulseaudio xkeyboard
 
@@ -299,7 +299,7 @@ menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
 menu-3-0 = logout
-menu-3-0-exec = sudo logout
+menu-3-0-exec = bspwm_logout
 menu-3-1 = cancel
 menu-3-1-exec = menu-open-0
 

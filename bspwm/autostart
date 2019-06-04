@@ -30,9 +30,8 @@ srandrd atorandr.sh --change
 update-checker 7200 &
 dbus-launch gsettings set org.mate.NotificationDaemon theme 'slider' && sed -i '/gsettings/d' ~/.config/bspwm/autostart &
 #lxpolkit &
-
+#
 run_once telegram-desktop &
-run_once todoist &
 run_once clipit &
 run_once syncthing-gtk &
 run_once flameshot &
@@ -42,3 +41,5 @@ run_once blueman-applet &
 run_once zeal &
 # run_once volumeicon &
 # run_once cbatticon -l 30 -r 10 &
+run_once todoist &
+xdotool search --pid $? --name "\a\b\c" set_window --class "Todoist"
