@@ -19,6 +19,3 @@ xset s noblank
 xset s noexpose
 xset c on
 xset -dpms
-xbacklight -set 15
-
-# xcape -e 'Super_L=Super_L|Shift_L|space'
