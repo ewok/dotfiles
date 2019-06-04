@@ -171,13 +171,13 @@ alt + f
 	bspc desktop -l next
 
 # Balance tree
-super + b
+alt + b
 	bspc node @/ -B
 
 # Balance brother node. If you do this on biggest window of the desktop, it usually means balancing all windows with except the biggest.
 super + alt + b
 	bspc node @brother -B
-	
+
 # Undo balancing (equalize windows)
 super + ctrl + b
 	bspc node @/ -E
@@ -187,11 +187,11 @@ alt + b
 	euclid_balancer
 
 # Mirror and flip leaves of tree
-super + {comma,period}
+alt + {comma,period}
 	bspc node @/ -F {horizontal,vertical}
 	
 # Rotate leaves of tree
-super + shift + {comma,period}
+alt + shift + {comma,period}
 	bspc node @/ -R {90,270}
 
 # Change window gap
@@ -212,7 +212,7 @@ super + button{4,5}
 	DidIClickDesktop.sh && BspwmDesktopMenu
 #	DidIClickDesktop.sh && mygtkmenui -- .config/GTKmenu/BspwmDesktopMenui
 #	DidIClickDesktop.sh && mygtkmenui -- .config/GTKmenu/BspwmWindowMenui
-		
+
 ~button3
 	DidIClickDesktop.sh && rofimenu -desktop
 #DidIClickDesktop.sh && mygtkmenui -- .config/GTKmenu/LaunchMenu
