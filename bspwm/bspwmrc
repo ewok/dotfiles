@@ -42,7 +42,7 @@ bspc config split_ratio         0.52
 #bspc monitor -d I II III IV V VI VII VIII IX X
 #bspc monitor -d • • • • • • • • • •
 #bspc monitor -d I II III IV V VI
-bspc monitor -d 1 2 3 4
+bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 
 ###This creates and names desktops for multiple monitors.
 # workspaces_multimonitor &
