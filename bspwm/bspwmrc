@@ -115,7 +115,7 @@ bspc config external_rules_command /usr/bin/pseudo_automatic_mode
 #sxhkd &
 
 #Source autostartfile. Uncomment this if you use bspwm-git
-#. $HOME/.config/bspwm/autostart
+. $HOME/.config/bspwm/autostart-user
 
 # Alter compton settings if using intel graphics
 GRAPHIC_CARD=$(lspci | grep -i "vga" | sed 's/.*://' | sed 's/(.*//' | sed 's/^[ \t]*//')
