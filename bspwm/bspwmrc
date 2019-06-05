@@ -78,7 +78,7 @@ bspc rule -a wpa_gui state=pseudo_tiled
 bspc rule -a libreoffice state=tiled
 bspc rule -a '*:libreofficedev' state=tiled
 bspc rule -a '*:soffice' state=tiled
-#bspc rule -a firefox desktop=I
+bspc rule -a firefox desktop=1
 #bspc rule -a calibre desktop=II
 #bspc rule -a geany desktop=II
 #bspc rule -a deluge desktop=III
@@ -86,7 +86,7 @@ bspc rule -a 9menu border=off manage=off
 bspc rule -a tint2 border=off manage=off
 #bspc desktop I --layout monocle
 #bspc desktop II --layout monocle
-bspc rule -a TelegramDesktop desktop=3
+bspc rule -a TelegramDesktop desktop=5
 bspc rule -a "Syncthing GTK" state=floating center=false
 bspc rule -a "Blueman-manager" state=floating center=false
 # state=floating center=true

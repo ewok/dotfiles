@@ -43,10 +43,24 @@ zstyle :omz:plugins:ssh-agent identities id_ed25519
 ## Local specific settings
 # You may want to override this options:
 export JIRA_DEFAULT_ACTION=branch
-export LANG=ru_RU.UTF-8
-export LC_ALL=ru_RU.UTF-8
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export OPEN_CMD=open
+
+# LOCALE
+export LANG=en_US.UTF-8
+# export LC_CTYPE="ru_RU.UTF-8"
+export LC_NUMERIC="ru_RU.UTF-8"
+export LC_TIME="ru_RU.UTF-8"
+export LC_COLLATE="ru_RU.UTF-8"
+export LC_MONETARY="ru_RU.UTF-8"
+# export LC_MESSAGES="ru_RU.UTF-8"
+export LC_PAPER="ru_RU.UTF-8"
+export LC_NAME="ru_RU.UTF-8"
+export LC_ADDRESS="ru_RU.UTF-8"
+export LC_TELEPHONE="ru_RU.UTF-8"
+export LC_MEASUREMENT="ru_RU.UTF-8"
+export LC_IDENTIFICATION="ru_RU.UTF-8"
+export LC_ALL=
 
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local

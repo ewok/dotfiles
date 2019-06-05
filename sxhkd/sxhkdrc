@@ -299,14 +299,14 @@ super + Print
 # Media keys
 #
 
-# XF86AudioRaiseVolume
-# 	changeVolume 2dB+ unmute
+XF86AudioRaiseVolume
+	changeVolume 2dB+ unmute
 
-# XF86AudioLowerVolume
-# 	changeVolume 2dB- unmute
+XF86AudioLowerVolume
+	changeVolume 2dB- unmute
 
-# XF86AudioMute
-# 	changeVolume 0dB mute
+XF86AudioMute
+	changeVolume 0dB mute
 
 XF86MonBrightnessDown
  light -U 5
