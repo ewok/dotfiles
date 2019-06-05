@@ -33,16 +33,16 @@ class Zenburn(ColorScheme):
                 fg = 235
 
             if context.image:
-                fg = 34
+                fg = 2
 
             if context.video:
-                fg = 34
+                fg = 5
 
             if context.audio:
-                fg = 35
+                fg = 5
 
             if context.document:
-                fg = 30
+                fg = 12
 
             if context.container:
                 attr |= bold
