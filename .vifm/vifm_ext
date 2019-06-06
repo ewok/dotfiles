@@ -128,6 +128,10 @@ fileviewer .*/,*/ tree %f
 " 256-color terminal
 fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s dante --syntax c %c
 fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
+fileviewer *.py highlight -O xterm256 -s dante --syntax python %c
+" fileviewer *.y(a)?ml highlight -O xterm256 -s dante --syntax yml %c
+fileviewer *.go highlight -O xterm256 -s dante --syntax go %c
+fileviewer *.md highlight -O xterm256 -s dante --syntax markdown %c
 "
 " 16-color terminal
 " fileviewer *.c,*.h highlight -O ansi -s dante %c

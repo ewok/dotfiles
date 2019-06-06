@@ -9,16 +9,15 @@ nnoremap v :!if [ -n "$TMUX" ]; then I=$(T=$(tty);tmux lsp -F'#{pane_tty} #{pane
 nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
-nnoremap ww :view<cr>
-vnoremap ww :view<cr>gv
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
 
 " View marks, bookmarks, regs, tasks
-nnoremap wt :jobs<cr>
-nnoremap wj :jobs<cr>
-nnoremap wm :marks<cr>
-nnoremap wb :bmarks<cr>
-nnoremap wr :reg<cr>
-nnoremap wt :trashes<cr>
+nnoremap Wj :jobs<cr>
+nnoremap Wm :marks<cr>
+nnoremap Wb :bmarks<cr>
+nnoremap Wr :reg<cr>
+nnoremap Wt :trashes<cr>
 
 " Open file
 nnoremap o :file<cr>
@@ -50,9 +49,7 @@ nnoremap ,c :write | execute ':!vim $MYVIFMRC' | restart<cr>
 nnoremap ,w :set wrap!<cr>
 
 " Example of standard two-panel file managers mappings
-nnoremap <f3> :!mcview %f<cr>
-nnoremap <f4> :edit<cr>
-nnoremap <f5> :copy<cr>
+nnoremap <f5> :copy
 nnoremap <f6> :move
 nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete
@@ -85,7 +82,7 @@ nnoremap is :!if [ -n "$TMUX" ]; then tmux split-window -v -p 80 reattach-to-use
 nnoremap iv :!if [ -n "$TMUX" ]; then tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
 
 " Autojump
-nnoremap gj :J<Space>
+nnoremap gj :j<Space>
 
 " Tabs
 nnoremap <c-w>t :tabnew<CR>
@@ -98,9 +95,15 @@ nnoremap gm :cd ~/media<cr>
 nnoremap gh :cd<cr>
 nnoremap gM :cd ~/mnt<cr>
 nnoremap gd :cd ~/Downloads<cr>
+nnoremap gp :cd ~/projects<cr>
+nnoremap gb :cd ~/bin<cr>
 
 " Registers
 nnoremap " :reg<cr>
+
+" Filter
+nnoremap f =
+
 
 " Quit
 nnoremap q :q<cr>
