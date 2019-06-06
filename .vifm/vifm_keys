@@ -9,10 +9,19 @@ nnoremap v :!if [ -n "$TMUX" ]; then I=$(T=$(tty);tmux lsp -F'#{pane_tty} #{pane
 nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
-nnoremap w :view<cr>
-vnoremap w :view<cr>gv
+nnoremap ww :view<cr>
+vnoremap ww :view<cr>gv
 
-nnoremap o :!$OPEN_CMD %f<cr>
+" View marks, bookmarks, regs, tasks
+nnoremap wt :jobs<cr>
+nnoremap wj :jobs<cr>
+nnoremap wm :marks<cr>
+nnoremap wb :bmarks<cr>
+nnoremap wr :reg<cr>
+nnoremap wt :trashes<cr>
+
+" Open file
+nnoremap o :file<cr>
 nnoremap O :!$OPEN_CMD %f<cr>
 
 " Yank current directory path into the clipboard
@@ -20,6 +29,14 @@ nnoremap yd :!echo %d | xclip %i<cr>
 
 " Yank current file path into the clipboard
 nnoremap yf :!echo %c:p | xclip %i<cr>
+
+" Put
+nnoremap pp :put<cr>
+nnoremap PP :put!<cr>
+
+nnoremap pb :put &<cr>
+nnoremap Pb :put! &<cr>
+nnoremap PB :put! &<cr>
 
 " Mappings for faster renaming
 nnoremap I cw<c-a>
@@ -43,8 +60,8 @@ nnoremap <f10> :q<cr>
 
 " Like in MC
 nnoremap <c-s> /
-nnoremap <a-i> <space>:cd <c-x><c-x>d<cr><space>
-nnoremap <a-o> <space>:cd <c-x><c-x>d/<c-x><c-x>c<cr><space>j
+nnoremap <a-i> :sync<cr>
+nnoremap <a-o> :sync %c<cr><down>
 nnoremap <a-x> :q<cr>
 nnoremap <m-x> :q<cr>
 nnoremap <a-?> :find<space>
@@ -54,6 +71,7 @@ nnoremap <f16> cw<c-a>
 nnoremap <a-j> :j<space>
 nnoremap J av<c-g><c-g><c-m>j
 nnoremap K av<c-g><c-g><c-m>k
+
 " Tmux plugin navigator
 nnoremap <BS> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
 nnoremap <c-h> :!if [ -n "$TMUX" ]; then tmux select-pane -L;fi<cr>
@@ -65,8 +83,24 @@ nnoremap ii :vim %f<cr>
 nnoremap it :!if [ -n "$TMUX" ]; then tmux new-window reattach-to-user-namespace -l vim %f;fi<CR>
 nnoremap is :!if [ -n "$TMUX" ]; then tmux split-window -v -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
 nnoremap iv :!if [ -n "$TMUX" ]; then tmux split-window -h -p 80 reattach-to-user-namespace -l vim %f;fi<CR>
-nnoremap ir :vimr %f<cr>
-nnoremap ic :code %f<cr>
 
 " Autojump
 nnoremap gj :J<Space>
+
+" Tabs
+nnoremap <c-w>t :tabnew<CR>
+nnoremap <c-w>q :tabclose<CR>
+nnoremap gt :tabnext<CR>
+nnoremap gr :tabprevious<CR>
+
+" GoTo
+nnoremap gm :cd ~/media<cr>
+nnoremap gh :cd<cr>
+nnoremap gM :cd ~/mnt<cr>
+nnoremap gd :cd ~/Downloads<cr>
+
+" Registers
+nnoremap " :reg<cr>
+
+" Quit
+nnoremap q :q<cr>

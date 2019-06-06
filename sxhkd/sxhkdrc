@@ -262,10 +262,9 @@ mod1 + @button1
 #
 
 # run applications
-# alt + d
-# 	dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
+alt + space
+	dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
 
-# super + shift + space
 alt + d
 	rofi -show
 
@@ -277,9 +276,6 @@ alt + d
 
 alt + Return
 	open-terminal-here
-
-super + r
-	rofi-finder.sh
 
 alt + shift + b
 	$BROWSER

@@ -86,7 +86,7 @@ bspc rule -a 9menu border=off manage=off
 bspc rule -a tint2 border=off manage=off
 #bspc desktop I --layout monocle
 #bspc desktop II --layout monocle
-bspc rule -a TelegramDesktop desktop=5
+bspc rule -a TelegramDesktop desktop=5 follow=true
 bspc rule -a "Syncthing GTK" state=floating center=false
 bspc rule -a "Blueman-manager" state=floating center=false
 # state=floating center=true

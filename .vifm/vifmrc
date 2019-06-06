@@ -41,7 +41,7 @@ set novimhelp
 " If you would like to run an executable file when you
 " press return on the file name set this.
 
-set runexec
+set norunexec
 
 " Use KiB, MiB, ... instead of KB, MB, ...
 

@@ -37,9 +37,9 @@ font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
 font-4 = "Noto Sans Symbols2"
 
-modules-left = powermenu date bspwm apps xwindow
-modules-center = memory cpu filesystem wlan eth
-modules-right = xbacklight battery pulseaudio xkeyboard
+modules-left = powermenu bspwm apps xwindow
+modules-center = memory cpu battery filesystem wlan eth
+modules-right = date xbacklight pulseaudio xkeyboard
 
 tray-position = right
 tray-padding = 2
@@ -309,12 +309,12 @@ menu-0-2 = power off
 menu-0-2-exec = menu-open-2
 
 menu-1-0 = reboot
-menu-1-0-exec = sudo reboot
+menu-1-0-exec = reboot
 menu-1-1 = cancel
 menu-1-1-exec = menu-open-0
 
 menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
+menu-2-0-exec = poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
@@ -326,7 +326,7 @@ menu-3-1-exec = menu-open-0
 [module/apps]
 type = custom/text
 content = [VB]
-click-left = VirtualBox
+click-left = VirtualBox &
 
 [settings]
 screenchange-reload = true

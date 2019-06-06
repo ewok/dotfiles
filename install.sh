@@ -44,7 +44,6 @@ update ${PWD}/.vifm $HOME/.vifm
 update ${PWD}/.i3 $HOME/.i3
 update ${PWD}/.ctags $HOME/.ctags
 update ${PWD}/.i3status.conf $HOME/.i3status.conf
-update ${PWD}/ranger $HOME/.config/ranger
 update ${PWD}/sxhkd $HOME/.config/sxhkd
 update ${PWD}/bspwm $HOME/.config/bspwm
 update ${PWD}/.xinitrc $HOME/.xinitrc

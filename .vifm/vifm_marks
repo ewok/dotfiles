@@ -4,5 +4,3 @@ mark b ~/bin/
 mark h ~/
 mark m ~/mnt
 mark 1 ~/projects
-mark 2 ~/projects/blog
-mark 3 ~/projects/go/src/github.com/ewok
