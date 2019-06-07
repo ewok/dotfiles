@@ -310,13 +310,18 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
  light -A 5
 
-
 XF86Sleep
 	systemctl suspend
 
+
+# Lock
+super + l
+    lock
+
 # make sxhkd reload its configuration files:
 super + shift + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd ; \
+	notify-send "sxhkd reloaded"
 
 # In case bspwmrc fails to execute/you wish have plugged in a new monitor
 super + shift + r

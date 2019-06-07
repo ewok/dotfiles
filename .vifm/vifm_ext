@@ -28,7 +28,12 @@
 " program.
 
 " Pdf
-" filetype *.pdf
+filextype *.pdf
+        \ {View in zathura}
+        \ zathura %f,
+        \ {Open with Okular(flatpak)}
+        \ org.kde.okular %c,
+
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
@@ -44,6 +49,11 @@ filextype *.djvu
         \ zathura %f,
         \ {View in apvlv}
         \ apvlv %f,
+
+" Comics
+filextype *.cbr, *.cbz
+        \ {View in zathura}
+        \ zathura %f,
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3 mpv %f 2>/dev/null
@@ -132,6 +142,7 @@ fileviewer *.py highlight -O xterm256 -s dante --syntax python %c
 fileviewer *.yaml,*.yml highlight -O xterm256 -s dante --syntax yaml %c
 fileviewer *.go highlight -O xterm256 -s dante --syntax go %c
 fileviewer *.md highlight -O xterm256 -s dante --syntax markdown %c
+fileviewer Vagrantfile,*.rb highlight -O xterm256 -s dante --syntax ruby %c
 "
 " 16-color terminal
 " fileviewer *.c,*.h highlight -O ansi -s dante %c

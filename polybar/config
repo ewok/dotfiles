@@ -38,7 +38,7 @@ font-3 = "Unifont Upper"
 font-4 = "Noto Sans Symbols2"
 
 modules-left = powermenu bspwm apps xwindow
-modules-center = memory cpu battery filesystem wlan eth
+modules-center = memory cpu filesystem wlan eth battery
 modules-right = date xbacklight pulseaudio xkeyboard
 
 tray-position = right

@@ -27,6 +27,9 @@ run_once polybar main &
 
 i3lock-wait-for-suspend &
 
+## Battery warning
+battery-warning &
+
 ## Notify about package updates
 update-checker 7200 &
 dbus-launch gsettings set org.mate.NotificationDaemon theme 'slider' && sed -i '/gsettings/d' ~/.config/bspwm/autostart &
