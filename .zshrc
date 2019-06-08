@@ -31,7 +31,7 @@ ZSH_CUSTOM=~/.zsh/custom
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%~ %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 RPROMPT="[%*]"
 
 # SSH-AGENT

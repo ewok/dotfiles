@@ -328,7 +328,7 @@ nnoremap L $
 " -> Ansible/Yaml {{{
 augroup ft_ansible
     au!
-    au BufNewFile,BufRead */playbooks/*.yaml,*/playbooks/*.yml set filetype=yaml.ansible
+    au BufNewFile,BufRead */\(playbooks\|roles\|tasks\|handlers\|defaults\|vars\)/*.\(yaml\|yml\) set filetype=yaml.ansible
     au FileType ansible   setlocal commentstring=#\ %s
 augroup END
 "  }}}
@@ -516,10 +516,19 @@ Plug 'robbles/logstash.vim'
 " -> Markdown {{{
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!npm install -g livedown' }
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
+autocmd! User vim-livedown call LoadLivedown()
+
+function! LoadLivedown()
+
+    au FileType markdown map <buffer> <silent> <leader>rr :LivedownPreview<CR>
+    au FileType markdown map <buffer> <silent> <leader>rt :LivedownToggle<CR>
+    au FileType markdown map <buffer> <silent> <leader>rk :LivedownKill<CR>
+
+endfunction
 
 let g:vim_markdown_folding_disabled = 1
-let g:livedown_browser = 'Firefox'
+let g:livedown_browser = 'firefox'
 " let g:livedown_autorun = 1
 let g:livedown_port = 14545
 " }}}
@@ -623,10 +632,21 @@ Plug 'mattn/emmet-vim'
 " Info plugins {{{
 " -> Zeal {{{
 Plug 'KabbAmine/zeavim.vim'
-nmap <silent> <leader>zi <Plug>Zeavim
-vmap <silent> <leader>z <Plug>ZVVisSelection
+" nmap <silent> <leader>zi <Plug>Zeavim
+" vmap <silent> <leader>z <Plug>ZVVisSelection
+" nmap gz <Plug>ZVOperator
+" nmap <leader>zo <Plug>ZVKeyDocset
+
+nmap gzz <Plug>Zeavim
+vmap gzz <Plug>ZVVisSelection
+nmap <leader>z <Plug>ZVKeyDocset
+nmap gZ <Plug>ZVKeyDocset<CR>
 nmap gz <Plug>ZVOperator
-nmap <leader>zo <Plug>ZVKeyDocset
+
+let g:zv_file_types = {
+            \   'help'                : 'vim',
+            \   'yaml.ansible'        : 'ansible',
+            \ }
 "  }}}
 " }}}
 " Motion plugins {{{
@@ -1374,7 +1394,7 @@ set foldtext=MyFoldText()
 " Trigger autoread when changing buffers or coming back to vim.
 au FocusGained,BufEnter,WinEnter * :silent! !
 
-au! FileType vim,python,golang,go,ansible,puppet,json,sh,vimwiki,rust,yaml call DefaultOn()
+au! FileType vim,python,golang,go,yaml.ansible,puppet,json,sh,vimwiki,rust,yaml call DefaultOn()
 
 function! DefaultOn()
         if !exists("b:auto_save")

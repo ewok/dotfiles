@@ -35,7 +35,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
-font-4 = "Noto Sans Symbols2"
+font-4 = "NotoSansMono Nerd Font"
 
 modules-left = powermenu bspwm apps xwindow
 modules-center = memory cpu filesystem wlan eth battery
@@ -74,7 +74,7 @@ interval = 25
 mount-0 = /
 mount-1 = /mnt/d
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{T5}%{T-}%{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -120,7 +120,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format = <ramp-coreload> <label>
 label = %percentage:2%%
@@ -138,7 +138,7 @@ ramp-coreload-7 = █
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "RAM "
+format-prefix = "%{T5}%{T-} "
 format-prefix-foreground = ${colors.foreground-alt}
 format = <ramp-used> <label>
 label = %percentage_used%%
@@ -242,7 +242,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = ADP1
+adapter = AC
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
@@ -252,20 +252,26 @@ format-discharging = <animation-discharging> <label-discharging>
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
@@ -325,7 +331,7 @@ menu-3-1-exec = menu-open-0
 
 [module/apps]
 type = custom/text
-content = [VB]
+content = %{T5}%{T-}
 click-left = VirtualBox &
 
 [settings]

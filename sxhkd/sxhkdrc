@@ -43,12 +43,14 @@ super + f
 #	bspc node -g private
 
 # Make window sticky
-#super + i
-#	bspc node -g sticky
+super + p
+	bspc node -g sticky ; \
+	notify-send -t 1000 "sticky"
 
 # Lock a window from closing
-#super + Escape
-#	bspc node -g locked
+super + i
+	bspc node -g locked ; \
+	notify-send -t 1000 "lock/unlock"
 
 ### Map or unmap windows (functional equivalent of "minimize")
 super + c
@@ -164,7 +166,7 @@ ctrl + shift + {h,j,k,l}
 
 #
 # Layout manipulation/desktop level controls
-# ______________    
+# ______________
 
 # Toggle monocle mode
 alt + f
@@ -172,7 +174,8 @@ alt + f
 
 # Balance tree
 alt + b
-	bspc node @/ -B
+	bspc node @/ -B ; \
+	notify-send -t 1000 "Balancing the tree"
 
 # Balance brother node. If you do this on biggest window of the desktop, it usually means balancing all windows with except the biggest.
 super + alt + b
@@ -281,7 +284,7 @@ alt + shift + b
 	$BROWSER
 
 super + e
-	default-terminal ranger
+	default-terminal vifm
 #spacefm -n
 
 # TODO: Add selective screenshot
