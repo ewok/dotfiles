@@ -4,7 +4,7 @@
 umask 022
 
 # Set our default path
-PATH="$HOME/go/bin:$HOME/bin:$HOME/.local/bin:$HOME/.config/bspwm/panel:/usr/local/sbin:/usr/local/bin:/usr/bin/core_perl:/usr/bin"
+PATH="$HOME/go/bin:$HOME/bin:$HOME/.local/bin:$HOME/.config/bspwm/panel:/usr/local/sbin:/usr/local/bin:/usr/bin/core_perl:/usr/bin:$PATH"
 export PATH
 
 TZ='Europe/Moscow'; export TZ

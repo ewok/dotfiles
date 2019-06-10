@@ -299,13 +299,19 @@ super + Print
 #
 
 XF86AudioRaiseVolume
-	changeVolume 2dB+ unmute
+	changeVolumePulse '+2%'
+
+	# changeVolume 2dB+ unmute
 
 XF86AudioLowerVolume
-	changeVolume 2dB- unmute
+    changeVolumePulse '-2%'
+
+	# changeVolume 2dB- unmute
 
 XF86AudioMute
-	changeVolume 0dB mute
+	changeVolumePulse toggle
+
+	# changeVolume 0dB mute
 
 XF86MonBrightnessDown
  light -U 5
