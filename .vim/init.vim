@@ -72,7 +72,7 @@ set shiftwidth=4
 set tabstop=4
 set shortmess=aOtT
 set confirm
-
+ 
 set visualbell
 set noerrorbells
 set tm=500

@@ -43,55 +43,33 @@ bspc config split_ratio         0.52
 #bspc monitor -d • • • • • • • • • •
 #bspc monitor -d I II III IV V VI
 bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor -a 
+bspc monitor -a 
+bspc monitor -a 
+bspc monitor -a 
 
 ###This creates and names desktops for multiple monitors.
 # workspaces_multimonitor &
 
-bspc rule -a screenkey --unmanage
-bspc rule -a gcolor2 state=floating center=true
-bspc rule -a lxappearance state=floating center=true
-bspc rule -a gmrun state=floating center=true
-bspc rule -a lxterminal state=floating center=true sticky=true
-#bspc rule -a urxvt state=floating center=true
-bspc rule -a viewnior state=floating center=true
-bspc rule -a file-roller state=floating center=true
-bspc rule -a floaterm state=floating center=true
-bspc rule -a spotify state=pseudo_tiled
-#bspc rule -a nautilus state=pseudo_tiled
-#bspc rule -a skype state=pseudo_tiled
-bspc rule -a file-roller state=pseudo_tiled
-bspc rule -a transmission-gtk state=pseudo_tiled
-bspc rule -a conky sticky=on manage=off lower=on
-bspc rule -a astime sticky=on
-bspc rule -a yad state=floating
-bspc rule -a Docky layer=above border=off manage=on
-bspc rule -a Plank layer=above border=off manage=on
-bspc rule -a wbar layer=above
-bspc rule -a dockbarx layer=above
-bspc rule -a google-chrome-unstable private=on
-bspc rule -a google-chrome-stable private=on
-bspc rule -a chromium private=on
-bspc rule -a firefox private=on
-bspc rule -a midori private=on
-bspc rule -a gnome-pie border=off manage=off
-bspc rule -a wpa_gui state=pseudo_tiled
-bspc rule -a libreoffice state=tiled
-bspc rule -a '*:libreofficedev' state=tiled
-bspc rule -a '*:soffice' state=tiled
-bspc rule -a firefox desktop=1
-#bspc rule -a calibre desktop=II
-#bspc rule -a geany desktop=II
-#bspc rule -a deluge desktop=III
-bspc rule -a 9menu border=off manage=off
-bspc rule -a tint2 border=off manage=off
-#bspc desktop I --layout monocle
-#bspc desktop II --layout monocle
-bspc rule -a TelegramDesktop desktop=5
-bspc rule -a "Syncthing GTK" state=floating center=false
 bspc rule -a "Blueman-manager" state=floating center=false
-# state=floating center=true
+bspc rule -a Chromium private=on
 bspc rule -a clipit state=floating center=true
-
+bspc rule -a file-roller state=pseudo_tiled
+bspc rule -a Firefox private=on
+bspc rule -a gmrun state=floating center=true
+bspc rule -a google-chrome-stable private=on
+bspc rule -a google-chrome-unstable private=on
+bspc rule -a '*:libreofficedev' state=tiled
+bspc rule -a libreoffice state=tiled
+bspc rule -a Pavucontrol state=floating center=true
+bspc rule -a screenkey --unmanage
+bspc rule -a Skype state=pseudo_tiled desktop=
+bspc rule -a Slack desktop=
+bspc rule -a "Syncthing GTK" state=floating center=false
+bspc rule -a TelegramDesktop desktop=  follow=true
+bspc rule -a wpa_gui state=pseudo_tiled
+bspc rule -a Zathura state=pseudo_tiled
+bspc rule -a "Google Play Music Desktop Player" desktop=
 
 ##  Autogap adjusts windowgap automatically according to the number of
 ##  windows on the desktop. Using it disables negative window gap.

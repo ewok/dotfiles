@@ -51,7 +51,7 @@ filextype *.djvu
         \ apvlv %f,
 
 " Comics
-filextype *.cbr, *.cbz
+filextype *.cbr,*.cbz
         \ {View in zathura}
         \ zathura %f,
 

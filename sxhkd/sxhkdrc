@@ -43,12 +43,12 @@ super + f
 #	bspc node -g private
 
 # Make window sticky
-super + p
+alt + p
 	bspc node -g sticky ; \
 	notify-send -t 1000 "sticky"
 
 # Lock a window from closing
-super + i
+alt + Escape
 	bspc node -g locked ; \
 	notify-send -t 1000 "lock/unlock"
 
@@ -120,7 +120,7 @@ alt + {_,shift + }{1-9,0}
 # 	bspc node -d ^{1-9,10}
 
 # Select previous / next desktop
-alt + {m,n}
+alt + {n,m}
 	bspc desktop -f {prev.occupied,next.occupied} 
 
 # cycle windows
@@ -192,7 +192,7 @@ alt + b
 # Mirror and flip leaves of tree
 alt + {comma,period}
 	bspc node @/ -F {horizontal,vertical}
-	
+
 # Rotate leaves of tree
 alt + shift + {comma,period}
 	bspc node @/ -R {90,270}
@@ -209,7 +209,7 @@ super + button{4,5}
 # __________________
 
 ~button1
-	DidIClickDesktop.sh && gapgrab	
+	DidIClickDesktop.sh && gapgrab
 
 ~button2
 	DidIClickDesktop.sh && BspwmDesktopMenu
@@ -225,7 +225,7 @@ super + button{4,5}
 #	DidIClickDesktop.sh && bspc desktop -f next
 #~button5
 #	DidIClickDesktop.sh && bspc desktop -f prev
-	
+
 ### Add or remove desktops by scrolling
 
 #super + ctrl + button5
@@ -280,14 +280,28 @@ alt + d
 alt + Return
 	open-terminal-here
 
-alt + shift + b
+super + b
 	$BROWSER
 
 super + e
 	default-terminal vifm
-#spacefm -n
 
-# TODO: Add selective screenshot
+super + o ; {z,l,v,p,t,s,m}
+	{zeal,ldoce5viewer,VirtualBox,pavucontrol,telegram-desktop;bspc desktop -f ,slack,gpmdp}
+
+# super + z
+#     zeal
+
+# super + d
+#     ldoce5viewer
+
+# super + v
+#     VirtualBox
+
+# super + p
+#     pavucontrol
+
+# Print Screen
 Print
 	flameshot full -p ~/Pictures/Screenshots/
 
