@@ -43,8 +43,8 @@ bspc config split_ratio         0.52
 #bspc monitor -d • • • • • • • • • •
 #bspc monitor -d I II III IV V VI
 bspc monitor -d 1 2 3 4 5 6 7 8 9 0
-bspc monitor -a 
 bspc monitor -a 
+bspc monitor -a 
 bspc monitor -a 
 bspc monitor -a 
 
@@ -59,6 +59,7 @@ bspc rule -a Firefox private=on
 bspc rule -a gmrun state=floating center=true
 bspc rule -a google-chrome-stable private=on
 bspc rule -a google-chrome-unstable private=on
+bspc rule -a "Google Play Music Desktop Player" desktop=
 bspc rule -a '*:libreofficedev' state=tiled
 bspc rule -a libreoffice state=tiled
 bspc rule -a Pavucontrol state=floating center=true
@@ -67,9 +68,9 @@ bspc rule -a Skype state=pseudo_tiled desktop=
 bspc rule -a Slack desktop=
 bspc rule -a "Syncthing GTK" state=floating center=false
 bspc rule -a TelegramDesktop desktop=  follow=true
+bspc rule -a Todoist desktop=5
 bspc rule -a wpa_gui state=pseudo_tiled
-bspc rule -a Zathura state=pseudo_tiled
-bspc rule -a "Google Play Music Desktop Player" desktop=
+bspc rule -a Zathura state=tiled
 
 ##  Autogap adjusts windowgap automatically according to the number of
 ##  windows on the desktop. Using it disables negative window gap.

@@ -91,12 +91,14 @@ nnoremap gt :tabnext<CR>
 nnoremap gr :tabprevious<CR>
 
 " GoTo
-nnoremap gm :cd ~/media<cr>
-nnoremap gh :cd<cr>
-nnoremap gM :cd ~/mnt<cr>
-nnoremap gd :cd ~/Downloads<cr>
-nnoremap gp :cd ~/projects<cr>
 nnoremap gb :cd ~/bin<cr>
+nnoremap gd :cd ~/Documents<cr>
+nnoremap gD :cd ~/Downloads<cr>
+nnoremap gh :cd<cr>
+nnoremap gM :cd ~/media<cr>
+nnoremap gm :cd ~/mnt<cr>
+nnoremap gp :cd ~/projects<cr>
+nnoremap gt :cd ~/tmp<cr>
 
 " Registers
 nnoremap " :reg<cr>

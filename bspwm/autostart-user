@@ -63,4 +63,4 @@ zeal &
 # run_once cbatticon -l 30 -r 10 &
 pkill todoist
 todoist &
-xdotool search --pid $? --name "\a\b\c" set_window --class "Todoist"
+xdotool search --pid $? --name "\a\b\c" set_window --class "Todoist" --classname "Todoist"

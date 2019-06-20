@@ -234,20 +234,20 @@ super + button{4,5}
 #super + ctrl + button4
 #    bspcp dsktp add
 
-# Spawn applications popup menu and manually tile selected 
+# Spawn applications popup menu and manually tile selected
 # app where your mouse was when you opened the menu. Smartsplit only chooses
 # biggest dimension of the window, MouseLaunch only cares which edge is closer.
-# mod5 is alt_gr (first key right from space) on most keyboards. 
-mod5 + @button1
-	smartsplit ; rofimenu -desktop
+# mod5 is alt_gr (first key right from space) on most keyboards.
+# mod1 + @button1
+	# smartsplit ; rofimenu -desktop
 #	smartsplit ; dboxmenu
-#    MouseLaunch ; mygtkmenui -- .config/GTKmenu/LaunchMenu
+   MouseLaunch ; mygtkmenu -- .config/GTKmenu/LaunchMenu
 
 # Spawn window manipulation menu
 # Mod1 is alt
-mod1 + @button1
-	BspwmWindowMenu
-# mygtkmenui -- .config/GTKmenu/BspwmWindowMenui
+mod4 + @button1
+    mygtkmenu -- .config/GTKmenu/BspwmMenu
+	# BspwmWindowMenu
 
 ### Three finger swipe (left or right) to change desktop
 @button{10,11}

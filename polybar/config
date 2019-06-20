@@ -37,7 +37,7 @@ font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
 font-4 = "NotoSansMono Nerd Font"
 
-modules-left = powermenu bspwm apps xwindow
+modules-left = appmenu powermenu bspwm apps xwindow
 modules-center = memory cpu filesystem wlan eth battery
 modules-right = date xbacklight pulseaudio xkeyboard
 
@@ -333,6 +333,11 @@ menu-3-1-exec = menu-open-0
 type = custom/text
 content = %{T5}%{T-}
 click-left = VirtualBox &
+
+[module/appmenu]
+type = custom/text
+content = %{T5}%{T-}
+click-left = mygtkmenu -- .config/GTKmenu/appmenu
 
 [settings]
 screenchange-reload = true
