@@ -534,7 +534,8 @@ let g:livedown_port = 14545
 " }}}
 " -> Org mode {{{
 Plug 'tpope/vim-speeddating', { 'for': ['org','orgtodo', 'orgagenda'] }
-Plug 'jceb/vim-orgmode', { 'for': ['org','orgtodo', 'orgagenda'] }
+Plug 'jonathanbranam/vim-orgmode', { 'for': ['org','orgtodo', 'orgagenda'] }
+" Plug 'dhruvasagar/vim-dotoo'
 " }}}
 " -> Puppet {{{
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }

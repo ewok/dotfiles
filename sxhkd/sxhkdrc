@@ -245,7 +245,7 @@ super + button{4,5}
 
 # Spawn window manipulation menu
 # Mod1 is alt
-mod4 + @button1
+mod4 + @button2
     mygtkmenu -- .config/GTKmenu/BspwmMenu
 	# BspwmWindowMenu
 
@@ -300,6 +300,9 @@ super + o ; {z,l,v,p,t,s,m}
 
 # super + p
 #     pavucontrol
+
+shift + space
+    szAnswer=$(zenity --entry --text "Todoist: Add Task" --entry-text "#proj @lab today"); td $szAnswer && dunstify "Task added" || dunstify -u critical "Error"
 
 # Print Screen
 Print
