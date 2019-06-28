@@ -149,3 +149,10 @@ source $VIFM/vifm_ext
 " ==============================================================================
 " load custom settings
 source $VIFM/vifm_custom
+
+" ==============================================================================
+" load plugins
+" -> DevIcons {{{
+source $VIFM/plugins/devicons.vifm
+"  }}}
+
