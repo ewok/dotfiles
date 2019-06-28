@@ -1,13 +1,5 @@
 ﻿# bspwm hotkeys
 #
-# Cleanly quit bspwm
-#super + shift + q
-#	bspc quit 1 && pkill lemonpanel && pkill lemonbar
-
-# Show keybindings
-super + F1
-	$TERMINAL -e keybindings.sh
-#
 # Window manipulation
 # ______________
 
@@ -19,28 +11,12 @@ alt + shift + q
 alt + ctrl + shift + q
 	bspc  node -k
 
-# Toggle tiling mode of window
-#super + shift + t
-#	bspc node -t {pseudo_tiled,tiled}
-
 alt + shift + space
 	{bspc node -t floating && window-placer $(bspc query -T -d | grep -o '"state":"floating"' | wc -l),bspc node -t tiled}
-
-# Force all windows of the desktop to tile
-#super + ctrl + t
-#	bspcp tile
-
-# Force all windows of the desktop to float and arrange them
-#super + ctrl + shift + t
-#	bspcp float
 
 # Toggle fullscreen
 super + f
 	bspc node -t {fullscreen,tiled}
-
-# Try to keep size and position of the selected window
-#super + o
-#	bspc node -g private
 
 # Make window sticky
 alt + p
@@ -57,38 +33,12 @@ super + c
     whid dmenu
 
 super + m
-    whid hide
-
-super + shift + m
-    whid last
+     whid hide
 
 #
 # Window moving and splitting
-# ______________ 
-
-# Autopresel (split window in its largest dimension)
-#ctrl + space
-#	auto-presel
-
-# Presel window for splitting in certain direction
-#alt + ctrl + {a,s,w,d}
-#	bspc node -p \~{west,south,north,east} -i
-
 alt + super + {h,j,k,l}
 	bspc node -p \~{west,south,north,east}
-
-#alt + ctrl + {Left,Down,Up,Right}
-#	bspc node -p \~{west,south,north,east}
-
-# Presel the desktop for splitting in certain direction
-# alt + shift + {a,s,w,d}
-	# bspc node @/ -p \~{west,south,north,east}
-# 
-# alt + shift + {h,j,k,l}
-	# bspc node @/ -p \~{west,south,north,east}
-
-# alt + shift + {Left,Down,Up,Right}
-	# bspc node @/ -p \~{west,south,north,east}
 
 # Set splitting ratio of windows
 alt + super + {1-9}
@@ -106,67 +56,18 @@ alt + shift + Return
 alt + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} ^{1-9,10}
 
-## Alternative: i3 style behavior (focus nth, desktop of the focused monitor)
-# super + {1-9,0}
-# 	focusdesktopofthismonitor {1-9}
-# super + shift + {1-9,0}
-# 	movetodesktopofthismonitor {1-9,10}
-
-## Another alternative: xmonad style desktops. You have 10 desktops shared between all monitors,
-## and focusing a desktop focuses it on the currently focused monitor
-# super + {1-9,0}
-# 	summondesktop.sh {1-9,10}
-# super + shift + {1-9,0}
-# 	bspc node -d ^{1-9,10}
-
 # Select previous / next desktop
 alt + {n,m}
 	bspc desktop -f {prev.occupied,next.occupied} 
 
-# cycle windows
-#alt + {_,shift + }Tab
-#    bspc node -f {next,prev}
-
-# Go to specific window
-#super + Tab
-#	WindowSelector
-
-#Focus windows by direction, works with multihead
-#super +  {a,s,w,d}
-#    focusmover {west,south,north,east}
-
 alt +  {h,j,k,l}
     focusmover {west,south,north,east}
-
-#super +  {Left,Down,Up,Right}
-#    focusmover {west,south,north,east}
-
-# Move tiled windows. Moving a tiled window to 
-# preselected one moves into preselection instead. 
-# Moving out of the screen should move the window to next monitor if possible
-#super + shift + {a,s,w,d}
-#	windowgrabber {west,south,north,east}
 
 alt + shift + {h,j,k,l}
 	windowgrabber {west,south,north,east}
 
-# Different style of movement: transplant into window in chosen direction
-#super + shift + {Left,Down,Up,Right}
-#	euclid_mover {west,south,north,east}
-
-#resize windows
-#super + ctrl + {a,s,w,d}
-#	bspwm_resize.sh {west,south,north,east}
-
-ctrl + shift + {h,j,k,l}
+alt + ctrl + {h,j,k,l}
 	bspwm_resize.sh {west,south,north,east}
-
-#super + ctrl + {Left,Down,Up,Right}
-#	bspwm_resize.sh {west,south,north,east}
-
-#
-# Layout manipulation/desktop level controls
-# ______________
 
 # Toggle monocle mode
 alt + f
@@ -185,10 +86,6 @@ super + alt + b
 super + ctrl + b
 	bspc node @/ -E
 
-# Toggle automatic balancing of windows
-alt + b
-	euclid_balancer
-
 # Mirror and flip leaves of tree
 alt + {comma,period}
 	bspc node @/ -F {horizontal,vertical}
@@ -199,15 +96,10 @@ alt + shift + {comma,period}
 
 # Change window gap
 
-super + g
-	bspc config -d focused window_gap {$gap,$(($gap+$gap)),$(($gap+$gap+$gap))}
-
 super + button{4,5}
 	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
 #
 # mouse bindings
-# __________________
-
 ~button1
 	DidIClickDesktop.sh && gapgrab
 
@@ -219,29 +111,6 @@ super + button{4,5}
 ~button3
 	DidIClickDesktop.sh && rofimenu -desktop
 #DidIClickDesktop.sh && mygtkmenui -- .config/GTKmenu/LaunchMenu
-
-# Switch workspace by scrolling on the desktop. Causes scrolling issues on some systems.
-#~button4
-#	DidIClickDesktop.sh && bspc desktop -f next
-#~button5
-#	DidIClickDesktop.sh && bspc desktop -f prev
-
-### Add or remove desktops by scrolling
-
-#super + ctrl + button5
-#    bspcp dsktp rm
-#
-#super + ctrl + button4
-#    bspcp dsktp add
-
-# Spawn applications popup menu and manually tile selected
-# app where your mouse was when you opened the menu. Smartsplit only chooses
-# biggest dimension of the window, MouseLaunch only cares which edge is closer.
-# mod5 is alt_gr (first key right from space) on most keyboards.
-# mod1 + @button1
-	# smartsplit ; rofimenu -desktop
-#	smartsplit ; dboxmenu
-   MouseLaunch ; mygtkmenu -- .config/GTKmenu/LaunchMenu
 
 # Spawn window manipulation menu
 # Mod1 is alt
@@ -260,7 +129,6 @@ mod4 + @button2
 #
 # Touchpad "gestures" (depend on your touchpad driver, very likely to be unavailable)
 #_____________________
-#
 # spawn programs
 #
 
@@ -271,35 +139,14 @@ alt + space
 alt + d
 	rofi -show
 
-#super + p
-#	dmenu_recent -h $PANEL_HEIGHT -fn 'xos4 Terminus:size=15' -i
-
-# alt + shift + Return
-# 	default-terminal
-
 alt + Return
 	open-terminal-here
-
-super + b
-	$BROWSER
 
 super + e
 	default-terminal vifm
 
-super + o ; {z,l,v,p,t,s,m}
-	{zeal,ldoce5viewer,VirtualBox,pavucontrol,telegram-desktop;bspc desktop -f ,slack,gpmdp}
-
-# super + z
-#     zeal
-
-# super + d
-#     ldoce5viewer
-
-# super + v
-#     VirtualBox
-
-# super + p
-#     pavucontrol
+super + o ; {z,l,v,p,t,s,m, b}
+	{zeal,ldoce5viewer,VirtualBox,pavucontrol,telegram-desktop;bspc desktop -f ,slack,gpmdp,$BROWSER}
 
 shift + space
     szAnswer=$(zenity --entry --text "Todoist: Add Task" --entry-text "#proj @lab today"); td $szAnswer && dunstify "Task added" || dunstify -u critical "Error"
@@ -313,8 +160,6 @@ super + Print
 
 #
 # Media keys
-#
-
 XF86AudioRaiseVolume
 	changeVolumePulse '+2%'
 
@@ -352,13 +197,6 @@ super + shift + Escape
 # In case bspwmrc fails to execute/you wish have plugged in a new monitor
 super + shift + r
 	bspwmrc
-#edit this file
-#alt + ctrl + space
-#	$GUI_EDITOR ~/.config/sxhkd/sxhkdrc
-# Toggle compositing
-super + ctrl + space
-	{pkill compton ,\
-	compton -b }
 
 # Remove receptacles
 super + BackSpace
