@@ -98,7 +98,7 @@ nnoremap gh :cd<cr>
 nnoremap gM :cd ~/media<cr>
 nnoremap gm :cd ~/mnt<cr>
 nnoremap gp :cd ~/projects<cr>
-nnoremap gt :cd ~/tmp<cr>
+nnoremap gT :cd ~/tmp<cr>
 
 " Registers
 nnoremap " :reg<cr>

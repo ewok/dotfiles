@@ -15,7 +15,7 @@ endif
 
 " }}}
 " Basic options ----------------------------------------------------------- {{{
-let mapleader = " "
+let g:mapleader = "\<Space>"
 
 " -> A big mess, should be reviewed {{{
 set autoread
@@ -72,7 +72,7 @@ set shiftwidth=4
 set tabstop=4
 set shortmess=aOtT
 set confirm
- 
+
 set visualbell
 set noerrorbells
 set tm=500
@@ -679,25 +679,11 @@ let g:lmap.f.m = { 'name': "My/" }
 
 let g:fml_all_sources = 1
 " }}}
-" -> Leaderguide {{{
-Plug 'hecal3/vim-leader-guide'
-
-function! s:my_displayfunc()
-        let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
-        let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '^<Plug>(.*_\(.*\))', '\1', '')
-        let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '[-_]', ' ', '')
-        let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '[:]', '', '')
-endfunction
-let g:leaderGuide_displayfunc = [function("s:my_displayfunc")]
-
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
-
-" }}}
+" -> Which-Key {{{
+Plug 'liuchengxu/vim-which-key'
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+"  }}}
 " }}}
 " Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
@@ -958,7 +944,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERD
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
 
-nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <leader>pn : NERDTreeToggle<CR>
 nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
 nmap <leader>fp <Plug>(find_Path)
 
@@ -1128,7 +1114,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'https://github.com/airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-Plug 'jreybert/vimagit'
 
 " Fugitive options
 "
@@ -1145,7 +1130,7 @@ nnoremap <Plug>(git_Merge) :silent Git pull<CR>
 nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
 vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
 
-nmap <silent> <leader>gS <Plug>(git_Status)
+nmap <silent> <leader>gs <Plug>(git_Status)
 nmap <silent> <leader>gd <Plug>(git_Diff)
 nmap <silent> <leader>gC <Plug>(git_Commit)
 nmap <silent> <leader>gps <Plug>(git_Push)
@@ -1156,10 +1141,6 @@ nmap <silent> <leader>gplr <Plug>(git_Rebase)
 nmap <silent> <leader>gplm <Plug>(git_Merge)
 nmap <silent> <leader>gg <Plug>(git_Browse)
 vmap <silent> <leader>gg <Plug>(git_VBrowse)
-
-" Magit option
-nmap <silent> <leader>gs <Plug>(git_Magit)
-let g:magit_show_magit_mapping='<Plug>(git_Magit)'
 
 " Gitgutter options
 let g:gitgutter_map_keys = 0
@@ -1523,7 +1504,7 @@ nmap <leader>qlc <Plug>(qfix_LClose)
 
 " }}}
 " Leader Finish
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+call which_key#register('<Space>', "g:lmap")
 " Colorscheme ------------------------------------------------------------- {{{
 let g:neodark#background = '#282c34'
 
