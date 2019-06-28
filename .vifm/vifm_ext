@@ -34,7 +34,11 @@ filextype *.pdf
         \ {Open with Okular(flatpak)}
         \ org.kde.okular %c,
 
-fileviewer *.pdf pdftotext -nopgbrk %c -
+fileviewer *.pdf
+        \ vifmimg pdfpreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
+        " \ pdftotext -nopgbrk %c -
 
 " PostScript
 " filextype *.ps,*.eps,*.ps.gz
@@ -74,6 +78,15 @@ filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov
        \ {View using mplayer}
        \ ffprobe -pretty %c 2>&1
 
+
+fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+          \*.as[fx]
+        \ vifmimg videopreview %px %py %pw %ph %c 
+        \ %pc 
+        \ vifmimg clear
+        " \ ffprobe -pretty %c 2>&1
+
 " Web
 filextype *.html,*.htm luakit %f %i &
         " \ {Open with dwb}
@@ -97,7 +110,17 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ sxiv,
 "         \ {View in gpicview}
 "         \ gpicview %c,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm convert -identify %f -verbose /dev/null
+" fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm convert -identify %f -verbose /dev/null
+
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+        \ vifmimg draw %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
+
+fileviewer *.gif
+        \ vifmimg gifpreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
 
 " MD5
 filetype *.md5
