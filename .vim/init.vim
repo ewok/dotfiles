@@ -48,7 +48,7 @@ set title
 set titlestring=%F
 set ttyfast
 set undolevels=100
-set viminfo='5,\"10,:10,n~/.viminfo
+set shada='50,<1000,s100,"10,:10,n~/.viminfo
 set exrc
 set secure
 
@@ -228,7 +228,7 @@ let g:lmap.z = { 'name': 'Zeal/' }
 
 " Keymaps ----------------------------------------------------------------- {{{
 " -> Tabs {{{
-map gr gT
+" map gr gT
 nnoremap <C-W>t :tabnew<CR>
 
 "  }}}
@@ -321,8 +321,10 @@ nnoremap N Nzzzv
 nnoremap H 0
 nnoremap L $
 
-"  }}}
+" Swap ; :
+nnoremap ; :
 
+"  }}}
 " }}}
 " Filetypes --------------------------------------------------------------- {{{
 " -> Ansible/Yaml {{{
@@ -408,7 +410,6 @@ augroup ft_zsh
     au BufNewFile,BufRead *.zsh-theme set filetype=zsh
 augroup END
 "  }}}
-
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
@@ -459,10 +460,9 @@ endfunction
 "  }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-autocmd! User vim-go call LoadGo()
+" autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
 " Plug 'jodosha/vim-godebug', { 'for': 'go' }
 
 function! LoadGo() " {{{
@@ -544,43 +544,9 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': ':UpdateRemotePlugins' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
-autocmd! User deoplete-jedi call LoadPython()
-" autocmd! FileType python call LoadPython()
 
 function! LoadPython() " {{{
-
-    " Be extra sure that jedi works
-    let g:jedi#auto_vim_configuration = 0
-    let g:jedi#completions_enabled = 0
-    let g:jedi#popup_on_dot = 0
-    let g:jedi#popup_select_first = 0
-    let g:jedi#show_call_signatures = 0
-    let g:jedi#smart_auto_mappings = 0
-
-    " let g:jedi#completions_command = "<leader><tab>"
-    let g:jedi#documentation_command = "K"
-    let g:jedi#goto_assignments_command = "<leader>jgc"
-    let g:jedi#goto_command = "<c-]>"
-    let g:jedi#goto_definitions_command = "<leader>jgd"
-    let g:jedi#rename_command = "<leader>jr"
-    let g:jedi#usages_command = "<leader>ju"
-
-    if !exists('g:deoplete#sources')
-        let g:deoplete#sources = {}
-    endif
-    if !exists('g:deoplete#keyword_patterns')
-        let g:deoplete#keyword_patterns = {}
-    endif
-    if !exists('g:deoplete#omni#input_patterns')
-        let g:deoplete#omni#input_patterns = {}
-    endif
-
-    let g:deoplete#sources#jedi#show_docstring = 1
-    let g:deoplete#sources.python = ['buffer', 'member', 'file', 'omni']
-    let g:deoplete#omni#input_patterns.python = '([^. \t]\.|^\s*@|^\s*from\s.+ import |^\s*from |^\s*import )\w*'
 
     set foldmethod=indent
     set foldlevel=0
@@ -597,7 +563,7 @@ function! LoadPython() " {{{
     let g:ale_python_pylint_options = '--disable C0301,C0111,C0103'
     let g:ale_python_pylint_use_global = 0
 
-endfunction " }}}
+endfunction
 
 " }}}
 " -> Salt {{{
@@ -608,6 +574,7 @@ Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
 " -> VIM {{{
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
+
 autocmd! User neco-vim call LoadNeco()
 
 function! LoadNeco() " {{{
@@ -671,13 +638,6 @@ map sl <Plug>(easymotion-lineforward)
 map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
 map sh <Plug>(easymotion-linebackward)
-" }}}
-" -> FML {{{
-Plug 'ktonga/vim-follow-my-lead'
-
-let g:lmap.f.m = { 'name': "My/" }
-
-let g:fml_all_sources = 1
 " }}}
 " -> Which-Key {{{
 Plug 'liuchengxu/vim-which-key'
@@ -986,14 +946,109 @@ Plug 'https://github.com/tpope/vim-commentary.git'
 set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+"
+" CocInstall coc-python
+" CocInstall coc-snippets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+let g:coc_snippet_next = '<tab>'
+inoremap <silent> <expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>crn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>cf  <Plug>(coc-format-selected)
+nmap <leader>cf  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>cac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>cqf  <Plug>(coc-fix-current)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>cd  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>cc  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>co  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>cj  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>ck  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
 
 " }}}
 " -> Ctags {{{
@@ -1145,8 +1200,8 @@ vmap <silent> <leader>gg <Plug>(git_VBrowse)
 " Gitgutter options
 let g:gitgutter_map_keys = 0
 
-nmap [c <Plug>GitGutterPrevHunk
-nmap ]c <Plug>GitGutterNextHunk
+nmap [g <Plug>GitGutterPrevHunk
+nmap ]g <Plug>GitGutterNextHunk
 
 let g:gitgutter_override_sign_column_highlight = 0
 
@@ -1164,24 +1219,6 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 
-" }}}
-" -> Snippet {{{
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'kiith-sa/DSnips'
-
-let g:ulti_expand_or_jump_res = 0
-
-function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return "\<CR>"
-  endif
-endfunction
-
-inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 " }}}
 " Small plugins {{{
@@ -1510,8 +1547,20 @@ let g:neodark#background = '#282c34'
 
 colorscheme neodark
 
-let g:lightline = {}
-let g:lightline.colorscheme = 'neodark'
+" let g:lightline = {}
+" let g:lightline.colorscheme = 'neodark'
+
+let g:lightline = {
+      \ 'colorscheme': 'neodark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
 
 " }}}
 
