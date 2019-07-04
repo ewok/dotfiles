@@ -16,6 +16,7 @@ endif
 " }}}
 " Basic options ----------------------------------------------------------- {{{
 let g:mapleader = "\<Space>"
+let g:maplocalleader = ","
 
 " -> A big mess, should be reviewed {{{
 set autoread
@@ -410,12 +411,20 @@ augroup ft_zsh
     au BufNewFile,BufRead *.zsh-theme set filetype=zsh
 augroup END
 "  }}}
+" -> Markdown {{{
+augroup ft_md
+    au!
+
+    au FileType markdown set conceallevel=2
+
+augroup END
+"  }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
 call plug#begin('~/.vim/local/plugged')
 
-" Filetype plugins {{{
+" Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
 
@@ -514,23 +523,18 @@ endfunction " }}}
 Plug 'robbles/logstash.vim'
 "  }}}
 " -> Markdown {{{
-Plug 'godlygeek/tabular', { 'for': 'markdown' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
 autocmd! User vim-livedown call LoadLivedown()
 
 function! LoadLivedown()
-
     au FileType markdown map <buffer> <silent> <leader>rr :LivedownPreview<CR>
     au FileType markdown map <buffer> <silent> <leader>rt :LivedownToggle<CR>
     au FileType markdown map <buffer> <silent> <leader>rk :LivedownKill<CR>
 
-endfunction
+    let g:livedown_browser = 'firefox'
+    let g:livedown_port = 14545
 
-let g:vim_markdown_folding_disabled = 1
-let g:livedown_browser = 'firefox'
-" let g:livedown_autorun = 1
-let g:livedown_port = 14545
+endfunction
 " }}}
 " -> Org mode {{{
 Plug 'tpope/vim-speeddating', { 'for': ['org','orgtodo', 'orgagenda'] }
@@ -545,6 +549,7 @@ let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
 Plug 'fisadev/vim-isort', { 'for': 'python' }
+autocmd! User vim-isort call LoadPython()
 
 function! LoadPython() " {{{
 
@@ -597,7 +602,8 @@ Plug 'mattn/emmet-vim'
 " , { 'for': 'javascript.jsx' }
 "  }}}
 " }}}
-" Info plugins {{{
+" }}}
+" Info plugins ------------------------------------------------------------ {{{
 " -> Zeal {{{
 Plug 'KabbAmine/zeavim.vim'
 " nmap <silent> <leader>zi <Plug>Zeavim
@@ -617,7 +623,7 @@ let g:zv_file_types = {
             \ }
 "  }}}
 " }}}
-" Motion plugins {{{
+" Motion plugins ---------------------------------------------------------- {{{
 " -> Easymotion {{{
 Plug 'easymotion/vim-easymotion'
 
@@ -643,6 +649,9 @@ map sh <Plug>(easymotion-linebackward)
 Plug 'liuchengxu/vim-which-key'
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
 "  }}}
 " }}}
 " Text plugins ------------------------------------------------------------ {{{
@@ -795,7 +804,6 @@ Plug 'vimwiki/vimwiki'
 autocmd! VimEnter * call LoadVimwiki()
 
 function! LoadVimwiki()
-    map <Leader>w<CR> <Plug>VimwikiToggleListItem
     nunmap <Leader>ww
     map <Leader>ww :call VimwikiIndexCd()<CR>
 endfunction
@@ -812,8 +820,13 @@ let g:vimwiki_list = [{'path': '~/Notes/',
                     \ 'custom_wiki2html': 'vimwiki-godown',
                     \ 'auto_tags': 1}]
 
-let g:vimwiki_folding = 'expr'
+let g:vimwiki_ext2syntax = {'.md': 'markdown',
+                          \ '.mkd': 'markdown',
+                          \ '.wiki': 'media'}
 
+let g:vimwiki_folding = 'expr'
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 2
 
 " }}}
 " }}}
@@ -1221,7 +1234,7 @@ let g:ale_sign_warning = '-'
 
 " }}}
 " }}}
-" Small plugins {{{
+" Small plugins ----------------------------------------------------------- {{{
 "
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim'
