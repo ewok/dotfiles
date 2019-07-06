@@ -82,7 +82,6 @@ set encoding=utf-8
 set fenc=utf-8 enc=utf-8 tenc=utf-8
 scriptencoding utf-8
 
-
 " }}}
 " -> Wildmenu completion {{{
 "
