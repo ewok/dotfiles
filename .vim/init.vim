@@ -961,6 +961,7 @@ set commentstring=#\ %s
 "
 " CocInstall coc-python
 " CocInstall coc-snippets
+Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:coc_snippet_next = '<tab>'
