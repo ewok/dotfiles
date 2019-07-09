@@ -1546,7 +1546,6 @@ function! QFixSwitch(direction)
         try
             cnext
         catch E42
-            cclose
         catch E553
             echom "No more items"
         endtry
@@ -1554,7 +1553,6 @@ function! QFixSwitch(direction)
         try
             cprevious
         catch E42
-            cclose
         catch E553
             echom "No more items"
         endtry
