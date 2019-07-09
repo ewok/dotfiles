@@ -1525,15 +1525,42 @@ unlet s:save_cpo
 "
 " QuickFix Window, which is borrowed from c9s
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command -nargs=1 QFixSwitch call QFixSwitch(<args>)
 
 function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win=bufnr("$")
-  endif
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+        unlet g:qfix_win
+    else
+        copen 10
+        let g:qfix_win=bufnr("$")
+    endif
+endfunction
+
+function! QFixSwitch(direction)
+    if ! exists("g:qfix_win")
+        QFix
+    endif
+
+    if a:direction == 'next'
+        try
+            cnext
+        catch E42
+            cclose
+        catch E553
+            echom "No more items"
+        endtry
+    elseif a:direction == 'prev'
+        try
+            cprevious
+        catch E42
+            cclose
+        catch E553
+            echom "No more items"
+        endtry
+    else
+        echom "Unknown direction"
+    endif
 endfunction
 
 autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
@@ -1543,12 +1570,16 @@ nnoremap <Plug>(qfix_Open) :copen<CR>
 nnoremap <Plug>(qfix_Close) :cclose<CR>
 nnoremap <Plug>(qfix_LOpen) :lopen<CR>
 nnoremap <Plug>(qfix_LClose) :lclose<CR>
+nnoremap <Plug>(qfix_LNext) :QFixSwitch 'next'<CR>
+nnoremap <Plug>(qfix_LPrev) :QFixSwitch 'prev'<CR>
 
 nmap <leader>qq  <Plug>(qfix_Toggle)
 nmap <leader>qco <Plug>(qfix_Open)
 nmap <leader>qcc <Plug>(qfix_Close)
 nmap <leader>qlo <Plug>(qfix_LOpen)
 nmap <leader>qlc <Plug>(qfix_LClose)
+nmap <leader>qn <Plug>(qfix_LNext)
+nmap <leader>qp <Plug>(qfix_LPrev)
 
 " }}}
 
