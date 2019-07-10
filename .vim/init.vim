@@ -257,15 +257,18 @@ endif
 " Allow to copy/paste between VIM instances
 " "copy the current visual selection to ~/.vbuf
 vmap <Plug>(buffer_VYank) :w! ~/.vim/.vbuf<CR>
-vmap <leader>by <Plug>(buffer_VYank)
+vmap <leader>yb <Plug>(buffer_VYank)
 
 " "copy the current line to the buffer file if no visual selection
 nmap <Plug>(buffer_Yank) :.w! ~/.vim/.vbuf<CR>
-nmap <leader>by <Plug>(buffer_Yank)
+nmap <leader>yb <Plug>(buffer_Yank)
 
 " "paste the contents of the buffer file
 nmap <Plug>(buffer_Paste) :r ~/.vim/.vbuf<CR>
-nmap <leader>bp <Plug>(buffer_Paste)
+nmap <leader>yp <Plug>(buffer_Paste)
+
+nmap <leader>yfl :let @+ = expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
+nmap <leader>yfp :let @+ = expand("%:h") . '/' . expand("%:t")<CR>
 
 " }}}
 " -> Folding {{{
@@ -293,6 +296,13 @@ nmap  <down>  <Nop>
 nmap  <left>  <Nop>
 nmap  <right> <Nop>
 
+"  }}}
+" -> TODOs {{{
+inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \fl <C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
+inoremap \fp <C-R>=expand("%:h") . '/' . expand("%:t")<CR>
+nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+nnoremap <leader>ot :vsplit TODO.md<CR>
 "  }}}
 " -> Some vim tunings {{{
 nnoremap Y y$
@@ -331,7 +341,14 @@ nnoremap ; :
 augroup ft_ansible
     au!
     au BufNewFile,BufRead */\(playbooks\|roles\|tasks\|handlers\|defaults\|vars\)/*.\(yaml\|yml\) set filetype=yaml.ansible
-    au FileType ansible   setlocal commentstring=#\ %s
+    au FileType yaml.ansible setlocal commentstring=#\ %s
+    au FileType yaml.ansible call LoadAnsible()
+
+    function! LoadAnsible() " {{{
+        let b:ale_yamllint_options = '-d ~/.vim/ansible_lint/linter.yaml'
+        let b:ale_linters = ['ansible-custom', 'yamllint']
+    endfunction " }}}
+
 augroup END
 "  }}}
 " -> Config {{{
@@ -415,6 +432,43 @@ augroup ft_md
     au!
 
     au FileType markdown set conceallevel=2
+    au FileType markdown call LoadMD()
+    function! LoadMD() " {{{
+        let b:ale_linters = ['vale', 'markdownlint']
+    endfunction " }}}
+
+augroup END
+"  }}}
+" -> Shell {{{
+augroup ft_sh
+    au!
+
+    au FileType sh call LoadSH()
+    function! LoadSH() " {{{
+        let b:ale_linters = ['shellcheck']
+    endfunction " }}}
+
+augroup END
+"  }}}
+" -> Vimwiki {{{
+augroup ft_vimwiki
+    au!
+
+    au FileType vimwiki call LoadVIMWIKI()
+    function! LoadVIMWIKI() " {{{
+        let b:ale_linters = ['vale', 'markdownlint']
+    endfunction " }}}
+
+augroup END
+"  }}}
+" -> Dockerfile {{{
+augroup ft_dockerfile
+    au!
+
+    au FileType dockerfile call LoadDOCKERFILE()
+    function! LoadDOCKERFILE() " {{{
+        let b:ale_linters = ['hadolint']
+    endfunction " }}}
 
 augroup END
 "  }}}
@@ -425,14 +479,7 @@ call plug#begin('~/.vim/local/plugged')
 
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
-Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
-
-autocmd! User ansible-vim call LoadAnsible()
-function! LoadAnsible() " {{{
-    let g:ale_ansible_yamllint_options = '-d ~/.vim/ansible_lint/linter.yaml'
-    let g:ale_linters = {'ansible': ['ansible-custom', 'yamllint']}
-endfunction " }}}
-
+Plug 'pearofducks/ansible-vim'
 " }}}
 " -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
@@ -798,7 +845,7 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 " }}}
 " -> VimWiki {{{
 "
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 autocmd! VimEnter * call LoadVimwiki()
 
@@ -826,6 +873,7 @@ let g:vimwiki_ext2syntax = {'.md': 'markdown',
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_hl_cb_checked = 2
+let g:vimwiki_markdown_link_ext = 1
 
 " }}}
 " }}}
@@ -862,7 +910,6 @@ nmap <silent> <leader>gbc <Plug>(git_File-History)
 
 command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <Plug>(options_File-Type) :FT<CR>
-nmap <silent> <leader>ot <Plug>(options_File-Type)
 
 nnoremap <Plug>(find_String) :Ag<CR>
 nmap <silent> <leader>ff <Plug>(find_String)
@@ -1566,18 +1613,22 @@ autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
 nnoremap <Plug>(qfix_Toggle) :QFix<CR>
 nnoremap <Plug>(qfix_Open) :copen<CR>
 nnoremap <Plug>(qfix_Close) :cclose<CR>
-nnoremap <Plug>(qfix_LOpen) :lopen<CR>
-nnoremap <Plug>(qfix_LClose) :lclose<CR>
-nnoremap <Plug>(qfix_LNext) :QFixSwitch 'next'<CR>
-nnoremap <Plug>(qfix_LPrev) :QFixSwitch 'prev'<CR>
-
+nnoremap <Plug>(qfix_QNext) :QFixSwitch 'next'<CR>
+nnoremap <Plug>(qfix_QPrev) :QFixSwitch 'prev'<CR>
 nmap <leader>qq  <Plug>(qfix_Toggle)
 nmap <leader>qco <Plug>(qfix_Open)
 nmap <leader>qcc <Plug>(qfix_Close)
-nmap <leader>qlo <Plug>(qfix_LOpen)
-nmap <leader>qlc <Plug>(qfix_LClose)
-nmap <leader>qn <Plug>(qfix_LNext)
-nmap <leader>qp <Plug>(qfix_LPrev)
+nmap <leader>qn <Plug>(qfix_QNext)
+nmap <leader>qp <Plug>(qfix_QPrev)
+
+nnoremap <Plug>(qfix_LOpen) :lopen<CR>
+nnoremap <Plug>(qfix_LClose) :lclose<CR>
+nnoremap <Plug>(qfix_LNext) :lnext<CR>
+nnoremap <Plug>(qfix_LPrev) :lprev<CR>
+nmap <leader>lo <Plug>(qfix_LOpen)
+nmap <leader>lc <Plug>(qfix_LClose)
+nmap <leader>ln <Plug>(qfix_LNext)
+nmap <leader>lp <Plug>(qfix_LPrev)
 
 " }}}
 

@@ -3,9 +3,18 @@ import os
 
 from ansiblelint import AnsibleLintRule
 try:
-    from ansible.utils.boolean import boolean
+    from ansible.module_utils.parsing.convert_bool import boolean
 except ImportError:
-    from ansible.utils import boolean
+    try:
+        from ansible.utils.boolean import boolean
+    except ImportError:
+        try:
+            from ansible.utils import boolean
+        except ImportError:
+            from ansible import constants
+            boolean = constants.mk_boolean
+
+
 
 
 class CommandsInsteadOfArgumentsRule(AnsibleLintRule):
