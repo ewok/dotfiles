@@ -345,8 +345,21 @@ augroup ft_ansible
     au FileType yaml.ansible call LoadAnsible()
 
     function! LoadAnsible() " {{{
-        let b:ale_yamllint_options = '-d ~/.vim/ansible_lint/linter.yaml'
-        let b:ale_linters = ['ansible-custom', 'yamllint']
+        let b:ale_ansible_ansible_lint_executable = 'ansible_custom'
+        let b:ale_ansible_yamllint_executable = 'yamllint_custom'
+        let b:ale_linters = ['ansible-lint', 'yamllint']
+    endfunction " }}}
+
+augroup END
+"  }}}
+" -> Yaml {{{
+augroup ft_yaml
+    au!
+    au FileType yaml call LoadYAML()
+
+    function! LoadYAML() " {{{
+        let b:ale_yaml_yamllint_executable = 'yamllint_custom'
+        let b:ale_linters = ['yamllint']
     endfunction " }}}
 
 augroup END
