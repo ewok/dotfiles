@@ -5,7 +5,7 @@ ZSH_THEME="norm"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Plugins
-plugins=(fzf colored-man-pages golang tmux vault ssh-agent autojump docker git)
+plugins=(fzf colored-man-pages golang tmux vault ssh-agent autojump docker git virtualenvwrapper)
 
 # HISTORY_OPTION
 HISTFILE="$HOME/.zsh_history"
