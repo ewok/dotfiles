@@ -76,7 +76,12 @@ set confirm
 
 set visualbell
 set noerrorbells
-set tm=500
+
+set timeoutlen=200
+
+" Dynamic timeoutlen
+autocmd InsertEnter * set timeoutlen=1000
+autocmd InsertLeave * set timeoutlen=200
 
 set encoding=utf-8
 set fenc=utf-8 enc=utf-8 tenc=utf-8
