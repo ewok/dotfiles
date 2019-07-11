@@ -993,9 +993,6 @@ nnoremap <Plug>(git_Files) :GFiles?<cr>
 nnoremap <Plug>(git_History) :Commits<cr>
 nnoremap <Plug>(git_File-History) :BCommits<cr>
 
-let g:lmap.g.h = 'History'
-nmap <silent> <leader>gh  <Plug>(git_History)
-
 let g:lmap.g.f = { 'name': '+File' }
 let g:lmap.g.f.h = 'file-History'
 nmap <silent> <leader>gfh <Plug>(git_File-History)
@@ -1097,7 +1094,7 @@ endif
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
 " -> Commentary {{{
-Plug 'https://github.com/tpope/vim-commentary.git'
+Plug 'tpope/vim-commentary'
 
 set commentstring=#\ %s
 " }}}
@@ -1357,7 +1354,7 @@ let g:lmap.g.R = 'Read'
 nmap <silent> <leader>gR <Plug>(git_Read)
 
 let g:lmap.g.b = { 'name': '+Blame' }
-let g:lmap.g.b.l = 'Blame'
+let g:lmap.g.b.l = 'bLame'
 nmap <silent> <leader>gbl <Plug>(git_Blame)
 
 let g:lmap.g.p = { 'name': '+Push-pull' }
@@ -1381,10 +1378,10 @@ nmap ]g <Plug>GitGutterNextHunk
 let g:gitgutter_override_sign_column_highlight = 0
 
 " Gitv options
-let g:lmap.g.H = 'History'
+let g:lmap.g.h = 'History'
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <Plug>(git_Full-History) :GV<CR>
-nmap <silent> <leader>gH <Plug>(git_Full-History)
+nmap <silent> <leader>gh <Plug>(git_Full-History)
 " }}}
 " -> Linter {{{
 Plug 'w0rp/ale'
