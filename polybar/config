@@ -14,7 +14,7 @@ height = 27
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
-fixed-center = true
+fixed-center = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -37,9 +37,9 @@ font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
 font-4 = "NotoSansMono Nerd Font"
 
-modules-left = date appmenu powermenu bspwm apps xwindow
-modules-center = memory cpu filesystem wlan eth battery
-modules-right = xbacklight pulseaudio xkeyboard
+modules-left = appmenu powermenu bspwm apps
+modules-center = date
+modules-right =  memory cpu filesystem wlan eth xbacklight pulseaudio xkeyboard battery
 
 tray-position = right
 tray-padding = 2
@@ -190,7 +190,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 🕙
+format-prefix = 🕰
 format-font = 4
 format-prefix-foreground = ${colors.foreground-alt}
 
