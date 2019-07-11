@@ -212,17 +212,20 @@ augroup END
 " -> Leader Initialisation {{{
 " Define prefix dictionary
 let g:lmap =  {}
-let g:lmap.r = { 'name': 'Run/' }
-let g:lmap.w = { 'name': 'Wiki/' }
-let g:lmap.b = { 'name': 'Buffer/' }
-let g:lmap.f = { 'name': 'Find/' }
-let g:lmap.p = { 'name': 'CtrlP/'}
-let g:lmap.g = { 'name': 'Git/'}
-let g:lmap.o = { 'name': 'Options/'}
-let g:lmap.t = { 'name': 'Tags/' }
-let g:lmap.s = { 'name': 'Session/' }
-let g:lmap.q = { 'name': 'QFix/' }
-let g:lmap.z = { 'name': 'Zeal/' }
+let g:lmap.b = { 'name': '+Buffer' }
+let g:lmap.c = { 'name': '+Coc' }
+let g:lmap.f = { 'name': '+Find' }
+let g:lmap.g = { 'name': '+Git'}
+let g:lmap.l = { 'name': '+Location' }
+let g:lmap.o = { 'name': '+Open'}
+let g:lmap.p = { 'name': '+CtrlP'}
+let g:lmap.q = { 'name': '+QFix' }
+let g:lmap.r = { 'name': '+Run' }
+let g:lmap.s = { 'name': '+Session' }
+let g:lmap.t = { 'name': '+Tags-Toggle-To' }
+let g:lmap.w = { 'name': '+Wiki' }
+let g:lmap.y = { 'name': '+Yank' }
+let g:lmap.z = { 'name': '+Zeal' }
 
 "  }}}
 
@@ -256,6 +259,7 @@ endif
 " -> Buffers {{{
 " Allow to copy/paste between VIM instances
 " "copy the current visual selection to ~/.vbuf
+let g:lmap.y.b = 'to-file-Buffer'
 vmap <Plug>(buffer_VYank) :w! ~/.vim/.vbuf<CR>
 vmap <leader>yb <Plug>(buffer_VYank)
 
@@ -264,10 +268,15 @@ nmap <Plug>(buffer_Yank) :.w! ~/.vim/.vbuf<CR>
 nmap <leader>yb <Plug>(buffer_Yank)
 
 " "paste the contents of the buffer file
+let g:lmap.y.p = 'Paste-from-file-buffer'
 nmap <Plug>(buffer_Paste) :r ~/.vim/.vbuf<CR>
 nmap <leader>yp <Plug>(buffer_Paste)
 
+let g:lmap.y.f = { 'name': '+File' }
+let g:lmap.y.f.l = 'Link'
 nmap <leader>yfl :let @+ = expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
+
+let g:lmap.y.f.p = 'Path'
 nmap <leader>yfp :let @+ = expand("%:h") . '/' . expand("%:t")<CR>
 
 " }}}
@@ -299,10 +308,19 @@ nmap  <right> <Nop>
 "  }}}
 " -> TODOs {{{
 inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \id <C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 inoremap \fl <C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
 inoremap \fp <C-R>=expand("%:h") . '/' . expand("%:t")<CR>
+
+let g:lmap.t.d = 'to-Do'
 nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+
+let g:lmap.o.t = 'To-do'
 nnoremap <leader>ot :vsplit TODO.md<CR>
+
+let g:lmap.t.h = 'To-Html'
+nnoremap <leader>th :TOhtml<CR>
+vnoremap <leader>th :TOhtml<CR>
 "  }}}
 " -> Some vim tunings {{{
 nnoremap Y y$
@@ -408,6 +426,7 @@ augroup ft_python
     au FileType python  setlocal commentstring=#\ %s
     au FileType python map <buffer> <leader>rr :w\|!python % <CR>
 
+    let g:lmap.r.b = 'Breakpoint'
     nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
     au FileType python map <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
 augroup END
@@ -428,6 +447,8 @@ augroup ft_vim
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
     au FileType vim inoremap <c-n> <c-x><c-n>
+
+    let g:lmap.r.S = 'Source-line'
     au FileType vim vnoremap <leader>rS y:@"<CR>
     au FileType vim nnoremap <leader>rS ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
@@ -470,6 +491,7 @@ augroup ft_vimwiki
     au FileType vimwiki call LoadVIMWIKI()
     function! LoadVIMWIKI() " {{{
         let b:ale_linters = ['vale', 'markdownlint']
+        set shiftwidth=2
     endfunction " }}}
 
 augroup END
@@ -528,7 +550,8 @@ endfunction
 "  }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-" autocmd! User vim-go call LoadGo()
+" TODO: fix go integration
+autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
 " Plug 'jodosha/vim-godebug', { 'for': 'go' }
@@ -568,11 +591,18 @@ function! LoadGo() " {{{
     au FileType go map <buffer> <silent> <leader>rb <Plug>(go_Build)
     au FileType go map <buffer> <silent> <leader>rc <Plug>(go_Coverage-Toggle)
 
-    let g:lmap.r.d = { 'name': 'Definition' }
+    let g:lmap.r.d = { 'name': '+Definition' }
+    let g:lmap.r.d.s = 'Split'
     au FileType go nmap <buffer> <Leader>rds <Plug>(go-def-split)
+
+    let g:lmap.r.d.v = 'Vertical'
     au FileType go nmap <buffer> <Leader>rdv <Plug>(go-def-vertical)
+
+    let g:lmap.r.d.t = 'Tab'
     au FileType go nmap <buffer> <Leader>rdt <Plug>(go-def-tab)
     " au FileType go nmap <buffer> K <Plug>(go-doc)
+
+    let g:lmap.r.d.i = 'Info'
     au FileType go nmap <buffer> <Leader>rdi <Plug>(go-info)
 
 endfunction " }}}
@@ -644,6 +674,8 @@ autocmd! User neco-vim call LoadNeco()
 function! LoadNeco() " {{{
     augroup ft_vim
         au!
+
+        let g:lmap.r.r = 'Source'
         au FileType vim nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
     augroup END
 endfunction " }}}
@@ -672,6 +704,8 @@ Plug 'KabbAmine/zeavim.vim'
 
 nmap gzz <Plug>Zeavim
 vmap gzz <Plug>ZVVisSelection
+
+let g:lmap.z = 'Zeal'
 nmap <leader>z <Plug>ZVKeyDocset
 nmap gZ <Plug>ZVKeyDocset<CR>
 nmap gz <Plug>ZVOperator
@@ -734,6 +768,7 @@ Plug 'brooth/far.vim'
 let g:far#source = 'agnvim'
 let g:far#file_mask_favorites = ['%', '.*', '\.py$', '\.go$']
 
+let g:lmap.f.r = 'Replace'
 nnoremap <leader>fr :Far<space>
 vnoremap <leader>fr :Far<space>
 
@@ -746,6 +781,7 @@ Plug 'd0c-s4vage/vim-morph', { 'for': [ 'base64', 'encrypted']}
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
 nmap <Plug>(undo_Undo) :MundoToggle<CR><CR>
+let g:lmap.u = 'Undo'
 nmap <silent> <leader>u <Plug>(undo_Undo)
 "
 if has('persistent_undo')
@@ -863,18 +899,54 @@ Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 autocmd! VimEnter * call LoadVimwiki()
 
 function! LoadVimwiki()
+    let g:lmap.w.w = 'Index'
     nunmap <Leader>ww
     map <Leader>ww :call VimwikiIndexCd()<CR>
+
+
+    nunmap <Leader>w<Space>i
+    nunmap <Leader>w<Space>t
+    nunmap <Leader>w<Space>w
+    nunmap <Leader>w<Space>y
+    nunmap <Leader>w<Space>m
+    nunmap <Leader>wt
+    " i - generate
+    " t tab make diary
+    " w make diary
+    " y yesterday
+    " m tommorow
+
+    map <leader>wt :call VimwikiMakeDiaryNoteNew()<CR>
+    let g:lmap.w.s = 'Select-wiki'
+    let g:lmap.w.t = 'Today'
+    let g:lmap.w.i = 'Diary'
+endfunction
+
+function! VimWikiHelpers()
+    let g:lmap.w.r = 'Rename-link'
+    let g:lmap.w.d = 'Delete-link'
+    let g:lmap.w.h = 'to-Html'
+    let g:lmap.w.hh = 'toHtml-browse'
+    let g:lmap.w.n = 'goto'
 endfunction
 
 function! VimwikiIndexCd()
     VimwikiIndex
     cd %:h
+    call VimWikiHelpers()
+endfunction
+
+
+function! VimwikiMakeDiaryNoteNew()
+    VimwikiMakeDiaryNote
+    cd %:h:h
+    call VimWikiHelpers()
 endfunction
 
 let g:vimwiki_list = [{'path': '~/Notes/',
                     \ 'syntax': 'markdown', 'ext': '.md',
                     \ 'auto_toc': 1,
+                    \ 'auto_diary_index': 1,
                     \ 'list_margin': 0,
                     \ 'custom_wiki2html': 'vimwiki-godown',
                     \ 'auto_tags': 1}]
@@ -897,33 +969,37 @@ Plug 'jeetsukumaran/vim-buffergator', { 'on': 'BuffergatorToggle' }
 let g:buffergator_suppress_keymaps=1
 let g:buffergator_viewport_split_policy="B"
 
-nnoremap <silent> <F4> :BuffergatorToggle<CR>
-nnoremap <silent> <leader>bb :BuffergatorToggle<CR>
+nnoremap <silent> <leader>pb :BuffergatorToggle<cr>
 " }}}
 " -> Fuzzy {{{
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..',
+            \ 'source': 'ag --hidden --ignore .git --nogroup --column --color "^(?=.)"'}, <bang>0)
+
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
-nnoremap <silent> <leader>pt :Tags<cr>
 nnoremap <silent> <leader>pp :Files<cr>
 nnoremap <silent> <leader>pm :Marks<cr>
-nnoremap <silent> <leader>pb :Buffers<cr>
 nnoremap <silent> <leader>pf :Filetypes<cr>
 
 nnoremap <Plug>(git_Files) :GFiles?<cr>
 nnoremap <Plug>(git_History) :Commits<cr>
 nnoremap <Plug>(git_File-History) :BCommits<cr>
 
-nmap <silent> <leader>gf <Plug>(git_Files)
+let g:lmap.g.h = 'History'
 nmap <silent> <leader>gh  <Plug>(git_History)
-nmap <silent> <leader>gbc <Plug>(git_File-History)
+
+let g:lmap.g.f = { 'name': '+File' }
+let g:lmap.g.f.h = 'file-History'
+nmap <silent> <leader>gfh <Plug>(git_File-History)
 
 
 command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <Plug>(options_File-Type) :FT<CR>
 
+let g:lmap.f.f = 'in-File'
 nnoremap <Plug>(find_String) :Ag<CR>
 nmap <silent> <leader>ff <Plug>(find_String)
 
@@ -944,6 +1020,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " }}}
 " -> Indent-guides {{{
 Plug 'nathanaelkane/vim-indent-guides'
@@ -978,6 +1055,8 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', '
 
 nnoremap <leader>pn : NERDTreeToggle<CR>
 nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
+
+let g:lmap.f.p = 'Path'
 nmap <leader>fp <Plug>(find_Path)
 
 let NERDTreeShowBookmarks=0
@@ -1068,9 +1147,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>crn <Plug>(coc-rename)
+let g:lmap.c.r = 'Rename'
+nmap <leader>cr <Plug>(coc-rename)
 
 " Remap for format selected region
+let g:lmap.c.f = 'Format'
 xmap <leader>cf  <Plug>(coc-format-selected)
 nmap <leader>cf  <Plug>(coc-format-selected)
 
@@ -1083,12 +1164,17 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+let g:lmap.c.a = { 'name': '+Actions' }
 xmap <leader>ca  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
+let g:lmap.c.a.c = 'Action'
 nmap <leader>cac  <Plug>(coc-codeaction)
+"
 " Fix autofix problem of current line
+let g:lmap.c.q = { 'name': '+Quick' }
+let g:lmap.c.q.f = 'Fix-current'
 nmap <leader>cqf  <Plug>(coc-fix-current)
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
@@ -1131,10 +1217,11 @@ Plug 'jsfaint/gen_tags.vim'
 
 autocmd! User tagbar call LoadTagBar()
 
-nnoremap <leader>tt :TagbarToggle<CR>
-nnoremap <F3> :TagbarToggle<CR>
+nnoremap <silent> <leader>pt :TagbarToggle<CR>
 
 nnoremap <Plug>(tags_Update) :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
+
+let g:lmap.t.u = 'tag-Update'
 nmap <leader>tu <Plug>(tags_Update)
 
 set tags=tags;/,codex.tags;/
@@ -1232,11 +1319,6 @@ endif
 
 " }}}
 " -> Git {{{
-"  -> Leader Git menu {{{
-let g:lmap.g.b = { 'name': 'Blame/' }
-let g:lmap.g.p = { 'name': 'Push&Pull/' }
-let g:lmap.g.p.l = { 'name': 'Pull/' }
-"  }}}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
@@ -1258,15 +1340,30 @@ nnoremap <Plug>(git_Merge) :silent Git pull<CR>
 nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
 vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
 
+let g:lmap.g.s = 'Status'
 nmap <silent> <leader>gs <Plug>(git_Status)
+let g:lmap.g.d = 'Diff'
 nmap <silent> <leader>gd <Plug>(git_Diff)
+let g:lmap.g.C = 'Commit'
 nmap <silent> <leader>gC <Plug>(git_Commit)
-nmap <silent> <leader>gps <Plug>(git_Push)
+let g:lmap.g.W = 'Write'
 nmap <silent> <leader>gW <Plug>(git_Write)
-nmap <silent> <leader>gbl <Plug>(git_Blame)
+let g:lmap.g.R = 'Read'
 nmap <silent> <leader>gR <Plug>(git_Read)
+
+let g:lmap.g.b = { 'name': '+Blame' }
+let g:lmap.g.b.l = 'Blame'
+nmap <silent> <leader>gbl <Plug>(git_Blame)
+
+let g:lmap.g.p = { 'name': '+Push-pull' }
+let g:lmap.g.p.s = 'Push'
+nmap <silent> <leader>gps <Plug>(git_Push)
+let g:lmap.g.p.l = { 'name': '+Pull' }
+let g:lmap.g.p.l.r = 'Rebase'
 nmap <silent> <leader>gplr <Plug>(git_Rebase)
+let g:lmap.g.p.l.m = 'Merge'
 nmap <silent> <leader>gplm <Plug>(git_Merge)
+let g:lmap.g.g = 'Browse'
 nmap <silent> <leader>gg <Plug>(git_Browse)
 vmap <silent> <leader>gg <Plug>(git_VBrowse)
 
@@ -1279,6 +1376,7 @@ nmap ]g <Plug>GitGutterNextHunk
 let g:gitgutter_override_sign_column_highlight = 0
 
 " Gitv options
+let g:lmap.g.H = 'History'
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <Plug>(git_Full-History) :GV<CR>
 nmap <silent> <leader>gH <Plug>(git_Full-History)
@@ -1444,11 +1542,17 @@ nnoremap <Plug>(session_Exit) :CloseSessionAndExit<CR>
 nnoremap <Plug>(session_Close) :CloseSession<CR>
 nnoremap <Plug>(session_Delete) :DeleteSessionCurrent<CR>
 
+let g:lmap.s.o = 'Open'
 nmap <leader>so <Plug>(session_Load)
+let g:lmap.s.u = 'open-cUrrent'
 nmap <leader>su <Plug>(session_Load-Current)
+let g:lmap.s.s = 'Save'
 nmap <leader>ss <Plug>(session_Make)
+let g:lmap.s.q = 'Quit'
 nmap <leader>sq <Plug>(session_Exit)
-nmap <leader>sx <Plug>(session_Close)
+let g:lmap.s.c = 'Close'
+nmap <leader>sc <Plug>(session_Close)
+let g:lmap.s.d = 'Delete'
 nmap <leader>sd <Plug>(session_Delete)
 " }}}
 " -> Folding {{{
@@ -1628,19 +1732,29 @@ nnoremap <Plug>(qfix_Open) :copen<CR>
 nnoremap <Plug>(qfix_Close) :cclose<CR>
 nnoremap <Plug>(qfix_QNext) :QFixSwitch 'next'<CR>
 nnoremap <Plug>(qfix_QPrev) :QFixSwitch 'prev'<CR>
+let g:lmap.q.q = 'toggle'
 nmap <leader>qq  <Plug>(qfix_Toggle)
+let g:lmap.q.c = { 'name': '+current' }
+let g:lmap.q.c.o = 'Open'
 nmap <leader>qco <Plug>(qfix_Open)
+let g:lmap.q.c.c = 'Close'
 nmap <leader>qcc <Plug>(qfix_Close)
+let g:lmap.q.n = 'Next'
 nmap <leader>qn <Plug>(qfix_QNext)
+let g:lmap.q.p = 'Previous'
 nmap <leader>qp <Plug>(qfix_QPrev)
 
 nnoremap <Plug>(qfix_LOpen) :lopen<CR>
 nnoremap <Plug>(qfix_LClose) :lclose<CR>
 nnoremap <Plug>(qfix_LNext) :lnext<CR>
 nnoremap <Plug>(qfix_LPrev) :lprev<CR>
+let g:lmap.l.o = 'Open'
 nmap <leader>lo <Plug>(qfix_LOpen)
+let g:lmap.l.c = 'Close'
 nmap <leader>lc <Plug>(qfix_LClose)
+let g:lmap.l.n = 'Next'
 nmap <leader>ln <Plug>(qfix_LNext)
+let g:lmap.l.p = 'Previous'
 nmap <leader>lp <Plug>(qfix_LPrev)
 
 " }}}
