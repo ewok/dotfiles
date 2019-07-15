@@ -228,7 +228,7 @@ let g:lmap.p = { 'name': '+CtrlP'}
 let g:lmap.q = { 'name': '+QFix' }
 let g:lmap.r = { 'name': '+Run' }
 let g:lmap.s = { 'name': '+Session' }
-let g:lmap.t = { 'name': '+Tags-Toggle-To' }
+let g:lmap.t = { 'name': '+Tags-To' }
 let g:lmap.w = { 'name': '+Wiki' }
 let g:lmap.y = { 'name': '+Yank' }
 let g:lmap.z = { 'name': '+Zeal' }
@@ -245,6 +245,9 @@ nnoremap <C-W>t :tabnew<CR>
 
 " Tmux?
 if exists('$TMUX')
+    nnoremap <Plug>(window_new-tmux) :!tmux new-window<CR><CR>
+    nmap <silent><C-W>T <Plug>(window_new-tmux)
+
     nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 30<CR><CR>
     nmap <silent><C-W>S <Plug>(window_split-tmux)
 
@@ -322,7 +325,11 @@ let g:lmap.t.d = 'to-Do'
 nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 
 let g:lmap.o.t = 'To-do'
-nnoremap <leader>ot :vsplit TODO.md<CR>
+nnoremap <leader>ot :call OpenToDo()<CR>
+function! OpenToDo()
+  vsplit TODO.md
+  nnoremap <buffer> q :bd<CR>
+endfunction
 
 let g:lmap.t.h = 'To-Html'
 nnoremap <leader>th :TOhtml<CR>
@@ -497,7 +504,6 @@ augroup ft_vimwiki
     au FileType vimwiki call LoadVIMWIKI()
     function! LoadVIMWIKI() " {{{
         let b:ale_linters = ['vale', 'markdownlint']
-        set shiftwidth=2
     endfunction " }}}
 
 augroup END
@@ -975,7 +981,7 @@ Plug 'jeetsukumaran/vim-buffergator', { 'on': 'BuffergatorToggle' }
 let g:buffergator_suppress_keymaps=1
 let g:buffergator_viewport_split_policy="B"
 
-nnoremap <silent> <leader>pb :BuffergatorToggle<cr>
+nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 " }}}
 " -> Fuzzy {{{
 Plug 'junegunn/fzf'
@@ -988,6 +994,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
 nnoremap <silent> <leader>pp :Files<cr>
 nnoremap <silent> <leader>pm :Marks<cr>
+nnoremap <silent> <leader>pb :Buffers<cr>
 nnoremap <silent> <leader>pf :Filetypes<cr>
 
 nnoremap <Plug>(git_Files) :GFiles?<cr>
@@ -1006,10 +1013,6 @@ let g:lmap.f.f = 'in-File'
 nnoremap <Plug>(find_String) :Ag<CR>
 nmap <silent> <leader>ff <Plug>(find_String)
 
-nnoremap <silent> <c-p><c-p> <nop>
-nnoremap <silent> <c-p><c-t> <nop>
-nnoremap <silent> <c-p><c-b> <nop>
-
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
@@ -1022,7 +1025,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+let $FZF_DEFAULT_OPTS = '--bind=ctrl-a:toggle-all,ctrl-space:toggle+down,ctrl-alt-a:deselect-all'
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " }}}
 " -> Indent-guides {{{
@@ -1378,6 +1381,13 @@ nmap ]g <Plug>GitGutterNextHunk
 
 let g:gitgutter_override_sign_column_highlight = 0
 
+let g:lmap.g.hs = 'Hunk-Stage'
+nmap <leader>ghs <Plug>GitGutterStageHunk
+let g:lmap.g.hr = 'Hunk-Revert'
+nmap <leader>ghr <Plug>GitGutterRevertHunk
+let g:lmap.g.hp = 'Hunk-Preview'
+nmap <leader>ghp <Plug>GitGutterPreviewHunk
+
 " Gitv options
 let g:lmap.g.h = 'History'
 let g:Gitv_DoNotMapCtrlKey = 1
@@ -1394,6 +1404,12 @@ let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 
 " }}}
+" -> AutoIndent {{{
+Plug 'tpope/vim-sleuth'
+"  }}}
+" -> SortFolds {{{
+Plug 'obreitwi/vim-sort-folds'
+"  }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "

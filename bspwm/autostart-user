@@ -41,8 +41,8 @@ telegram-desktop &
 pkill clipit
 clipit &
 
-pkill syncthing-gtk
-syncthing-gtk &
+pkill pcloud
+pcloud &
 
 pkill flameshot
 flameshot &

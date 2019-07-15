@@ -62,6 +62,10 @@ export LC_MEASUREMENT="ru_RU.UTF-8"
 export LC_IDENTIFICATION="ru_RU.UTF-8"
 export LC_ALL=
 
+# FZF
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git,mnt -g "" -U'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi

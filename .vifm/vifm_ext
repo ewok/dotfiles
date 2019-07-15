@@ -71,6 +71,8 @@ fileviewer *.flac soxi
 
 " Video
 filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
+       \ {View using mpv}
+       \ mpv %f,
        \ {View using ffplay}
        \ ffplay -fs %c,
        \ {View using Dragon}
@@ -88,7 +90,9 @@ fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
         " \ ffprobe -pretty %c 2>&1
 
 " Web
-filextype *.html,*.htm luakit %f %i &
+filextype *.html,*.htm
+        \ {Open with luakit}
+        \ luakit %f:p %i &,
         " \ {Open with dwb}
         " \ dwb %f %i &,
         \ {Open with firefox}
