@@ -291,8 +291,9 @@ nmap <leader>yfp :let @+ = expand("%:h") . '/' . expand("%:t")<CR>
 " }}}
 " -> Folding {{{
 " Space to toggle folds.
-nnoremap <silent> <leader><leader> za
-vnoremap <silent> <leader><leader> zf
+nnoremap <silent> <leader><leader> za"{{{
+nnoremap <silent> z<leader> mzzMzvzz15<c-e>`z
+vnoremap <silent> <leader><leader> zf"}}}
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
@@ -302,33 +303,48 @@ nnoremap zC zcV:foldc!<CR>
 
 nnoremap <c-z> mzzMzvzz15<c-e>`z
 
-" }}}
-" -> Switch off bad habits {{{
-imap  <up>    <Nop>
-imap  <down>  <Nop>
-imap  <left>  <Nop>
-imap  <right> <Nop>
+nmap zj zjmzzMzvzz15<c-e>`z
+nmap zk zkmzzMzvzz15<c-e>`z
 
-nmap  <up>    <Nop>
-nmap  <down>  <Nop>
-nmap  <left>  <Nop>
-nmap  <right> <Nop>
+" " }}}
+" " -> Switch off bad habits {{{
+" imap  <up>    <Nop>
+" imap  <down>  <Nop>
+" imap  <left>  <Nop>
+" imap  <right> <Nop>
 
-"  }}}
+" nmap  <up>    <Nop>
+" nmap  <down>  <Nop>
+" nmap  <left>  <Nop>
+" nmap  <right> <Nop>
+
+" "  }}}
 " -> TODOs {{{
-inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
-inoremap \id <C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \id <C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 inoremap \fl <C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
 inoremap \fp <C-R>=expand("%:h") . '/' . expand("%:t")<CR>
 
 let g:lmap.t.d = 'to-Do'
-nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 
 let g:lmap.o.t = 'To-do'
 nnoremap <leader>ot :call OpenToDo()<CR>
 function! OpenToDo()
   vsplit TODO.md
   nnoremap <buffer> q :bd<CR>
+  hi TODO guifg=Yellow ctermfg=Yellow term=Bold
+  hi P1 guifg=Red ctermfg=Red term=Bold
+  hi P2 guifg=LightRed ctermfg=LightRed term=Bold
+  hi P3 guifg=LightYellow ctermfg=LightYellow term=Bold
+  hi P4 guifg=Grey ctermfg=Grey term=Italic
+
+  call matchadd('TODO', 'TODO')
+  call matchadd('TODO', '@todo')
+  syn match P1 "[pP]1.*$"
+  syn match P2 "[pP]2.*$"
+  syn match P3 "[pP]3.*$"
+  syn match P4 "[pP]4.*$"
 endfunction
 
 let g:lmap.t.h = 'To-Html'
@@ -504,6 +520,7 @@ augroup ft_vimwiki
     au FileType vimwiki call LoadVIMWIKI()
     function! LoadVIMWIKI() " {{{
         let b:ale_linters = ['vale', 'markdownlint']
+        set foldlevel=2
     endfunction " }}}
 
 augroup END
@@ -562,7 +579,7 @@ endfunction
 "  }}}
 " -> Go {{{
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-" TODO: fix go integration
+" @todo: fix go integration
 autocmd! User vim-go call LoadGo()
 
 " Plug 'benmills/vimux-golang', { 'for': 'go' }
@@ -575,7 +592,7 @@ function! LoadGo() " {{{
     endif
 
     " let $GOPATH = $HOME . '/share/gopath/default'
-    " TODO: Make it getting from .gopath
+    " @todo: Make it getting from .gopath
     ". fnamemodify(getcwd(), ':t')
     " let $GOBIN = $HOME . '/.local/bin'
     " let $PATH = $PATH . ':' . $GOBIN
@@ -725,6 +742,7 @@ nmap gz <Plug>ZVOperator
 let g:zv_file_types = {
             \   'help'                : 'vim',
             \   'yaml.ansible'        : 'ansible',
+            \   'jinja2'              : 'jinja',
             \ }
 "  }}}
 " }}}
@@ -1316,7 +1334,7 @@ function! LoadTagBar()
 
 endfunction
 " }}}
-" -> TODO: Check actuality Folding  {{{
+" -> @todo: Check actuality Folding  {{{
 Plug 'pseewald/vim-anyfold'
 
 if g:largefile != 1
@@ -1337,12 +1355,12 @@ Plug 'junegunn/gv.vim'
 nnoremap <Plug>(git_Status) :Gstatus<CR>
 nnoremap <Plug>(git_Diff) :Gdiff<CR>
 nnoremap <Plug>(git_Commit) :Gcommit<CR>
-nnoremap <Plug>(git_Push) :silent Git push<CR>
+nnoremap <Plug>(git_Push) :G push<CR>
 nnoremap <Plug>(git_Write) :Gwrite<CR>
 nnoremap <Plug>(git_Blame) :Gblame<CR>
 nnoremap <Plug>(git_Read) :Gread<CR>
-nnoremap <Plug>(git_Rebase) :silent Git pull --rebase<CR>
-nnoremap <Plug>(git_Merge) :silent Git pull<CR>
+nnoremap <Plug>(git_Rebase) :G pull --rebase<CR>
+nnoremap <Plug>(git_Merge) :G pull<CR>
 nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
 vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
 
