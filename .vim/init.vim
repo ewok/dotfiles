@@ -341,10 +341,10 @@ function! OpenToDo()
 
   call matchadd('TODO', 'TODO')
   call matchadd('TODO', '@todo')
-  syn match P1 "[pP]1.*$"
-  syn match P2 "[pP]2.*$"
-  syn match P3 "[pP]3.*$"
-  syn match P4 "[pP]4.*$"
+  syn match P1 ".*\[[^X]\]\s\+[pP]1.*$"
+  syn match P2 ".*\[[^X]\]\s\+[pP]2.*$"
+  syn match P3 ".*\[[^X]\]\s\+[pP]3.*$"
+  syn match P4 ".*\[[^X]\]\s\+[pP]4.*$"
 endfunction
 
 let g:lmap.t.h = 'To-Html'
