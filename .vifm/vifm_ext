@@ -62,21 +62,21 @@ filextype *.cbr,*.cbz
 " Audio
 filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3 mpv %f 2>/dev/null
       \ {Play using ffplay}
-      \ ffplay -nodisp %c,
-      \ {Play using MPlayer}
-      \ ffplay %c,
+      \ ffplay -nodisp %c &,
 
 fileviewer *.mp3 mp3info
 fileviewer *.flac soxi
 
 " Video
-filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
+filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
        \ {View using mpv}
-       \ mpv %f,
+       \ mpv %f %i &,
+       \ {View using vlc}
+       \ vlc %f %i &,
+
+filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
        \ {View using ffplay}
-       \ ffplay -fs %c,
-       \ {View using Dragon}
-       \ dragon %f,
+       \ ffplay -fs %c %i &,
        \ {View using mplayer}
        \ ffprobe -pretty %c 2>&1
 

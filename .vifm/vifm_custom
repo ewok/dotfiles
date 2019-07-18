@@ -46,7 +46,7 @@ highlight /^.*\.(zip|gz|bz2|xz|tar|tgz|tbz2|7z|rar|iso|rpm|deb)$/ ctermfg=red
 highlight /^.*\.(mp3|ogg|oga|flac|m4a|avi|mpg)$/ ctermfg=magenta
 
 " Documents
-highlight /^.*\.(ans|asc|doc[x]?|dot[x]?|djvu|epub|gdoc|md|mobi|odm|odoc|odt|pdf|rtf|stw|info|txt|ppt|o[td]s|csv|xls[x]?|xlt|smmx|htm[l]?)$/ ctermfg=lightblue
+highlight /^.*\.(ans|asc|doc[x]?|dot[x]?|djvu|epub|gdoc|md|mobi|odm|odoc|odt|pdf|rtf|stw|info|txt|ppt|o[td]s|csv|xls[x]?|xlt|smmx|htm[l]?)$/ ctermfg=blue
 
 " Executable
 highlight /^.*\.(exe|bat|sh|ps1|cmd)$/ cterm=none	ctermfg=172	ctermbg=237
