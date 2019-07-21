@@ -71,6 +71,7 @@ bspc rule -a TelegramDesktop desktop=  follow=true
 bspc rule -a Todoist desktop=5
 bspc rule -a wpa_gui state=pseudo_tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a Peek state=floating
 
 ##  Autogap adjusts windowgap automatically according to the number of
 ##  windows on the desktop. Using it disables negative window gap.
