@@ -332,7 +332,7 @@ let g:lmap.o.t = 'To-do'
 nnoremap <leader>ot :call OpenToDo()<CR>
 function! OpenToDo()
   vsplit TODO.md
-  nnoremap <buffer> q :bd<CR>
+  nnoremap <buffer> q :x<CR>
   hi TODO guifg=Yellow ctermfg=Yellow term=Bold
   hi P1 guifg=Red ctermfg=Red term=Bold
   hi P2 guifg=LightRed ctermfg=LightRed term=Bold
@@ -393,8 +393,16 @@ augroup ft_ansible
 
     function! LoadAnsible() " {{{
         let b:ale_ansible_ansible_lint_executable = 'ansible_custom'
+        let b:ale_ansible_ansible_lint_command = '%e %t'
         let b:ale_ansible_yamllint_executable = 'yamllint_custom'
-        let b:ale_linters = ['ansible-lint', 'yamllint']
+        let b:ale_linters = ['yamllint', 'ansible_custom']
+
+        call ale#linter#Define('ansible', {
+                    \   'name': 'ansible_custom',
+                    \   'executable': function('ale_linters#ansible#ansible_lint#GetExecutable'),
+                    \   'command': '%e %s',
+                    \   'callback': 'ale_linters#ansible#ansible_lint#Handle',
+                    \})
     endfunction " }}}
 
 augroup END
@@ -544,6 +552,7 @@ call plug#begin('~/.vim/local/plugged')
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim'
+let g:ansible_unindent_after_newline = 0
 " }}}
 " -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }

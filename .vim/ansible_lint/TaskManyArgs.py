@@ -10,6 +10,7 @@ class TaskManyArgs(AnsibleLintRule):
 
     _pattern_equal_splitted = re.compile('\w+=.*')
     _pattern_quoted_string = re.compile('"(.*?)"')
+    _pattern_squoted_string = re.compile("'(.*?)'")
 
     def match(self, file, text):
         try:
@@ -19,6 +20,8 @@ class TaskManyArgs(AnsibleLintRule):
         if "# " in text:
             return False
         if self._pattern_quoted_string.search(v):
+            return False
+        if self._pattern_squoted_string.search(v):
             return False
         if ": >" in text:
             return True

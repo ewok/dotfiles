@@ -5,5 +5,13 @@
   "coc.source.emoji.filetypes": [
       "markdown",
       "vimwiki"
-  ]
+  ],
+  "yaml.hover": true,
+  "yaml.validate": true,
+  "yaml.completion":true,
+  "yaml.schemas": {
+    "http://json.schemastore.org/ansible-stable-2.5": "/(playbooks|roles|tasks|handlers|defaults|vars)/*.(yml|yaml)",
+    "kubernetes": "/!(playbooks|roles|tasks|handlers|defaults|vars)/*.(yml|yaml)"
+  },
+  "yaml.format.enable": true
 }
