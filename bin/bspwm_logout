@@ -1,0 +1,9 @@
+#!/bin/env bash
+
+# For each opened window
+bspc query --nodes | while read -r winid; do
+# Close it
+xdotool windowkill "$winid"
+done
+# Quit bspwm
+bspc quit 1

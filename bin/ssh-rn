@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -f /usr/local/bin/ssh ]; then
+    SSH=/usr/local/bin/ssh
+elif [ -f /usr/bin/ssh ]; then
+    SSH=/usr/bin/ssh
+else
+    echo "Couldn't find ssh"
+    exit 1
+fi
+
+CP="/tmp/ssh_${1:0:50}_%r_%p"
+
+$SSH -C -t -o "ControlPath=$CP" $@ 

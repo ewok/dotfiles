@@ -1,0 +1,48 @@
+#!/usr/bin/python
+# coding=utf-8
+from time import sleep
+
+__author__ = 'ewok'
+
+import os, sys
+
+LIST_NAME = 'list'
+LIST_PARAM = '-i'
+DOWNLOAD_DIR = os.path.join(os.environ['HOME'], 'Downloads/download.d/')
+DOWNLOAD_DIR_PARAM = '-P'
+COOKIE_FILE = 'cookies.txt'
+COOKIE_PARAM = '--load-cookies'
+
+DOWNLOAD_PROGRAM = 'wget -c --timeout=30 --tries=0 --limit-rate=3000K'
+
+def download():
+    for root, dirs, files in os.walk(DOWNLOAD_DIR):
+    
+        os.system('clear')
+        run_command = DOWNLOAD_PROGRAM
+    
+        if len(sys.argv) > 1:
+            argv = sys.argv
+            argv[0] = run_command
+            run_command = ' '.join(argv)
+    
+        print(root)
+    
+        if LIST_NAME in files:
+    
+            run_command = ' '.join((run_command, LIST_PARAM, os.path.join(root, LIST_NAME)))
+    
+            if COOKIE_FILE in files:
+    
+                run_command = ' '.join((run_command, COOKIE_PARAM, os.path.join(root, COOKIE_FILE)))
+    
+            run_command = ' '.join((run_command, DOWNLOAD_DIR_PARAM, root))
+            print(run_command)
+            os.system(run_command)
+
+while True:
+    try:
+        download()
+        sleep(30)
+    except KeyboardInterrupt:
+        break

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+BASE=$(basename ${PWD})
+
+export GOPATH="$HOME/share/gopath/$BASE"
+export GOBIN="$HOME/.local/bin"
+export GOOS=darwin
+export GOARCH=amd64
+
+docker run -i --rm --entrypoint go -e GOOS=$GOOS -e GOARCH=$GOARCH  \
+    -w "/usr/src/$BASE" \
+    -v ${PWD}:"/usr/src/$BASE" \
+    -v "$HOME/share/gopath/$BASE":/go \
+    golang:1.9 $@

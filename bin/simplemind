@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export WINEARCH=win64 WINEPREFIX="$HOME/.simplemind/wine"
+
+simplemind_wine="${HOME}/.simplemind/wine"
+mkdir -p "${simplemind_wine}" || exit 1
+
+simplemind_path="${simplemind_wine}/drive_c/Program Files (x86)/ModelMakerTools/SimpleMind/1.23.1/SimpleMindPro.exe"
+if [ ! -f "${simplemind_path}" ] ; then
+        curl https://www.simpleapps.eu/simplemind/trials/SimpleMindPro1231b5611TrialSetup.exe > /tmp/simplemind.exe
+        wine /tmp/simplemind.exe || exit 1
+        rm -f /tmp/simplemind.exe || exit 1
+        winetricks corefonts || exit 1
+fi
+
+wine "${simplemind_path}"

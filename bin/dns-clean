@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+  platform='macos'
+fi
+
+if [[ $platform == 'linux' ]]; then
+  dns-clean
+echo Linux cleared
+elif [[ $platform == 'macos' ]]; then
+sudo killall -HUP mDNSResponder
+sudo pkill dnsmasq
+echo MacOs cleared
+fi

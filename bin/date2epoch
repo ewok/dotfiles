@@ -1,0 +1,2 @@
+# LANG=C date -j -f ""%Y%m%d%H%M%S%Z"" "13 Sep 2013 17:16:45 MSK" +%s
+LANG=C date -j -f ""%Y%m%d%H%M%S%Z"" "$1" +%s

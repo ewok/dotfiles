@@ -1,0 +1,51 @@
+ #!/bin/bash
+
+ CHARGED_SEND_ONES=0
+
+    while true
+    do
+        export DISPLAY=:0.0
+        battery_level=$( acpi -b | grep -P -o '[0-9]+(?=%)')
+        if on_ac_power; then
+            if [ $battery_level -ge 99 ]; then
+                if $CHARGED_SEND_ONES == 0; then
+                    notify-send "Battery charged. Please unplug your AC adapter!" "Charging: ${battery_level}% "
+                    CHARGED_SEND_ONES=1
+                fi
+            fi
+        else
+            CHARGED_SEND_ONES=0
+            if [ $battery_level -le 15 ]; then
+                TIMER=90
+                notify-send "Battery is lower 15%. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
+
+                while ! on_ac_power; do
+                    sleep $TIMER
+
+                    # recheck level
+                    battery_level=$( acpi -b | grep -P -o '[0-9]+(?=%)')
+
+                     # Critical
+                     if [ $battery_level -le 5 ]; then
+                        notify-send -u critical -t 1000 "Battery is lower than critical level. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
+                        systemctl suspend
+
+                     elif [ $battery_level -le 10 ]; then
+                        TIMER=2
+                        notify-send -u critical -t 1000 "Battery is lower than critical level. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
+                        canberra-gtk-play -i dialog-warning -d "Battery warning!"
+
+                     # Warning
+                     elif [ $battery_level -le 12 ]; then
+                        TIMER=30
+                        notify-send -u critical -t 5000 "Battery is lower than warning level. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
+
+                     else
+                        TIMER=90
+                        notify-send -u normal "Battery is lower than pre warning level. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
+                     fi
+                done
+            fi
+        fi
+        sleep 300 # 300 seconds or 5 minutes
+    done

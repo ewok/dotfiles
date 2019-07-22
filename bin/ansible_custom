@@ -1,0 +1,23 @@
+#!/bin/bash
+
+VENV_PATH="$HOME/share/venv/ansible-lint"
+
+if [[ ! -d $VENV_PATH ]];then
+    virtualenv $VENV_PATH
+    source $VENV_PATH/bin/activate
+    pip install ansible-lint yamllint
+fi
+
+source $VENV_PATH/bin/activate
+
+ANSIBLE_LINT="ansible-lint -R -r ~/.vim/ansible_lint -p"
+
+parent=$(dirname $1)
+parent_name=$(basename $parent)
+pparent=$(dirname $parent)
+
+if [[ "$parent_name" =~ ^(defaults|handlers|meta|tasks|vars)$ ]]; then
+    $ANSIBLE_LINT "$pparent"
+else
+    $ANSIBLE_LINT "$1"
+fi

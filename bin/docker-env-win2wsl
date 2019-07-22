@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-machine.exe env --shell zsh $1 | sed 's/C:\\/\/mnt\/c\//' | sed 's/\\/\//gi'

@@ -1,0 +1,23 @@
+#!/usr/bin/ansible-playbook -v
+---
+
+- name: Removing
+  become: false
+  hosts: "{{ server }}"
+  tasks:
+    - name: Remove ssh_key
+      authorized_key:
+          user: "{{ ansible_user_id }}"
+          key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+          state: absent
+
+    - name: remove configs
+      file: path={{ item }} state=absent
+      with_items:
+          - "~/.art"
+          - "~/.tmux-art"
+          - "~/.zshrc-art"
+          - "~/.zsh_history-art"
+          - "~/.mc"
+
+

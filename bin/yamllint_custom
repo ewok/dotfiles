@@ -1,0 +1,13 @@
+#!/bin/bash
+
+VENV_PATH="$HOME/share/venv/ansible-lint"
+
+if [[ ! -d $VENV_PATH ]];then
+    virtualenv $VENV_PATH
+    source $VENV_PATH/bin/activate
+    pip install ansible-lint yamllint
+fi
+
+source $VENV_PATH/bin/activate
+
+yamllint -d ~/.vim/ansible_lint/linter.yaml $@

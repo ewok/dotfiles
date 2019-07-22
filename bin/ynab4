@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+export WINEARCH=win64 WINEPREFIX="$HOME/.ynab4/wine"
+
+ynab_wine="${HOME}/.ynab4/wine"
+mkdir -p "${ynab_wine}"
+
+ynab_path="${ynab_wine}/drive_c/Program Files (x86)/YNAB 4/YNAB 4.exe"
+if [ ! -f "${ynab_path}" ] ; then
+    curl -J -L http://winetricks.org/winetricks -o /tmp/winetricks
+    chmod +x /tmp/winetricks
+	/tmp/winetricks corefonts
+    # /tmp/winetricks -v vcrun6 winetricks -v msxml4
+    rm /tmp/winetricks || echo "Couldn't delete temporary file"
+	wine /usr/share/ynab4/Setup.exe
+fi
+
+wine "${ynab_path}"

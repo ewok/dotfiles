@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -v $HOME/.m2:/var/maven/.m2 -v "$PWD":/var/maven/src -w /var/maven/src  -ti --rm -u $(id -u) -e MAVEN_CONFIG=/var/maven/.m2 maven:$1 mvn -Duser.home=/var/maven ${*:2}

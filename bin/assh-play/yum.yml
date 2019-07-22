@@ -1,0 +1,6 @@
+- name: YUM install soft
+  yum: name={{ item }} state=present
+  with_items:
+    - "tmux"
+    - "zsh"
+    - "mc"

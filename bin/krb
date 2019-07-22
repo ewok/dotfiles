@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -ti --rm -e KRB5_CONFIG=/etc/krb5.conf -v ~/krb5.conf:/etc/krb5.conf --entrypoint bash -w ${PWD} -v /Users/:/Users pilchard/krb5 -c "$*"

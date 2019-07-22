@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+  platform='macos'
+fi
+
+if [[ $platform == 'linux' ]]; then
+    cd $(dirname "$(readlink -f $0)")
+elif [[ $platform == 'macos' ]]; then
+    cd $(dirname $0)
+    cd $(dirname "$(readlink -n $0)")
+fi
+
+ansible-playbook -i $1, ${PWD}/assh-play/install.yml -e server=$1 -u $2
+

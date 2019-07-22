@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Restic
+#
+# add to crontab:
+# 0 0 * * * /bin/sh /usr/local/sbin/backup-host.sh
+
+# $1=password
+# $2=path to keep backup
+
+set -e
+
+RESTIC_PASSWORD="${1:-password}"
+BACKUP_DIR=/
+INCLUDES_EXCLUDES="\
+  --exclude-caches \
+  --exclude-if-present .nobackup \
+  --exclude '/home/*/Downloads' \
+  --exclude '/home/*/.cache' \
+  --exclude '/home/*/tmp' \
+  --exclude '/home/*/VirtualBox VMs' \
+  --exclude '/home/*/mnt' \
+  --exclude '/home/*/.local/share/vifm/Trash' \
+  --exclude '/home/*/.local/share/Trash' \
+  --exclude '/root/.cache' \
+  --exclude '/root/tmp' \
+  --exclude '/mnt/disk2/.Trash-1000' \
+  --exclude '/mnt/disk2/.vifm-Trash-1000' \
+  --exclude '/mnt/disk2/linux_shared/Videos' \
+  --exclude '/swap' \
+  --files-from <(echo '/home') \
+  --files-from <(echo '/root') \
+  --files-from <(echo '/etc') \
+  --files-from <(echo '/srv') \
+  --files-from <(echo '/var') \
+  --files-from <(echo '/mnt/disk2')"
+
+RESTIC_REPOSITORY=${2:-/tmp}/$(hostname -s | tr '[:upper:]' '[:lower:]')
+# RCLONE_BWLIMIT=2M
+
+export RESTIC_PASSWORD
+export RESTIC_REPOSITORY
+
+RESTIC_CMD="restic"
+
+CLEAN_CMD="${RESTIC_CMD}\
+    forget --keep-daily 7 --keep-weekly 5 --keep-monthly 12"
+
+PRUNE_CMD="${RESTIC_CMD}\
+    prune"
+
+BACKUP_CMD="${RESTIC_CMD} \
+  backup --one-file-system ${BACKUP_DIR} \
+  ${INCLUDES_EXCLUDES}"
+
+VERIFY_CMD="${RESTIC_CMD} \
+  check --read-data"
+
+RESTORE_CMD="${RESTIC_CMD} \
+  restore latest  \
+  --path ${BACKUP_DIR} \
+  --target ${PWD}"
+
+if [ $# -lt 1 ]
+then
+    echo "Usage : $0 [clean, backup(default), check, restore, prune]"
+        exit
+fi
+
+case "$1" in
+
+prune)
+    echo ${PRUNE_CMD}; eval ${PRUNE_CMD}
+    ;;
+clean)
+    echo ${CLEAN_CMD}; eval ${CLEAN_CMD}
+    ;;
+check)
+    echo ${VERIFY_CMD}; eval ${VERIFY_CMD}
+    ;;
+restore)
+    echo ${RESTORE_CMD}; eval ${RESTORE_CMD}
+    ;;
+backup)
+    echo ${BACKUP_CMD}; eval ${BACKUP_CMD}
+    ;;
+*)
+    echo ${BACKUP_CMD}; eval ${BACKUP_CMD}
+   ;;
+esac
+
+unset RESTIC_PASSWORD
+unset RESTIC_REPOSITORY

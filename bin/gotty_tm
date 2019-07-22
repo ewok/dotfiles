@@ -1,0 +1,32 @@
+#!/bin/bash
+
+OPTIONS=""
+
+read -p "Allow controll[yN]? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    OPTIONS="$OPTIONS -w"
+fi
+
+read -p "Float size[Yn]? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Nn]$ ]]; then
+    WIDTH=$(tmux display -p '#{window_width}')
+    HEIGHT=$(tmux display -p '#{window_height}')
+    OPTIONS="$OPTIONS --width $((WIDTH+1)) --height $((HEIGHT+1)) "
+fi
+
+read -p "Port number(Default: 8080)? " -r
+echo
+if [[ -n "$REPLY" ]]; then
+    OPTIONS="$OPTIONS --port $REPLY "
+fi
+
+read -p "Credential(user:password): " -r
+echo
+if [ -n "$REPLY" ];then
+    OPTIONS="$OPTIONS --credential $REPLY"
+fi
+
+gotty $OPTIONS bash -c "tmux attach -t cast || tmux new -s cast -t $(tmux display -p '#S')"
+tmux kill-session -t cast

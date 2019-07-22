@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $1 == "" ]];then
+    SESSION="main"
+else
+    SESSION="$1"
+fi
+
+tmux attach -t $SESSION || tmux new -s $SESSION

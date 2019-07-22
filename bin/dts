@@ -1,0 +1,22 @@
+#!/bin/sh
+## Rename all known media files to their DTS (date/time stamp)
+## ATTN: renames ALL files in current directory, no backups or ability to restore old filename
+## ---------- JPEG --------------
+
+jhead -ft *.jpg
+jhead -ft *.JPG
+jhead -ft *.jpeg
+jhead -ft *.JPEG
+
+jhead -n%Y-%m-%d-%H%M%S *.jpg
+jhead -n%Y-%m-%d-%H%M%S *.JPG
+jhead -n%Y-%m-%d-%H%M%S *.jpeg
+jhead -n%Y-%m-%d-%H%M%S *.JPEG
+## ---------- PNG  --------------
+#for file in *.png *.PNG; do
+#mv "$file" `ls -l --full-time "$file" | awk '{ print $6"_"$7 }' | tr ':' '-'`.png
+#done
+## ---------- 3GP --------------
+#for file in *.3gp; do
+#mv "$file" `ls -l --full-time "$file" | awk '{ print $6"_"$7 }' | tr ':' '-'`.3gp
+#done

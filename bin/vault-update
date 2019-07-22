@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Vault key/values updater.
+
+if [ "X$1" = "X" ]; then
+    echo "usage:
+    $(basename $0) <secret path> key=value
+    If value is empty then you will be asked to delete it
+    To load value from file use @filename in value field"
+    exit 1
+fi
+
+IFS='=' read -ra KV <<< "$2"
+
+if [ -n "${KV[0]}" ];then
+
+    KEY=${KV[0]}
+    VALUE=${KV[1]}
+
+    if [  "${VALUE:0:1}" == '@' ]; then
+        VALUE=$(cat "${VALUE:1}" | jq -Rsc '')
+    else
+        VALUE="\"$VALUE\""
+    fi
+
+    JSON=$(vault read -format=json $1 | jq '.data' | jq ". + {\"$KEY\": $VALUE}")
+    echo $JSON | jq
+
+    if [ -z "${KV[1]}" ];then
+        read -p "Empty value, remove?[Yy]" -n 1 -r
+        echo
+
+        case $REPLY in
+            n|N)
+                ;;
+            *)
+                JSON=$(echo $JSON | jq "del(.\"${KV[0]}\")")
+                echo $JSON | jq
+                ;;
+        esac
+    fi
+
+else
+    echo Empty key
+    exit 1
+fi
+
+
+read -p "Write($1)?[Yy]" -n 1 -r
+echo
+case $REPLY in
+    n|N)
+        ;;
+    *)
+        echo $JSON | vault write -format=json $1 -
+        ;;
+esac

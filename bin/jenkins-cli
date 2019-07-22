@@ -1,0 +1,5 @@
+#!/bin/bash
+
+jenkins_url=$(cat ~/.jenkins_url)
+
+java -jar ~/share/jenkins-cli.jar -s $jenkins_url $@
