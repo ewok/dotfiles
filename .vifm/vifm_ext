@@ -32,7 +32,7 @@ filextype *.pdf
         \ {View in zathura}
         \ zathura %f &>/dev/null &,
         \ {Open with Okular(flatpak)}
-        \ org.kde.okular %c,
+        \ pdf-xchange %c %i,
 
 fileviewer *.pdf
         \ vifmimg pdfpreview %px %py %pw %ph %c

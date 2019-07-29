@@ -1,0 +1,5 @@
+.idea/
+.sync/
+.sync/*
+.DS_Store
+syncthing

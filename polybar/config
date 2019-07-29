@@ -37,9 +37,9 @@ font-2 = siji:pixelsize=17;1
 font-3 = "Unifont Upper"
 font-4 = "NotoSansMono Nerd Font"
 
-modules-left = appmenu powermenu bspwm apps
-modules-center = date
-modules-right =  memory cpu filesystem wlan eth xbacklight pulseaudio xkeyboard battery
+modules-left = powermenu bspwm apps
+modules-center = memory cpu filesystem wlan eth battery
+modules-right = date xbacklight pulseaudio xkeyboard
 
 tray-position = right
 tray-padding = 2
@@ -101,7 +101,7 @@ type = internal/xbacklight
 format = <label> <bar>
 label = 🔆
 
-bar-width = 10
+bar-width = 5
 bar-indicator = |
 bar-indicator-foreground = #fff
 bar-indicator-font = 2
@@ -199,8 +199,9 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <ramp-volume> <label-volume>
-label-volume = %percentage%%
+format-volume = <ramp-volume> <bar-volume> <label-volume>
+
+label-volume = %percentage%
 label-volume-foreground = ${root.foreground}
 
 label-muted = 🔇 muted
@@ -210,6 +211,23 @@ label-muted-foreground = #666
 ramp-volume-0 = 🔈
 ramp-volume-1 = 🔉
 ramp-volume-2 = 🔊
+
+bar-volume-width = 5
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/alsa]
 type = internal/alsa
@@ -243,10 +261,12 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
+full-at = 99
+time-format = %H:%M
+
+label-discharging = %percentage%% %time%
 
 format-charging = <animation-charging> <label-charging>
-
 format-discharging = <animation-discharging> <label-discharging>
 
 format-full-prefix = " "
@@ -265,7 +285,7 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
+animation-charging-framerate = 500
 
 animation-discharging-0 = 
 animation-discharging-1 = 
@@ -273,7 +293,7 @@ animation-discharging-2 = 
 animation-discharging-3 = 
 animation-discharging-4 = 
 animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
+animation-discharging-framerate = 1000
 
 [module/temperature]
 type = internal/temperature

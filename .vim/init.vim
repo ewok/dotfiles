@@ -321,7 +321,7 @@ nmap zk zkmzzMzvzz15<c-e>`z
 " "  }}}
 " -> TODOs {{{
 inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
-inoremap \id <C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \dts <C-R>=strftime("%Y-%m-%d %H:%M:%S") . " "<CR>
 inoremap \fl <C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
 inoremap \fp <C-R>=expand("%:h") . '/' . expand("%:t")<CR>
 
@@ -743,8 +743,6 @@ Plug 'KabbAmine/zeavim.vim'
 nmap gzz <Plug>Zeavim
 vmap gzz <Plug>ZVVisSelection
 
-let g:lmap.z = 'Zeal'
-nmap <leader>z <Plug>ZVKeyDocset
 nmap gZ <Plug>ZVKeyDocset<CR>
 nmap gz <Plug>ZVOperator
 
@@ -1082,9 +1080,8 @@ function LoadLight()
 endfunction
 " }}}
 " -> NERTree {{{
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsOpen', 'NERDTreeFind'] }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
 nnoremap <leader>pn : NERDTreeToggle<CR>
 nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
@@ -1122,6 +1119,11 @@ else
     let g:VimuxHeight = "15"
 endif
 " }}}
+" -> Zoom {{{
+Plug 'dhruvasagar/vim-zoom'
+let g:lmap.z = 'Zoom'
+nmap <leader>z <Plug>(zoom-toggle)
+"  }}}
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
 " -> Commentary {{{
@@ -1409,11 +1411,11 @@ nmap ]g <Plug>GitGutterNextHunk
 let g:gitgutter_override_sign_column_highlight = 0
 
 let g:lmap.g.hs = 'Hunk-Stage'
-nmap <leader>ghs <Plug>GitGutterStageHunk
+nmap <leader>ghs :GitGutterStageHunk<CR>
 let g:lmap.g.hr = 'Hunk-Revert'
-nmap <leader>ghr <Plug>GitGutterRevertHunk
+nmap <leader>ghr :GitGutterUndoHunk<CR>
 let g:lmap.g.hp = 'Hunk-Preview'
-nmap <leader>ghp <Plug>GitGutterPreviewHunk
+nmap <leader>ghp :GitGutterPreviewHunk<CR>
 
 " Gitv options
 let g:lmap.g.h = 'History'
