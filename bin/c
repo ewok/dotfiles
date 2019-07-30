@@ -16,6 +16,8 @@ elif [[ $1 == "m" ]]; then
     $COMMAND calm --monday ${@:2}
 elif [[ $1 == "w" ]]; then
     $COMMAND calw --monday ${@:2}
+elif [[ $1 == "d" ]]; then
+    $COMMAND --calendar=$DEFAULT_CALENDAR delete ${@:2}
 else
     $COMMAND $@
 fi

@@ -10,11 +10,6 @@ if [ -d $HOME/.oh-my-zsh ]; then rm -rf $HOME/.oh-my-zsh;fi
 
 git clone --depth 1 git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
-if [ -d $HOME/bin ]; then rm -rf $HOME/bin;fi
-
-git clone --depth 1 https://github.com/ewok/bin.git $HOME/bin
-
-
 function update()
 {
     if [ -f $2 ]
@@ -53,6 +48,8 @@ update ${PWD}/.zprofile $HOME/.zprofile
 update ${PWD}/.profile $HOME/.profile
 update ${PWD}/polybar $HOME/.config/polybar
 update ${PWD}/bin $HOME/bin
+update ${PWD}/albert/modules $HOME/.local/share/albert/org.albert.extension.python/modules
+update ${PWD}/albert/albert.conf $HOME/.config/albert/albert.conf
 
 
 # FZF

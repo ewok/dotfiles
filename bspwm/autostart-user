@@ -59,6 +59,9 @@ blueman-applet &
 pkill zeal
 zeal &
 
+pkill albert
+albert &
+
 # run_once volumeicon &
 # run_once cbatticon -l 30 -r 10 &
 pkill todoist
