@@ -1244,6 +1244,9 @@ nnoremap <silent> <space>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
 
+" I want to use default
+unmap <C-I>
+
 " }}}
 " -> Ctags {{{
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
