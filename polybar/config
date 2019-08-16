@@ -8,9 +8,10 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/main]
+; monitor = ${env:MONITOR:VIRTUAL3}
 monitor = ${env:MONITOR:eDP1}
 width = 100%
-height = 27
+height = 23
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
@@ -22,7 +23,7 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
+border-size = 2
 border-color = #00000000
 
 padding-left = 2
@@ -39,6 +40,7 @@ font-4 = "NotoSansMono Nerd Font"
 
 modules-left = powermenu bspwm apps
 modules-center = memory cpu filesystem wlan eth battery
+; modules-right = date pulseaudio xkeyboard
 modules-right = date xbacklight pulseaudio xkeyboard
 
 tray-position = right
