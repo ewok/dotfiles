@@ -138,7 +138,8 @@ alt + space
 
 alt + d
 	albert show || albert ; \
-	sleep 0.1; xdotool search --onlyvisible --pid $(pidof albert) --name "albert" windowactivate
+	sleep 0.1; xdotool search --onlyvisible --pid $(pidof albert) --name "albert — Albert" windowactivate ; \
+	xkb-switch -s us
 
 alt + Return
 	open-terminal-here
