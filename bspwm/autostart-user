@@ -4,12 +4,9 @@
 pulseaudio --start &
 
 ## Load appearance settings
-nitrogen --restore &
-# sh ~/.fehbg &
-
 ## compositing. Required for shadows, transparency and stuff. 
 ## Reduces flicker. Disabling saves resources.
-#compton -b &
+compton -b &
 ## hides mouse when you are not using it. When mouse is hidden, rootmenu considers mouse on desktop, so actions can be triggered.
 #run_once unclutter &
 
@@ -22,8 +19,6 @@ run_once devmon &
 
 ## multimonitor support. Save monitor configurations with "autorandr.sh --save <profile>"
 autorandr --change
-
-run_once polybar main &
 
 i3lock-wait-for-suspend &
 
@@ -67,3 +62,9 @@ albert &
 pkill todoist
 todoist &
 xdotool search --pid $? --name "\a\b\c" set_window --class "Todoist" --classname "Todoist"
+
+# nitrogen --restore &
+bash -c "sleep 20;nitrogen --restore" &
+
+# sh ~/.fehbg &
+
