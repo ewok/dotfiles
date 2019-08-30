@@ -2,12 +2,12 @@
 
 set -e
 
-export WINEARCH=win64 WINEPREFIX="$HOME/.ynab4/wine"
+export WINEARCH=win32 WINEPREFIX="$HOME/.ynab4/wine" LIBGL_ALWAYS_SOFTWARE=1
 
 ynab_wine="${HOME}/.ynab4/wine"
 mkdir -p "${ynab_wine}"
 
-ynab_path="${ynab_wine}/drive_c/Program Files (x86)/YNAB 4/YNAB 4.exe"
+ynab_path="${ynab_wine}/drive_c/Program Files/YNAB 4/YNAB 4.exe"
 if [ ! -f "${ynab_path}" ] ; then
     curl -J -L http://winetricks.org/winetricks -o /tmp/winetricks
     chmod +x /tmp/winetricks
