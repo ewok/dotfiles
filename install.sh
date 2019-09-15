@@ -41,7 +41,7 @@ update ${PWD}/.ctags $HOME/.ctags
 update ${PWD}/.i3status.conf $HOME/.i3status.conf
 #update ${PWD}/sxhkd $HOME/.config/sxhkd
 #update ${PWD}/bspwm $HOME/.config/bspwm
-update ${PWD}/.xinitrc $HOME/.xinitrc
+# update ${PWD}/.xinitrc $HOME/.xinitrc
 update ${PWD}/.xprofile $HOME/.xprofile
 update ${PWD}/.Xresources $HOME/.Xresources
 update ${PWD}/.zprofile $HOME/.zprofile
