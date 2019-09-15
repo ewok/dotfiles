@@ -123,9 +123,10 @@ bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\
 
 # Start Applications
 bindsym $mod+o mode "$mode_apps"
-set $mode_apps (b)rowser, (e)xplorer, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
+set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
 mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
+        bindsym d exec todoist, mode "default"
         bindsym e exec pcmanfm, mode "default"
         bindsym l exec ldoce5viewer, mode "default"
         bindsym m exec xst -e 'alsamixer', mode "default"
