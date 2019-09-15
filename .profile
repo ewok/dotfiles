@@ -4,7 +4,7 @@
 umask 022
 
 # Set our default path
-PATH="$HOME/go/bin:$HOME/bin:$HOME/.local/bin:$HOME/.config/bspwm/panel:/usr/local/sbin:/usr/local/bin:/usr/bin/core_perl:/usr/bin:$PATH"
+PATH="$HOME/go/bin:$HOME/bin:$HOME/.local/bin:$PATH"
 export PATH
 
 TZ='Europe/Moscow'; export TZ
@@ -12,17 +12,14 @@ TZ='Europe/Moscow'; export TZ
 # Preferred editor for local and remote sessions */
 
 export BROWSER=/usr/bin/firefox
-export BSPWM_SOCKET="/tmp/bspwm-socket"
 export EDITOR='nvim'
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export GUI_EDITOR=/usr/bin/nvim
-export PANEL_FIFO="/tmp/panel-fifo"
-export PANEL_HEIGHT=25
-export QT_QPA_PLATFORMTHEME="qt5ct"
 export TERMINAL=/usr/bin/xst
 export VISUAL='nvim'
-export XDG_CONFIG_DIRS=/usr/etc/xdg:/etc/xdg
 export XDG_CONFIG_HOME="$HOME/.config"
+
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 # Load profiles from /etc/profile.d
 if test -d /etc/profile.d/; then

@@ -1,7 +1,7 @@
 ##run_once is a script in /usr/bin that prevents running script if it is running already
 ##
 
-pulseaudio --start &
+# pulseaudio --start &
 
 ## Load appearance settings
 ## compositing. Required for shadows, transparency and stuff. 
