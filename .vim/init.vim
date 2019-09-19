@@ -375,7 +375,7 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-nnoremap H 0
+nnoremap H ^
 nnoremap L $
 
 " Swap ; :
