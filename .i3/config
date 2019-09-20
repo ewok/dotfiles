@@ -120,6 +120,7 @@ bindsym Mod4+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshots/
 
 # Other
 bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"#proj @lab today\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
+bindsym Control+period exec --no-startup-id "/opt/enpass/Enpass showassistant"
 
 # Start Applications
 bindsym Mod4+o mode "$mode_apps"
