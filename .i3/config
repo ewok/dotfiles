@@ -206,6 +206,9 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+n workspace next
 bindsym $mod+b workspace prev
 
+bindsym $mod+Shift+n move workspace to output right
+bindsym $mod+Shift+b move workspace to output left
+
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
