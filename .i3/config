@@ -8,7 +8,7 @@ set $mod Mod1
 ################################################################################################
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 2
+default_border pixel 4
 default_floating_border pixel
 
 # Hide borders
@@ -33,8 +33,8 @@ floating_modifier $mod
 
 assign [class="Google Play Music Desktop Player"] $ws8
 assign [class="Slack"] $ws5
-assign [class="TelegramDesktop"] $ws6
-assign [class="Todoist"] $ws5
+assign [class="TelegramDesktop"] $ws5
+assign [title="Todoist"] $ws5
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -101,7 +101,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id pulseaudio --start
 bindsym XF86AudioRaiseVolume exec changeVolumePulse '+5%'
 bindsym XF86AudioLowerVolume exec changeVolumePulse '-5%'
 bindsym XF86AudioMute exec changeVolumePulse toggle
@@ -429,6 +428,7 @@ mode "$mode_gaps_outer" {
 # Autostart applications
 ################################################################################################
 exec --no-startup-id pcloud
+exec --no-startup-id enpass
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id sleep 10; nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
@@ -438,7 +438,6 @@ exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_green
-exec --no-startup-id ~/.xprofile
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -447,3 +446,5 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id zeal
 exec --no-startup-id albert
 exec --no-startup-id todoist
+exec --no-startup-id pulseaudio --start
+exec --no-startup-id ~/.xprofile
