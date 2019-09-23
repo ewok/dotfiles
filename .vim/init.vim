@@ -514,6 +514,8 @@ augroup END
 augroup ft_sh
     au!
 
+    au FileType sh map <buffer> <leader>rr :w\|!bash % <CR>
+
     au FileType sh call LoadSH()
     function! LoadSH() " {{{
         let b:ale_linters = ['shellcheck']
