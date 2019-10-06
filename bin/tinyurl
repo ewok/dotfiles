@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+set -e
+
+URL=$1
+
+SCHEME=${URL/\:\/\/*/}
+ADDR=${URL/*\/\//}
+
+if [ "$SCHEME" == "" ] || [ "$SCHEME" == "$ADDR" ];then SCHEME="http";fi
+
+echo "Tiny URL for $SCHEME://$ADDR"
+curl -s http://tinyurl.com/api-create.php\?url\=$SCHEME://$ADDR | cut -f1 -d%
