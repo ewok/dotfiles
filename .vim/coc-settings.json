@@ -1,7 +1,7 @@
 {
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-  "python.jediEnabled": true,
+  "python.jediEnabled": false,
   "coc.source.emoji.filetypes": [
       "markdown",
       "vimwiki"
