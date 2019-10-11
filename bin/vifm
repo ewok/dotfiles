@@ -1,21 +1,37 @@
 #!/usr/bin/env bash
 
-export FIFO_UEBERZUG="/tmp/vifm-ueberzug-${PPID}"
-
-function cleanup {
-    rm -rf "$FIFO_UEBERZUG" 2>/dev/null
-    pkill -P $$ 2>/dev/null
-}
-
-if tmux info &> /dev/null; then
-    #statements
-    rm -rf "$FIFO_UEBERZUG" 2>/dev/null
-    mkfifo "$FIFO_UEBERZUG"
-    trap cleanup EXIT
-    tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash &
-    /usr/bin/vifm $@
-    cleanup
+if [ -f /usr/local/bin/vifm ]; then
+    VIFM=/usr/local/bin/vifm
+elif [ -f /usr/bin/vifm ]; then
+    VIFM=/usr/bin/vifm
 else
-    /usr/bin/vifm $@
+    echo "Couldn't find vifm"
+    exit 1
 fi
 
+
+if $(which ueberzug)
+then
+
+    export FIFO_UEBERZUG="/tmp/vifm-ueberzug-${PPID}"
+
+    function cleanup {
+        rm -rf "$FIFO_UEBERZUG" 2>/dev/null
+        pkill -P $$ 2>/dev/null
+    }
+
+    if tmux info &> /dev/null; then
+        #statements
+        rm -rf "$FIFO_UEBERZUG" 2>/dev/null
+        mkfifo "$FIFO_UEBERZUG"
+        trap cleanup EXIT
+        tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash &
+        $VIFM $@
+        cleanup
+    else
+        $VIFM $@
+    fi
+
+else
+    $VIFM $@
+fi
