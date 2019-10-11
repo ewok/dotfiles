@@ -5,10 +5,11 @@
     while true
     do
         export DISPLAY=:0.0
-        battery_level=$( acpi -b | grep -P -o '[0-9]+(?=%)')
-        if on_ac_power; then
+        battery_level=$( acpi -b | grep 'Battery 0' | grep -P -o '[0-9]+(?=%)')
+        echo $battery_level
+        if [ $(grep "Charging" /sys/class/power_supply/BAT0/status) ]; then
             if [ $battery_level -ge 99 ]; then
-                if $CHARGED_SEND_ONES == 0; then
+                if [ $CHARGED_SEND_ONES -eq 0 ]; then
                     notify-send "Battery charged. Please unplug your AC adapter!" "Charging: ${battery_level}% "
                     CHARGED_SEND_ONES=1
                 fi
@@ -19,11 +20,11 @@
                 TIMER=90
                 notify-send "Battery is lower 15%. Need to charging! Please plug your AC adapter." "Charging: ${battery_level}%"
 
-                while ! on_ac_power; do
+                while ! $(grep "Charging" /sys/class/power_supply/BAT0/status); do
                     sleep $TIMER
 
                     # recheck level
-                    battery_level=$( acpi -b | grep -P -o '[0-9]+(?=%)')
+                    battery_level=$( acpi -b | grep 'Battery 0' | grep -P -o '[0-9]+(?=%)')
 
                      # Critical
                      if [ $battery_level -le 5 ]; then
