@@ -18,8 +18,8 @@ set new_mail_command="terminal-notifier -title '%v' -subtitle 'New Mail' \
 -message '%n new messages, %u unread.' -activate 'com.apple.Terminal'"
 
 # View and reply with different formats
-reply-hook . '`touch /tmp/reply_flag`'
-message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
+# reply-hook . '`touch /tmp/reply_flag`'
+# message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
 
 set date_format="%m/%d %I:%M"
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
@@ -108,7 +108,6 @@ bind pager \Co sidebar-open
 
 # Profiles mappings
 macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
-macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_onef<enter><change-folder>!<enter>'
-macro index g3 '<sync-mailbox><enter-command>source ~/.mutt/profile_mf<enter><change-folder>!<enter>'
+macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_work<enter><change-folder>!<enter>'
 
 source ~/.mutt/profile_main

@@ -462,6 +462,7 @@ augroup ft_python
     au!
     au FileType python  setlocal commentstring=#\ %s
     au FileType python map <buffer> <leader>rr :w\|!python % <CR>
+    au FileType python map <buffer> <leader>rt :w\|!python -m unittest <CR>
 
     let g:lmap.r.b = 'Breakpoint'
     nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
@@ -1410,8 +1411,8 @@ vmap <silent> <leader>gg <Plug>(git_VBrowse)
 " Gitgutter options
 let g:gitgutter_map_keys = 0
 
-nmap [g <Plug>GitGutterPrevHunk
-nmap ]g <Plug>GitGutterNextHunk
+nmap [g <Plug>(GitGutterPrevHunk)
+nmap ]g <Plug>(GitGutterNextHunk)
 
 let g:gitgutter_override_sign_column_highlight = 0
 

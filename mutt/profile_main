@@ -1,6 +1,6 @@
 set imap_user = `cat ~/.mutt_main`
-set imap_pass = `security find-generic-password -w -s mutt -a "$(cat ~/.mutt_main)"`
-set smtp_pass = `security find-generic-password -w -s mutt -a "$(cat ~/.mutt_main)"`
+set imap_pass = `pass "$(cat ~/.mutt_main)"`
+set smtp_pass = `pass "$(cat ~/.mutt_main)"`
 set smtp_url = "smtp://`cat ~/.mutt_main`@smtp.gmail.com:587/"
 set from = `cat ~/.mutt_main`
 my_hdr Bcc: `cat ~/.mutt_main`

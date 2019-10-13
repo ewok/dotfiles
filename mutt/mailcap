@@ -14,8 +14,8 @@ application/pdf; ~/.mutt/view_attachment.sh %s pdf
 #
 # # HTML
 text/html; ~/.mutt/view_attachment.sh %s html
-text/html; iconv -f %{charset} -t utf8 | /usr/local/bin/pandoc -s --quiet -f html -t plain; copiousoutput; description=HTML Text
-# text/html; /usr/local/bin/pandoc -s --quiet -f html -t markdown_strict; copiousoutput; description=HTML Text
+text/html; iconv -f %{charset} -t utf8 | pandoc -s --quiet -f html -t plain; copiousoutput; description=HTML Text
+# text/html; pandoc -s --quiet -f html -t markdown_mmd; copiousoutput; description=HTML Text
 # text/html; /usr/local/bin/w3m -T text/html -I %{charset}; copiousoutput; description=HTML Text
 #
 # # Unidentified files

@@ -1,0 +1,43 @@
+set imap_user = `cat ~/.mutt_work`
+set imap_pass = `pass "$(cat ~/.mutt_work)"`
+set smtp_pass = `pass "$(cat ~/.mutt_work)"`
+set smtp_url = "smtp://`cat ~/.mutt_work`@outlook.office365.com:587/"
+set from = `cat ~/.mutt_work`
+my_hdr Bcc: `cat ~/.mutt_work`
+set realname = "Artur Taranchiev"
+
+set folder = "imaps://outlook.office365.com/""
+set spoolfile = "+INBOX"
+set record = +$my_sent_noquote
+set postponed = "+$my_drafts_noquote"
+set header_cache = ~/tmp/mutt/main/cache/headers
+set message_cachedir = ~/tmp/mutt/main/cache/bodies
+set certificate_file = ~/tmp/mutt/main/certificates
+set ssl_starttls = yes
+set ssl_force_tls = yes
+set smtp_authenticators = 'gssapi:login'
+
+set trash = +$my_trash_noquote
+
+# Try and prevent imap timeouts
+set imap_keepalive = 300
+
+# Use gmail IMAP IDLE support.
+set imap_idle
+set imap_check_subscribed
+unset imap_passive
+unset imap_peek
+
+# macro index,pager A "<save-message>=[Gmail]/All Mail<enter><enter><sync-mailbox>y" "Archive"
+# macro index,pager D "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+# macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+# macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+# macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+# macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+
+# Address book
+set query_command="goobook -c ~/.goobook_main query %s"
+macro index,pager a "<pipe-message>goobook -c ~/.goobook_main add<return>" "add sender to google contacts"
+bind editor <Tab> complete-query
+
+set signature=~/.signature_main

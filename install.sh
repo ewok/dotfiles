@@ -33,8 +33,8 @@ mkdir -p $HOME/.config
 update ${PWD}/.vim $HOME/.config/nvim
 update ${PWD}/.zsh $HOME/.zsh
 update ${PWD}/.ideavimrc $HOME/.ideavimrc
-#update ${PWD}/muttrc $HOME/.muttrc
-#update ${PWD}/mutt $HOME/.mutt
+update ${PWD}/muttrc $HOME/.muttrc
+update ${PWD}/mutt $HOME/.mutt
 update ${PWD}/.vifm $HOME/.vifm
 update ${PWD}/.i3 $HOME/.i3
 update ${PWD}/.ctags $HOME/.ctags
