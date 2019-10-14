@@ -547,6 +547,12 @@ augroup ft_dockerfile
 
 augroup END
 "  }}}
+" -> Mail {{{
+augroup ft_mail
+    au!
+    au FileType mail map <buffer> <leader>rr :%!pandoc -f markdown_mmd -t html<CR>
+augroup END
+"  }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
@@ -1015,8 +1021,7 @@ nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..',
-            \ 'source': 'ag --hidden --ignore .git --nogroup --column --color "^(?=.)"'}, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
@@ -1038,7 +1043,7 @@ command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <Plug>(options_File-Type) :FT<CR>
 
 let g:lmap.f.f = 'in-File'
-nnoremap <Plug>(find_String) :Ag<CR>
+nnoremap <Plug>(find_String) :Rg<CR>
 nmap <silent> <leader>ff <Plug>(find_String)
 
 function! s:build_quickfix_list(lines)

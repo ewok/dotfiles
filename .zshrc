@@ -63,7 +63,8 @@ export LC_IDENTIFICATION="ru_RU.UTF-8"
 export LC_ALL=
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git,mnt -g "" -U'
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git,mnt -g "" -U'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 if [ -f ~/.zshrc.local ];then
