@@ -1,0 +1,1 @@
+docker run -w /data -it --rm -v $(pwd):/data -v $(pwd)/.gem:/usr/local/bundle --entrypoint=/bin/bash ruby:2.5 -c "bundle install && bundle exec rake spec"
