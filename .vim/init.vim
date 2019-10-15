@@ -19,7 +19,7 @@ let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
 
 " -> A big mess, should be reviewed {{{
-set autoread
+" set autoread
 set backspace=2
 set clipboard+=unnamedplus
 set cmdheight=1
@@ -1134,7 +1134,7 @@ nmap <leader>z <Plug>(zoom-toggle)
 "  }}}
 " -> Autoread{{{
 Plug 'djoshea/vim-autoread'
-"
+let autoreadargs={'autoread':1} 
 "  }}}
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
@@ -1671,7 +1671,7 @@ if !exists("g:auto_save_silent")
 endif
 
 if !exists("g:auto_save_events")
-  let g:auto_save_events = ["CursorHold","BufLeave","FocusLost","WinLeave"]
+  let g:auto_save_events = ["CursorHold","CursorHoldI","BufLeave","FocusLost","WinLeave"]
   " let g:auto_save_events = ["InsertLeave", "TextChanged", "CursorHold"]
 endif
 
