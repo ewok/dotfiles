@@ -9,7 +9,6 @@ else
     exit 1
 fi
 
-
 if $(which ueberzug)
 then
 
@@ -22,10 +21,11 @@ then
 
     if tmux info &> /dev/null; then
         #statements
+        pkill -P $$ 2>/dev/null
         rm -rf "$FIFO_UEBERZUG" 2>/dev/null
         mkfifo "$FIFO_UEBERZUG"
-        trap cleanup EXIT
-        tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash &
+        trap cleanup EXIT 2>/dev/null
+        tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash 2>&1 >/dev/null &
         $VIFM $@
         cleanup
     else

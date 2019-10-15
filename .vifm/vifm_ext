@@ -110,8 +110,8 @@ fileviewer *.[1-8] gtbl %c | groff -Tascii -man | col -b
 
 " Image
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-        \ {View in sxiv}
-        \ sxiv,
+        \ {View in viewnior}
+        \ viewnior %c %i &,
 "         \ {View in gpicview}
 "         \ gpicview %c,
 " fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm convert -identify %f -verbose /dev/null
@@ -155,7 +155,7 @@ filextype *.pro qtcreator %f &
 " Directories
 filextype */
         \ {View in thunar}
-        \ open %f &,
+        \ open %f %i &,
 fileviewer .*/,*/ tree %f
 
 " Syntax highlighting in preview

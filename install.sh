@@ -36,6 +36,7 @@ update ${PWD}/.ideavimrc $HOME/.ideavimrc
 update ${PWD}/muttrc $HOME/.muttrc
 update ${PWD}/mutt $HOME/.mutt
 update ${PWD}/.vifm $HOME/.vifm
+update ${PWD}/.vifm $HOME/.config/vifm
 update ${PWD}/.i3 $HOME/.i3
 update ${PWD}/.ctags $HOME/.ctags
 update ${PWD}/.i3status.conf $HOME/.i3status.conf
