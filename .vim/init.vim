@@ -1021,7 +1021,7 @@ nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.gem/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
@@ -1131,6 +1131,10 @@ endif
 Plug 'dhruvasagar/vim-zoom'
 let g:lmap.z = 'Zoom'
 nmap <leader>z <Plug>(zoom-toggle)
+"  }}}
+" -> Autoread{{{
+Plug 'djoshea/vim-autoread'
+"
 "  }}}
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
