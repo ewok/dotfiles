@@ -1,0 +1,66 @@
+IMAPAccount work
+Host localhost
+Port 1143
+User %USERNAME%
+PassCmd "pass `cat ~/.mutt_work`"
+AuthMechs LOGIN
+SSLType None
+
+IMAPStore work-remote
+Account work
+
+MaildirStore work-local
+Path ~/mail/work/
+Inbox ~/mail/work/Inbox
+
+Channel work-main
+Master :work-remote:
+Slave :work-local:
+Patterns "INBOX" "*"
+Create Both
+Sync All
+SyncState *
+
+Channel work-nn
+Master :work-remote:NN
+Slave :work-local:NN
+Create Both
+Sync All
+SyncState *
+
+Channel work-devops
+Master :work-remote:DevOps
+Slave :work-local:devops
+Create Both
+Sync All
+SyncState *
+
+Channel work-low
+Master :work-remote:LowPriority
+Slave :work-local:LowPriority
+Create Both
+Sync All
+SyncState *
+
+
+Channel work-trash
+Master :work-remote:"Deleted Items"
+Slave :work-local:Trash
+Create Both
+Sync All
+SyncState *
+
+Channel work-sent
+Master :work-remote:"Sent Items"
+Slave :work-local:sent
+Create Both
+Sync All
+SyncState *
+
+Group work
+Channel work-main
+Channel work-nn
+Channel work-devops
+Channel work-low
+Channel work-trash
+Channel work-sent

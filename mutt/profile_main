@@ -35,6 +35,8 @@ macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
+bind index F imap-fetch-mail
+
 # Address book
 set query_command="goobook -c ~/.goobook_main query %s"
 macro index,pager a "<pipe-message>goobook -c ~/.goobook_main add<return>" "add sender to google contacts"

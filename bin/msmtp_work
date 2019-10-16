@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+USERNAME=$(cat ~/.mutt_work)
+sed -e "s/%USERNAME%/$USERNAME/" ~/.msmtp > /tmp/.msmtp
+msmtp -C /tmp/.msmtp "$@"
+rm -f /tmp/.msmtp

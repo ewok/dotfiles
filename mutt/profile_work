@@ -1,43 +1,44 @@
-set imap_user = `cat ~/.mutt_work`
-set imap_pass = `pass "$(cat ~/.mutt_work)"`
-set smtp_pass = `pass "$(cat ~/.mutt_work)"`
-set smtp_url = "smtp://`cat ~/.mutt_work`@outlook.office365.com:587/"
-set from = `cat ~/.mutt_work`
-my_hdr Bcc: `cat ~/.mutt_work`
-set realname = "Artur Taranchiev"
+set folder           = ~/mail               # mailbox location
+set header_cache     = ~/tmp/mutt/work/cache/headers # where to store headers
+set message_cachedir = ~/tmp/mutt/work/cache/bodies  # where to store bodies
+set certificate_file = ~/tmp/mutt/work/cache/certificates  # where to store certs
+# Account Settings ----------------------------------
+set mbox_type    = Maildir
+set spoolfile    = "+work/Inbox" #Default inbox.
+set mbox         = "+work/Archive"
+set postponed    = "+work/Drafts"
+set trash        = "+work/Deleted\ Items"
+set recall      = yes
 
-set folder = "imaps://outlook.office365.com/""
-set spoolfile = "+INBOX"
-set record = +$my_sent_noquote
-set postponed = "+$my_drafts_noquote"
-set header_cache = ~/tmp/mutt/main/cache/headers
-set message_cachedir = ~/tmp/mutt/main/cache/bodies
-set certificate_file = ~/tmp/mutt/main/certificates
-set ssl_starttls = yes
-set ssl_force_tls = yes
-set smtp_authenticators = 'gssapi:login'
+mailboxes +work/Inbox \
+          +work/Archive \
+          +work/Important \
+          +work/Clutter \
+          +work/Sent \
+          +work/Junk \
+          +work/Deleted\ Items \
+          +work/Drafts \
+          +work/DevOps \
+          +work/NN \
+          +work/LowPriority \
+          +work/Trash
 
-set trash = +$my_trash_noquote
+set from        ="`cat ~/.mutt_work`"
+set realname        ="Artur Taranchiev"
+set use_from        ="yes"
+set envelope_from   ="yes"
+set sendmail        ="msmtp_work -a work"
 
-# Try and prevent imap timeouts
-set imap_keepalive = 300
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+unhdr_order *                           # some distros order things by default
+hdr_order from: to: cc: date: subject:  # and in this order
 
-# Use gmail IMAP IDLE support.
-set imap_idle
-set imap_check_subscribed
-unset imap_passive
-unset imap_peek
+macro index F "<shell-escape>mbsync_work work<enter>" "run mbsync to sync all mail"
+macro index,pager A "<save-message>=work/Archive<enter><enter><sync-mailbox>y" "Archive"
+macro index,pager D "<save-message>=work/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=work/Inbox<enter>" "Go to inbox"
+macro index gI "<change-folder>=work/Important<enter>" "Go to inbox"
+macro index gd "<change-folder>=work/Drafts<enter>" "Go to drafts"
 
-# macro index,pager A "<save-message>=[Gmail]/All Mail<enter><enter><sync-mailbox>y" "Archive"
-# macro index,pager D "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
-# macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
-# macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
-# macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-# macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
-
-# Address book
-set query_command="goobook -c ~/.goobook_main query %s"
-macro index,pager a "<pipe-message>goobook -c ~/.goobook_main add<return>" "add sender to google contacts"
-bind editor <Tab> complete-query
-
-set signature=~/.signature_main
+set signature=~/.signature_work

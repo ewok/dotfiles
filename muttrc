@@ -6,16 +6,12 @@ set mailcap_path = ~/.mutt/mailcap
 # Main
 set sort="threads"
 set strict_threads="yes"
-
 set sort_browser="reverse-date"
 set sort_aux="reverse-last-date-received"
 set mail_check=60
 set timeout=15
-
 unset collapse_unread
-
-set new_mail_command="terminal-notifier -title '%v' -subtitle 'New Mail' \
--message '%n new messages, %u unread.' -activate 'com.apple.Terminal'"
+set new_mail_command="notify-send '%n new messages, %u unread.'"
 
 # View and reply with different formats
 reply-hook . '`touch /tmp/reply_flag`'
@@ -75,7 +71,6 @@ bind pager \Cp previous-undeleted
 bind pager \Cn next-undeleted
 macro index,pager ,, |urlview\n
 
-
 # Tag bindings
 bind index \Ct noop
 bind index \Ctt tag-thread
@@ -83,15 +78,6 @@ bind index \Ctp tag-pattern
 bind index \Ctu untag-pattern
 
 bind index F imap-fetch-mail
-
-# Try and prevent imap timeouts
-set imap_keepalive = 300
-
-# Use gmail IMAP IDLE support.
-set imap_idle
-set imap_check_subscribed
-unset imap_passive
-unset imap_peek
 
 # Sidebar mappings
 set sidebar_visible = yes
@@ -108,10 +94,9 @@ bind index,pager B sidebar-toggle-visible
 bind pager \Co sidebar-open
 
 # Profiles mappings
-macro index g1 '<sync-mailbox><enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
-macro index g2 '<sync-mailbox><enter-command>source ~/.mutt/profile_work<enter><change-folder>!<enter>'
+macro index g1 '<enter-command>source ~/.mutt/profile_main<enter><change-folder>!<enter>'
+macro index g2 '<enter-command>source ~/.mutt/profile_work<enter><change-folder>!<enter>'
 
 macro compose \Cr "F pandoc -s -f markdown_mmd -t html \ny^T^Utext/html; charset=utf-8\n"
-set wait_key=no
 
-source ~/.mutt/profile_main
+set folder = '~/mail'
