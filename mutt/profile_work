@@ -13,10 +13,8 @@ set recall      = yes
 mailboxes +work/Inbox \
           +work/Archive \
           +work/Important \
-          +work/Clutter \
           +work/Sent \
           +work/Junk \
-          +work/Deleted\ Items \
           +work/Drafts \
           +work/DevOps \
           +work/NN \

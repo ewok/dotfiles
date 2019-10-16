@@ -6,4 +6,4 @@ ripgrep zsh-autosuggestions restic trash-cli \
 siji-git ttf-unifont nerd-fonts-noto-sans-mono \
 flameshot todoist-add-git nvme-cli todoist-linux-bin \
 slack-desktop redshift-gtk-git zeal npm ruby xclip \
-xsel par
+xsel par dante mbsync msmtp neomutt

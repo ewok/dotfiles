@@ -19,4 +19,6 @@ text/html; iconv -f %{charset} -t utf8 | pandoc -s --quiet -f html -t plain; cop
 # text/html; /usr/local/bin/w3m -T text/html -I %{charset}; copiousoutput; description=HTML Text
 #
 # # Unidentified files
-application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
+# application/*; ~/.mutt/view_attachment.sh %s "-"
+
+application/*; open %s

@@ -31,7 +31,7 @@ SyncState *
 
 Channel work-devops
 Master :work-remote:DevOps
-Slave :work-local:devops
+Slave :work-local:DevOps
 Create Both
 Sync All
 SyncState *
