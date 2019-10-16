@@ -5,6 +5,7 @@ User %USERNAME%
 PassCmd "pass `cat ~/.mutt_work`"
 AuthMechs LOGIN
 SSLType None
+Timeout 300
 
 IMAPStore work-remote
 Account work
@@ -16,7 +17,7 @@ Inbox ~/mail/work/Inbox
 Channel work-main
 Master :work-remote:
 Slave :work-local:
-Patterns "INBOX" "*"
+Patterns "INBOX" "Archive" "Important" "Junk" "Drafts"
 Create Both
 Sync All
 SyncState *
@@ -52,7 +53,7 @@ SyncState *
 
 Channel work-sent
 Master :work-remote:"Sent Items"
-Slave :work-local:sent
+Slave :work-local:Sent
 Create Both
 Sync All
 SyncState *
