@@ -20,4 +20,6 @@ elif [[ $1 == "d" ]]; then
     $COMMAND --calendar=$DEFAULT_CALENDAR delete ${@:2}
 else
     $COMMAND $@
+    echo
+    echo "Wrapper arguments: (a)dd (q)uick (ag)enda (m)onth (w)eek (d)elete"
 fi
