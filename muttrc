@@ -100,5 +100,11 @@ macro index g1 '<enter-command>source ~/.mutt/profile_main<enter><change-folder>
 macro index g2 '<enter-command>source ~/.mutt/profile_work<enter><change-folder>!<enter>'
 
 macro compose \Cr "F pandoc -s -f markdown_mmd -t html \ny^T^Utext/html; charset=utf-8\n"
+macro index,Pager <F8> \
+"<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
+<shell-escape>notmuch-mutt -r --prompt search<enter>\
+<change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>\
+<enter-command>set pipe_decode=\$my_old_pipe_decode wait_key=\$my_old_wait_key<enter>" \
+      "notmuch: search mail"
 
 set folder = '~/mail'

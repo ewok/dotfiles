@@ -49,6 +49,8 @@ update ${PWD}/.zprofile $HOME/.zprofile
 update ${PWD}/.profile $HOME/.profile
 update ${PWD}/.skhdrc $HOME/.skhdrc
 update ${PWD}/.yabairc $HOME/.yabairc
+update ${PWD}/.mbsyncrc $HOME/.mbsyncrc
+update ${PWD}/.msmtp $HOME/.msmtp
 # update ${PWD}/polybar $HOME/.config/polybar
 update ${PWD}/bin $HOME/bin
 update ${PWD}/albert/modules $HOME/.local/share/albert/org.albert.extension.python/modules

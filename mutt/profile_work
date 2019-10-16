@@ -39,4 +39,8 @@ macro index gi "<change-folder>=work/Inbox<enter>" "Go to inbox"
 macro index gI "<change-folder>=work/Important<enter>" "Go to inbox"
 macro index gd "<change-folder>=work/Drafts<enter>" "Go to drafts"
 
+# Address book
+set query_command="lbdbq '%s'"
+bind editor <Tab> complete-query
+
 set signature=~/.signature_work
