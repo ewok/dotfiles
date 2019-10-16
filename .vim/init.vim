@@ -1651,7 +1651,7 @@ set foldtext=MyFoldText()
 " -> AutoSave feature {{{
 "
 " Trigger autoread when changing buffers or coming back to vim.
-au FocusGained,BufEnter,WinEnter * :silent! !
+" au FocusGained,BufEnter,WinEnter * :silent! !
 
 au! FileType vim,python,golang,go,yaml.ansible,puppet,json,sh,vimwiki,rust,yaml call DefaultOn()
 
@@ -1672,6 +1672,7 @@ endif
 
 if !exists("g:auto_save_events")
   let g:auto_save_events = ["CursorHold","CursorHoldI","BufLeave","FocusLost","WinLeave"]
+  " let g:auto_save_events = ["InsertLeave", "TextChanged","BufLeave","FocusLost","WinLeave"]
   " let g:auto_save_events = ["InsertLeave", "TextChanged", "CursorHold"]
 endif
 

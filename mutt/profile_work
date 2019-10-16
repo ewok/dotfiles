@@ -7,7 +7,7 @@ set mbox_type    = Maildir
 set spoolfile    = "+work/Inbox" #Default inbox.
 set mbox         = "+work/Archive"
 set postponed    = "+work/Drafts"
-set trash        = "+work/Deleted\ Items"
+set trash        = "+work/Trash"
 set recall      = yes
 
 mailboxes +work/Inbox \
