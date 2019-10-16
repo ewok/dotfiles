@@ -116,10 +116,15 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 "         \ gpicview %c,
 " fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm convert -identify %f -verbose /dev/null
 
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
-        \ vifmimg draw %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+         \ imgt %px %py %pw %ph %c
+         \ %pc
+         \ imgc %px %py %pw %ph
+
+" fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+"         \ vifmimg draw %px %py %pw %ph %c
+"         \ %pc
+"         \ vifmimg clear
 
 fileviewer *.gif
         \ vifmimg draw %px %py %pw %ph %c
