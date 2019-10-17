@@ -8,7 +8,6 @@ set spoolfile    = "+work/Inbox" #Default inbox.
 set mbox         = "+work/Archive"
 set postponed    = "+work/Drafts"
 set trash        = "+work/Trash"
-set recall      = yes
 
 mailboxes +work/Inbox \
           +work/Archive \
@@ -22,19 +21,20 @@ mailboxes +work/Inbox \
           +work/Trash
 
 set from        ="`cat ~/.mutt_work`"
+my_hdr Bcc: `cat ~/.mutt_work`
 set realname        ="Artur Taranchiev"
 set use_from        ="yes"
 set envelope_from   ="yes"
 set sendmail        ="msmtp_work -a work"
 
-ignore *                                # ignore all headers
-unignore from: to: cc: date: subject:   # show only these
-unhdr_order *                           # some distros order things by default
-hdr_order from: to: cc: date: subject:  # and in this order
+# ignore *                                # ignore all headers
+# unignore from: to: cc: date: subject:   # show only these
+# unhdr_order *                           # some distros order things by default
+# hdr_order from: to: cc: date: subject:  # and in this order
 
 macro index F "<shell-escape>mbsync_work work<enter>" "run mbsync to sync all mail"
 macro index,pager A "<save-message>=work/Archive<enter><enter><sync-mailbox>y" "Archive"
-macro index,pager D "<save-message>=work/Trash<enter><enter>" "Trash"
+macro index,pager D "<save-message>=work/Trash<enter><enter><sync-mailbox>y" "Trash"
 macro index gi "<change-folder>=work/Inbox<enter>" "Go to inbox"
 macro index gI "<change-folder>=work/Important<enter>" "Go to inbox"
 macro index gd "<change-folder>=work/Drafts<enter>" "Go to drafts"
@@ -42,5 +42,7 @@ macro index gd "<change-folder>=work/Drafts<enter>" "Go to drafts"
 # Address book
 set query_command="lbdbq '%s'"
 bind editor <Tab> complete-query
+
+set delete=ask-yes
 
 set signature=~/.signature_work
