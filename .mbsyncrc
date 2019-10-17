@@ -19,44 +19,61 @@ Master :work-remote:
 Slave :work-local:
 Patterns "INBOX" "Archive" "Important" "Junk" "Drafts"
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
+CopyArrivalDate yes
 
 Channel work-nn
 Master :work-remote:NN
 Slave :work-local:NN
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
+CopyArrivalDate yes
 
 Channel work-devops
 Master :work-remote:DevOps
 Slave :work-local:DevOps
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
+CopyArrivalDate yes
 
 Channel work-low
 Master :work-remote:LowPriority
 Slave :work-local:LowPriority
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
-
+CopyArrivalDate yes
 
 Channel work-trash
 Master :work-remote:"Deleted Items"
 Slave :work-local:Trash
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
+CopyArrivalDate yes
 
 Channel work-sent
 Master :work-remote:"Sent Items"
 Slave :work-local:Sent
 Create Both
+Remove Both
+Expunge Both
 Sync All
 SyncState *
+CopyArrivalDate yes
 
 Group work
 Channel work-main
