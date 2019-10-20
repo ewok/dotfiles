@@ -1,6 +1,9 @@
 # # HTML
+text/html; ~/.mutt/view_attachment.sh %s html
 text/html; iconv -f %{charset} -t utf8 | pandoc -s --quiet -f html -t plain; copiousoutput; description=HTML Text
 # text/html; pandoc -s --quiet -f html -t markdown_mmd; copiousoutput; description=HTML Text
 # text/html; /usr/local/bin/w3m -T text/html -I %{charset}; copiousoutput; description=HTML Text
+text/calendar; vcal %s; copiousoutput
+text/plain; cat %s; copiousoutput
 
-application/*; open %s
+application/*; ~/.mutt/view_attachment.sh %s -
