@@ -1466,7 +1466,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-repeat'
 Plug 'vitorgalvao/autoswap_mac'
 Plug 'tomtom/tlib_vim'
-Plug 'itchyny/vim-cursorword'
+" Plug 'itchyny/vim-cursorword'
 Plug 'chaoren/vim-wordmotion'
 
 " Fonts
