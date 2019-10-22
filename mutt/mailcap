@@ -6,4 +6,8 @@ text/html; iconv -f %{charset} -t utf8 | pandoc -s --quiet -f html -t plain; cop
 text/calendar; vcal %s; copiousoutput
 text/plain; cat %s; copiousoutput
 
+image/png; ~/.mutt/view_attachment.sh %s png
+image/jpeg; ~/.mutt/view_attachment.sh %s jpeg
+image/gif; ~/.mutt/view_attachment.sh %s gif
+
 application/*; ~/.mutt/view_attachment.sh %s -
