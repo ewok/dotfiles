@@ -69,7 +69,8 @@ bind index s sort-mailbox
 bind index,pager R group-reply
 bind pager \Cp previous-undeleted
 bind pager \Cn next-undeleted
-macro index,pager ,, |urlview\n
+bind index,pager N mail
+bind index,pager m noop
 
 # Tag bindings
 bind index \Ct noop

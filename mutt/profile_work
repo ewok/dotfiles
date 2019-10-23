@@ -33,11 +33,19 @@ set sendmail        ="msmtp_work -a work"
 # hdr_order from: to: cc: date: subject:  # and in this order
 
 macro index F "<shell-escape>mbsync_work work<enter>" "run mbsync to sync all mail"
-macro index,pager A "<save-message>=work/Archive<enter><enter><sync-mailbox>y" "Archive"
 macro index,pager D "<save-message>=work/Trash<enter><enter><sync-mailbox>y" "Trash"
+macro index,pager ma "<save-message>=work/Archive<enter><enter><sync-mailbox>y" "Move to Archive"
+macro index,pager md "<save-message>=work/DevOps<enter><enter><sync-mailbox>y" "Move to Deleted"
+macro index,pager mi "<save-message>=work/Inbox<enter><enter><sync-mailbox>y" "Move to Inbox"
+macro index,pager mI "<save-message>=work/Important<enter><enter><sync-mailbox>y" "Move to Important"
+macro index,pager ml "<save-message>=work/LowPriority<enter><enter><sync-mailbox>y" "Move to LowPriority"
+macro index,pager mn "<save-message>=work/NN<enter><enter><sync-mailbox>y" "Move to NN"
+macro index ga "<change-folder>=work/Archive<enter>" "Go to Archive"
+macro index gd "<change-folder>=work/DevOps<enter>" "Go to devops"
+macro index gI "<change-folder>=work/Important<enter>" "Go to important"
 macro index gi "<change-folder>=work/Inbox<enter>" "Go to inbox"
-macro index gI "<change-folder>=work/Important<enter>" "Go to inbox"
-macro index gd "<change-folder>=work/Drafts<enter>" "Go to drafts"
+macro index gl "<change-folder>=work/LowPriority<enter>" "Go to LowPriority"
+macro index gn "<change-folder>=work/NN<enter>" "Go to NN"
 
 # Address book
 set query_command="lbdbq '%s'"
