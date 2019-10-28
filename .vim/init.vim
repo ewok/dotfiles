@@ -463,6 +463,7 @@ augroup ft_python
     au FileType python  setlocal commentstring=#\ %s
     au FileType python map <buffer> <leader>rr :w\|!python % <CR>
     au FileType python map <buffer> <leader>rt :w\|!python -m unittest <CR>
+    au FileType python map <buffer> <leader>rT :w\|!python -m unittest %<CR>
 
     let g:lmap.r.b = 'Breakpoint'
     nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
