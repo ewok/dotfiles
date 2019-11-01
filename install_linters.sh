@@ -4,7 +4,7 @@ sudo pacman -S --needed shellcheck yamllint ansible-lint
 
 sudo npm install -g markdownlint-cli
 
-yay -S --needed vale-bin hadolint-bin
+yay -S --needed --nocleanmenu --nodiffmenu vale-bin hadolint-bin
 
 cat <<EOF> ~/.vale.ini
 # Core settings
