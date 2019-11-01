@@ -1,6 +1,5 @@
-sudo pacman -Rsc vim palemoon-bin
-sudo pacman -S yay
-yay -S gcc xst vifm neovim albert tmux python2 \
+sudo pacman -Rsc vim palemoon-bin || echo "Probably absent."
+yay -S --needed gcc xst vifm neovim albert tmux python2 \
 python3 python-virtualenv ctags global unzip \
 ripgrep zsh-autosuggestions restic trash-cli \
 siji-git ttf-unifont nerd-fonts-noto-sans-mono \

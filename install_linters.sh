@@ -1,10 +1,10 @@
 #!/bin/bash
 
-sudo pacman -S shellcheck yamllint ansible-lint
+sudo pacman -S --needed shellcheck yamllint ansible-lint
 
 sudo npm install -g markdownlint-cli
 
-yay -S vale-bin hadolint-bin
+yay -S --needed vale-bin hadolint-bin
 
 cat <<EOF> ~/.vale.ini
 # Core settings
