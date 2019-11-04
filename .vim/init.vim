@@ -57,6 +57,10 @@ set secure
 highlight ColorColumn ctermbg=red
 call matchadd('ColorColumn', '\%81v', 100)
 
+" Optimization
+set regexpengine=1
+set synmaxcol=200
+
 filetype plugin indent on
 
 syntax on
