@@ -53,6 +53,10 @@ set shada='50,<1000,s100,"10,:10,n~/.viminfo
 set exrc
 set secure
 
+" Mark 80-th character
+highlight ColorColumn ctermbg=red
+call matchadd('ColorColumn', '\%81v', 100)
+
 filetype plugin indent on
 
 syntax on
