@@ -8,4 +8,5 @@ yay -Syu --nocleanmenu --nodiffmenu --needed \
     flameshot todoist-add-git nvme-cli todoist-linux-bin \
     slack-desktop redshift-gtk-git zeal npm ruby xclip \
     xsel par mbsync msmtp neomutt notmuch notmuch-mutt \
-    davmail goobook lbdb vcal cht.sh sshfs curlftpfs archivemount autorandr
+    davmail goobook lbdb vcal cht.sh sshfs curlftpfs \
+    archivemount autorandr minetime-bin timeshift
