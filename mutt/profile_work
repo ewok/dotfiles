@@ -8,6 +8,7 @@ set spoolfile    = "+work/Inbox" #Default inbox.
 set mbox         = "+work/Archive"
 set postponed    = "+work/Drafts"
 set trash        = "+work/Trash"
+set record       = /dev/null
 
 mailboxes +work/Inbox \
           +work/Archive \
