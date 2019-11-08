@@ -1,7 +1,14 @@
 {
-  "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.jediEnabled": false,
+  "python.venvFolders": ["~/share/venv",".venv"],
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.autoComplete.showAdvancedMembers": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.banditEnabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pydocstyleEnabled": true,
   "coc.source.emoji.filetypes": [
       "markdown",
       "vimwiki"
