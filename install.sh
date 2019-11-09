@@ -78,14 +78,14 @@ if [ -d $HOME/share/venv/neovim2 ]; then rm -rf $HOME/share/venv/neovim2;fi
 mkdir -p ~/share/venv/neovim2
 virtualenv -p python2 ~/share/venv/neovim2
 source ~/share/venv/neovim2/bin/activate
-pip install neovim
+pip install --upgrade neovim pynvim
 deactivate
 
 if [ -d $HOME/share/venv/neovim3 ]; then rm -rf $HOME/share/venv/neovim3;fi
 mkdir -p ~/share/venv/neovim3
 virtualenv -p python3 ~/share/venv/neovim3
 source ~/share/venv/neovim3/bin/activate
-pip install neovim
+pip install --upgrade neovim pynvim
 deactivate
 
 nvim +PlugInstall +qall

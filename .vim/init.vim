@@ -223,7 +223,6 @@ augroup END
 " Define prefix dictionary
 let g:lmap =  {}
 let g:lmap.b = { 'name': '+Buffer' }
-let g:lmap.c = { 'name': '+Coc' }
 let g:lmap.f = { 'name': '+Find' }
 let g:lmap.g = { 'name': '+Git'}
 let g:lmap.l = { 'name': '+Location' }
@@ -464,14 +463,44 @@ augroup END
 " -> Python {{{
 augroup ft_python
     au!
-    au FileType python  setlocal commentstring=#\ %s
-    au FileType python map <buffer> <leader>rr :w\|!python % <CR>
-    au FileType python map <buffer> <leader>rt :w\|!python -m unittest <CR>
-    au FileType python map <buffer> <leader>rT :w\|!python -m unittest %<CR>
+    au FileType python call LoadPython()
 
-    let g:lmap.r.b = 'Breakpoint'
-    nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
-    au FileType python map <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
+    function! LoadPython() " {{{
+
+        map <buffer> <leader>rr :w\|!python % <CR>
+        map <buffer> <leader>rt :w\|!python -m unittest <CR>
+        map <buffer> <leader>rT :w\|!python -m unittest %<CR>
+        map <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle vulture<CR>:ALEInfo<CR>
+
+        let g:lmap.r.b = 'Breakpoint'
+        nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
+        map <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
+
+
+        setlocal foldmethod=indent
+        setlocal foldlevel=0
+        setlocal foldnestmax=2
+        setlocal commentstring=#\ %s
+
+        let b:ale_linters = ['flake8', 'mypy', 'pylint', 'bandit', 'pydocstyle']
+        let b:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+
+        let b:ale_python_flake8_executable = 'flake8'
+        let b:ale_python_flake8_options = '--ignore E501'
+        let b:ale_python_flake8_use_global = 0
+        let b:ale_python_mypy_executable = 'mypy'
+        let b:ale_python_mypy_options = ''
+        let b:ale_python_mypy_use_global = 0
+        let b:ale_python_pylint_executable = 'pylint'
+        let b:ale_python_pylint_options = '--disable C0301,C0111,C0103'
+        let b:ale_python_pylint_use_global = 0
+        let b:ale_python_bandit_executable = 'bandit'
+        let b:ale_python_isort_executable = 'isort'
+        let b:ale_python_pydocstyle_executable = 'pydocstyle'
+        let b:ale_python_vulture_executable = 'vulture'
+
+    endfunction " }}}
+
 augroup END
 "  }}}
 " -> Puppet {{{
@@ -689,28 +718,27 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'fisadev/vim-isort', { 'for': 'python' }
-autocmd! User vim-isort call LoadPython()
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+autocmd! User vim-virtualenv call LoadVirtualenv()
+function! LoadVirtualenv() " {{{
+    let g:virtualenv_directory = '~/share/venv'
+endfunction " }}}
 
-function! LoadPython() " {{{
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+autocmd! User jedi-vim call LoadJedi()
 
-    set foldmethod=indent
-    set foldlevel=0
-    set foldnestmax=2
-
-    " let g:neomake_python_pylama_args = ['--format', 'parsable', '--ignore', 'E501']
-    let g:ale_python_flake8_executable = 'flake8'
-    let g:ale_python_flake8_options = '--ignore E501'
-    let g:ale_python_flake8_use_global = 0
-    let g:ale_python_mypy_executable = 'mypy'
-    let g:ale_python_mypy_options = ''
-    let g:ale_python_mypy_use_global = 0
-    let g:ale_python_pylint_executable = 'pylint'
-    let g:ale_python_pylint_options = '--disable C0301,C0111,C0103'
-    let g:ale_python_pylint_use_global = 0
-
-endfunction
-
+function! LoadJedi() " {{{
+    let g:jedi#goto_command = ""
+    let g:jedi#goto_assignments_command = "gA"
+    let g:jedi#goto_definitions_command = "gd"
+    let g:jedi#documentation_command = "K"
+    let g:jedi#usages_command = "gr"
+    let g:jedi#completions_command = ""
+    let g:jedi#rename_command = ""
+    let g:jedi#completions_enabled = 0
+    let g:jedi#use_splits_not_buffers = "right"
+endfunction " }}}
 " }}}
 " -> Salt {{{
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
@@ -894,7 +922,6 @@ function! s:goyo_enter()
   set scrolloff=999
   set wrap
   Limelight
-  HardTimeOff
   " ...
 endfunction
 
@@ -906,7 +933,6 @@ function! s:goyo_leave()
   set scrolloff=5
   set nowrap
   Limelight!
-  HardTimeOn
   " ...
 endfunction
 
@@ -1150,119 +1176,18 @@ set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
 "
-" CocInstall coc-python
-" CocInstall coc-snippets
-Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-tag'
+let g:deoplete#enable_at_startup = 1
+" }}}
 
-let g:coc_snippet_next = '<tab>'
-inoremap <silent> <expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" -> Snippets {{{ 
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-let g:lmap.c.r = 'Rename'
-nmap <leader>cr <Plug>(coc-rename)
-
-" Remap for format selected region
-let g:lmap.c.f = 'Format'
-xmap <leader>cf  <Plug>(coc-format-selected)
-nmap <leader>cf  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-let g:lmap.c.a = { 'name': '+Actions' }
-xmap <leader>ca  <Plug>(coc-codeaction-selected)
-nmap <leader>ca  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-let g:lmap.c.a.c = 'Action'
-nmap <leader>cac  <Plug>(coc-codeaction)
-"
-" Fix autofix problem of current line
-let g:lmap.c.q = { 'name': '+Quick' }
-let g:lmap.c.q.f = 'Fix-current'
-nmap <leader>cqf  <Plug>(coc-fix-current)
-
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>cd  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>cc  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>co  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>cs  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>cj  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>ck  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>cp  :<C-u>CocListResume<CR>
-
-" I want to use default
-unmap <C-I>
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " }}}
 " -> Ctags {{{
@@ -1446,11 +1371,11 @@ nmap <silent> <leader>gh <Plug>(git_Full-History)
 " -> Linter {{{
 Plug 'w0rp/ale'
 
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '>'
-let g:ale_sign_warning = '-'
+" let g:ale_sign_column_always = 1
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '..'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
 
 " }}}
 " -> AutoIndent {{{
@@ -1838,18 +1763,18 @@ colorscheme neodark
 
 " let g:lightline = {}
 " let g:lightline.colorscheme = 'neodark'
-
 let g:lightline = {
       \ 'colorscheme': 'neodark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ,
+      \             [ 'venv', 'readonly'] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status'
+      \   'gitbranch': 'fugitive#head',
+      \   'venv': 'virtualenv#statusline'
       \ },
       \ }
-
 
 " }}}
 
