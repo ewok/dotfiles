@@ -34,3 +34,12 @@ vale.Hedging = error
 [*.{md,txt}]
 vale.Editorializing = NO
 EOF
+
+if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi
+git clone --depth 1 https://github.com/lingua-pupuli/puppet-editor-services.git $HOME/.puppetlsp
+cd $HOME/.puppetlsp
+eval "$(rbenv init -)"
+rbenv install 2.5.7
+rbenv shell 2.5.7
+gem install puppet puppet-lint r10k
+bundle install

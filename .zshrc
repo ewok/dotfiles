@@ -67,6 +67,9 @@ export LC_ALL=
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Rbenv
+eval "$(rbenv init -)"
+
 if [ -f ~/.zshrc.local ];then
     source ~/.zshrc.local
 fi

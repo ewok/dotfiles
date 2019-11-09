@@ -19,7 +19,6 @@ let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
 
 " -> A big mess, should be reviewed {{{
-" set autoread
 set backspace=2
 set clipboard+=unnamedplus
 set cmdheight=1
@@ -85,8 +84,8 @@ set ttimeoutlen=-1
 set timeoutlen=500
 "
 " Dynamic timeoutlen
-autocmd InsertEnter * set timeoutlen=1000
-autocmd InsertLeave * set timeoutlen=500
+au InsertEnter * set timeoutlen=1000
+au InsertLeave * set timeoutlen=500
 
 set encoding=utf-8
 set fenc=utf-8 enc=utf-8 tenc=utf-8
@@ -141,13 +140,6 @@ set inccommand=nosplit
 let g:python_host_prog = $HOME . "/share/venv/neovim2/bin/python2"
 let g:python3_host_prog = $HOME . "/share/venv/neovim3/bin/python3"
 
-" let g:python_version = matchstr(system("python --version | cut -f2 -d' '"), '^[0-9]')
-" if g:python_version =~ 3
-"     let g:python_host_prog = $HOME . "/share/venv/neovim2/bin/python2"
-" else
-"     let g:python3_host_prog = $HOME . "/share/venv/neovim3/bin/python3"
-" endif
-
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
@@ -179,7 +171,7 @@ if !exists("my_auto_commands_loaded")
     "
     let g:LargeFile = 1024 * 1024 * 3
     augroup LargeFile
-        autocmd BufReadPre *
+        au BufReadPre *
                     \ let f=expand("<afile>")
                     \ | if getfsize(f) > g:LargeFile
                         \ | if input("Large file detected, turn off features? (y/n) ", "y") == "y"
@@ -194,7 +186,7 @@ if !exists("my_auto_commands_loaded")
                             \ | setlocal eventignore-=FileType
                             \ | let g:largefile=0
                             \ | endif
-        " autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+        " au BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
 endif
 " }}}
@@ -311,15 +303,15 @@ nmap zk zkmzzMzvzz15<c-e>`z
 
 " " }}}
 " " -> Switch off bad habits {{{
-" imap  <up>    <Nop>
-" imap  <down>  <Nop>
-" imap  <left>  <Nop>
-" imap  <right> <Nop>
+imap  <up>    <Nop>
+imap  <down>  <Nop>
+imap  <left>  <Nop>
+imap  <right> <Nop>
 
-" nmap  <up>    <Nop>
-" nmap  <down>  <Nop>
-" nmap  <left>  <Nop>
-" nmap  <right> <Nop>
+nmap  <up>    <Nop>
+nmap  <down>  <Nop>
+nmap  <left>  <Nop>
+nmap  <right> <Nop>
 
 " "  }}}
 " -> TODOs {{{
@@ -391,10 +383,11 @@ nnoremap ; :
 augroup ft_ansible
     au!
     au BufNewFile,BufRead */\(playbooks\|roles\|tasks\|handlers\|defaults\|vars\)/*.\(yaml\|yml\) set filetype=yaml.ansible
-    au FileType yaml.ansible setlocal commentstring=#\ %s
-    au FileType yaml.ansible call LoadAnsible()
 
-    function! LoadAnsible() " {{{
+    au FileType yaml.ansible call LoadAnsibleFT()
+    function! LoadAnsibleFT() " {{{
+        setlocal commentstring=#\ %s
+
         let b:ale_ansible_ansible_lint_executable = 'ansible_custom'
         let b:ale_ansible_ansible_lint_command = '%e %t'
         let b:ale_ansible_yamllint_executable = 'yamllint_custom'
@@ -413,9 +406,9 @@ augroup END
 " -> Yaml {{{
 augroup ft_yaml
     au!
-    au FileType yaml call LoadYAML()
 
-    function! LoadYAML() " {{{
+    au FileType yaml call LoadYamlFT()
+    function! LoadYamlFT() " {{{
         let b:ale_yaml_yamllint_executable = 'yamllint_custom'
         let b:ale_linters = ['yamllint']
     endfunction " }}}
@@ -426,13 +419,41 @@ augroup END
 augroup ft_config
     au!
     au BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
-    au FileType config  setlocal commentstring=#\ %s
+    au FileType config setlocal commentstring=#\ %s
 augroup END
 "  }}}
 " -> GitIgnore {{{
 augroup ft_git
     au!
     au BufNewFile,BufRead *.gitignore set filetype=gitignore
+augroup END
+"  }}}
+" -> Go {{{
+augroup ft_go
+    au!
+
+    au FileType go call LoadGoFT()
+    function! LoadGoFT()
+        nmap <buffer> <silent> <leader>rr :silent GoRun<CR>
+        nmap <buffer> <silent> <leader>rt :GoTest<CR>
+        nmap <buffer> <silent> <leader>rb :GoBuild<CR>
+        nmap <buffer> <silent> <leader>rc :GoCoverageToggle<CR>
+
+        let g:lmap.r.d = { 'name': '+Definition' }
+        let g:lmap.r.d.s = 'Split'
+        nmap <buffer> <Leader>rds <Plug>(go-def-split)
+
+        let g:lmap.r.d.v = 'Vertical'
+        nmap <buffer> <Leader>rdv <Plug>(go-def-vertical)
+
+        let g:lmap.r.d.t = 'Tab'
+        nmap <buffer> <Leader>rdt <Plug>(go-def-tab)
+        " au FileType go nmap <buffer> K <Plug>(go-doc)
+
+        let g:lmap.r.d.i = 'Info'
+        nmap <buffer> <Leader>rdi <Plug>(go-info)
+    endfunction
+
 augroup END
 "  }}}
 " -> JSON {{{
@@ -453,6 +474,22 @@ augroup ft_logstash
     au FileType logstash setlocal foldmethod=marker|setlocal foldmarker={,}|setlocal wrap
 augroup END
 "  }}}
+" -> Markdown {{{
+augroup ft_markdown
+    au!
+
+    au FileType markdown call LoadMarkdownFT()
+    function! LoadMarkdownFT() " {{{
+        setlocal foldlevel=2
+        let b:ale_linters = ['vale', 'markdownlint']
+        nmap <buffer> <silent> <leader>rr :LivedownPreview<CR>
+        nmap <buffer> <silent> <leader>rt :LivedownToggle<CR>
+        nmap <buffer> <silent> <leader>rk :LivedownKill<CR>
+
+    endfunction " }}}
+
+augroup END
+"  }}}
 " -> Morph {{{
 augroup ft_morph
     au!
@@ -463,18 +500,18 @@ augroup END
 " -> Python {{{
 augroup ft_python
     au!
-    au FileType python call LoadPython()
 
-    function! LoadPython() " {{{
+    au FileType python call LoadPythonFT()
+    function! LoadPythonFT() " {{{
 
-        map <buffer> <leader>rr :w\|!python % <CR>
-        map <buffer> <leader>rt :w\|!python -m unittest <CR>
-        map <buffer> <leader>rT :w\|!python -m unittest %<CR>
-        map <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle vulture<CR>:ALEInfo<CR>
+        nmap <buffer> <leader>rr :w\|!python % <CR>
+        nmap <buffer> <leader>rt :w\|!python -m unittest <CR>
+        nmap <buffer> <leader>rT :w\|!python -m unittest %<CR>
+        nmap <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle pudb<CR>:ALEInfo<CR>
 
         let g:lmap.r.b = 'Breakpoint'
         nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
-        map <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
+        nmap <silent> <buffer> <leader>rb <Plug>(python_breakpoint)
 
 
         setlocal foldmethod=indent
@@ -498,7 +535,6 @@ augroup ft_python
         let b:ale_python_isort_executable = 'isort'
         let b:ale_python_pydocstyle_executable = 'pydocstyle'
         let b:ale_python_vulture_executable = 'vulture'
-
     endfunction " }}}
 
 augroup END
@@ -506,26 +542,59 @@ augroup END
 " -> Puppet {{{
 augroup ft_puppet
     au!
-    au FileType puppet  setlocal commentstring=#\ %s
+
+    au FileType puppet call LoadPuppetFT()
+    function! LoadPuppetFT()
+        setlocal commentstring=#\ %s
+
+        nmap <buffer> <leader>rr :w\|!puppet % <CR>
+        nmap <buffer> <leader>rt :w\|!puppet parser validate <CR>
+        nmap <buffer> <leader>rL :!gem install puppet puppet-lint r10k yaml-lint<CR>:ALEInfo<CR>
+
+        " let b:ale_linters = ['puppet', 'puppetlint']
+        let g:ale_puppet_languageserver_executable = '~/.puppetlsp/puppet-languageserver'
+    endfunction
+
+augroup END
+"  }}}
+" -> Rust {{{
+augroup ft_rust
+    au!
+
+    au FileType rust call LoadRustFT()
+    function! LoadRustFT()
+        nmap <buffer> gd <Plug>(rust-def)
+        nmap <buffer> gs <Plug>(rust-def-split)
+        nmap <buffer> gx <Plug>(rust-def-vertical)
+        nmap <buffer> K <Plug>(rust-doc)
+        nmap <buffer> <silent> <leader>rr :RustRun<CR>
+        nmap <buffer> <silent> <leader>rt :RustTest<CR>
+        nmap <buffer> <silent> <leader>rf :RustFmt<CR>
+    endfunction
+
 augroup END
 "  }}}
 " -> Vim {{{
 augroup ft_vim
     au!
 
-    au FileType vim setlocal foldmethod=marker keywordprg=:help
     au FileType help setlocal textwidth=78
-    au FileType vim  setlocal commentstring=\"\ %s
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
-    au FileType vim inoremap <c-n> <c-x><c-n>
+    au FileType vim call LoadVimFT()
+    function! LoadVimFT() " {{{ 
+        let g:lmap.r.S = 'Source-line'
+        setlocal foldmethod=marker keywordprg=:help
+        setlocal commentstring=\"\ %s
 
-    let g:lmap.r.S = 'Source-line'
-    au FileType vim vnoremap <leader>rS y:@"<CR>
-    au FileType vim nnoremap <leader>rS ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+        inoremap <c-n> <c-x><c-n>
+        let g:lmap.r.r = 'Source'
+        nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
+        vnoremap <buffer> <leader>rS y:@"<CR>
+        nnoremap <buffer> <leader>rS ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+    endfunction
 
 augroup END
-
 " }}}
 " -> ZSH {{{
 augroup ft_zsh
@@ -537,9 +606,9 @@ augroup END
 augroup ft_md
     au!
 
-    au FileType markdown set conceallevel=2
-    au FileType markdown call LoadMD()
-    function! LoadMD() " {{{
+    au FileType markdown call LoadMDFT()
+    function! LoadMDFT() " {{{
+        setlocal conceallevel=2
         let b:ale_linters = ['vale', 'markdownlint']
     endfunction " }}}
 
@@ -549,10 +618,9 @@ augroup END
 augroup ft_sh
     au!
 
-    au FileType sh map <buffer> <leader>rr :w\|!bash % <CR>
-
-    au FileType sh call LoadSH()
-    function! LoadSH() " {{{
+    au FileType sh call LoadShFT()
+    function! LoadShFT() " {{{
+        nmap <buffer> <leader>rr :w\|!bash % <CR>
         let b:ale_linters = ['shellcheck']
     endfunction " }}}
 
@@ -562,10 +630,10 @@ augroup END
 augroup ft_vimwiki
     au!
 
-    au FileType vimwiki call LoadVIMWIKI()
-    function! LoadVIMWIKI() " {{{
+    au FileType vimwiki call LoadVimWikiFT()
+    function! LoadVimWikiFT() " {{{
+        setlocal foldlevel=2
         let b:ale_linters = ['vale', 'markdownlint']
-        set foldlevel=2
     endfunction " }}}
 
 augroup END
@@ -574,8 +642,8 @@ augroup END
 augroup ft_dockerfile
     au!
 
-    au FileType dockerfile call LoadDOCKERFILE()
-    function! LoadDOCKERFILE() " {{{
+    au FileType dockerfile call LoadDockerfileFT()
+    function! LoadDockerfileFT() " {{{
         let b:ale_linters = ['hadolint']
     endfunction " }}}
 
@@ -594,16 +662,21 @@ call plug#begin('~/.vim/local/plugged')
 
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
-Plug 'pearofducks/ansible-vim'
-let g:ansible_unindent_after_newline = 0
+Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
+au! User ansible-vim call LoadAnsible()
+
+function! LoadAnsible()
+    let g:ansible_unindent_after_newline = 0
+endfunction
 " }}}
 " -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " }}}
 " -> Dlang {{{
 Plug 'idanarye/vim-dutyl', { 'for': 'd'  }
-autocmd! User vim-dutyl call Load_dutyl()
-function! Load_dutyl() " {{{
+au! User vim-dutyl call LoadDutyl()
+
+function! LoadDutyl() " {{{
     let g:dutyl_stdImportPaths=['/Library/D/dmd/src/druntime/import','/Library/D/dmd/src/phobos']
 endfunction " }}}
 
@@ -611,31 +684,17 @@ endfunction " }}}
 " -> Rust {{{
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-autocmd! User rust.vim call LoadRust()
+au! User rust.vim call LoadRust()
 
 function! LoadRust()
-
-    au FileType rust nmap <buffer> gd <Plug>(rust-def)
-    au FileType rust nmap <buffer> gs <Plug>(rust-def-split)
-    au FileType rust nmap <buffer> gx <Plug>(rust-def-vertical)
-    au FileType rust nmap <buffer> K <Plug>(rust-doc)
-
-    au FileType rust map <buffer> <silent> <leader>rr :RustRun<CR>
-    au FileType rust map <buffer> <silent> <leader>rt :RustTest<CR>
-    au FileType rust map <buffer> <silent> <leader>rf :RustFmt<CR>
-
     let g:racer_experimental_completer = 1
-
 endfunction
 
 "  }}}
 " -> Go {{{
+"  TODO: Still not working
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-" @todo: fix go integration
-autocmd! User vim-go call LoadGo()
-
-" Plug 'benmills/vimux-golang', { 'for': 'go' }
-" Plug 'jodosha/vim-godebug', { 'for': 'go' }
+au! User vim-go call LoadGo()
 
 function! LoadGo() " {{{
 
@@ -649,42 +708,17 @@ function! LoadGo() " {{{
     " let $GOBIN = $HOME . '/.local/bin'
     " let $PATH = $PATH . ':' . $GOBIN
 
-    " let g:go_highlight_functions = 1
-    " let g:go_highlight_methods = 1
-    " let g:go_highlight_structs = 1
-    " let g:go_highlight_interfaces = 1
-    " let g:go_highlight_operators = 1
-    " let g:go_highlight_build_constraints = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_interfaces = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_build_constraints = 1
 
     " let g:go_auto_type_info = 1
     let g:go_auto_sameids = 1
     " let g:go_fmt_autosave = 0
     " let g:go_fmt_command = "goimports"
-
-    " Shortcuts
-    nmap <Plug>(go_Run) :silent GoRun<CR>
-    nmap <Plug>(go_Test) :GoTest<CR>
-    nmap <Plug>(go_Build) :GoBuild<CR>
-    nmap <Plug>(go_Coverage-Toggle) :GoCoverageToggle<CR>
-
-    au FileType go map <buffer> <silent> <leader>rr <Plug>(go_Run)
-    au FileType go map <buffer> <silent> <leader>rt <Plug>(go_Test)
-    au FileType go map <buffer> <silent> <leader>rb <Plug>(go_Build)
-    au FileType go map <buffer> <silent> <leader>rc <Plug>(go_Coverage-Toggle)
-
-    let g:lmap.r.d = { 'name': '+Definition' }
-    let g:lmap.r.d.s = 'Split'
-    au FileType go nmap <buffer> <Leader>rds <Plug>(go-def-split)
-
-    let g:lmap.r.d.v = 'Vertical'
-    au FileType go nmap <buffer> <Leader>rdv <Plug>(go-def-vertical)
-
-    let g:lmap.r.d.t = 'Tab'
-    au FileType go nmap <buffer> <Leader>rdt <Plug>(go-def-tab)
-    " au FileType go nmap <buffer> K <Plug>(go-doc)
-
-    let g:lmap.r.d.i = 'Info'
-    au FileType go nmap <buffer> <Leader>rdi <Plug>(go-info)
 
 endfunction " }}}
 
@@ -694,22 +728,12 @@ Plug 'robbles/logstash.vim'
 "  }}}
 " -> Markdown {{{
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
-autocmd! User vim-livedown call LoadLivedown()
+au! User vim-livedown call LoadLivedown()
 
 function! LoadLivedown()
-    au FileType markdown map <buffer> <silent> <leader>rr :LivedownPreview<CR>
-    au FileType markdown map <buffer> <silent> <leader>rt :LivedownToggle<CR>
-    au FileType markdown map <buffer> <silent> <leader>rk :LivedownKill<CR>
-
     let g:livedown_browser = 'firefox'
     let g:livedown_port = 14545
-
 endfunction
-" }}}
-" -> Org mode {{{
-Plug 'tpope/vim-speeddating', { 'for': ['org','orgtodo', 'orgagenda'] }
-Plug 'jonathanbranam/vim-orgmode', { 'for': ['org','orgtodo', 'orgagenda'] }
-" Plug 'dhruvasagar/vim-dotoo'
 " }}}
 " -> Puppet {{{
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
@@ -719,14 +743,14 @@ let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-autocmd! User vim-virtualenv call LoadVirtualenv()
+au! User vim-virtualenv call LoadVirtualenv()
 function! LoadVirtualenv() " {{{
     let g:virtualenv_directory = '~/share/venv'
 endfunction " }}}
 
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-autocmd! User jedi-vim call LoadJedi()
+au! User jedi-vim call LoadJedi()
 
 function! LoadJedi() " {{{
     let g:jedi#goto_command = ""
@@ -744,34 +768,19 @@ endfunction " }}}
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 " }}}
 " -> SQL {{{
-Plug 'martingms/vipsql', { 'for': 'sql' }
+" Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
 " -> VIM {{{
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-
-autocmd! User neco-vim call LoadNeco()
-
-function! LoadNeco() " {{{
-    augroup ft_vim
-        au!
-
-        let g:lmap.r.r = 'Source'
-        au FileType vim nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
-    augroup END
-endfunction " }}}
-
 " }}}
 " -> XML {{{
 Plug 'sukima/xmledit', { 'do': 'make', 'for': ['xml', 'html'] }
-
 " }}}
 " -> NodeJSX {{{
-Plug 'ternjs/tern_for_vim'
-Plug 'mxw/vim-jsx'
-" , { 'for': 'javascript.jsx' }
-Plug 'mattn/emmet-vim'
-" , { 'for': 'javascript.jsx' }
-"  }}}
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
+Plug 'mattn/emmet-vim', { 'for': 'javascript.jsx' }
+" }}}
 " }}}
 " }}}
 " Info plugins ------------------------------------------------------------ {{{
@@ -936,8 +945,8 @@ function! s:goyo_leave()
   " ...
 endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+au! User GoyoEnter nested call <SID>goyo_enter()
+au! User GoyoLeave nested call <SID>goyo_leave()
 
 map <silent> <F8> :Goyo<CR>
 " }}}
@@ -973,13 +982,12 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 "
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
-autocmd! VimEnter * call LoadVimwiki()
+au! VimEnter * call LoadVimwiki()
 
 function! LoadVimwiki()
     let g:lmap.w.w = 'Index'
     nunmap <Leader>ww
     map <Leader>ww :call VimwikiIndexCd()<CR>
-
 
     nunmap <Leader>w<Space>i
     nunmap <Leader>w<Space>t
@@ -1104,12 +1112,12 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_default_mapping = 0
 
 if g:largefile != 1
-    autocmd VimEnter * :IndentGuidesEnable
+    au VimEnter * :IndentGuidesEnable
 endif
 " }}}
 " -> Lightline {{{
 Plug 'itchyny/lightline.vim'
-autocmd! User lightline call LoadLight()
+au! User lightline call LoadLight()
 
 function LoadLight()
     if !has('gui_running')
@@ -1179,9 +1187,8 @@ set commentstring=#\ %s
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-tag'
 let g:deoplete#enable_at_startup = 1
-" }}}
 
-" -> Snippets {{{ 
+" -> Snippets {{{
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -1195,7 +1202,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 "
 Plug 'jsfaint/gen_tags.vim'
 
-autocmd! User tagbar call LoadTagBar()
+au! User tagbar call LoadTagBar()
 
 nnoremap <silent> <leader>pt :TagbarToggle<CR>
 
@@ -1294,7 +1301,7 @@ endfunction
 Plug 'pseewald/vim-anyfold'
 
 if g:largefile != 1
-    autocmd Filetype python,yaml.ansible,puppet,go,xml,json,sh,zsh :AnyFoldActivate
+    au Filetype python,yaml.ansible,puppet,go,xml,json,sh,zsh :AnyFoldActivate
 endif
 
 " }}}
@@ -1302,7 +1309,7 @@ endif
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'https://github.com/airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 
 " Fugitive options
@@ -1396,7 +1403,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-repeat'
 Plug 'vitorgalvao/autoswap_mac'
 Plug 'tomtom/tlib_vim'
-" Plug 'itchyny/vim-cursorword'
 Plug 'chaoren/vim-wordmotion'
 
 " Fonts
@@ -1620,7 +1626,7 @@ for event in g:auto_save_events
 endfor
 
 augroup auto_save
-  autocmd!
+  au!
   for event in g:auto_save_events
     execute "au " . event . " * nested call AutoSave()"
   endfor
@@ -1719,7 +1725,7 @@ function! QFixSwitch(direction)
     endif
 endfunction
 
-autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+au BufWinEnter quickfix let g:qfix_win = bufnr("$")
 
 nnoremap <Plug>(qfix_Toggle) :QFix<CR>
 nnoremap <Plug>(qfix_Open) :copen<CR>
@@ -1782,7 +1788,7 @@ let g:lightline = {
 "
 try
     source ~/.vimrc.local
-    autocmd VimEnter * echo "Local vimrc has been read!"
+    au VimEnter * echo "Local vimrc has been read!"
 catch
     " Ignoring
 endtry
