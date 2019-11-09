@@ -2,7 +2,7 @@
 
 sudo pacman -S --needed shellcheck yamllint ansible-lint
 
-sudo npm install -g markdownlint-cli
+sudo npm install -g markdownlint-cli bash-language-server
 
 yay -S --needed --nocleanmenu --nodiffmenu vale-bin hadolint-bin
 
