@@ -621,7 +621,7 @@ augroup ft_sh
     au FileType sh call LoadShFT()
     function! LoadShFT() " {{{
         nmap <buffer> <leader>rr :w\|!bash % <CR>
-        let b:ale_linters = ['shellcheck']
+        let b:ale_linters = ['shellcheck', 'language_server']
     endfunction " }}}
 
 augroup END
@@ -839,10 +839,10 @@ vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
 " -> Drag blocks {{{
 Plug 'zirrostig/vim-schlepp'
 
-vmap <unique> <up>    <Plug>SchleppUp
-vmap <unique> <down>  <Plug>SchleppDown
-vmap <unique> <left>  <Plug>SchleppLeft
-vmap <unique> <right> <Plug>SchleppRight
+vmap <up>    <Plug>SchleppUp
+vmap <down>  <Plug>SchleppDown
+vmap <left>  <Plug>SchleppLeft
+vmap <right> <Plug>SchleppRight
 " }}}
 " -> Easyalign {{{
 Plug 'junegunn/vim-easy-align'
@@ -1686,19 +1686,31 @@ unlet s:save_cpo
 
 " }}}
 " -> Quickfix {{{
-"
-" QuickFix Window, which is borrowed from c9s
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-command -nargs=1 QFixSwitch call QFixSwitch(<args>)
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
 
-function! QFixToggle(forced)
-    if exists("g:qfix_win") && a:forced == 0
-        cclose
-        unlet g:qfix_win
-    else
-        copen 10
-        let g:qfix_win=bufnr("$")
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
     endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
 endfunction
 
 function! QFixSwitch(direction)
@@ -1725,29 +1737,29 @@ function! QFixSwitch(direction)
     endif
 endfunction
 
-au BufWinEnter quickfix let g:qfix_win = bufnr("$")
-
-nnoremap <Plug>(qfix_Toggle) :QFix<CR>
+nnoremap <Plug>(qfix_Toggle) :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <Plug>(qfix_Open) :copen<CR>
 nnoremap <Plug>(qfix_Close) :cclose<CR>
 nnoremap <Plug>(qfix_QNext) :QFixSwitch 'next'<CR>
 nnoremap <Plug>(qfix_QPrev) :QFixSwitch 'prev'<CR>
 let g:lmap.q.q = 'toggle'
 nmap <leader>qq  <Plug>(qfix_Toggle)
-let g:lmap.q.c = { 'name': '+current' }
-let g:lmap.q.c.o = 'Open'
-nmap <leader>qco <Plug>(qfix_Open)
-let g:lmap.q.c.c = 'Close'
-nmap <leader>qcc <Plug>(qfix_Close)
+let g:lmap.q.o = 'Open'
+nmap <leader>qo <Plug>(qfix_Open)
+let g:lmap.q.c = 'Close'
+nmap <leader>qc <Plug>(qfix_Close)
 let g:lmap.q.n = 'Next'
 nmap <leader>qn <Plug>(qfix_QNext)
 let g:lmap.q.p = 'Previous'
 nmap <leader>qp <Plug>(qfix_QPrev)
 
+nnoremap <Plug>(qfix_LToggle) :call ToggleList("Location List", 'l')<CR>
 nnoremap <Plug>(qfix_LOpen) :lopen<CR>
 nnoremap <Plug>(qfix_LClose) :lclose<CR>
 nnoremap <Plug>(qfix_LNext) :lnext<CR>
 nnoremap <Plug>(qfix_LPrev) :lprev<CR>
+let g:lmap.l.l = 'toggle'
+nmap <leader>ll  <Plug>(qfix_LToggle)
 let g:lmap.l.o = 'Open'
 nmap <leader>lo <Plug>(qfix_LOpen)
 let g:lmap.l.c = 'Close'
@@ -1788,7 +1800,7 @@ let g:lightline = {
 "
 try
     source ~/.vimrc.local
-    au VimEnter * echo "Local vimrc has been read!"
+    au! VimEnter * echo "Local vimrc has been read!"
 catch
     " Ignoring
 endtry
