@@ -1,4 +1,4 @@
-Xft.dpi:       72
+Xft.dpi:       92
 Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
@@ -17,7 +17,7 @@ st.termname:     xterm-256color
 ! st.shell:        /bin/sh
 
 ! The following options options can be reloaded via USR1 signal.
-st.font:              Liberation Mono:pixelsize=14:antialias=true:autohint=true;
+st.font:              Liberation Mono:pixelsize=16:antialias=true:autohint=true;
 st.borderpx:          10
 ! Available cursor values: 2 4 6 7 = █ _ | ☃ ( 1 3 5 are blinking versions)
 st.cursorshape:       2
