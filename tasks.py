@@ -1,0 +1,182 @@
+"""Installation script."""
+import os
+from invoke import task
+
+from helpers import makesl, npm_i, yay, pacman_remove, install_gitrepo, install_virtualenv
+
+
+@task
+def ensure_yay_exists(c):
+    """Ensure yay command exists."""
+    c.run("sudo pacman -S yay --needed")
+
+
+@task
+def install_base(c):
+    """Install base software."""
+    packages_to_install = [
+        "gcc", "xst", "albert", "tmux", "python2",
+        "python3", "python-virtualenv", "unzip",
+        "zsh-autosuggestions", "restic", "trash-cli",
+        "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
+        "nvme-cli", "xclip", "xsel", "par", "sshfs", "curlftpfs",
+        "archivemount", "autorandr", "timeshift",
+        "rbenv", "ruby-build",
+    ]
+
+    paths_to_link = [
+        (".tmux.conf", ".tmux.conf"),
+        (".zshrc", ".zshrc"),
+        (".zsh", ".zsh"),
+        (".zprofile", ".zprofile"),
+        (".i3", ".i3"),
+        (".i3status.conf", ".i3status.conf"),
+        (".xprofile", ".xprofile"),
+        (".profile", ".profile"),
+        (".Xresources", ".Xresources"),
+        (".skhdrc", ".skhdrc"),
+        (".yabairc", ".yabairc"),
+        ("bin", "bin"),
+        ("albert/modules", ".local/share/albert/org.albert.extension.python/modules"),
+        ("albert/albert.conf", ".config/albert/albert.conf"),
+    ]
+
+    packages_to_remove = [
+        'vim', 'palemoon-bin'
+    ]
+
+    gitrepos_to_install = [
+        ("https://github.com/junegunn/fzf.git", ".fzf"),
+        ("https://github.com/tmux-plugins/tmux-resurrect", ".tmux/resurrect"),
+        ("git://github.com/robbyrussell/oh-my-zsh.git", ".oh-my-zsh"),
+    ]
+
+    pacman_remove(c, packages_to_remove)
+
+    yay(c, packages_to_install)
+
+    for pair in paths_to_link:
+        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+
+    for pair in gitrepos_to_install:
+        install_gitrepo(c, pair[0], os.path.join(os.environ['HOME'], pair[1]))
+
+    # FZF Installation
+    c.run("$HOME/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion")
+
+
+@task
+def install_gui_tools(c):
+    """Install packages."""
+    packages_to_install = [
+        "flameshot", "todoist-add-git", "todoist-linux-bin",
+        "slack-desktop", "redshift-gtk-git", "zeal", "minetime-bin",
+    ]
+
+    yay(c, packages_to_install)
+
+
+@task
+def install_mail(c):
+    """Install mail software."""
+    packages_to_install = [
+        "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
+        "davmail", "goobook", "lbdb", "vcal",
+    ]
+
+    paths_to_link = [
+        (".mbsyncrc", ".mbsyncrc"),
+        (".msmtp", ".msmtp"),
+        ("muttrc", ".muttrc"),
+        ("mutt", ".mutt")
+    ]
+
+    yay(c, packages_to_install)
+
+    for pair in paths_to_link:
+        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+
+
+@task
+def install_editor(c):
+    """Install editor and all editor tools."""
+    packages_to_install = [
+        "vifm", "neovim", "ctags", "global", "ripgrep",
+        "xkb-switch", "cht.sh", "shellcheck", "yamllint",
+        "vale-bin", "hadolint-bin"
+    ]
+
+    paths_to_link = [
+        (".vim", ".vim"),
+        (".vim", ".config/nvim"),
+        (".ideavimrc", ".ideavimrc"),
+        (".vifm", ".vifm"),
+        (".vifm", ".config/vifm"),
+        (".ctags", ".ctags"),
+    ]
+
+    npm_packages_to_install = [
+        "markdownlint-cli", "bash-language-server"
+    ]
+
+    virtualenvs = [
+        ("share/venv/neovim2", "python2", ['neovim', 'pynvim']),
+        ("share/venv/neovim3", "python3", ['neovim', 'pynvim']),
+    ]
+
+    yay(c, packages_to_install)
+
+    npm_i(c, npm_packages_to_install)
+
+    for pair in paths_to_link:
+        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+
+    for element in virtualenvs:
+        install_virtualenv(c, os.path.join(os.environ['HOME'], element[0]), element[1], element[2])
+
+    c.run("nvim +PlugInstall +qall")
+
+# Not implemented yet
+# cat <<EOF> ~/.vale.ini
+#  # Core settings
+#  StylesPath = ci/vale/styles
+
+#  # The minimum alert level to display (suggestion, warning, or error).
+#  #
+#  # CI builds will only fail on error-level alerts.
+#  MinAlertLevel = warning
+
+#  # The "formats" section allows you to associate an "unknown" format
+#  # with one of Vale's supported formats.
+#  [formats]
+#  mdx = md
+
+#  # Global settings (applied to every syntax)
+#  [*]
+#  # List of styles to load
+#  BasedOnStyles = write-good, Joblint
+#  # Style.Rule = {YES, NO} to enable or disable a specific rule
+#  vale.Editorializing = YES
+#  # You can also change the level associated with a rule
+#  vale.Hedging = error
+
+#  # Syntax-specific settings
+#  # These overwrite any conflicting global settings
+#  [*.{md,txt}]
+#  vale.Editorializing = NO
+#  EOF
+
+#  if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi
+#  git clone --depth 1 https://github.com/lingua-pupuli/puppet-editor-services.git $HOME/.puppetlsp
+#  cd $HOME/.puppetlsp
+#  eval "$(rbenv init -)"
+#  rbenv install 2.5.7
+#  rbenv shell 2.5.7
+#  gem install puppet puppet-lint r10k
+#  bundle install
+
+
+@task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor)
+def install(c):
+    """Install all."""
+    print("Done")
