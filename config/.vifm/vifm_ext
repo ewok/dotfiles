@@ -60,11 +60,19 @@ filextype *.cbr,*.cbz
         \ zathura %f &>/dev/null &,
 
 " Audio
-filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3 mpv %f 2>/dev/null
-      \ {Play using ffplay}
-      \ ffplay -nodisp %c &,
+" filextype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3
+"        \ {Play using mocp}
+"        \ mocp -l %c %i &,
+"        \ {Add to plyalist mocp}
+"        \ mocp -a %c %i &,
 
-fileviewer *.mp3 mp3info
+filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3
+       \ {Play using mocp}
+       \ mocp -l %c %i &,
+       \ {Add to plyalist mocp}
+       \ mocp -a %c %i &,
+
+" fileviewer *.mp3 mp3info
 fileviewer *.flac soxi
 
 " Video
