@@ -25,20 +25,20 @@ def install_base(c):
     ]
 
     paths_to_link = [
-        (".tmux.conf", ".tmux.conf"),
-        (".zshrc", ".zshrc"),
-        (".zsh", ".zsh"),
-        (".zprofile", ".zprofile"),
-        (".i3", ".i3"),
-        (".i3status.conf", ".i3status.conf"),
-        (".xprofile", ".xprofile"),
-        (".profile", ".profile"),
-        (".Xresources", ".Xresources"),
-        (".skhdrc", ".skhdrc"),
-        (".yabairc", ".yabairc"),
+        ("config/.tmux.conf", ".tmux.conf"),
+        ("config/.zshrc", ".zshrc"),
+        ("config/.zsh", ".zsh"),
+        ("config/.zprofile", ".zprofile"),
+        ("config/.i3", ".i3"),
+        ("config/.i3status.conf", ".i3status.conf"),
+        ("config/.xprofile", ".xprofile"),
+        ("config/.profile", ".profile"),
+        ("config/.Xresources", ".Xresources"),
+        ("config/.skhdrc", ".skhdrc"),
+        ("config/.yabairc", ".yabairc"),
         ("bin", "bin"),
-        ("albert/modules", ".local/share/albert/org.albert.extension.python/modules"),
-        ("albert/albert.conf", ".config/albert/albert.conf"),
+        ("config/albert/modules", ".local/share/albert/org.albert.extension.python/modules"),
+        ("config/albert/albert.conf", ".config/albert/albert.conf"),
     ]
 
     packages_to_remove = [
@@ -85,10 +85,10 @@ def install_mail(c):
     ]
 
     paths_to_link = [
-        (".mbsyncrc", ".mbsyncrc"),
-        (".msmtp", ".msmtp"),
-        ("muttrc", ".muttrc"),
-        ("mutt", ".mutt")
+        ("config/.mbsyncrc", ".mbsyncrc"),
+        ("config/.msmtp", ".msmtp"),
+        ("config/muttrc", ".muttrc"),
+        ("config/mutt", ".mutt")
     ]
 
     yay(c, packages_to_install)
@@ -107,12 +107,12 @@ def install_editor(c):
     ]
 
     paths_to_link = [
-        (".vim", ".vim"),
-        (".vim", ".config/nvim"),
-        (".ideavimrc", ".ideavimrc"),
-        (".vifm", ".vifm"),
-        (".vifm", ".config/vifm"),
-        (".ctags", ".ctags"),
+        ("config/.vim", ".vim"),
+        ("config/.vim", ".config/nvim"),
+        ("config/.ideavimrc", ".ideavimrc"),
+        ("config/.vifm", ".vifm"),
+        ("config/.vifm", ".config/vifm"),
+        ("config/.ctags", ".ctags"),
     ]
 
     npm_packages_to_install = [

@@ -4,10 +4,10 @@ set -e
 
 sudo pacman -S --needed python-virtualenv
 
-if [ ! -d .env ];then
-    virtualenv -p python2 .env
+if [ ! -d .venv ];then
+    virtualenv -p python2 .venv
 fi
-source .env/bin/activate
+source .venv/bin/activate
 pip install fabric
 
 inv install
