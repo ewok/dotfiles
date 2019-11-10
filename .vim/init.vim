@@ -507,7 +507,7 @@ augroup ft_python
         nmap <buffer> <leader>rr :w\|!python % <CR>
         nmap <buffer> <leader>rt :w\|!python -m unittest <CR>
         nmap <buffer> <leader>rT :w\|!python -m unittest %<CR>
-        nmap <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle pudb<CR>:ALEInfo<CR>
+        nmap <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle pudb jedi<CR>:ALEInfo<CR>
 
         let g:lmap.r.b = 'Breakpoint'
         nmap <Plug>(python_breakpoint) oimport pudb; pudb.set_trace()<esc>
