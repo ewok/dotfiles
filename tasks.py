@@ -71,6 +71,7 @@ def install_gui_tools(c):
     packages_to_install = [
         "flameshot", "todoist-add-git", "todoist-linux-bin",
         "slack-desktop", "redshift-gtk-git", "zeal", "minetime-bin",
+        "cawbird",
     ]
 
     yay(c, packages_to_install)
