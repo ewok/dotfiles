@@ -1060,7 +1060,7 @@ nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.gem/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.gem/*" --glob "!.venv/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
