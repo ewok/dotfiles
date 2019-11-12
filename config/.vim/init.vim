@@ -742,10 +742,10 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+Plug 'ewok/vim-virtualenv', { 'for': 'python' }
 au! User vim-virtualenv call LoadVirtualenv()
 function! LoadVirtualenv() " {{{
-    let g:virtualenv_directory = '~/share/venv'
+    let g:virtualenv_directory = $PWD
 endfunction " }}}
 
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
@@ -1381,8 +1381,8 @@ Plug 'w0rp/ale'
 " let g:ale_sign_column_always = 1
 let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '..'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 0
 
 " }}}
 " -> AutoIndent {{{
