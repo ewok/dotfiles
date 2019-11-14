@@ -749,6 +749,7 @@ function! LoadVirtualenv() " {{{
 endfunction " }}}
 
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 au! User jedi-vim call LoadJedi()
 
@@ -759,9 +760,11 @@ function! LoadJedi() " {{{
     let g:jedi#documentation_command = "K"
     let g:jedi#usages_command = "gr"
     let g:jedi#completions_command = ""
-    let g:jedi#rename_command = ""
+    let g:jedi#rename_command = "<leader>rR"
     let g:jedi#completions_enabled = 0
     let g:jedi#use_splits_not_buffers = "right"
+
+    let g:deoplete#sources#jedi#show_docstring = 1
 endfunction " }}}
 " }}}
 " -> Salt {{{
@@ -1179,8 +1182,9 @@ set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
 "
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-tag'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 let g:deoplete#enable_at_startup = 1
 
 " -> Snippets {{{
@@ -1806,6 +1810,9 @@ function! AfterVimEnter()
     endif
 
     call LoadVimwiki()
+
+    call deoplete#custom#source('_', 'sorters', ['sorter_rank'])
+    call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 endfunction
 
 " Load local vars {{{
