@@ -102,7 +102,7 @@ def install_mail(c):
 def install_editor(c):
     """Install editor and all editor tools."""
     packages_to_install = [
-        "vifm", "neovim", "ctags", "global", "ripgrep",
+        "vifm", "neovim", "ctags", "global", "the_silver_searcher",
         "xkb-switch", "cht.sh", "shellcheck", "yamllint",
         "vale-bin", "hadolint-bin"
     ]

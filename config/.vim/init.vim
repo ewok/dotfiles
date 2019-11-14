@@ -982,12 +982,10 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 "
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
-au! VimEnter * call LoadVimwiki()
-
 function! LoadVimwiki()
     let g:lmap.w.w = 'Index'
     nunmap <Leader>ww
-    map <Leader>ww :call VimwikiIndexCd()<CR>
+    noremap <Leader>ww :call VimwikiIndexCd()<CR>
 
     nunmap <Leader>w<Space>i
     nunmap <Leader>w<Space>t
@@ -1020,7 +1018,6 @@ function! VimwikiIndexCd()
     cd %:h
     call VimWikiHelpers()
 endfunction
-
 
 function! VimwikiMakeDiaryNoteNew()
     VimwikiMakeDiaryNote
@@ -1060,7 +1057,8 @@ nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.gem/*" --glob "!.venv/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..',
+            \ 'source': 'ag --hidden --ignore .git --nogroup --column --color "^(?=.)"'}, <bang>0)
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
@@ -1082,7 +1080,7 @@ command! -bang FT call fzf#vim#filetypes(<bang>0)
 nnoremap <Plug>(options_File-Type) :FT<CR>
 
 let g:lmap.f.f = 'in-File'
-nnoremap <Plug>(find_String) :Rg<CR>
+nnoremap <Plug>(find_String) :Ag<CR>
 nmap <silent> <leader>ff <Plug>(find_String)
 
 function! s:build_quickfix_list(lines)
@@ -1111,9 +1109,6 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_default_mapping = 0
 
-if g:largefile != 1
-    au VimEnter * :IndentGuidesEnable
-endif
 " }}}
 " -> Lightline {{{
 Plug 'itchyny/lightline.vim'
@@ -1312,6 +1307,11 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 
+" Helper
+function! GitShowBlockHistory()
+  exe ":G log -L " . string(getpos("'<'")[1]) . "," . string(getpos("'>'")[1]) . ":%"
+endfunction
+
 " Fugitive options
 "
 " shortcuts mapping
@@ -1326,6 +1326,7 @@ nnoremap <Plug>(git_Rebase) :G pull --rebase<CR>
 nnoremap <Plug>(git_Merge) :G pull<CR>
 nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
 vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
+vnoremap <Plug>(git_VHistory) :<C-U>call GitShowBlockHistory()<CR>
 
 let g:lmap.g.s = 'Status'
 nmap <silent> <leader>gs <Plug>(git_Status)
@@ -1353,6 +1354,8 @@ nmap <silent> <leader>gplm <Plug>(git_Merge)
 let g:lmap.g.g = 'Browse'
 nmap <silent> <leader>gg <Plug>(git_Browse)
 vmap <silent> <leader>gg <Plug>(git_VBrowse)
+let g:lmap.g.v = { 'name': '+Visual' }
+vmap <silent> <leader>gvh <Plug>(git_VHistory)
 
 " Gitgutter options
 let g:gitgutter_map_keys = 0
@@ -1796,11 +1799,19 @@ let g:lightline = {
 
 " }}}
 
+au! VimEnter * call AfterVimEnter()
+function! AfterVimEnter()
+    if g:largefile != 1
+        exe ":IndentGuidesEnable"
+    endif
+
+    call LoadVimwiki()
+endfunction
+
 " Load local vars {{{
 "
 try
     source ~/.vimrc.local
-    au! VimEnter * echo "Local vimrc has been read!"
 catch
     " Ignoring
 endtry
