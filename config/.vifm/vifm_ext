@@ -31,8 +31,8 @@
 filextype *.pdf
         \ {View in zathura}
         \ zathura %f &>/dev/null &,
-        \ {Open with Okular(flatpak)}
-        \ pdf-xchange %c %i,
+        \ {Open with MasterPDF}
+        \ masterpdfeditor4 %c %i,
 
 fileviewer *.pdf
         \ vifmimg pdfpreview %px %py %pw %ph %c
