@@ -21,7 +21,7 @@ def install_base(c):
         "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "nvme-cli", "xclip", "xsel", "par", "sshfs", "curlftpfs",
         "archivemount", "autorandr", "timeshift",
-        "rbenv", "ruby-build", "moc"
+        "rbenv", "ruby-build", "moc", "jq"
     ]
 
     paths_to_link = [
