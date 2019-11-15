@@ -1812,7 +1812,7 @@ function! AfterVimEnter()
     call LoadVimwiki()
 
     call deoplete#custom#source('_', 'sorters', ['sorter_rank'])
-    call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+    call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 endfunction
 
 " Load local vars {{{
