@@ -52,9 +52,17 @@ class NewTaskWindow(Prompt):
         super().__init__("New Task")
         self.entry.connect("activate", self.create_task)
 
+        self.label = Gtk.Label()
+
+        box = self.get_content_area()
+        box.add(self.label)
+
     def create_task(self, *args):
         task = self.entry.get_text()
-        create_new_task(task)
+        date = create_new_task(task)
+        self.label.set_text(date)
+
+    def exit(self, *args):
         self.destroy()
 
 
@@ -66,10 +74,18 @@ def show_prompt(prompt):
 def create_new_task(task):
     with open(CONFIG) as stream:
         api = todoist.TodoistAPI(stream.read())
-        res = api.add_item(task)
+        res = api.quick.add(task)
 
         if res.get("error_tag") == "AUTH_INVALID_TOKEN":
             show_prompt(APITokenPrompt("Invalid token"))
+
+        date = 'No due date'
+        if (due := res.get('due', None)):
+            if (due_date := due.get('string', None)):
+                date = f"Due date: {due_date}"
+
+        return date
+
 
 
 def main():
