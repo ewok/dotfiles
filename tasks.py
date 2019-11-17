@@ -16,7 +16,7 @@ def install_base(c):
     """Install base software."""
     packages_to_install = [
         "gcc", "xst", "albert", "tmux", "python2",
-        "python3", "python-virtualenv", "unzip",
+        "python3", "python-virtualenv", "unzip", "p7zip",
         "zsh-autosuggestions", "restic", "trash-cli",
         "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "nvme-cli", "xclip", "xsel", "par", "sshfs", "curlftpfs",
