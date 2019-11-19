@@ -15,7 +15,7 @@ def ensure_yay_exists(c):
 def install_base(c):
     """Install base software."""
     packages_to_install = [
-        "gcc", "xst", "albert", "tmux", "python2",
+        "gcc", "xst", "tmux", "python2",
         "python3", "python-virtualenv", "unzip", "p7zip",
         "zsh-autosuggestions", "restic", "trash-cli",
         "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
@@ -25,20 +25,18 @@ def install_base(c):
     ]
 
     paths_to_link = [
-        ("config/.tmux.conf", ".tmux.conf"),
-        ("config/.zshrc", ".zshrc"),
-        ("config/.zsh", ".zsh"),
-        ("config/.zprofile", ".zprofile"),
-        ("config/.i3", ".i3"),
-        ("config/.i3status.conf", ".i3status.conf"),
-        ("config/.xprofile", ".xprofile"),
-        ("config/.profile", ".profile"),
-        ("config/.Xresources", ".Xresources"),
-        ("config/.skhdrc", ".skhdrc"),
-        ("config/.yabairc", ".yabairc"),
-        ("bin", "bin"),
-        ("config/albert/modules", ".local/share/albert/org.albert.extension.python/modules"),
-        ("config/albert/albert.conf", ".config/albert/albert.conf"),
+        ("config/.tmux.conf", "~/.tmux.conf"),
+        ("config/.zshrc", "~/.zshrc"),
+        ("config/.zsh", "~/.zsh"),
+        ("config/.zprofile", "~/.zprofile"),
+        ("config/.i3", "~/.i3"),
+        ("config/.i3status.conf", "~/.i3status.conf"),
+        ("config/.xprofile", "~/.xprofile"),
+        ("config/.profile", "~/.profile"),
+        ("config/.Xresources", "~/.Xresources"),
+        ("config/.skhdrc", "~/.skhdrc"),
+        ("config/.yabairc", "~/.yabairc"),
+        ("bin", "~/bin"),
     ]
 
     packages_to_remove = [
@@ -46,9 +44,9 @@ def install_base(c):
     ]
 
     gitrepos_to_install = [
-        ("https://github.com/junegunn/fzf.git", ".fzf"),
-        ("https://github.com/tmux-plugins/tmux-resurrect", ".tmux/resurrect"),
-        ("git://github.com/robbyrussell/oh-my-zsh.git", ".oh-my-zsh"),
+        ("https://github.com/junegunn/fzf.git", "~/.fzf"),
+        ("https://github.com/tmux-plugins/tmux-resurrect", "~/.tmux/resurrect"),
+        ("git://github.com/robbyrussell/oh-my-zsh.git", "~/.oh-my-zsh"),
     ]
 
     pacman_remove(c, packages_to_remove)
@@ -56,10 +54,10 @@ def install_base(c):
     yay(c, packages_to_install)
 
     for pair in paths_to_link:
-        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+        makesl(pair[0], os.path.expanduser(pair[1]))
 
     for pair in gitrepos_to_install:
-        install_gitrepo(c, pair[0], os.path.join(os.environ['HOME'], pair[1]))
+        install_gitrepo(c, pair[0], os.path.expanduser(pair[1]))
 
     # FZF Installation
     c.run("$HOME/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion")
@@ -86,16 +84,16 @@ def install_mail(c):
     ]
 
     paths_to_link = [
-        ("config/.mbsyncrc", ".mbsyncrc"),
-        ("config/.msmtp", ".msmtp"),
-        ("config/muttrc", ".muttrc"),
-        ("config/mutt", ".mutt")
+        ("config/.mbsyncrc", "~/.mbsyncrc"),
+        ("config/.msmtp", "~/.msmtp"),
+        ("config/muttrc", "~/.muttrc"),
+        ("config/mutt", "~/.mutt")
     ]
 
     yay(c, packages_to_install)
 
     for pair in paths_to_link:
-        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+        makesl(pair[0], os.path.expanduser(pair[1]))
 
 
 @task
@@ -108,12 +106,12 @@ def install_editor(c):
     ]
 
     paths_to_link = [
-        ("config/.vim", ".vim"),
-        ("config/.vim", ".config/nvim"),
-        ("config/.ideavimrc", ".ideavimrc"),
-        ("config/.vifm", ".vifm"),
-        ("config/.vifm", ".config/vifm"),
-        ("config/.ctags", ".ctags"),
+        ("config/.vim", "~/.vim"),
+        ("config/.vim", "~/.config/nvim"),
+        ("config/.ideavimrc", "~/.ideavimrc"),
+        ("config/.vifm", "~/.vifm"),
+        ("config/.vifm", "~/.config/vifm"),
+        ("config/.ctags", "~/.ctags"),
     ]
 
     npm_packages_to_install = [
@@ -121,8 +119,8 @@ def install_editor(c):
     ]
 
     virtualenvs = [
-        ("share/venv/neovim2", "python2", ['neovim', 'pynvim']),
-        ("share/venv/neovim3", "python3", ['neovim', 'pynvim']),
+        ("~/share/venv/neovim2", "python2", ['neovim', 'pynvim']),
+        ("~/share/venv/neovim3", "python3", ['neovim', 'pynvim']),
     ]
 
     yay(c, packages_to_install)
@@ -130,12 +128,29 @@ def install_editor(c):
     npm_i(c, npm_packages_to_install)
 
     for pair in paths_to_link:
-        makesl(pair[0], os.path.join(os.environ['HOME'], pair[1]))
+        makesl(pair[0], os.path.expanduser(pair[1]))
 
     for element in virtualenvs:
-        install_virtualenv(c, os.path.join(os.environ['HOME'], element[0]), element[1], element[2])
+        install_virtualenv(c, os.path.expanduser(element[0]), element[1], element[2])
 
     c.run("nvim +PlugInstall +qall")
+
+@task
+def install_albert(c):
+    yay(c, ["albert"])
+
+    install_gitrepo(c, "https://github.com/IanS5/albert-todoist.git", os.path.expanduser("~/.albert_todoist"))
+
+    install_dir="~/.local/share/albert/org.albert.extension.python/modules"
+    paths_to_link = [
+        ("config/albert/modules/locate.py", "{0}/locate.py".format(install_dir)),
+        ("~/.albert_todoist/__init__.py", "{0}/Todoist/__init__.py".format(install_dir)),
+        ("~/.albert_todoist/todoist.svg", "{0}/Todoist/todoist.svg".format(install_dir)),
+        ("config/albert/albert.conf", "~/.config/albert/albert.conf"),
+    ]
+
+    for pair in paths_to_link:
+        makesl(os.path.expanduser(pair[0]), os.path.expanduser(pair[1]))
 
 # Not implemented yet
 # cat <<EOF> ~/.vale.ini
@@ -177,7 +192,7 @@ def install_editor(c):
 #  bundle install
 
 
-@task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor)
+@task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
 def install(c):
     """Install all."""
     print("Done")
