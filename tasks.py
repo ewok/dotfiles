@@ -135,6 +135,38 @@ def install_editor(c):
 
     c.run("nvim +PlugInstall +qall")
 
+    # Provide some configs
+    with open(os.path.expanduser('~/.vale.ini'), "w") as vale_config:
+
+        config = """# Core settings
+StylesPath = ci/vale/styles
+
+# The minimum alert level to display (suggestion, warning, or error).
+#
+# CI builds will only fail on error-level alerts.
+MinAlertLevel = warning
+
+# The "formats" section allows you to associate an "unknown" format
+# with one of Vale's supported formats.
+[formats]
+mdx = md
+
+# Global settings (applied to every syntax)
+[*]
+# List of styles to load
+BasedOnStyles = write-good, Joblint
+# Style.Rule = {YES, NO} to enable or disable a specific rule
+vale.Editorializing = YES
+# You can also change the level associated with a rule
+vale.Hedging = error
+
+# Syntax-specific settings
+# These overwrite any conflicting global settings
+[*.{md,txt}]
+vale.Editorializing = NO"""
+        print(config, file=vale_config)
+
+
 @task
 def install_albert(c):
     yay(c, ["albert"])
@@ -153,35 +185,6 @@ def install_albert(c):
         makesl(os.path.expanduser(pair[0]), os.path.expanduser(pair[1]))
 
 # Not implemented yet
-# cat <<EOF> ~/.vale.ini
-#  # Core settings
-#  StylesPath = ci/vale/styles
-
-#  # The minimum alert level to display (suggestion, warning, or error).
-#  #
-#  # CI builds will only fail on error-level alerts.
-#  MinAlertLevel = warning
-
-#  # The "formats" section allows you to associate an "unknown" format
-#  # with one of Vale's supported formats.
-#  [formats]
-#  mdx = md
-
-#  # Global settings (applied to every syntax)
-#  [*]
-#  # List of styles to load
-#  BasedOnStyles = write-good, Joblint
-#  # Style.Rule = {YES, NO} to enable or disable a specific rule
-#  vale.Editorializing = YES
-#  # You can also change the level associated with a rule
-#  vale.Hedging = error
-
-#  # Syntax-specific settings
-#  # These overwrite any conflicting global settings
-#  [*.{md,txt}]
-#  vale.Editorializing = NO
-#  EOF
-
 #  if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi
 #  git clone --depth 1 https://github.com/lingua-pupuli/puppet-editor-services.git $HOME/.puppetlsp
 #  cd $HOME/.puppetlsp
