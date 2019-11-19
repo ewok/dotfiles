@@ -1060,6 +1060,8 @@ nnoremap <silent> <leader>pB :BuffergatorToggle<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..',
             \ 'source': 'ag --hidden --ignore .git --nogroup --column --color "^(?=.)"'}, <bang>0)
 
@@ -1100,6 +1102,7 @@ let g:fzf_action = {
 
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-a:toggle-all,ctrl-space:toggle+down,ctrl-alt-a:deselect-all'
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+
 " }}}
 " -> Indent-guides {{{
 Plug 'nathanaelkane/vim-indent-guides'
