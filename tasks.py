@@ -1,5 +1,7 @@
 """Installation script."""
 import os
+import requests
+
 from invoke import task
 
 from helpers import makesl, npm_i, yay, pacman_remove, install_gitrepo, install_virtualenv
@@ -136,6 +138,13 @@ def install_editor(c):
         install_virtualenv(c, os.path.join(os.environ['HOME'], element[0]), element[1], element[2])
 
     c.run("nvim +PlugInstall +qall")
+
+
+@task
+def install_git(c):
+    r = requests.get('http://www.gitignore.io/api/go,python')
+    r.json()
+    os.path.expanduser()
 
 # Not implemented yet
 # cat <<EOF> ~/.vale.ini
