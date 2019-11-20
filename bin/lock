@@ -1,4 +1,5 @@
 #!/bin/bash
 scrot /tmp/screenshot.png
 convert /tmp/screenshot.png -blur 0x15 /tmp/screenshotblur.png
+xkb-switch -s us
 i3lock -i /tmp/screenshotblur.png

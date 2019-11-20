@@ -8,6 +8,9 @@ import -window root /tmp/screenshot.png
 convert /tmp/screenshot.png -blur 0x15 /tmp/screenshotblur.png
 rm /tmp/screenshot.png
 
+# Set lang to us
+xkb-switch -s us
+
 # lock the screen
 i3lock -i /tmp/screenshotblur.png
 
