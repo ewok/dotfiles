@@ -850,8 +850,8 @@ vmap <right> <Plug>SchleppRight
 " -> Easyalign {{{
 Plug 'junegunn/vim-easy-align'
 
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(LiveEasyAlign)
+xmap ga <Plug>(LiveEasyAlign)
 " }}}
 " -> Find and Replace {{{
 Plug 'brooth/far.vim'
@@ -1152,6 +1152,8 @@ let NERDTreeIgnore=['\.pyc$']
 " ReMaps
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapOpenSplit='s'
+let NERDTreeMapJumpNextSibling=''
+let NERDTreeMapJumpPrevSibling=''
 " }}}
 " -> Tmux {{{
 if has('gui_running')
