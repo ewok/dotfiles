@@ -1,5 +1,6 @@
 """Installation script."""
 import os
+import requests
 from invoke import task
 
 from helpers import makesl, npm_i, yay, pacman_remove, install_gitrepo, install_virtualenv
@@ -136,7 +137,20 @@ def install_editor(c):
     c.run("nvim +PlugInstall +qall")
 
     # Provide some configs
-    with open(os.path.expanduser('~/.vale.ini'), "w") as vale_config:
+
+    response = requests.get("http://www.gitignore.io/api/go,python,linux,macos")
+
+    if response.ok:
+        with open(os.path.expanduser("~/.gitexcludes"), "w") as gitignore_config:
+            print(response.text, file=gitignore_config)
+
+    c.run("git config --global alias.ignore "
+          "'!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi'")
+
+    c.run("git config --global core.excludesfile '~/.gitexcludes'")
+    c.run("git config --global credential.helper '/usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring'")
+
+    with open(os.path.expanduser("~/.vale.ini"), "w") as vale_config:
 
         config = """# Core settings
 StylesPath = ci/vale/styles
