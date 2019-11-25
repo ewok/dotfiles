@@ -11,9 +11,9 @@ def npm_i(c, packages_to_install):
 
 def yay(c, packages_to_install):
     """Install package via yay."""
-    c.run("yay -Syu --nocleanmenu"
-          " --nodiffmenu --noeditmenu"
-          " --noupgrademenu --needed {0}".format(
+    c.run("yay -Syu --answerclean None"
+          " --answerdiff None --answeredit None"
+          " --answerupgrade None --needed {0}".format(
               " ".join(packages_to_install)
           ))
 
@@ -32,6 +32,10 @@ def makesl(what, where):
     what = os.path.abspath(what)
     where = os.path.abspath(where)
 
+    # Dummy check
+    if len(where) <= 10:
+        raise Exception("Too small path to delete - {0} - {1}".format(len(where), where))
+
     if os.path.exists(what):
         if not os.path.exists(where):
             if os.path.islink(where):
@@ -45,7 +49,20 @@ def makesl(what, where):
             os.symlink(what, where)
             print("Created link {0} -> {1}".format(what, where))
         else:
-            print("Link exists {0}".format(where))
+            if not os.path.islink(where):
+                if os.path.isdir(where):
+                    shutil.rmtree(where)
+                else:
+                    os.remove(where)
+
+                # Ensure parent exists
+                if not os.path.exists(os.path.dirname(where)):
+                    os.makedirs(os.path.dirname(where))
+
+                os.symlink(what, where)
+                print("Created link {0} -> {1}".format(what, where))
+            else:
+                print("Link exists {0}".format(where))
     else:
         print("Source is not valid: {}".format(what))
 
