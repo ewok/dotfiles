@@ -1063,7 +1063,7 @@ Plug 'junegunn/fzf.vim'
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..',
-            \ 'source': 'ag --hidden --ignore .git --nogroup --column --color "^(?=.)"'}, <bang>0)
+            \ 'source': 'ag --hidden --ignore .git -U -p ~/.gitexcludes --nogroup --column --color "^(?=.)"'}, <bang>0)
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
@@ -1131,8 +1131,17 @@ endfunction
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
-nnoremap <leader>pn : NERDTreeToggle<CR>
-nnoremap <Plug>(find_Path) :NERDTreeFind<CR>
+nnoremap <leader>pn :NERDTreeToggle<CR>
+nnoremap <Plug>(find_Path) :call FindPathOrShowNERDTree()<CR>
+
+function! FindPathOrShowNERDTree()
+    let currentfile = expand('%')
+    if (currentfile == "") || !(currentfile !~? 'NERD')
+        NERDTreeToggle
+    else
+        NERDTreeFind
+    endif
+endfunction
 
 let g:lmap.f.p = 'Path'
 nmap <leader>fp <Plug>(find_Path)
