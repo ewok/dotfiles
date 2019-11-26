@@ -151,6 +151,7 @@ def install_editor(c):
 
     c.run("git config --global core.excludesfile '~/.gitexcludes'")
     c.run("git config --global credential.helper '/usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring'")
+    c.run('git config --global --replace-all core.pager "less -F -X"')
 
     with open(os.path.expanduser("~/.vale.ini"), "w") as vale_config:
 

@@ -11,7 +11,7 @@ def npm_i(c, packages_to_install):
 
 def yay(c, packages_to_install):
     """Install package via yay."""
-    c.run("yay -Syu --answerclean None"
+    c.run("yes | yay -Syu --answerclean None"
           " --answerdiff None --answeredit None"
           " --answerupgrade None --needed {0}".format(
               " ".join(packages_to_install)
@@ -21,7 +21,7 @@ def yay(c, packages_to_install):
 def pacman_remove(c, packages_to_remove):
     """Remove unnecessary packages."""
     try:
-        c.run("sudo pacman -Rscn {0}".format(" ".join(packages_to_remove)))
+        c.run("yes | sudo pacman -Rscn {0}".format(" ".join(packages_to_remove)))
     except Failure:
         print("Packages might be removed.")
 
