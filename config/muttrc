@@ -15,7 +15,7 @@ set new_mail_command="notify-send -i /usr/share/icons/Papirus/32x32/apps/email.s
 
 # View and reply with different formats
 reply-hook . '`touch /tmp/reply_flag`'
-message-hook . 'set mailcap_path = ~/.mutt/mailcap`if [ -e /tmp/reply_flag ];then echo "_reply";rm -f /tmp/reply_flag;fi`'
+message-hook . '`if [ ! -e /tmp/reply_flag ];then echo "set mailcap_path=~/.mutt/mailcap";else rm -f /tmp/reply_flag;fi`'
 
 set date_format="%m/%d %I:%M"
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"

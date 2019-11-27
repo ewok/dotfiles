@@ -34,6 +34,12 @@ macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index,pager,attach rm "<enter-command>set signature=~/.signature_main_md<enter><enter-command>set mailcap_path=~/.mutt/mailcap_reply<enter><reply>"
+macro index,pager,attach rp "<enter-command>set signature=~/.signature_main_plain<enter><enter-command>set mailcap_path=~/.mutt/mailcap<enter><reply>"
+macro index,pager,attach RM "<enter-command>set signature=~/.signature_main_md<enter><enter-command>set mailcap_path=~/.mutt/mailcap_reply<enter><group-reply>"
+macro index,pager,attach RP "<enter-command>set signature=~/.signature_main_plain<enter><enter-command>set mailcap_path=~/.mutt/mailcap<enter><group-reply>"
+macro index,pager,attach LM "<enter-command>set signature=~/.signature_main_md<enter><enter-command>set mailcap_path=~/.mutt/mailcap_reply<enter><list-reply>"
+macro index,pager,attach LP "<enter-command>set signature=~/.signature_main_plain<enter><enter-command>set mailcap_path=~/.mutt/mailcap<enter><list-reply>"
 
 bind index F imap-fetch-mail
 
