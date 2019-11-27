@@ -1131,7 +1131,7 @@ endfunction
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
-nnoremap <leader>pn :NERDTreeToggle<CR>
+nnoremap <leader>pn :NERDTreeToggle<Bar>wincmd p<CR>
 nnoremap <Plug>(find_Path) :call FindPathOrShowNERDTree()<CR>
 
 function! FindPathOrShowNERDTree()
@@ -1185,10 +1185,27 @@ nmap <leader>z :call ZoomToggle()<CR>
 
 function! ZoomToggle()
     if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-        exe ':tabdo NERDTreeClose'
+        exe ':NERDTreeClose'
+        let zoom_nerd = 1
+    endif
+
+    if (exists("t:tagbar_buf_name") && bufwinnr(t:tagbar_buf_name) != -1)
+        exe ':TagbarClose'
+        let zoom_tag = 1
     endif
 
     call zoom#toggle()
+
+    if (exists("zoom_nerd") && (zoom_nerd == 1))
+        exe ':NERDTreeCWD'
+        exe ':wincmd p'
+        unlet zoom_nerd
+    endif
+
+    if (exists("zoom_tag") && (zoom_tag == 1))
+        exe ':TagbarOpen'
+        unlet zoom_tag
+    endif
 endfunction
 "  }}}
 " -> Autoread{{{
@@ -1457,9 +1474,14 @@ let g:sessiondir = $HOME . "/.vim/local/sessions"
 
 function! MakeSession(file)
 
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-  exe ':tabdo NERDTreeClose'
-  endif
+    if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        exe ':tabdo NERDTreeClose'
+    endif
+
+    if (exists("t:tagbar_buf_name") && bufwinnr(t:tagbar_buf_name) != -1)
+        exe ':tabdo TagbarClose'
+    endif
+
   exe ':lclose|cclose'
 
   let file = a:file
