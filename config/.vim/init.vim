@@ -1450,6 +1450,7 @@ Plug 'tpope/vim-repeat'
 Plug 'vitorgalvao/autoswap_mac'
 Plug 'tomtom/tlib_vim'
 Plug 'chaoren/vim-wordmotion'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Fonts
 Plug 'powerline/fonts'
@@ -1765,10 +1766,7 @@ function! ToggleList(bufname, pfx)
 endfunction
 
 function! QFixSwitch(direction)
-    if ! exists("g:qfix_win")
-        QFix
-    endif
-
+    exec('copen')
     if a:direction == 'next'
         try
             cnext
@@ -1791,8 +1789,8 @@ endfunction
 nnoremap <Plug>(qfix_Toggle) :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <Plug>(qfix_Open) :copen<CR>
 nnoremap <Plug>(qfix_Close) :cclose<CR>
-nnoremap <Plug>(qfix_QNext) :QFixSwitch 'next'<CR>
-nnoremap <Plug>(qfix_QPrev) :QFixSwitch 'prev'<CR>
+nnoremap <Plug>(qfix_QNext) :call QFixSwitch('next')<CR>
+nnoremap <Plug>(qfix_QPrev) :call QFixSwitch('prev')<CR>
 let g:lmap.q.q = 'toggle'
 nmap <leader>qq  <Plug>(qfix_Toggle)
 let g:lmap.q.o = 'Open'
