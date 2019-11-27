@@ -58,15 +58,11 @@ nnoremap <f10> :q<cr>
 
 " Like in MC
 nnoremap <c-s> /
-nnoremap <a-i> :sync<cr>
-nnoremap <a-o> :sync %c<cr><down>
-nnoremap <a-x> :q<cr>
-nnoremap <m-x> :q<cr>
-nnoremap <a-?> :find<space>
-nnoremap <f16> cw<c-a>
+nnoremap <m-i> :sync<cr>
+nnoremap <c-w>f :sync %c<cr><down>
+nnoremap <m-?> :find<space>
 
 " Selecting like in MC
-nnoremap <a-j> :j<space>
 nnoremap J av<c-g><c-g><c-m>j
 nnoremap K av<c-g><c-g><c-m>k
 
