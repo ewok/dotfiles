@@ -1181,7 +1181,15 @@ endif
 " -> Zoom {{{
 Plug 'dhruvasagar/vim-zoom'
 let g:lmap.z = 'Zoom'
-nmap <leader>z <Plug>(zoom-toggle)
+nmap <leader>z :call ZoomToggle()<CR>
+
+function! ZoomToggle()
+    if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        exe ':tabdo NERDTreeClose'
+    endif
+
+    call zoom#toggle()
+endfunction
 "  }}}
 " -> Autoread{{{
 Plug 'djoshea/vim-autoread'
