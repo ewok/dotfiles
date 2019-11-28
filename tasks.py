@@ -211,6 +211,17 @@ def install_albert(c):
 #  gem install puppet puppet-lint r10k
 #  bundle install
 
+@task
+def install_printer(c):
+    yay(c, ["cups", "xsane"])
+    install_gitrepo(c, "https://github.com/ondrej-zary/carps-cups.git", os.path.expanduser("~/tmp/carps-cups"))
+    c.run(
+        "cd ~/tmp/carps-cups;"
+        "make && sudo make install;"
+        "rm -rf ~/tmp/carps-cups;"
+        "sudo systemctl enable cups-browsed.service;"
+        "sudo systemctl start cups-browsed.service"
+    )
 
 @task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
 def install(c):
