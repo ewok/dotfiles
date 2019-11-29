@@ -315,13 +315,13 @@ nmap  <right> <Nop>
 
 " "  }}}
 " -> TODOs {{{
-inoremap \td <C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+inoremap \td <C-R>=split(&commentstring, '%s')[0] . 'TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 inoremap \dts <C-R>=strftime("%Y-%m-%d %H:%M:%S") . " "<CR>
 inoremap \fl <C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR>
 inoremap \fp <C-R>=expand("%:h") . '/' . expand("%:t")<CR>
 
 let g:lmap.t.d = 'to-Do'
-nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . ' @todo '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
+nnoremap <leader>td O<C-R>=split(&commentstring, '%s')[0] . 'TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 
 let g:lmap.o.t = 'To-do'
 nnoremap <leader>ot :call OpenToDo()<CR>
