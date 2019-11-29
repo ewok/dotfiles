@@ -243,10 +243,10 @@ if exists('$TMUX')
     nnoremap <Plug>(window_new-tmux) :!tmux new-window<CR><CR>
     nmap <silent><C-W>T <Plug>(window_new-tmux)
 
-    nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 30<CR><CR>
+    nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 20<CR><CR>
     nmap <silent><C-W>S <Plug>(window_split-tmux)
 
-    nnoremap <Plug>(window_vsplit-tmux) :!tmux split-window -h -p 30<CR><CR>
+    nnoremap <Plug>(window_vsplit-tmux) :!tmux split-window -h -p 20<CR><CR>
     nmap <silent><C-W>V <Plug>(window_vsplit-tmux)
 endif
 
