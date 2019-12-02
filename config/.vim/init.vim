@@ -332,7 +332,8 @@ function! OpenToDo()
   hi P1 guifg=Red ctermfg=Red term=Bold
   hi P2 guifg=LightRed ctermfg=LightRed term=Bold
   hi P3 guifg=LightYellow ctermfg=LightYellow term=Bold
-  hi P4 guifg=Grey ctermfg=Grey term=Italic
+  hi P4 guifg=LightGrey ctermfg=Grey term=Italic
+  hi DONE guifg=DarkGreen ctermfg=Grey term=Italic
 
   call matchadd('TODO', 'TODO')
   call matchadd('TODO', '@todo')
@@ -340,6 +341,7 @@ function! OpenToDo()
   syn match P2 ".*\[[^X]\]\s\+[pP]2.*$"
   syn match P3 ".*\[[^X]\]\s\+[pP]3.*$"
   syn match P4 ".*\[[^X]\]\s\+[pP]4.*$"
+  syn match DONE ".*\[[X]\]\s.*$"
 endfunction
 
 let g:lmap.t.h = 'To-Html'
