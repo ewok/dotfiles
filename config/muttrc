@@ -14,8 +14,9 @@ unset collapse_unread
 set new_mail_command="notify-send -i /usr/share/icons/Papirus/32x32/apps/email.svg -t 5000 '%n new messages, %u unread.'"
 
 # View and reply with different formats
-reply-hook . 'push "<shell-escape>touch /tmp/reply_flag<enter>"'
-message-hook . 'push "<shell-escape>if [ ! -e /tmp/reply_flag ];then echo \"set mailcap_path=~/.mutt/mailcap\";else rm -f /tmp/reply_flag;fi<enter>"'
+# reply-hook . 'push "<shell-escape>touch /tmp/reply_flag<enter>"'
+# message-hook . 'push "<shell-escape>if [ ! -e /tmp/reply_flag ];then echo \"set mailcap_path=~/.mutt/mailcap\";else rm -f /tmp/reply_flag;fi<enter>"'
+send2-hook . 'set mailcap_path=~/.mutt/mailcap'
 
 set date_format="%m/%d %I:%M"
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
