@@ -61,3 +61,7 @@ macro index,pager,attach RM "<enter-command>set signature=~/.signature_work_md<e
 macro index,pager,attach RP "<enter-command>set signature=~/.signature_work_plain<enter><enter-command>set mailcap_path=~/.mutt/mailcap<enter><group-reply>"
 macro index,pager,attach LM "<enter-command>set signature=~/.signature_work_md<enter><enter-command>set mailcap_path=~/.mutt/mailcap_reply<enter><list-reply>"
 macro index,pager,attach LP "<enter-command>set signature=~/.signature_work_plain<enter><enter-command>set mailcap_path=~/.mutt/mailcap<enter><list-reply>"
+
+timeout=60
+timeout-hook 'exec sync-mailbox'
+shutdown-hook 'exec sync-mailbox'
