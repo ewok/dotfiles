@@ -90,10 +90,8 @@ au InsertLeave * set timeoutlen=500
 set encoding=utf-8
 set fenc=utf-8 enc=utf-8 tenc=utf-8
 scriptencoding utf-8
-
 " }}}
 " -> Wildmenu completion {{{
-"
 set wildmenu
 set wildmode=longest,list
 
@@ -107,21 +105,17 @@ set wildignore+=*sass-cache*
 set wildignore+=*.DS_Store
 set wildignore+=log/**
 set wildignore+=tmp/**
-
 " }}}
 " -> Cursorline {{{
 "
 " cursorline switched while focus is switched to another split window
-
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
     au WinEnter,InsertLeave * set cursorline
 augroup END
-
 " }}}
 " -> Restore cursor {{{
-
 augroup line_return
     au!
     au BufReadPost *
@@ -129,7 +123,6 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
-
 " }}}
 " -> NeoVim settings  {{{
 "
@@ -149,9 +142,8 @@ tnoremap <Esc> <C-\><C-n>
 if (has("termguicolors"))
     set termguicolors
 endif
-
 " }}}
-" -> Deal with largefiles  {{{
+" -> Dealing with largefiles  {{{
 "
 " Protect large files from sourcing and other overhead.
 " Files become read only
@@ -206,9 +198,7 @@ augroup rnu
     au InsertEnter * :set nornu
     au InsertLeave * :set rnu
 augroup END
-
 " }}}
-
 " }}}
 
 " -> Leader Initialisation {{{
@@ -227,15 +217,14 @@ let g:lmap.t = { 'name': '+Tags-To' }
 let g:lmap.w = { 'name': '+Wiki' }
 let g:lmap.y = { 'name': '+Yank' }
 let g:lmap.z = { 'name': '+Zeal' }
-
-"  }}}
+" }}}
 
 " Keymaps ----------------------------------------------------------------- {{{
 " -> Tabs {{{
 " map gr gT
 nnoremap <C-W>t :tabnew<CR>
 
-"  }}}
+" }}}
 " -> Windows {{{
 
 " Tmux?
@@ -259,7 +248,7 @@ if bufwinnr(1)
   map <C-W><BS> :vertical resize -6<CR>
 endif
 
-"  }}}
+" }}}
 " -> Buffers {{{
 " Allow to copy/paste between VIM instances
 " "copy the current visual selection to ~/.vbuf
@@ -302,7 +291,7 @@ nmap zj zjmzzMzvzz15<c-e>`z
 nmap zk zkmzzMzvzz15<c-e>`z
 
 " " }}}
-" " -> Switch off bad habits {{{
+" -> Switch off bad habits {{{
 imap  <up>    <Nop>
 imap  <down>  <Nop>
 imap  <left>  <Nop>
@@ -312,8 +301,7 @@ nmap  <up>    <Nop>
 nmap  <down>  <Nop>
 nmap  <left>  <Nop>
 nmap  <right> <Nop>
-
-" "  }}}
+" }}}
 " -> TODOs {{{
 inoremap \td <C-R>=split(&commentstring, '%s')[0] . 'TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 inoremap \dts <C-R>=strftime("%Y-%m-%d %H:%M:%S") . " "<CR>
@@ -347,7 +335,7 @@ endfunction
 let g:lmap.t.h = 'To-Html'
 nnoremap <leader>th :TOhtml<CR>
 vnoremap <leader>th :TOhtml<CR>
-"  }}}
+" }}}
 " -> Some vim tunings {{{
 nnoremap Y y$
 
@@ -378,7 +366,7 @@ nnoremap L $
 " Swap ; :
 nnoremap ; :
 
-"  }}}
+" }}}
 " }}}
 " Filetypes --------------------------------------------------------------- {{{
 " -> Ansible/Yaml {{{
@@ -404,7 +392,7 @@ augroup ft_ansible
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Yaml {{{
 augroup ft_yaml
     au!
@@ -416,20 +404,20 @@ augroup ft_yaml
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Config {{{
 augroup ft_config
     au!
     au BufNewFile,BufRead *.conf,*.cfg,*.ini set filetype=config
     au FileType config setlocal commentstring=#\ %s
 augroup END
-"  }}}
+" }}}
 " -> GitIgnore {{{
 augroup ft_git
     au!
     au BufNewFile,BufRead *.gitignore set filetype=gitignore
 augroup END
-"  }}}
+" }}}
 " -> Go {{{
 augroup ft_go
     au!
@@ -457,25 +445,25 @@ augroup ft_go
     endfunction
 
 augroup END
-"  }}}
+" }}}
 " -> JSON {{{
 augroup ft_json
     au!
     au BufNewFile,BufRead *.json set filetype=javascript
 augroup END
-"  }}}
+" }}}
 " -> Haskell {{{
 augroup ft_haskell
     au!
     au BufNewFile,BufRead *.hs,*.lhs set filetype=haskell
 augroup END
-"  }}}
+" }}}
 " -> Logstash {{{
 augroup ft_logstash
     au!
     au FileType logstash setlocal foldmethod=marker|setlocal foldmarker={,}|setlocal wrap
 augroup END
-"  }}}
+" }}}
 " -> Markdown {{{
 augroup ft_markdown
     au!
@@ -491,14 +479,14 @@ augroup ft_markdown
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Morph {{{
 augroup ft_morph
     au!
     au BufNewFile,BufRead *.b64,*.base64 set filetype=base64
     au BufNewFile,BufRead *.enc,*.gpg set filetype=encrypted
 augroup END
-"  }}}
+" }}}
 " -> Python {{{
 augroup ft_python
     au!
@@ -540,7 +528,7 @@ augroup ft_python
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Puppet {{{
 augroup ft_puppet
     au!
@@ -554,11 +542,10 @@ augroup ft_puppet
         nmap <buffer> <leader>rL :!gem install puppet puppet-lint r10k yaml-lint<CR>:ALEInfo<CR>
 
         " let b:ale_linters = ['puppet', 'puppetlint']
-        let g:ale_puppet_languageserver_executable = '~/.puppetlsp/puppet-languageserver'
     endfunction
 
 augroup END
-"  }}}
+" }}}
 " -> Rust {{{
 augroup ft_rust
     au!
@@ -575,7 +562,7 @@ augroup ft_rust
     endfunction
 
 augroup END
-"  }}}
+" }}}
 " -> Vim {{{
 augroup ft_vim
     au!
@@ -584,7 +571,7 @@ augroup ft_vim
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
     au FileType vim call LoadVimFT()
-    function! LoadVimFT() " {{{ 
+    function! LoadVimFT() " {{{
         let g:lmap.r.S = 'Source-line'
         setlocal foldmethod=marker keywordprg=:help
         setlocal commentstring=\"\ %s
@@ -594,7 +581,7 @@ augroup ft_vim
         nmap <buffer> <leader>rr :source %<CR>:echon "script reloaded!"<CR>
         vnoremap <buffer> <leader>rS y:@"<CR>
         nnoremap <buffer> <leader>rS ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
-    endfunction
+      endfunction " }}}
 
 augroup END
 " }}}
@@ -603,7 +590,7 @@ augroup ft_zsh
     au!
     au BufNewFile,BufRead *.zsh-theme set filetype=zsh
 augroup END
-"  }}}
+" }}}
 " -> Markdown {{{
 augroup ft_md
     au!
@@ -615,7 +602,7 @@ augroup ft_md
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Shell {{{
 augroup ft_sh
     au!
@@ -627,7 +614,7 @@ augroup ft_sh
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Vimwiki {{{
 augroup ft_vimwiki
     au!
@@ -639,7 +626,7 @@ augroup ft_vimwiki
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Dockerfile {{{
 augroup ft_dockerfile
     au!
@@ -650,18 +637,17 @@ augroup ft_dockerfile
     endfunction " }}}
 
 augroup END
-"  }}}
+" }}}
 " -> Mail {{{
 augroup ft_mail
     au!
     au FileType mail map <buffer> <leader>rr :%!pandoc -f markdown_mmd -t html<CR>
 augroup END
-"  }}}
+" }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
 call plug#begin('~/.vim/local/plugged')
-
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
@@ -692,7 +678,7 @@ function! LoadRust()
     let g:racer_experimental_completer = 1
 endfunction
 
-"  }}}
+" }}}
 " -> Go {{{
 "  TODO: Still not working
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -727,7 +713,7 @@ endfunction " }}}
 " }}}
 " -> Logstash {{{
 Plug 'robbles/logstash.vim'
-"  }}}
+" }}}
 " -> Markdown {{{
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
 au! User vim-livedown call LoadLivedown()
@@ -787,7 +773,6 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
 Plug 'mattn/emmet-vim', { 'for': 'javascript.jsx' }
 " }}}
 " }}}
-" }}}
 " Info plugins ------------------------------------------------------------ {{{
 " -> Zeal {{{
 Plug 'KabbAmine/zeavim.vim'
@@ -807,7 +792,7 @@ let g:zv_file_types = {
             \   'yaml.ansible'        : 'ansible',
             \   'jinja2'              : 'jinja',
             \ }
-"  }}}
+" }}}
 " }}}
 " Motion plugins ---------------------------------------------------------- {{{
 " -> Easymotion {{{
@@ -838,7 +823,7 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
-"  }}}
+" }}}
 " }}}
 " Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
@@ -1209,11 +1194,11 @@ function! ZoomToggle()
         unlet zoom_tag
     endif
 endfunction
-"  }}}
+" }}}
 " -> Autoread{{{
 Plug 'djoshea/vim-autoread'
 let autoreadargs={'autoread':1} 
-"  }}}
+" }}}
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
 " -> Commentary {{{
@@ -1227,7 +1212,7 @@ Plug 'deoplete-plugins/deoplete-tag'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 let g:deoplete#enable_at_startup = 1
-
+" }}}
 " -> Snippets {{{
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -1435,10 +1420,10 @@ let g:ale_sign_warning = '..'
 " }}}
 " -> AutoIndent {{{
 Plug 'tpope/vim-sleuth'
-"  }}}
+" }}}
 " -> SortFolds {{{
 Plug 'obreitwi/vim-sort-folds'
-"  }}}
+" }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "
@@ -1460,15 +1445,10 @@ Plug 'powerline/fonts'
 " Colorscheme
 Plug 'KeitaNakamura/neodark.vim'
 
-" Git time manager
-" Plug 'git-time-metric/gtm-vim-plugin'
-
 let g:peekaboo_delay = 1000
 
 " }}}
-
 call plug#end()
-
 " }}}
 " Simple plugins ---------------------------------------------------------- {{{
 
