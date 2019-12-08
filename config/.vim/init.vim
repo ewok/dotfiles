@@ -199,6 +199,12 @@ augroup rnu
     au InsertLeave * :set rnu
 augroup END
 " }}}
+" -> RunCmd {{{
+"
+function! RunCmd(cmd)
+  exe "!" . a:cmd
+endfunction
+" }}}
 " }}}
 
 " -> Leader Initialisation {{{
@@ -212,8 +218,8 @@ let g:lmap.o = { 'name': '+Open'}
 let g:lmap.p = { 'name': '+CtrlP'}
 let g:lmap.q = { 'name': '+QFix' }
 let g:lmap.r = { 'name': '+Run' }
-let g:lmap.s = { 'name': '+Session' }
-let g:lmap.t = { 'name': '+Tags-To' }
+let g:lmap.s = { 'name': '+Session-Sort' }
+let g:lmap.t = { 'name': '+Tags-To-Text' }
 let g:lmap.w = { 'name': '+Wiki' }
 let g:lmap.y = { 'name': '+Yank' }
 let g:lmap.z = { 'name': '+Zeal' }
@@ -338,6 +344,7 @@ vnoremap <leader>th :TOhtml<CR>
 " }}}
 " -> Some vim tunings {{{
 nnoremap Y y$
+nnoremap vv V
 
 " Don't yank to default register when changing something
 nnoremap c "xc
@@ -494,9 +501,9 @@ augroup ft_python
     au FileType python call LoadPythonFT()
     function! LoadPythonFT() " {{{
 
-        nmap <buffer> <leader>rr :w\|!python % <CR>
-        nmap <buffer> <leader>rt :w\|!python -m unittest <CR>
-        nmap <buffer> <leader>rT :w\|!python -m unittest %<CR>
+        nmap <buffer> <leader>rr :w\|call RunCmd("python " . bufname("%"))<CR>
+        nmap <buffer> <leader>rt :w\|call RunCmd("python -m unittest " . bufname("%"))<CR>
+        nmap <buffer> <leader>rT :w\|call RunCmd("python -m unittest")<CR>
         nmap <buffer> <leader>rL :!pip install flake8 mypy pylint bandit pydocstyle pudb jedi<CR>:ALEInfo<CR>
 
         let g:lmap.r.b = 'Breakpoint'
@@ -537,8 +544,8 @@ augroup ft_puppet
     function! LoadPuppetFT()
         setlocal commentstring=#\ %s
 
-        nmap <buffer> <leader>rr :w\|!puppet % <CR>
-        nmap <buffer> <leader>rt :w\|!puppet parser validate <CR>
+        nmap <buffer> <leader>rr :w\|call RunCmd("puppet " . bufname("%"))<CR>
+        nmap <buffer> <leader>rt :w\|call RunCmd("puppet parser validate")<CR>
         nmap <buffer> <leader>rL :!gem install puppet puppet-lint r10k yaml-lint<CR>:ALEInfo<CR>
 
         " let b:ale_linters = ['puppet', 'puppetlint']
@@ -609,7 +616,7 @@ augroup ft_sh
 
     au FileType sh call LoadShFT()
     function! LoadShFT() " {{{
-        nmap <buffer> <leader>rr :w\|!bash % <CR>
+        nmap <buffer> <leader>rr :w\|call RunCmd("bash " . bufname("%"))<CR>
         let b:ale_linters = ['shellcheck', 'language_server']
     endfunction " }}}
 
@@ -660,15 +667,6 @@ endfunction
 " -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " }}}
-" -> Dlang {{{
-Plug 'idanarye/vim-dutyl', { 'for': 'd'  }
-au! User vim-dutyl call LoadDutyl()
-
-function! LoadDutyl() " {{{
-    let g:dutyl_stdImportPaths=['/Library/D/dmd/src/druntime/import','/Library/D/dmd/src/phobos']
-endfunction " }}}
-
-" }}}
 " -> Rust {{{
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
@@ -712,7 +710,7 @@ endfunction " }}}
 
 " }}}
 " -> Logstash {{{
-Plug 'robbles/logstash.vim'
+Plug 'robbles/logstash.vim', { 'for': 'logstash' }
 " }}}
 " -> Markdown {{{
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
@@ -751,6 +749,7 @@ function! LoadJedi() " {{{
     let g:jedi#rename_command = "<leader>rR"
     let g:jedi#completions_enabled = 0
     let g:jedi#use_splits_not_buffers = "right"
+    let g:jedi#goto_stubs_command = ""
 
     let g:deoplete#sources#jedi#show_docstring = 1
 endfunction " }}}
@@ -775,12 +774,7 @@ Plug 'mattn/emmet-vim', { 'for': 'javascript.jsx' }
 " }}}
 " Info plugins ------------------------------------------------------------ {{{
 " -> Zeal {{{
-Plug 'KabbAmine/zeavim.vim'
-" nmap <silent> <leader>zi <Plug>Zeavim
-" vmap <silent> <leader>z <Plug>ZVVisSelection
-" nmap gz <Plug>ZVOperator
-" nmap <leader>zo <Plug>ZVKeyDocset
-
+Plug 'KabbAmine/zeavim.vim', { 'on': ['<Plug>Zeavim', '<Plug>ZVVisSelection', '<Plug>ZVKeyDocset', '<Plug>ZVOperator'] }
 nmap gzz <Plug>Zeavim
 vmap gzz <Plug>ZVVisSelection
 
@@ -816,18 +810,10 @@ map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
 map sh <Plug>(easymotion-linebackward)
 " }}}
-" -> Which-Key {{{
-Plug 'liuchengxu/vim-which-key'
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
-" }}}
 " }}}
 " Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
-Plug 'zirrostig/vim-schlepp'
+Plug 'zirrostig/vim-schlepp', { 'on': ['<Plug>SchleppUp', '<Plug>SchleppRight', '<Plug>SchleppLeft', '<Plug>SchleppDown'] }
 
 vmap <up>    <Plug>SchleppUp
 vmap <down>  <Plug>SchleppDown
@@ -835,13 +821,13 @@ vmap <left>  <Plug>SchleppLeft
 vmap <right> <Plug>SchleppRight
 " }}}
 " -> Easyalign {{{
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(LiveEasyAlign)'] }
 
 nmap ga <Plug>(LiveEasyAlign)
 xmap ga <Plug>(LiveEasyAlign)
 " }}}
 " -> Find and Replace {{{
-Plug 'brooth/far.vim'
+Plug 'brooth/far.vim', { 'on': 'Far' }
 
 let g:far#source = 'agnvim'
 let g:far#file_mask_favorites = ['%', '.*', '\.py$', '\.go$']
@@ -858,9 +844,8 @@ Plug 'd0c-s4vage/vim-morph', { 'for': [ 'base64', 'encrypted']}
 " -> Mundo {{{
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-nmap <Plug>(undo_Undo) :MundoToggle<CR><CR>
 let g:lmap.u = 'Undo'
-nmap <silent> <leader>u <Plug>(undo_Undo)
+nmap <silent> <leader>u :MundoToggle<CR><CR>
 "
 if has('persistent_undo')
   silent !mkdir ~/.vim/local/backups > /dev/null 2>&1
@@ -882,12 +867,12 @@ let g:surround_{char2nr("d")} = "<div\1id: \r..*\r id=\"&\"\1>\r</div>"
 let g:surround_{char2nr("x")} = "<\1id: \r..*\r&\1>\r</\1\1>"
 " }}}
 " -> Texting {{{
-Plug 'https://github.com/junegunn/goyo.vim'
-Plug 'https://github.com/junegunn/limelight.vim'
+Plug 'https://github.com/junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'https://github.com/junegunn/limelight.vim', { 'on': 'Limelight' }
 
 " Spell Check
 let g:myLangList=["nospell","en_us", "ru_ru"]
-" let g:myLangListGr=["nospell","en-US","ru-RU"]
+
 function! ToggleSpell()
   if !exists( "b:myLang" )
     if &spell
@@ -908,7 +893,10 @@ function! ToggleSpell()
   echo "spell checking language:" g:myLangList[b:myLang]
 endfunction
 
-nmap <silent> <F7> :call ToggleSpell()<CR>
+nnoremap <silent> <F7> :call ToggleSpell()<CR>
+
+let g:lmap.t.s = 'Syntax'
+nnoremap <silent> <leader>ts :call ToggleSpell()<CR>
 imap <silent> <F7> <ESC>:call ToggleSpell()<CR>a
 
 " Focus on the process
@@ -938,7 +926,8 @@ endfunction
 au! User GoyoEnter nested call <SID>goyo_enter()
 au! User GoyoLeave nested call <SID>goyo_leave()
 
-map <silent> <F8> :Goyo<CR>
+let g:lmap.t.t = 'Text-only(Goyo)'
+nnoremap <silent> <leader>tt :Goyo<CR>
 " }}}
 " -> Xkb {{{
 Plug 'lyokha/vim-xkbswitch'
@@ -961,7 +950,7 @@ let g:XkbSwitchSkipFt = [ 'nerdtree' ]
 
 " }}}
 " -> Yank {{{
-Plug 'idanarye/vim-yankitute'
+Plug 'idanarye/vim-yankitute', { 'on': 'Yankitute' }
 
 nmap <expr>  MR  ':%s/\(' . @/ . '\)//g<LEFT><LEFT>'
 nmap <expr>  MY  ':%Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
@@ -970,7 +959,7 @@ vmap <expr>  MY  ':Yankitute/\(' . @/ . '\)/\1/g<LEFT><LEFT>'
 " }}}
 " -> VimWiki {{{
 "
-Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 function! LoadVimwiki()
     let g:lmap.w.w = 'Index'
@@ -1054,26 +1043,17 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : 
 
 let g:fzf_tags_command = 'ctags -R --exclude=.git --exclude=.idea --exclude=log'
 
-nnoremap <silent> <leader>pp :Files<cr>
-nnoremap <silent> <leader>pm :Marks<cr>
-nnoremap <silent> <leader>pb :Buffers<cr>
-nnoremap <silent> <leader>pf :Filetypes<cr>
-
-nnoremap <Plug>(git_Files) :GFiles?<cr>
-nnoremap <Plug>(git_History) :Commits<cr>
-nnoremap <Plug>(git_File-History) :BCommits<cr>
+nnoremap <silent> <leader>pp :Files<CR>
+nnoremap <silent> <leader>pm :Marks<CR>
+nnoremap <silent> <leader>pb :Buffers<CR>
+nnoremap <silent> <leader>pf :Filetypes<CR>
 
 let g:lmap.g.f = { 'name': '+File' }
 let g:lmap.g.f.h = 'file-History'
-nmap <silent> <leader>gfh <Plug>(git_File-History)
-
-
-command! -bang FT call fzf#vim#filetypes(<bang>0)
-nnoremap <Plug>(options_File-Type) :FT<CR>
+nmap <silent> <leader>gfh :BCommits<CR>
 
 let g:lmap.f.f = 'in-File'
-nnoremap <Plug>(find_String) :Ag<CR>
-nmap <silent> <leader>ff <Plug>(find_String)
+nmap <silent> <leader>ff :Ag<CR>
 
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
@@ -1152,21 +1132,32 @@ let NERDTreeMapJumpNextSibling=''
 let NERDTreeMapJumpPrevSibling=''
 " }}}
 " -> Tmux {{{
-if has('gui_running')
-else
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'benmills/vimux'
+if exists('$TMUX')
+  Plug 'christoomey/vim-tmux-navigator'
+  nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
-    nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+  let g:tmux_navigator_save_on_switch = 2
+  let g:tmux_navigator_disable_when_zoomed = 1
 
-    let g:tmux_navigator_save_on_switch = 2
-    let g:tmux_navigator_disable_when_zoomed = 1
+  Plug 'benmills/vimux'
 
-    let g:VimuxHeight = "15"
+  " Override RunCmd command
+  function! RunCmd(cmd)
+    exe VimuxRunCommand(a:cmd)
+  endfunction
+
+  let g:lmap.r.q = 'Close'
+  nmap <leader>rq :VimuxCloseRunner<CR>
+
+  let g:lmap.r.x = 'Interrupt'
+  nmap <leader>rx :VimuxInterruptRunner<CR>
+  let g:VimuxHeight = "20"
+  let g:VimuxUseNearest = 0
 endif
 " }}}
 " -> Zoom {{{
 Plug 'dhruvasagar/vim-zoom'
+
 let g:lmap.z = 'Zoom'
 nmap <leader>z :call ZoomToggle()<CR>
 
@@ -1195,9 +1186,17 @@ function! ZoomToggle()
     endif
 endfunction
 " }}}
-" -> Autoread{{{
+" -> Which-Key {{{
+Plug 'liuchengxu/vim-which-key'
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
+" }}}
+" -> Autoread {{{
 Plug 'djoshea/vim-autoread'
-let autoreadargs={'autoread':1} 
+let autoreadargs={'autoread':1}
 " }}}
 " }}}
 " Code plugins ------------------------------------------------------------ {{{
@@ -1224,17 +1223,14 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " }}}
 " -> Ctags {{{
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-"
 Plug 'jsfaint/gen_tags.vim'
 
 au! User tagbar call LoadTagBar()
 
 nnoremap <silent> <leader>pt :TagbarToggle<CR>
 
-nnoremap <Plug>(tags_Update) :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
-
 let g:lmap.t.u = 'tag-Update'
-nmap <leader>tu <Plug>(tags_Update)
+nmap <leader>tu :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
 
 set tags=tags;/,codex.tags;/
 
@@ -1345,47 +1341,34 @@ endfunction
 " Fugitive options
 "
 " shortcuts mapping
-nnoremap <Plug>(git_Status) :Gstatus<CR>
-nnoremap <Plug>(git_Diff) :Gdiff<CR>
-nnoremap <Plug>(git_Commit) :Gcommit<CR>
-nnoremap <Plug>(git_Push) :G push<CR>
-nnoremap <Plug>(git_Write) :Gwrite<CR>
-nnoremap <Plug>(git_Blame) :Gblame<CR>
-nnoremap <Plug>(git_Read) :Gread<CR>
-nnoremap <Plug>(git_Rebase) :G pull --rebase<CR>
-nnoremap <Plug>(git_Merge) :G pull<CR>
-nnoremap <Plug>(git_Browse) :.Gbrowse %<CR>
-vnoremap <Plug>(git_VBrowse) :'<,'>Gbrowse %<CR>
-vnoremap <Plug>(git_VHistory) :<C-U>call GitShowBlockHistory()<CR>
-
 let g:lmap.g.s = 'Status'
-nmap <silent> <leader>gs <Plug>(git_Status)
+nmap <silent> <leader>gs :Gstatus<CR>
 let g:lmap.g.d = 'Diff'
-nmap <silent> <leader>gd <Plug>(git_Diff)
+nmap <silent> <leader>gd :Gdiff<CR>
 let g:lmap.g.C = 'Commit'
-nmap <silent> <leader>gC <Plug>(git_Commit)
+nmap <silent> <leader>gC :Gcommit<CR>
 let g:lmap.g.W = 'Write'
-nmap <silent> <leader>gW <Plug>(git_Write)
+nmap <silent> <leader>gW :Gwrite<CR>
 let g:lmap.g.R = 'Read'
-nmap <silent> <leader>gR <Plug>(git_Read)
+nmap <silent> <leader>gR :Gread<CR>
 
 let g:lmap.g.b = { 'name': '+Blame' }
 let g:lmap.g.b.l = 'bLame'
-nmap <silent> <leader>gbl <Plug>(git_Blame)
+nmap <silent> <leader>gbl :Gblame<CR>
 
 let g:lmap.g.p = { 'name': '+Push-pull' }
 let g:lmap.g.p.s = 'Push'
-nmap <silent> <leader>gps <Plug>(git_Push)
+nmap <silent> <leader>gps :G push<CR>
 let g:lmap.g.p.l = { 'name': '+Pull' }
 let g:lmap.g.p.l.r = 'Rebase'
-nmap <silent> <leader>gplr <Plug>(git_Rebase)
+nmap <silent> <leader>gplr :G pull --rebase<CR>
 let g:lmap.g.p.l.m = 'Merge'
-nmap <silent> <leader>gplm <Plug>(git_Merge)
+nmap <silent> <leader>gplm :G pull<CR>
 let g:lmap.g.g = 'Browse'
-nmap <silent> <leader>gg <Plug>(git_Browse)
-vmap <silent> <leader>gg <Plug>(git_VBrowse)
+nmap <silent> <leader>gg :.Gbrowse %<CR>
+vmap <silent> <leader>gg :'<,'>Gbrowse %<CR>
 let g:lmap.g.v = { 'name': '+Visual' }
-vmap <silent> <leader>gvh <Plug>(git_VHistory)
+vmap <silent> <leader>gvh :<C-U>call GitShowBlockHistory()<CR>
 
 " Gitgutter options
 let g:gitgutter_map_keys = 0
@@ -1405,8 +1388,7 @@ nmap <leader>ghp :GitGutterPreviewHunk<CR>
 " Gitv options
 let g:lmap.g.h = 'History'
 let g:Gitv_DoNotMapCtrlKey = 1
-nnoremap <Plug>(git_Full-History) :GV<CR>
-nmap <silent> <leader>gh <Plug>(git_Full-History)
+nmap <silent> <leader>gh :GV<CR>
 " }}}
 " -> Linter {{{
 Plug 'w0rp/ale'
@@ -1422,19 +1404,24 @@ let g:ale_sign_warning = '..'
 Plug 'tpope/vim-sleuth'
 " }}}
 " -> SortFolds {{{
-Plug 'obreitwi/vim-sort-folds'
+Plug 'obreitwi/vim-sort-folds', { 'on': '<Plug>SortFolds' }
+au! User vim-sort-folds call LoadSortFolds()
+
+function! LoadSortFolds()
+  let g:lmap.s.f = { 'name': 'Fold' }
+endfunction
 " }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/vimproc.vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-emoji'
 Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_delay = 1000
+
 Plug 'tpope/vim-repeat'
-Plug 'vitorgalvao/autoswap_mac'
 Plug 'tomtom/tlib_vim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'michaeljsmith/vim-indent-object'
@@ -1444,8 +1431,6 @@ Plug 'powerline/fonts'
 
 " Colorscheme
 Plug 'KeitaNakamura/neodark.vim'
-
-let g:peekaboo_delay = 1000
 
 " }}}
 call plug#end()
@@ -1642,8 +1627,6 @@ endif
 
 if !exists("g:auto_save_events")
   let g:auto_save_events = ["CursorHold","CursorHoldI","BufLeave","FocusLost","WinLeave"]
-  " let g:auto_save_events = ["InsertLeave", "TextChanged","BufLeave","FocusLost","WinLeave"]
-  " let g:auto_save_events = ["InsertLeave", "TextChanged", "CursorHold"]
 endif
 
 " Check all used events exist
@@ -1675,7 +1658,6 @@ function! AutoSave()
         if b:auto_save == 0
             return
         end
-
 
         let was_modified = &modified
 
@@ -1803,15 +1785,13 @@ nmap <leader>lp <Plug>(qfix_LPrev)
 " }}}
 
 " }}}
-" Leader Finish
+" Leader end
 call which_key#register('<Space>', "g:lmap")
 " Colorscheme ------------------------------------------------------------- {{{
 let g:neodark#background = '#282c34'
 
 colorscheme neodark
 
-" let g:lightline = {}
-" let g:lightline.colorscheme = 'neodark'
 let g:lightline = {
       \ 'colorscheme': 'neodark',
       \ 'active': {
