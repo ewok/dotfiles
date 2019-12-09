@@ -1143,11 +1143,28 @@ if exists('$TMUX')
 
     " Override RunCmd command
     function! RunCmd(cmd)
+        mark z
         exe VimuxRunCommand(a:cmd)
+        exe "normal! g`z"
+        delmark z
     endfunction
 
-    let g:lmap.r.q = 'Close'
-    nmap <leader>rq :VimuxCloseRunner<CR>
+    function! CloseRunner()
+        if exists('g:VimuxRunnerIndex')
+            let choice = confirm("Close runner?", "\n&yes\n&no\nor &detach", 2)
+
+            if choice == 2
+                VimuxCloseRunner
+            elseif choice == 4
+                unlet g:VimuxRunnerIndex
+            endif
+        else
+            echo "Runner is not registered"
+        endif
+    endfunction
+
+    let g:lmap.r.q = 'Close Runner'
+    nmap <leader>rq :call CloseRunner()<CR>
 
     let g:lmap.r.x = 'Interrupt'
     nmap <leader>rx :VimuxInterruptRunner<CR>
