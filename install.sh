@@ -2,8 +2,6 @@
 
 set -e
 
-sudo pacman -S --needed python-virtualenv
-
 if [ ! -d .venv ];then
     virtualenv -p python3 .venv
 fi
