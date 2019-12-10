@@ -85,7 +85,8 @@ def install_mail(c):
     """Install mail software."""
     packages_to_install = [
         "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
-        "davmail", "goobook", "lbdb", "vcal", "pass"
+        "davmail", "goobook", "lbdb", "vcal", "pass",
+        "pandoc"
     ]
 
     paths_to_link = [
