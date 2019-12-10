@@ -23,7 +23,8 @@ def install_base(c):
         "nvme-cli", "xclip", "xsel", "par", "sshfs", "curlftpfs",
         "archivemount", "autorandr", "timeshift",
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
-        "pyenv-virtualenv", "npm"
+        "pyenv-virtualenv", "npm", "ttf-liberation",
+        "blacklist_pcspkr"
 
     ]
 
