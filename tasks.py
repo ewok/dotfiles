@@ -24,7 +24,7 @@ def install_base(c):
         "archivemount", "autorandr", "timeshift",
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "ttf-liberation",
-        "blacklist_pcspkr"
+        "blacklist_pcspkr", "xorg-xbacklight"
 
     ]
 
@@ -71,9 +71,10 @@ def install_base(c):
 def install_gui_tools(c):
     """Install packages."""
     packages_to_install = [
-        "flameshot", "todoist-add-git", "todoist-linux-bin",
-        "slack-desktop", "redshift-gtk-git", "zeal", "minetime-bin",
-        "cawbird", "masterpdfeditor-free", "cryptomator"
+        "flameshot", "todoist-linux-bin",
+        "slack-desktop", "redshift-gtk-git", "zeal",
+        "cawbird", "masterpdfeditor-free", "cryptomator",
+        "firefox", "enpass-bin"
     ]
 
     yay(c, packages_to_install)
@@ -84,7 +85,7 @@ def install_mail(c):
     """Install mail software."""
     packages_to_install = [
         "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
-        "davmail", "goobook", "lbdb", "vcal",
+        "davmail", "goobook", "lbdb", "vcal", "pass"
     ]
 
     paths_to_link = [

@@ -3,6 +3,7 @@ setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option
 setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:win_space_toggle,ctrl:nocaps"
 
 xinput --set-prop "Elan Touchpad" "libinput Natural Scrolling Enabled" 1 &
+xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1 &
 
 xsetroot -cursor_name left_ptr &
 
