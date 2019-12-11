@@ -24,7 +24,8 @@ def install_base(c):
         "archivemount", "autorandr", "timeshift",
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "ttf-liberation",
-        "blacklist_pcspkr", "xorg-xbacklight"
+        "blacklist_pcspkr", "xorg-xbacklight",
+        "gotty"
 
     ]
 
