@@ -189,7 +189,7 @@ vale.Editorializing = NO"""
 
 @task
 def install_albert(c):
-    yay(c, ["albert"])
+    yay(c, ["albert", "muparser"])
 
     install_gitrepo(c, "https://github.com/IanS5/albert-todoist.git", os.path.expanduser("~/.albert_todoist"))
 
