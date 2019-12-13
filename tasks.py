@@ -25,7 +25,7 @@ def install_base(c):
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "ttf-liberation",
         "blacklist_pcspkr", "xorg-xbacklight",
-        "gotty"
+        "gotty", "podman"
 
     ]
 

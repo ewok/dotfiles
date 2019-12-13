@@ -28,3 +28,5 @@ fi
 #k8s
 alias k='kubectl'
 alias kx='kubectx'
+
+alias docker=podman
