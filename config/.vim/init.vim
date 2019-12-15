@@ -1132,8 +1132,8 @@ let NERDTreeMapJumpNextSibling=''
 let NERDTreeMapJumpPrevSibling=''
 " }}}
 " -> Tmux {{{
+Plug 'christoomey/vim-tmux-navigator'
 if exists('$TMUX')
-    Plug 'christoomey/vim-tmux-navigator'
     nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
     let g:tmux_navigator_save_on_switch = 2
