@@ -713,7 +713,7 @@ endfunction " }}}
 Plug 'robbles/logstash.vim', { 'for': 'logstash' }
 " }}}
 " -> Markdown {{{
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': ':!sudo npm install -g livedown' }
+Plug 'shime/vim-livedown', { 'for': 'markdown' }
 au! User vim-livedown call LoadLivedown()
 
 function! LoadLivedown()

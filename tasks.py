@@ -75,7 +75,7 @@ def install_gui_tools(c):
         "flameshot", "todoist-linux-bin",
         "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator",
-        "firefox", "enpass-bin"
+        "firefox", "enpass-bin", "gpmdp"
     ]
 
     yay(c, packages_to_install)
@@ -122,7 +122,7 @@ def install_editor(c):
     ]
 
     npm_packages_to_install = [
-        "markdownlint-cli", "bash-language-server"
+        "markdownlint-cli", "bash-language-server", "livedown"
     ]
 
     virtualenvs = [
