@@ -104,9 +104,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-bindsym XF86AudioRaiseVolume exec changeVolumePulse '+2%'
-bindsym XF86AudioLowerVolume exec changeVolumePulse '-2%'
-bindsym XF86AudioMute exec changeVolumePulse toggle
+# bindsym XF86AudioRaiseVolume exec changeVolumePulse '+2%'
+# bindsym XF86AudioLowerVolume exec changeVolumePulse '-2%'
+# bindsym XF86AudioMute exec changeVolumePulse toggle
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
 
@@ -452,5 +452,6 @@ exec --no-startup-id albert
 exec --no-startup-id todoist
 exec --no-startup-id battery-warning
 exec --no-startup-id pkill pulseaudio; pulseaudio --start
+exec --no-startup-id pa-applet
 exec --no-startup-id ~/.xprofile
 exec --no-startup-id sleep 10; nitrogen --restore; sleep 1; compton -b

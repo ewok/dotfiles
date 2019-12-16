@@ -25,7 +25,8 @@ def install_base(c):
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "ttf-liberation",
         "blacklist_pcspkr", "xorg-xbacklight",
-        "gotty", "podman"
+        "gotty", "podman", "manjaro-pulse", "pa-applet",
+        "pavucontrol"
 
     ]
 
@@ -75,11 +76,17 @@ def install_gui_tools(c):
         "flameshot", "todoist-linux-bin",
         "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator",
-        "firefox", "enpass-bin", "gpmdp"
+        "firefox", "enpass-bin"
+    ]
+
+    paths_to_link = [
+        ("config/Zeal", "~/.config/Zeal"),
     ]
 
     yay(c, packages_to_install)
 
+    for pair in paths_to_link:
+        makesl(pair[0], os.path.expanduser(pair[1]))
 
 @task
 def install_mail(c):
