@@ -83,7 +83,7 @@ bindsym $mod+d exec --no-startup-id albert, exec albert toggle
 # bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
+bindsym $mod_a+z exec --no-startup-id morc_menu
 
 # Lock screen
 bindsym $mod_a+l exec --no-startup-id blurlock
@@ -288,6 +288,26 @@ mode "resize" {
         bindsym Ctrl+[ mode "default"
 }
 
+################################################################################################
+# Display management
+################################################################################################
+## Manual management of external displays
+set $mode_display Ext Screen (d) DP1 ON, (h) HDMI ON, (D) DP1 OFF, (H) HDMI OFF, (i) switch INTEL
+mode "$mode_display" {
+    bindsym d exec --no-startup-id xrandr --output DP1 --auto --right-of eDP1, mode "default"
+    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1, mode "default"
+    bindsym Shift+d exec --no-startup-id xrandr --output DP1 --auto --off, mode "default"
+    bindsym Shift+h exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
+    bindsym i exec --no-startup-id intel-virtual-output, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Retun mode "default"
+    bindsym Escape mode "default"
+    bindsym Ctrl+m mode "default"
+    bindsym Ctrl+[ mode "default"
+}
+# Declare here the shortcut to bring the display selection menu
+bindsym $mod_a+x mode "$mode_display"
 ################################################################################################
 # Colors
 ################################################################################################

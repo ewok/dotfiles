@@ -26,7 +26,7 @@ def install_base(c):
         "pyenv-virtualenv", "npm", "ttf-liberation",
         "blacklist_pcspkr", "xorg-xbacklight",
         "gotty", "podman", "manjaro-pulse", "pa-applet",
-        "pavucontrol"
+        "pavucontrol", "blueman"
 
     ]
 
