@@ -478,6 +478,7 @@ augroup ft_markdown
     au FileType markdown call LoadMarkdownFT()
     function! LoadMarkdownFT() " {{{
         setlocal foldlevel=2
+        setlocal conceallevel=2
         let b:ale_linters = ['vale', 'markdownlint']
         nmap <buffer> <silent> <leader>rr :LivedownPreview<CR>
         nmap <buffer> <silent> <leader>rt :LivedownToggle<CR>
@@ -598,18 +599,6 @@ augroup ft_zsh
     au BufNewFile,BufRead *.zsh-theme set filetype=zsh
 augroup END
 " }}}
-" -> Markdown {{{
-augroup ft_md
-    au!
-
-    au FileType markdown call LoadMDFT()
-    function! LoadMDFT() " {{{
-        setlocal conceallevel=2
-        let b:ale_linters = ['vale', 'markdownlint']
-    endfunction " }}}
-
-augroup END
-" }}}
 " -> Shell {{{
 augroup ft_sh
     au!
@@ -651,6 +640,24 @@ augroup ft_mail
     au FileType mail map <buffer> <leader>rr :%!pandoc -f markdown_mmd -t html<CR>
 augroup END
 " }}}
+" -> Helm {{{
+augroup ft_helm
+    au!
+    au BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl set ft=helm
+augroup END
+"  }}}
+" -> i3 {{{
+augroup ft_i3
+    au!
+    au BufNewFile,BufRead .i3.config,i3.config,*.i3config,*.i3.config,*/.i3/config set filetype=i3config
+augroup END
+"  }}}
+" -> Log {{{
+augroup ft_log
+    au!
+    au BufNewFile,BufRead *.log set filetype=log
+augroup END
+"  }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
@@ -683,10 +690,6 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 au! User vim-go call LoadGo()
 
 function! LoadGo() " {{{
-
-    if exists('g:loaded_polyglot')
-        let g:polyglot_disabled = ['go']
-    endif
 
     " let $GOPATH = $HOME . '/share/gopath/default'
     " @todo: Make it getting from .gopath
@@ -771,6 +774,15 @@ Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
 Plug 'mattn/emmet-vim', { 'for': 'javascript.jsx' }
 " }}}
+" -> Helm {{{
+Plug 'towolf/vim-helm', { 'for': 'helm' }
+"  }}}
+" -> i3 {{{
+Plug 'mboughaba/i3config.vim', { 'for': 'i3config' }
+"  }}}
+" -> Log {{{
+Plug 'mtdl9/vim-log-highlighting', { 'for': 'log' }
+"  }}}
 " }}}
 " Info plugins ------------------------------------------------------------ {{{
 " -> Zeal {{{
@@ -1431,7 +1443,6 @@ endfunction
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "
-Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-emoji'
