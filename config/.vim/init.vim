@@ -235,14 +235,14 @@ nnoremap <C-W>t :tabnew<CR>
 
 " Tmux?
 if exists('$TMUX')
-    nnoremap <Plug>(window_new-tmux) :!tmux new-window<CR><CR>
-    nmap <silent><C-W>T <Plug>(window_new-tmux)
-
     nnoremap <Plug>(window_split-tmux) :!tmux split-window -v -p 20<CR><CR>
     nmap <silent><C-W>S <Plug>(window_split-tmux)
 
     nnoremap <Plug>(window_vsplit-tmux) :!tmux split-window -h -p 20<CR><CR>
     nmap <silent><C-W>V <Plug>(window_vsplit-tmux)
+else
+    nmap <silent><C-W>S :split +terminal<CR>i
+    nmap <silent><C-W>V :vsplit +terminal<CR>i
 endif
 
 " split window resize
