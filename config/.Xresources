@@ -20,7 +20,7 @@ st.cursorthickness:   2
 ! 0: normal blinking, 1: leave cursor border and blink with cursors background
 st.cursorblinkstyle:  0
 ! 0: cursor blinks with a constant interval; 1: blinking cycle resets on key input
-st.cursorblinkontype: 1
+st.cursorblinkontype: 0
 st.bold_font:         0
 st.xfps:              120
 st.actionfps:         30
