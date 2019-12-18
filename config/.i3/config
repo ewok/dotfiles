@@ -121,7 +121,8 @@ bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
 bindsym $mod_a+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshots/
 
 # Other
-bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
+# bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
+bindsym Shift+space exec "add_td"
 bindsym Control+period exec --no-startup-id "/opt/enpass/Enpass showassistant"
 bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?' && xdotool type "==== ${USER} $(date +'%Y-%m-%d %H:%M') ===="
 

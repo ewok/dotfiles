@@ -1,0 +1,33 @@
+# Maintainer: Artur Taranchiev <ewok@ewok.ru>
+_pkgname=add_td-x86_64.AppImage
+pkgname=add_td
+pkgver=1
+pkgrel=1
+pkgdesc="Quick Add Tqdoist tasks, from the command line."
+arch=('x86_64' 'i686')
+license=('MIT')
+makedepends=('python3' 'python-virtualenv')
+options=('!strip' '!emptydirs')
+source=('add_td' 'add_td.desktop' 'add_td.png' 'AppRun')
+depends=('gobject-introspection')
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+pkgver() {
+  (
+    printf "$pkgver"
+  )
+}
+prepare() {
+ curl -J -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage > ../appimagetool
+ chmod +x ../appimagetool
+ virtualenv -p python3 "$srcdir/usr"
+ source "$srcdir/usr/bin/activate"
+ pip install pygobject todoist-python
+}
+build() {
+ ARCH=x86_64 ../appimagetool $srcdir
+ rm ../appimagetool
+}
+package() {
+  install -Dm755 "$srcdir/$_pkgname" "$pkgdir/usr/bin/$_pkgname"
+  ln -s  "$_pkgname" "$pkgdir/usr/bin/add_td"
+}

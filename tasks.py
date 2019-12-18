@@ -234,6 +234,20 @@ def install_printer(c):
         "sudo systemctl start cups-browsed.service"
     )
 
+@task
+def install_appimage(c):
+    c.run(
+        "curl -J -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage > ~/.local/bin/appimagetool;"
+        "chmod +x ~/.local/bin/appimagetool;"
+    )
+
+@task
+def install_add_td(c):
+    c.run(
+        "cd pkg/add_td;"
+        "makepkg -sicf"
+    )
+
 @task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
 def install(c):
     """Install all."""
