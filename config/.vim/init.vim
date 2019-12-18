@@ -737,6 +737,8 @@ function! LoadVirtualenv() " {{{
     let g:virtualenv_directory = $PWD
 endfunction " }}}
 
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
