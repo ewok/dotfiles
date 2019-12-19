@@ -224,8 +224,10 @@ def install_albert(c):
 
 @task
 def install_printer(c):
-    yay(c, ["cups", "xsane"])
+    yay(c, ["cups", "xsane", "system-config-printer"])
+
     install_gitrepo(c, "https://github.com/ondrej-zary/carps-cups.git", os.path.expanduser("~/tmp/carps-cups"))
+
     c.run(
         "cd ~/tmp/carps-cups;"
         "make && sudo make install;"

@@ -40,17 +40,11 @@ assign [class="albert"] output eDP1
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="calamares"] floating enable border normal
 for_window [title="File Transfer*"] floating enable
 for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Manjaro Settings Manager"] floating enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
@@ -59,7 +53,7 @@ for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
-# for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Blueman-manager"] floating enable
 for_window [class="albert"] floating enable sticky
 
@@ -289,16 +283,20 @@ mode "resize" {
         bindsym Ctrl+[ mode "default"
 }
 
+# Rename
+bindsym $mod_a+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+
 ################################################################################################
 # Display management
 ################################################################################################
 ## Manual management of external displays
-set $mode_display Ext Screen (d) DP1 ON, (h) HDMI ON, (D) DP1 OFF, (H) HDMI OFF, (i) switch INTEL
+set $mode_display Ext Screen (d/D) DP1 ON/OFF, (h/H) HDMI ON/OFF, (i) toggle Intel-virtual-output, (r) Refresh
 mode "$mode_display" {
-    bindsym d exec --no-startup-id xrandr --output DP1 --auto --right-of eDP1, mode "default"
-    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1, mode "default"
-    bindsym Shift+d exec --no-startup-id xrandr --output DP1 --auto --off, mode "default"
-    bindsym Shift+h exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
+    bindsym d exec --no-startup-id xrandr --output DP1 --right-of eDP1, mode "default"
+    bindsym h exec --no-startup-id xrandr --output HDMI1 --left-of eDP1, mode "default"
+    bindsym Shift+d exec --no-startup-id xrandr --output DP1 --off, mode "default"
+    bindsym Shift+h exec --no-startup-id xrandr --output HDMI1 --off, mode "default"
+    bindsym r exec --no-startup-id xrandr --auto, mode "default"
     bindsym i exec --no-startup-id intel-virtual-output, mode "default"
 
     # back to normal: Enter or Escape
@@ -343,14 +341,40 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
+bar {
+	status_command i3status
+	position top
+
+	output DP1
+	output DP2
+	output HDMI1
+	output HDMI2
+	tray_output none
+
+        font xft:URWGothic-Book 9
+	bindsym button4 nop
+	bindsym button5 nop
+	strip_workspace_numbers yes
+
+    colors {
+        background #222D31
+        statusline #F9FAF9
+        separator  #454947
+        focused_workspace  #F9FAF9 #16a085 #292F34
+        active_workspace   #595B5B #353836 #FDF6E3
+        inactive_workspace #595B5B #222D31 #EEE8D5
+        binding_mode       #16a085 #2C2C2C #F9FAF9
+        urgent_workspace   #16a085 #FDF6E3 #E5201D
+    }
+}
+
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	i3bar_command i3bar
 	status_command i3status
 	position top
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
+	output eDP1
 	tray_output eDP1
 
 	bindsym button4 nop
