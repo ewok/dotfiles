@@ -349,6 +349,12 @@ bar {
 	output DP2
 	output HDMI1
 	output HDMI2
+	output VIRTUAL1
+	output VIRTUAL2
+	output VIRTUAL3
+	output VIRTUAL4
+	output VIRTUAL5
+	output VIRTUAL6
 	tray_output none
 
         font xft:URWGothic-Book 9
