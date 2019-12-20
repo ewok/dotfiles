@@ -2,6 +2,7 @@
 
 from builtins import super
 from os import path
+from datetime import datetime
 
 import todoist
 
@@ -67,6 +68,7 @@ class NewTaskWindow(Prompt):
     def create_task(self, *args):
         task = self.entry.get_text()
         task_due = self.task_due.get_text()
+        status = f"State: {datetime.now().strftime('%I:%M %p')}"
 
         if not self.id:
             res = self.api.quick.add(task)
@@ -87,14 +89,17 @@ class NewTaskWindow(Prompt):
             try:
                 res = self.api.commit()
             except todoist.api.SyncError:
-                self.label.set_text(f"Error.")
+                status = f"{status} Error!"
 
         item = self.api.items.get_by_id(self.id)
         self.entry.set_text(item["content"])
         if (due := item['due']):
             if (due_date := due['string']):
                 self.task_due.set_text(due_date)
-                self.label.set_text(f"Due: {due['date']}, rec: {due['is_recurring']}")
+                if 'date' in due:
+                    status = f"{status} Due: {due['date']}, Rec:{due['is_recurring']}"
+
+        self.label.set_text(status)
 
     def exit(self, *args):
         self.destroy()
