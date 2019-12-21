@@ -3,6 +3,7 @@
 from builtins import super
 from os import path
 from datetime import datetime
+from copy import copy, deepcopy
 
 import todoist
 
@@ -11,6 +12,17 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject, GLib
 
 CONFIG = path.expanduser("~/.config/todoist.api")
+
+
+def find_diff(dict1, dict2):
+    differences = []
+    for key in dict1.keys(): 
+        if type(dict1[key]) is dict:
+            return find_diff(dict1[key], dict2[key])
+        else:
+            if not dict1[key] == dict2[key]:
+                differences.append((key, dict1[key], dict2[key]))
+    return differences
 
 
 class Prompt(Gtk.Dialog):
@@ -64,11 +76,12 @@ class NewTaskWindow(Prompt):
             self.api = todoist.TodoistAPI(stream.read())
 
         self.id = None
+        self.item = None
 
     def create_task(self, *args):
         task = self.entry.get_text()
         task_due = self.task_due.get_text()
-        status = f"State: {datetime.now().strftime('%I:%M %p')}"
+        status = f"{datetime.now().strftime('%I:%M:%S %p')}: "
 
         if not self.id:
             res = self.api.quick.add(task)
@@ -88,16 +101,19 @@ class NewTaskWindow(Prompt):
 
             try:
                 res = self.api.commit()
+                if (self.item["content"] == item["content"]) and (self.item["due"] == item["due"]):
+                    Gtk.main_quit()
             except todoist.api.SyncError:
                 status = f"{status} Error!"
 
-        item = self.api.items.get_by_id(self.id)
-        self.entry.set_text(item["content"])
-        if (due := item['due']):
+        self.item = deepcopy(self.api.items.get_by_id(self.id))
+
+        self.entry.set_text(self.item["content"])
+        if (due := self.item['due']):
             if (due_date := due['string']):
                 self.task_due.set_text(due_date)
-                if 'date' in due:
-                    status = f"{status} Due: {due['date']}, Rec:{due['is_recurring']}"
+            if 'date' in due:
+                status = f"{status}Due: {due['date']}, Rec:{due['is_recurring']}"
 
         self.label.set_text(status)
 
