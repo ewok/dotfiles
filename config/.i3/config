@@ -293,15 +293,15 @@ bindsym $mod_a+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 ## Manual management of external displays
 set $mode_display Ext Screen (d/D) DP1 ON/OFF, (h/H) HDMI ON/OFF, (i) toggle Intel-virtual-output, (v/V) VIRTUAL ON/OFF, (l) Load autorandr profile, (r) Refresh
 mode "$mode_display" {
-    bindsym d exec i3-input -F 'exec --no-startup-id xrandr --output DP%s --right-of eDP1' -P 'Num: ', mode "default"
-    bindsym h exec i3-input -F 'exec --no-startup-id xrandr --output HDMI%s --left-of eDP1' -P 'Num: ', mode "default"
-    bindsym v exec i3-input -F 'exec --no-startup-id xrandr --output VIRTUAL%s --right-of eDP1' -P 'Num: ', mode "default"
-    bindsym Shift+d exec i3-input -F 'exec --no-startup-id xrandr --output DP%s --off' -P 'Num: ', mode "default"
-    bindsym Shift+h exec i3-input -F 'exec --no-startup-id xrandr --output HDMI%s --off' -P 'Num: ', mode "default"
-    bindsym Shift+v exec i3-input -F 'exec --no-startup-id xrandr --output VIRTUAL%s --off' -P 'Num: ', mode "default"
-    bindsym r exec --no-startup-id xrandr --auto, mode "default"
-    bindsym i exec --no-startup-id intel-virtual-output, mode "default"
-    bindsym l exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P 'Profile: ', mode "default"
+    bindsym d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --right-of eDP1' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --left-of eDP1' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --right-of eDP1' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym Shift+d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --off' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym Shift+h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --off' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym Shift+v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --off' -P 'Num: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym r exec --no-startup-id 'xrandr --auto', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym i exec --no-startup-id intel-virtual-output, exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
+    bindsym l exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P 'Profile: ', exec --no-startup-id '~/.xprofile && DISPLAY=:8 ~/.xprofile', mode "default"
 
     # back to normal: Enter or Escape
     bindsym Retun mode "default"
