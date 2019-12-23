@@ -294,8 +294,10 @@ set $mode_display Ext Screen (d/D) DP1 ON/OFF, (h/H) HDMI ON/OFF, (i) toggle Int
 mode "$mode_display" {
     bindsym d exec --no-startup-id xrandr --output DP1 --right-of eDP1, mode "default"
     bindsym h exec --no-startup-id xrandr --output HDMI1 --left-of eDP1, mode "default"
+    bindsym v exec --no-startup-id xrandr --output VIRTUAL1 --right-of eDP1, mode "default"
     bindsym Shift+d exec --no-startup-id xrandr --output DP1 --off, mode "default"
     bindsym Shift+h exec --no-startup-id xrandr --output HDMI1 --off, mode "default"
+    bindsym Shift+v exec --no-startup-id xrandr --output VIRTUAL1 --off, mode "default"
     bindsym r exec --no-startup-id xrandr --auto, mode "default"
     bindsym i exec --no-startup-id intel-virtual-output, mode "default"
 
