@@ -293,15 +293,15 @@ bindsym $mod_a+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 ## Manual management of external displays
 set $mode_display Ext Screen (d/D) DP1 ON/OFF, (h/H) HDMI ON/OFF, (i) toggle Intel-virtual-output, (v/V) VIRTUAL ON/OFF, (l) Load autorandr profile, (r) Refresh
 mode "$mode_display" {
-    bindsym d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --right-of eDP1' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --left-of eDP1' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --right-of eDP1' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym Shift+d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --off' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym Shift+h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --off' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym Shift+v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --off' -P 'Num: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --right-of eDP1 --auto' -P "Num($(xrandr | awk '/^DP.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --left-of eDP1 --auto' -P "Num($(xrandr | awk '/^HDMI.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --right-of eDP1 --auto' -P "Num($(xrandr | awk '/^VIRTUAL.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym Shift+d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --off' -P "Num($(xrandr | awk '/^DP.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym Shift+h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --off' -P "Num($(xrandr | awk '/^HDMI.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym Shift+v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --off' -P "Num($(xrandr | awk '/^VIRTUAL.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym r exec 'xrandr --auto', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym i exec intel-virtual-output, exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym l exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P 'Profile: ', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym l exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P "Profile($(autorandr | awk NF=NF RS= OFS=' ')): ", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
 
     # back to normal: Enter or Escape
     bindsym Retun mode "default"
@@ -310,6 +310,7 @@ mode "$mode_display" {
     bindsym Ctrl+[ mode "default"
 }
 # Declare here the shortcut to bring the display selection menu
+
 bindsym $mod_a+x mode "$mode_display"
 ################################################################################################
 # Colors
