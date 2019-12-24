@@ -354,6 +354,9 @@ xnoremap c "xc
 xnoremap <  <gv
 xnoremap >  >gv
 
+" Replace without yanking
+vnoremap p :<C-U>let @p = @+<CR>gvp:let @+ = @p<CR>
+
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
