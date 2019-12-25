@@ -5,7 +5,7 @@ ZSH_THEME="norm"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Plugins
-plugins=(fzf colored-man-pages tmux ssh-agent git rbenv pyenv)
+plugins=(fzf colored-man-pages tmux ssh-agent git rbenv)
 
 # HISTORY_OPTION
 HISTFILE="$HOME/.zsh_history"
