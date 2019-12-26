@@ -15,6 +15,9 @@ def ensure_yay_exists(c):
 @task
 def install_base(c):
     """Install base software."""
+    print("################################################################################")
+    print("BASE STARTED")
+
     packages_to_install = [
         "gcc", "xst", "tmux", "python2",
         "python3", "python-virtualenv", "unzip", "p7zip",
@@ -26,7 +29,8 @@ def install_base(c):
         "pyenv-virtualenv", "npm", "ttf-liberation",
         "blacklist_pcspkr", "xorg-xbacklight",
         "gotty", "podman", "manjaro-pulse", "pa-applet",
-        "pavucontrol", "blueman"
+        "pavucontrol", "blueman", "vifm",
+        "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf"
 
     ]
 
@@ -68,10 +72,14 @@ def install_base(c):
     # FZF Installation
     c.run("$HOME/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion")
 
+    print("BASE FINISHED")
 
 @task
 def install_gui_tools(c):
     """Install packages."""
+    print("################################################################################")
+    print("GUI STARTED")
+
     packages_to_install = [
         "flameshot", "todoist-linux-bin",
         "slack-desktop", "redshift-gtk-git", "zeal",
@@ -88,9 +96,14 @@ def install_gui_tools(c):
     for pair in paths_to_link:
         makesl(pair[0], os.path.expanduser(pair[1]))
 
+    print("GUI FINISHED")
+
 @task
 def install_mail(c):
     """Install mail software."""
+    print("################################################################################")
+    print("MAIL STARTED")
+
     packages_to_install = [
         "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
         "davmail", "goobook", "lbdb", "vcal", "pass",
@@ -109,12 +122,16 @@ def install_mail(c):
     for pair in paths_to_link:
         makesl(pair[0], os.path.expanduser(pair[1]))
 
+    print("MAIL FINISHED")
 
 @task
 def install_editor(c):
     """Install editor and all editor tools."""
+    print("################################################################################")
+    print("EDITOR STARTED")
+
     packages_to_install = [
-        "vifm", "neovim", "ctags", "global", "the_silver_searcher",
+        "neovim", "ctags", "global", "the_silver_searcher",
         "xkb-switch", "cht.sh", "shellcheck", "yamllint",
         "vale-bin", "hadolint-bin"
     ]
@@ -196,9 +213,15 @@ vale.Hedging = error
 vale.Editorializing = NO"""
         print(config, file=vale_config)
 
+    print("EDITOR FINISHED")
+
 
 @task
 def install_albert(c):
+    """Install albert."""
+    print("################################################################################")
+    print("ALBERT STARTED")
+
     yay(c, ["albert", "muparser"])
 
     install_gitrepo(c, "https://github.com/IanS5/albert-todoist.git", os.path.expanduser("~/.albert_todoist"))
@@ -224,8 +247,14 @@ def install_albert(c):
 #  gem install puppet puppet-lint r10k
 #  bundle install
 
+    print("ALBERT FINISHED")
+
 @task
 def install_printer(c):
+    """Install printer stuff."""
+    print("################################################################################")
+    print("PRINTER STARTED")
+
     yay(c, ["cups", "xsane", "system-config-printer"])
 
     install_gitrepo(c, "https://github.com/ondrej-zary/carps-cups.git", os.path.expanduser("~/tmp/carps-cups"))
@@ -238,21 +267,35 @@ def install_printer(c):
         "sudo systemctl start cups-browsed.service"
     )
 
+    print("PRINTER FINISHED")
+
 @task
 def install_appimage(c):
+    """Install appimage stuff."""
+    print("################################################################################")
+    print("APPIMAGE STARTED")
+
     c.run(
         "curl -J -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage > ~/.local/bin/appimagetool;"
         "chmod +x ~/.local/bin/appimagetool;"
     )
 
+    print("APPIMAGE FINISHED")
+
 @task
 def install_add_td(c):
+    """Install todoist add."""
+    print("################################################################################")
+    print("TODOIST STARTED")
+
     c.run(
         "cd pkg/add_td;"
         "makepkg -sicf"
     )
 
+    print("TODOIST FINISHED")
+
 @task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
 def install(c):
     """Install all."""
-    print("Done")
+    print("ALL IS DONE")
