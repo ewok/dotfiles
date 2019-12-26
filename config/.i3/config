@@ -35,7 +35,6 @@ floating_modifier $mod
 assign [class="Google Play Music Desktop Player"] $ws8
 assign [class="Slack"] $ws5
 assign [class="TelegramDesktop"] $ws5
-assign [title="Todoist"] $ws5
 assign [class="albert"] output eDP1
 
 # Open specific applications in floating mode
