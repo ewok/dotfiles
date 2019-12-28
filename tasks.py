@@ -156,6 +156,10 @@ def install_editor(c):
 
     yay(c, packages_to_install)
 
+    c.run("curl -JL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage > ~/.local/bin/nvim")
+    c.run("chmod +x ~/.local/bin/nvim")
+    c.run("nvim +PlugInstall +qall")
+
     npm_i(c, npm_packages_to_install)
 
     for pair in paths_to_link:
@@ -163,10 +167,6 @@ def install_editor(c):
 
     for element in virtualenvs:
         install_virtualenv(c, os.path.expanduser(element[0]), element[1], element[2])
-
-    c.run("curl -JL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage > ~/.local/bin/nvim")
-    c.run("chmod +x ~/.local/bin/nvim")
-    c.run("nvim +PlugInstall +qall")
 
     # Provide some configs
 
