@@ -827,6 +827,25 @@ map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
 map sh <Plug>(easymotion-linebackward)
 " }}}
+" -> Text objects
+Plug 'kana/vim-textobj-user'
+
+" Adds: f - function
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
+au! User vim-textobj-python call LoadTextObjPython()
+
+let g:textobj_python_no_default_key_mappings = 1
+xmap af <Plug>(textobj-python-function-a)
+omap af <Plug>(textobj-python-function-a)
+xmap if <Plug>(textobj-python-function-i)
+omap if <Plug>(textobj-python-function-i)
+
+" Adds: i - indent, I - the same indent
+Plug 'kana/vim-textobj-indent'
+
+" Adds: c - comment, C - whole comment
+Plug 'glts/vim-textobj-comment'
+
 " }}}
 " Text plugins ------------------------------------------------------------ {{{
 " -> Drag blocks {{{
@@ -1457,7 +1476,6 @@ let g:peekaboo_delay = 1000
 Plug 'tpope/vim-repeat'
 Plug 'tomtom/tlib_vim'
 Plug 'chaoren/vim-wordmotion'
-Plug 'michaeljsmith/vim-indent-object'
 
 " Fonts
 Plug 'powerline/fonts'
