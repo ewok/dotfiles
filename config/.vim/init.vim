@@ -323,6 +323,7 @@ function! OpenToDo()
     vsplit TODO.md
     nnoremap <buffer> q :x<CR>
     hi TODO guifg=Yellow ctermfg=Yellow term=Bold
+    hi FIXME guifg=Red ctermfg=Red term=Bold
     hi P1 guifg=Red ctermfg=Red term=Bold
     hi P2 guifg=LightRed ctermfg=LightRed term=Bold
     hi P3 guifg=LightYellow ctermfg=LightYellow term=Bold
@@ -331,6 +332,8 @@ function! OpenToDo()
 
     call matchadd('TODO', 'TODO')
     call matchadd('TODO', '@todo')
+    call matchadd('FIXME', 'FIXME')
+    call matchadd('FIXME', '@fixme')
     syn match P1 ".*\[[^X]\]\s\+[pP]1.*$"
     syn match P2 ".*\[[^X]\]\s\+[pP]2.*$"
     syn match P3 ".*\[[^X]\]\s\+[pP]3.*$"
@@ -817,11 +820,6 @@ nmap ss <Plug>(easymotion-overwin-f)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
 
-" Gif config
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-" Gif config
 map sl <Plug>(easymotion-lineforward)
 map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
