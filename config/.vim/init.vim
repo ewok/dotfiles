@@ -1456,11 +1456,8 @@ Plug 'tpope/vim-sleuth'
 " }}}
 " -> SortFolds {{{
 Plug 'obreitwi/vim-sort-folds', { 'on': '<Plug>SortFolds' }
-au! User vim-sort-folds call LoadSortFolds()
-
-function! LoadSortFolds()
-    let g:lmap.s.f = { 'name': 'Fold' }
-endfunction
+let g:lmap.s.f = { 'name': 'Fold' }
+vmap <silent> <leader>sf <Plug>SortFolds
 " }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
