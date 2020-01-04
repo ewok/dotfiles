@@ -1390,6 +1390,9 @@ function! GitShowBlockHistory()
 endfunction
 
 " Fugitive options
+au BufEnter */.git/index nnoremap <buffer> <silent> c :WhichKey 'c'<CR>
+au BufEnter */.git/index nnoremap <buffer> <silent> d :WhichKey 'd'<CR>
+au BufEnter */.git/index nnoremap <buffer> <silent> r :WhichKey 'r'<CR>
 "
 " shortcuts mapping
 let g:lmap.g.s = 'Status'
