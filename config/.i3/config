@@ -35,7 +35,7 @@ floating_modifier $mod
 assign [class="Google Play Music Desktop Player"] $ws8
 assign [class="Slack"] $ws5
 assign [class="TelegramDesktop"] $ws5
-assign [class="albert"] output eDP1
+assign [class="Cawbird"] $ws5
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -54,7 +54,6 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Blueman-manager"] floating enable
-for_window [class="albert"] floating enable sticky
 for_window [title="Todoist"] floating enable sticky enable border normal
 
 # switch to workspace with urgent window automatically
@@ -461,7 +460,7 @@ exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep todoist || todoist
-exec_always --no-startup-id pgrep pulseaudio || pulseaudio --start
+exec_always --no-startup-id pgrep cawbird || cawbird
 
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
