@@ -295,6 +295,23 @@ def install_add_td(c):
 
     print("TODOIST FINISHED")
 
+@task
+def install_joplin(c):
+    """Install joplin"""
+    packages_to_install = [
+        "joplin"
+    ]
+
+    paths_to_link = [
+        ("config/joplin/keymap.json", "~/.config/joplin/keymap.json"),
+    ]
+
+    yay(c, packages_to_install)
+
+    for pair in paths_to_link:
+        makesl(pair[0], os.path.expanduser(pair[1]))
+
+
 @task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
 def install(c):
     """Install all."""
