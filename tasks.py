@@ -137,11 +137,10 @@ def install_editor(c):
     ]
 
     paths_to_link = [
-        ("config/.vim", "~/.vim"),
-        ("config/.vim", "~/.config/nvim"),
+        ("config/nvim", "~/.config/nvim"),
         ("config/.ideavimrc", "~/.ideavimrc"),
-        ("config/.vifm", "~/.vifm"),
-        ("config/.vifm", "~/.config/vifm"),
+        ("config/vifm", "~/.vifm"),
+        ("config/vifm", "~/.config/vifm"),
         ("config/.ctags", "~/.ctags"),
     ]
 

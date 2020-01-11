@@ -259,16 +259,16 @@ endif
 " Allow to copy/paste between VIM instances
 " "copy the current visual selection to ~/.vbuf
 let g:lmap.y.b = 'to-file-Buffer'
-vmap <Plug>(buffer_VYank) :w! ~/.vim/.vbuf<CR>
+vmap <Plug>(buffer_VYank) :w! ~/.vimvbuf<CR>
 vmap <leader>yb <Plug>(buffer_VYank)
 
 " "copy the current line to the buffer file if no visual selection
-nmap <Plug>(buffer_Yank) :.w! ~/.vim/.vbuf<CR>
+nmap <Plug>(buffer_Yank) :.w! ~/.vimvbuf<CR>
 nmap <leader>yb <Plug>(buffer_Yank)
 
 " "paste the contents of the buffer file
 let g:lmap.y.p = 'Paste-from-file-buffer'
-nmap <Plug>(buffer_Paste) :r ~/.vim/.vbuf<CR>
+nmap <Plug>(buffer_Paste) :r ~/.vimvbuf<CR>
 nmap <leader>yp <Plug>(buffer_Paste)
 
 let g:lmap.y.f = { 'name': '+File' }
@@ -667,7 +667,7 @@ augroup END
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
-call plug#begin('~/.vim/local/plugged')
+call plug#begin('~/.config/nvim/local/plugged')
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
@@ -882,8 +882,8 @@ let g:lmap.u = 'Undo'
 nmap <silent> <leader>u :MundoToggle<CR><CR>
 "
 if has('persistent_undo')
-    silent !mkdir ~/.vim/local/backups > /dev/null 2>&1
-    set undodir=~/.vim/local/backups
+    silent !mkdir ~/.config/nvim/local/backups > /dev/null 2>&1
+    set undodir=~/.config/nvim/local/backups
     set undofile
 endif
 " }}}
@@ -1487,7 +1487,7 @@ call plug#end()
 " Simple plugins ---------------------------------------------------------- {{{
 
 " -> Sessions {{{
-let g:sessiondir = $HOME . "/.vim/local/sessions"
+let g:sessiondir = $HOME . "/.config/nvim/local/sessions"
 
 function! MakeSession(file)
 
