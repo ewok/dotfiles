@@ -30,7 +30,8 @@ def install_base(c):
         "blacklist_pcspkr", "xorg-xbacklight",
         "gotty", "podman", "manjaro-pulse", "pa-applet",
         "pavucontrol", "blueman", "vifm",
-        "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf"
+        "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
+        "zip"
 
     ]
 
