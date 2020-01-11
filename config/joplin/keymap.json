@@ -14,13 +14,15 @@
   { "keys": ["/"], "type": "prompt", "command": "search \"\"", "cursorPosition": -2 },
   { "keys": ["nn"], "type": "prompt", "command": "mknote \"\"", "cursorPosition": -2 },
   { "keys": ["nt"], "type": "prompt", "command": "mktodo \"\"", "cursorPosition": -2 },
+  { "keys": ["ni"], "type": "prompt", "command": "mknote \"`date`\"", "cursorPosition": -2 },
   { "keys": ["nb"], "type": "prompt", "command": "mkbook \"\"", "cursorPosition": -2 },
   { "keys": ["yy", "yn"], "type": "prompt", "command": "cp $n \"\"", "cursorPosition": -2 },
-  { "keys": ["mm", "dn"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 },
-  { "keys": ["mk", "dn"], "type": "prompt", "command": "mv $n KB", "cursorPosition": -2 },
+  { "keys": ["mm"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 },
+  { "keys": ["mk"], "type": "exec", "command": "mv $n kb"},
+  { "keys": ["md"], "type": "exec", "command": "mv $n drafts"},
   { "keys": ["R"], "type": "prompt", "command": "ren $n \"\"", "cursorPosition": -2 },
   { "keys": ["qt", "gt"], "type": "prompt", "command": "tag add \"\" $n", "cursorPosition": 9 },
   { "keys": ["gs"], "type": "prompt", "command": "config notes.sortOrder.field"},
-  { "keys": ["q"], "type": "prompt", "command": "exit"},
-  { "keys": ["s"], "type": "prompt", "command": "sync"}
+  { "keys": ["q"], "type": "exec", "command": "exit"},
+  { "keys": ["s"], "type": "exec", "command": "sync"}
 ]

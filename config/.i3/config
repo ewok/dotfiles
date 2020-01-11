@@ -121,11 +121,12 @@ bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
-set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
+set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (j)oplin, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
 mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
         bindsym d exec todoist, mode "default"
         bindsym e exec pcmanfm, mode "default"
+        bindsym j exec joplin-desktop, mode "default"
         bindsym l exec ldoce5viewer, mode "default"
         bindsym m exec xst -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
