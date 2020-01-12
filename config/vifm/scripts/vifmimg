@@ -51,7 +51,7 @@ if [ -e "$FIFO_UEBERZUG" ]; then
     elif [[ "$1" == "pdfpreview" ]]; then
         echo -e "Loading preview..\nFile: $6"
         [[ ! -d "$tmp_folder" ]] && mkdir -p "$tmp_folder"
-        [[ ! -f "$tmp_folder/$6.png" ]] && pdftoppm -png -singlefile "$6" "$tmp_folder/$6.png"
+        [[ ! -f "$tmp_folder/$6.png" ]] && pdftoppm -png -singlefile "$6" "$tmp_folder/$6"
         declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
                            [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
                            [path]="$tmp_folder/$6.png") \
