@@ -22,6 +22,11 @@ font xft:URWGothic-Book 11
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
+focus_follows_mouse no
+mouse_warping none
+popup_during_fullscreen leave_fullscreen
+
+
 ################################################################################################
 # Window Settings
 ################################################################################################
