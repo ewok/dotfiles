@@ -256,7 +256,7 @@ def install_printer(c):
     print("################################################################################")
     print("PRINTER STARTED")
 
-    yay(c, ["cups", "xsane", "system-config-printer"])
+    yay(c, ["cups", "xsane", "system-config-printer", "ghostscript"])
 
     install_gitrepo(c, "https://github.com/ondrej-zary/carps-cups.git", os.path.expanduser("~/tmp/carps-cups"))
 
@@ -312,8 +312,37 @@ def install_joplin(c):
     for pair in paths_to_link:
         makesl(pair[0], os.path.expanduser(pair[1]))
 
+@task
+def install_english(c):
+    """Install dicts and other stuff."""
+    packages_to_install = [
+        "ldoce5viewer-pyqt5-git"
+    ]
 
-@task(ensure_yay_exists, install_base, install_gui_tools, install_mail, install_editor, install_albert)
+    yay(c, packages_to_install)
+
+@task
+def install_grive(c):
+    """Install dicts and other stuff."""
+    packages_to_install = [
+        "grive-git", "inotify-tools"
+    ]
+
+    yay(c, packages_to_install)
+
+
+@task
 def install(c):
     """Install all."""
+    ensure_yay_exists(c)
+    install_base(c)
+    install_gui_tools(c)
+    install_mail(c)
+    install_editor(c)
+    install_albert(c)
+    install_joplin(c)
+    install_english(c)
+    install_grive(c)
+    install_appimage(c)
+    install_add_td(c)
     print("ALL IS DONE")
