@@ -29,7 +29,7 @@ def install_base(c):
         "pyenv-virtualenv", "npm", "ttf-liberation",
         "blacklist_pcspkr", "xorg-xbacklight",
         "gotty", "podman", "manjaro-pulse", "pa-applet",
-        "pavucontrol", "blueman", "vifm",
+        "pavucontrol", "blueman", "vifm", "python-ueberzug",
         "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "zip"
 
@@ -48,6 +48,8 @@ def install_base(c):
         ("config/.skhdrc", "~/.skhdrc"),
         ("config/.yabairc", "~/.yabairc"),
         ("bin", "~/bin"),
+        ("config/vifm", "~/.vifm"),
+        ("config/vifm", "~/.config/vifm"),
     ]
 
     packages_to_remove = [
@@ -140,8 +142,6 @@ def install_editor(c):
     paths_to_link = [
         ("config/nvim", "~/.config/nvim"),
         ("config/.ideavimrc", "~/.ideavimrc"),
-        ("config/vifm", "~/.vifm"),
-        ("config/vifm", "~/.config/vifm"),
         ("config/.ctags", "~/.ctags"),
     ]
 
