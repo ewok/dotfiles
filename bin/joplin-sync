@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+if [ -z "$(pgrep joplin)" ]
+then
+  command joplin sync
+fi
