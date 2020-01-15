@@ -17,7 +17,7 @@
   { "keys": ["ni"], "type": "prompt", "command": "mknote \"`date`\"", "cursorPosition": -2 },
   { "keys": ["nb"], "type": "prompt", "command": "mkbook \"\"", "cursorPosition": -2 },
   { "keys": ["yy", "yn"], "type": "prompt", "command": "cp $n \"\"", "cursorPosition": -2 },
-  { "keys": ["mm"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 },
+  { "keys": ["mm"], "type": "prompt", "command": "mv $n ", "cursorPosition": -1 },
   { "keys": ["mk"], "type": "exec", "command": "mv $n kb"},
   { "keys": ["md"], "type": "exec", "command": "mv $n drafts"},
   { "keys": ["R"], "type": "prompt", "command": "ren $n \"\"", "cursorPosition": -2 },
