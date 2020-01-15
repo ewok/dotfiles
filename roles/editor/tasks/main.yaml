@@ -1,0 +1,93 @@
+---
+
+- aur:
+    name: [
+        "neovim", "ctags", "global", "the_silver_searcher",
+        "xkb-switch", "cht.sh", "shellcheck", "yamllint",
+        "vale-bin", "hadolint-bin"
+        ]
+    skip_installed: True
+  become: true
+
+- file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: True
+  loop:
+    - { src: "{{ role_path }}/files/nvim", dest: "~/.config/nvim" }
+    - { src: "{{ role_path }}/files/.ideavimrc", dest: "~/.ideavimrc" }
+    - { src: "{{ role_path }}/files/.ctags", dest: "~/.ctags" }
+
+- npm:
+    name: "{{ item }}"
+    global: True
+  loop:
+    - markdownlint-cli
+    - bash-language-server
+    - livedown
+
+- pip:
+    name:
+      - neovim
+      - pynvim
+    virtualenv: "{{ item.path }}"
+    virtualenv_python: "{{ item.python }}"
+  loop:
+    - { python: "python2", path: "~/share/venv/neovim2" }
+    - { python: "python3", path: "~/share/venv/neovim3" }
+
+- get_url:
+    url: "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"
+    dest: "~/.local/bin/nvim"
+    mode: 0755
+  ignore_errors: True
+
+- shell: nvim +PlugInstall +qall
+
+- get_url:
+    url: "http://www.gitignore.io/api/go,python,linux,macos"
+    dest: "~/.gitexcludes"
+    mode: 0644
+  ignore_errors: True
+
+- git_config:
+    name: "{{ item.name }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop:
+      - {  name: "alias.ignore", value: "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi" }
+      - {  name: "core.excludesfile", value: "~/.gitexcludes" }
+      - {  name: "credential.helper", value: "/usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring" }
+      - {  name: "core.pager", value: "less -F -X" }
+
+- copy:
+    content: |
+        # Core settings
+        StylesPath = ci/vale/styles
+
+        # The minimum alert level to display (suggestion, warning, or error).
+        #
+        # CI builds will only fail on error-level alerts.
+        MinAlertLevel = warning
+
+        # The "formats" section allows you to associate an "unknown" format
+        # with one of Vale's supported formats.
+        [formats]
+        mdx = md
+
+        # Global settings (applied to every syntax)
+        [*]
+        # List of styles to load
+        BasedOnStyles = write-good, Joblint
+        # Style.Rule = {YES, NO} to enable or disable a specific rule
+        vale.Editorializing = YES
+        # You can also change the level associated with a rule
+        vale.Hedging = error
+
+        # Syntax-specific settings
+        # These overwrite any conflicting global settings
+        [*.{md,txt}]
+        vale.Editorializing = NO
+    dest: "~/.vale.ini"
+

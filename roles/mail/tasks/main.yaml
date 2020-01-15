@@ -1,0 +1,21 @@
+---
+
+- aur:
+    name: [
+        "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
+        "davmail", "goobook", "lbdb", "vcal", "pass",
+        "pandoc"
+        ]
+    skip_installed: True
+  become: true
+
+- file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: True
+  loop:
+    - { src: "{{ role_path }}/files/.mbsyncrc", dest: "~/.mbsyncrc" }
+    - { src: "{{ role_path }}/files/.msmtp", dest: "~/.msmtp" }
+    - { src: "{{ role_path }}/files/muttrc", dest: "~/.muttrc" }
+    - { src: "{{ role_path }}/files/mutt", dest: "~/.mutt" }

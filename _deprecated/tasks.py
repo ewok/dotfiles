@@ -186,7 +186,8 @@ def install_editor(c):
 
     with open(os.path.expanduser("~/.vale.ini"), "w") as vale_config:
 
-        config = """# Core settings
+        config = """
+# Core settings
 StylesPath = ci/vale/styles
 
 # The minimum alert level to display (suggestion, warning, or error).

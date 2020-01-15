@@ -1,0 +1,54 @@
+---
+
+- hosts: localhost
+  pre_tasks:
+    - name: Ensure yay exists
+      pacman:
+        name: yay
+        state: present
+      tags:
+        - pre
+    - name: Provide bin
+      file:
+        src: "{{ playbook_dir }}/bin"
+        dest: "~/bin"
+        state: link
+        force: True
+      tags:
+        - pre
+
+  tasks:
+    - include_role:
+        name: base
+        apply:
+          tags:
+            - base
+      tags:
+        - base
+    - include_role:
+        name: gui_tools
+        apply:
+          tags:
+            - gui_tools
+      tags:
+        - gui_tools
+    - include_role:
+        name: mail
+        apply:
+          tags:
+            - mail
+      tags:
+        - mail
+    - include_role:
+        name: editor
+        apply:
+          tags:
+            - editor
+      tags:
+        - editor
+    - shell: cd pkg/add_td && makepkg -sicf
+      ignore_errors: True
+      tags:
+        - td
+        - never
+

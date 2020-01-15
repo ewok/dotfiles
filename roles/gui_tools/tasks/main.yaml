@@ -1,0 +1,38 @@
+---
+
+- aur:
+    name: [ "xst", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
+        "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
+        "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol",
+        "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
+        "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
+        "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
+        "albert", "muparser", "joplin", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools"
+        ]
+    skip_installed: True
+  become: true
+
+- file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: True
+  loop:
+    - { src: "{{ role_path }}/files/.i3", dest: "~/.i3" }
+    - { src: "{{ role_path }}/files/.i3status.conf", dest: "~/.i3status.conf" }
+    - { src: "{{ role_path }}/files/.xprofile", dest: "~/.xprofile" }
+    - { src: "{{ role_path }}/files/.Xresources", dest: "~/.Xresources" }
+    - { src: "{{ role_path }}/files/Zeal", dest: "~/.config/Zeal" }
+    - { src: "{{ role_path }}/files/albert/modules/locate.py", dest: "~/.local/share/albert/org.albert.extension.python/modules/locate.py" }
+    - { src: "{{ role_path }}/files/albert/albert.conf", dest: "~/.config/albert/albert.conf" }
+    - { src: "{{ role_path }}/files/joplin/keymap.json", dest: "~/.config/joplin/keymap.json" }
+
+# Not implemented yet
+#  if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi
+#  git clone --depth 1 https://github.com/lingua-pupuli/puppet-editor-services.git $HOME/.puppetlsp
+#  cd $HOME/.puppetlsp
+#  eval "$(rbenv init -)"
+#  rbenv install 2.5.7
+#  rbenv shell 2.5.7
+#  gem install puppet puppet-lint r10k
+#  bundle install

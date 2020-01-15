@@ -1,0 +1,46 @@
+---
+
+- pacman:
+    name:
+        - vim
+        - palemoon-bin
+    state: absent
+  become: True
+
+- aur:
+    name: [ "gcc", "tmux", "python2", "python3",
+        "python-virtualenv", "unzip", "p7zip",
+        "zsh-autosuggestions", "restic", "trash-cli",
+        "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
+        "rbenv", "ruby-build", "moc", "jq", "pyenv",
+        "pyenv-virtualenv", "npm", "blacklist_pcspkr",
+        "gotty", "podman", "vifm", "python-ueberzug",
+        "unzip", "fzf" ]
+    skip_installed: True
+  become: true
+
+- file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: True
+  loop:
+    - { src: "{{ role_path }}/files/.tmux.conf", dest: "~/.tmux.conf" }
+    - { src: "{{ role_path }}/files/.zshrc", dest: "~/.zshrc" }
+    - { src: "{{ role_path }}/files/.zsh", dest: "~/.zsh" }
+    - { src: "{{ role_path }}/files/.zprofile", dest: "~/.zprofile" }
+    - { src: "{{ role_path }}/files/.profile", dest: "~/.profile" }
+    - { src: "{{ role_path }}/files/vifm", dest: "~/.vifm" }
+    - { src: "{{ role_path }}/files/vifm", dest: "~/.config/vifm" }
+
+- git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  loop:
+      - { repo: "https://github.com/tmux-plugins/tmux-resurrect", dest: "~/.tmux/resurrect" }
+      - { repo: "git://github.com/robbyrussell/oh-my-zsh.git", dest: "~/.oh-my-zsh" }
+
+- get_url:
+    url: "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
+    dest: "~/.local/bin/appimagetool"
+    mode: 0755
