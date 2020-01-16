@@ -30,14 +30,8 @@ popup_during_fullscreen leave_fullscreen
 ################################################################################################
 
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws1
-# assign [class="Pale moon"] $ws2
-# assign [class="Pcmanfm"] $ws3
-# assign [class="Skype"] $ws5
-
 assign [class="Google Play Music Desktop Player"] $ws8
 assign [class="Slack"] $ws5
-# assign [class="TelegramDesktop"] $ws5
 assign [class="Cawbird"] $ws5
 
 # Open specific applications in floating mode
@@ -70,7 +64,7 @@ for_window [urgent=latest] focus
 ################################################################################################
 
 # start a terminal
-bindsym $mod+Return exec xst
+bindsym $mod+Return exec "~/.i3/mc-win-center.sh exec xst"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -153,28 +147,27 @@ mode "$mode_apps" {
 # Windows control
 ################################################################################################
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h         exec "~/.i3/mc-win-center.sh focus left"
+bindsym $mod+j         exec "~/.i3/mc-win-center.sh focus down"
+bindsym $mod+k         exec "~/.i3/mc-win-center.sh focus up"
+bindsym $mod+l         exec "~/.i3/mc-win-center.sh focus right"
+bindsym $mod+Shift+h         exec "~/.i3/mc-win-center.sh move left"
+bindsym $mod+Shift+j         exec "~/.i3/mc-win-center.sh move down"
+bindsym $mod+Shift+k         exec "~/.i3/mc-win-center.sh move up"
+bindsym $mod+Shift+l         exec "~/.i3/mc-win-center.sh move right"
 
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+
 
 workspace_auto_back_and_forth no
-# bindsym $mod+b workspace back_and_forth
-# bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+$mod_a+l split h;exec notify-send 'tile horizontally'
 bindsym $mod+$mod_a+j split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
-# toggle fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+# enter fullscreen mode for the focused container
+bindsym $mod+f exec "~/.i3/mc-win-center.sh fullscreen"
+
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -191,7 +184,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+p sticky toggle,exec notify-send 'sticky'
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+a exec "~/.i3/mc-win-center.sh focus parent"
 
 ################################################################################################
 # Scratchpad
@@ -228,26 +221,26 @@ set $ws8 8
 set $ws9 9
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
+bindsym $mod+1 exec "~/.i3/mc-win-center.sh workspace 1"
+bindsym $mod+2 exec "~/.i3/mc-win-center.sh workspace 2"
+bindsym $mod+3 exec "~/.i3/mc-win-center.sh workspace 3"
+bindsym $mod+4 exec "~/.i3/mc-win-center.sh workspace 4"
+bindsym $mod+5 exec "~/.i3/mc-win-center.sh workspace 5"
+bindsym $mod+6 exec "~/.i3/mc-win-center.sh workspace 6"
+bindsym $mod+7 exec "~/.i3/mc-win-center.sh workspace 7"
+bindsym $mod+8 exec "~/.i3/mc-win-center.sh workspace 8"
+bindsym $mod+9 exec "~/.i3/mc-win-center.sh workspace 9"
 
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
+# move focused container to workspace
+bindsym $mod+Shift+1 exec "~/.i3/mc-win-center.sh move container to workspace 1"
+bindsym $mod+Shift+2 exec "~/.i3/mc-win-center.sh move container to workspace 2"
+bindsym $mod+Shift+3 exec "~/.i3/mc-win-center.sh move container to workspace 3"
+bindsym $mod+Shift+4 exec "~/.i3/mc-win-center.sh move container to workspace 4"
+bindsym $mod+Shift+5 exec "~/.i3/mc-win-center.sh move container to workspace 5"
+bindsym $mod+Shift+6 exec "~/.i3/mc-win-center.sh move container to workspace 6"
+bindsym $mod+Shift+7 exec "~/.i3/mc-win-center.sh move container to workspace 7"
+bindsym $mod+Shift+8 exec "~/.i3/mc-win-center.sh move container to workspace 8"
+bindsym $mod+Shift+9 exec "~/.i3/mc-win-center.sh move container to workspace 9"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
