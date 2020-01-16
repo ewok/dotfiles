@@ -54,6 +54,7 @@ for_window [class="Blueman-manager"] floating enable
 for_window [class="TelegramDesktop"] floating enable sticky enable move position center
 for_window [class="Cawbird"] border normal
 for_window [class="albert"] move position center
+for_window [title="Tabs Outliner"] floating disable; move left; resize shrink right 31px or 31 ppt
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
