@@ -8,4 +8,4 @@ fi
 source .venv/bin/activate
 pip install -r requirements.txt
 
-ansible-playbook install.yaml -D -K
+ansible-playbook install.yaml -D -K "$@"
