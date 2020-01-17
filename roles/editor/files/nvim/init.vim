@@ -1132,8 +1132,8 @@ function LoadLight()
 endfunction
 " }}}
 " -> NERTree {{{
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTree'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTree'] }
 
 nnoremap <leader>pn :NERDTreeToggle<Bar>wincmd p<CR>
 nnoremap <Plug>(find_Path) :call FindPathOrShowNERDTree()<CR>
@@ -1167,6 +1167,9 @@ let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapOpenSplit='s'
 let NERDTreeMapJumpNextSibling=''
 let NERDTreeMapJumpPrevSibling=''
+
+" Close vim if the only NERDTree window left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " }}}
 " -> Tmux {{{
 Plug 'christoomey/vim-tmux-navigator'
