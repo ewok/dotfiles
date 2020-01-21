@@ -4,6 +4,8 @@
     name:
         - vim
         - palemoon-bin
+        - xfce4-power-manager
+        - upower
     state: absent
   become: True
 
@@ -44,3 +46,17 @@
     url: "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     dest: "~/.local/bin/appimagetool"
     mode: 0755
+
+- lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  become: True
+  notify: logind-restart
+  loop:
+    - { regexp: "^HandlePowerKey=", line: "HandlePowerKey=ignore" }
+    - { regexp: "HandleSuspendKey=", line: "HandleSuspendKey=suspend" }
+    - { regexp: "HandleHibernateKey=", line: "HandleHibernateKey=ignore" }
+    - { regexp: "HandleLidSwitch=", line: "HandleLidSwitch=suspend" }
+    - { regexp: "HandleLidSwitchExternalPower=", line: "HandleLidSwitchExternalPower=ignore" }
+    - { regexp: "HandleLidSwitchDocked=", line: "HandleLidSwitchDocked=ignore" }

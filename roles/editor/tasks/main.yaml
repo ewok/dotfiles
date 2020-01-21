@@ -43,7 +43,8 @@
     mode: 0755
   ignore_errors: True
 
-- shell: nvim +PlugInstall +qall
+- shell: nvim +PlugInstall +PlugUpdate +qall
+  changed_when: False
 
 - get_url:
     url: "http://www.gitignore.io/api/go,python,linux,macos"

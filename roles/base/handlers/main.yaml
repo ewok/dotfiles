@@ -1,0 +1,5 @@
+- name: logind-restart
+  systemd:
+    name: systemd-logind
+    state: restarted
+  become: True
