@@ -7,11 +7,12 @@
 
 # $1=command
 # $2=path to keep backups
+# $3=backup dir
 
 
 set -e
 
-BACKUP_DIR=$HOME/
+BACKUP_DIR="${2:-$HOME/}"
 INCLUDES_EXCLUDES="\
   --exclude-caches \
   --exclude-if-present .nobackup \
@@ -19,8 +20,8 @@ INCLUDES_EXCLUDES="\
 
 if [ ! -f $HOME/.backup_exclude ];then touch $HOME/.backup_exclude;fi
 
-RESTIC_REPOSITORY=${2:-rclone:pc:/Backups/workstations}/$(hostname -s | tr '[:upper:]' '[:lower:]')
-RCLONE_BWLIMIT=1M
+RESTIC_REPOSITORY=${3:-rclone:pc:/Backups/workstations/$(hostname -s | tr '[:upper:]' '[:lower:]')}
+#RCLONE_BWLIMIT=1M
 
 export RESTIC_REPOSITORY
 
@@ -34,6 +35,7 @@ PRUNE_CMD="${RESTIC_CMD} \
 
 BACKUP_CMD="${RESTIC_CMD} \
   backup --one-file-system ${BACKUP_DIR} \
+  -r $RESTIC_REPOSITORY \
   ${INCLUDES_EXCLUDES}"
 
 VERIFY_CMD="${RESTIC_CMD} \
@@ -48,12 +50,6 @@ STATUS_CMD="${RESTIC_CMD} \
   snapshots"
 
 
-if [ $# -lt 1 ]
-then
-    echo "Usage : $0 [clean, backup(default), check, restore(to current path), prune, status]"
-        exit
-fi
-
 case "$1" in
 
 prune)
@@ -66,16 +62,31 @@ check)
     echo ${VERIFY_CMD}; eval ${VERIFY_CMD}
     ;;
 restore)
-    echo ${RESTORE_CMD}; eval ${RESTORE_CMD}
-    ;;
-backup)
-    echo ${BACKUP_CMD}; eval ${BACKUP_CMD}
+    echo ${RESTORE_CMD};
+    select yn in "Yes" "No"; do
+      case $yn in
+        Yes ) eval ${RESTIC_CMD}; break;;
+        No ) exit;;
+      esac
+    done
     ;;
 status)
     echo ${STATUS_CMD}; eval ${STATUS_CMD}
     ;;
+backup)
+    echo ${BACKUP_CMD};
+    select yn in "Yes" "No"; do
+      case $yn in
+        Yes ) eval ${BACKUP_CMD}; break;;
+        No ) exit;;
+      esac
+    done
+    ;;
 *)
-    exit 1
+    echo "Usage : $0 [clean, backup, check, restore(to current path), prune, status] <what> <where>"
+    echo "what(default): $HOME/"
+    echo "where(default): rclone:pc:/Backups/workstations"
+    echo "Current backup command: ${BACKUP_CMD}"
    ;;
 esac
 
