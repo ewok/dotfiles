@@ -13,9 +13,13 @@
     skip_installed: True
 
 - file:
-    path: "~/.local/share/albert/org.albert.extension.python/modules/"
+    path: "{{ item }}"
     mode: '0755'
     state: directory
+  loop:
+    -  "~/.local/share/albert/org.albert.extension.python/modules/"
+    -  "~/.config/albert"
+    -  "~/.config/joplin"
 
 - file:
     src: "{{ item.src }}"
