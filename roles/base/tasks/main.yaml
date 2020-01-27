@@ -1,14 +1,5 @@
 ---
 
-- pacman:
-    name:
-        - vim
-        - palemoon-bin
-        - xfce4-power-manager
-        - upower
-    state: absent
-  become: True
-
 - blockinfile:
     path: /etc/pacman.conf
     block: |
@@ -16,6 +7,21 @@
       Server = http://lonewolf-builder.duckdns.org/$repo/x86_64
       Server = http://chaotic.bangl.de/$repo/x86_64
       Server = https://repo.kitsuna.net/x86_64
+  become: True
+
+- pacman_key:
+    id: 3056513887B78AEB
+    keyserver: keys.mozilla.org
+    state: present
+  become: True
+
+- pacman:
+    name:
+        - vim
+        - palemoon-bin
+        - xfce4-power-manager
+        - upower
+    state: absent
   become: True
 
 - aur:

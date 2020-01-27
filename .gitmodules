@@ -1,3 +1,6 @@
 [submodule "modules/aur"]
 	path = modules/aur
 	url = https://github.com/kewlfft/ansible-aur.git
+[submodule "modules/pacman_key"]
+	path = modules/pacman_key
+	url = https://github.com/ewok/ansible-pacman-key.git
