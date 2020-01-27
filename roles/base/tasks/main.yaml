@@ -9,6 +9,15 @@
     state: absent
   become: True
 
+- blockinfile:
+    path: /etc/pacman.conf
+    block: |
+      [chaotic-aur]
+      Server = http://lonewolf-builder.duckdns.org/$repo/x86_64
+      Server = http://chaotic.bangl.de/$repo/x86_64
+      Server = https://repo.kitsuna.net/x86_64
+  become: True
+
 - aur:
     name: [ "gcc", "tmux", "python2", "python3",
         "python-virtualenv", "unzip", "p7zip",
@@ -19,7 +28,6 @@
         "gotty", "podman", "vifm", "python-ueberzug",
         "unzip", "fzf", "reptyr" ]
     skip_installed: True
-  become: true
 
 - file:
     src: "{{ item.src }}"

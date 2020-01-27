@@ -7,7 +7,6 @@
         "pandoc"
         ]
     skip_installed: True
-  become: true
 
 - file:
     src: "{{ item.src }}"
