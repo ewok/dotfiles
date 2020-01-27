@@ -13,7 +13,7 @@
     skip_installed: True
 
 - file:
-    path: ""~/.local/share/albert/org.albert.extension.python/modules/"
+    path: "~/.local/share/albert/org.albert.extension.python/modules/"
     mode: '0755'
     state: directory
 
