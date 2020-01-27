@@ -13,6 +13,11 @@
     skip_installed: True
 
 - file:
+    path: ""~/.local/share/albert/org.albert.extension.python/modules/"
+    mode: '0755'
+    state: directory
+
+- file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
