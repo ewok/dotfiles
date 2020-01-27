@@ -4,3 +4,5 @@ USERNAME=$(cat ~/.mutt_work)
 sed -e "s/%USERNAME%/$USERNAME/" ~/.mbsyncrc > /tmp/.mbsyncrc
 mbsync -c /tmp/.mbsyncrc "$@"
 rm -f /tmp/.mbsyncrc
+
+notmuch new

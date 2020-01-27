@@ -17,7 +17,7 @@
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "blacklist_pcspkr",
         "gotty", "podman", "vifm", "python-ueberzug",
-        "unzip", "fzf" ]
+        "unzip", "fzf", "reptyr" ]
     skip_installed: True
   become: true
 

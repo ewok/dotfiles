@@ -164,6 +164,10 @@ fileviewer *.torrent dumptorrent -v %c
 fileviewer *.doc catdoc %c
 fileviewer *.docx, docx2txt.pl %f -
 
+filetype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx
+        \ {Open with lobreoffice}
+        \ libreoffice %c %i,
+
 " TuDu files
 filetype *.tudu tudu -f %c
 
