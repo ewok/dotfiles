@@ -21,7 +21,7 @@ INCLUDES_EXCLUDES="\
 if [ ! -f $HOME/.backup_exclude ];then touch $HOME/.backup_exclude;fi
 
 RESTIC_REPOSITORY=${3:-rclone:pc:/Backups/workstations/$(hostname -s | tr '[:upper:]' '[:lower:]')}
-#RCLONE_BWLIMIT=1M
+RCLONE_BWLIMIT=1M
 
 export RESTIC_REPOSITORY
 
