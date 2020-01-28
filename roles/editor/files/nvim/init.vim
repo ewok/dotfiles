@@ -1387,8 +1387,6 @@ endif
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/gv.vim'
 
 " Helper
 function! GitShowBlockHistory()
@@ -1431,6 +1429,7 @@ let g:lmap.g.v = { 'name': '+Visual' }
 vmap <silent> <leader>gvh :<C-U>call GitShowBlockHistory()<CR>
 
 " Gitgutter options
+Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
 
 nmap [g <Plug>(GitGutterPrevHunk)
@@ -1446,9 +1445,17 @@ let g:lmap.g.hp = 'Hunk-Preview'
 nmap <leader>ghp :GitGutterPreviewHunk<CR>
 
 " Gitv options
+Plug 'junegunn/gv.vim'
+
 let g:lmap.g.h = 'History'
 let g:Gitv_DoNotMapCtrlKey = 1
 nmap <silent> <leader>gh :GV<CR>
+
+" Git messages in popup
+Plug 'rhysd/git-messenger.vim'
+let g:git_messenger_no_default_mappings = v:true
+let g:git_messenger_always_into_popup = v:true
+nmap <Leader>gbb <Plug>(git-messenger)
 " }}}
 " -> Linter {{{
 Plug 'w0rp/ale'
