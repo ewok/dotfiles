@@ -14,7 +14,7 @@ TZ='Europe/Moscow'; export TZ
 export BROWSER=/usr/bin/firefox
 export EDITOR='nvim'
 export GUI_EDITOR=/usr/bin/nvim
-export TERMINAL=/usr/bin/xst
+export TERMINAL=/usr/bin/termite
 export VISUAL='nvim'
 export XDG_CONFIG_HOME="$HOME/.config"
 

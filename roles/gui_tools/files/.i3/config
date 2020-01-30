@@ -64,7 +64,7 @@ for_window [urgent=latest] focus
 ################################################################################################
 
 # start a terminal
-bindsym $mod+Return exec "~/.i3/mc-win-center.sh exec xst"
+bindsym $mod+Return exec "~/.i3/mc-win-center.sh exec termite"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -127,11 +127,11 @@ mode "$mode_apps" {
         bindsym e exec pcmanfm, mode "default"
         bindsym j exec joplin-desktop, mode "default"
         bindsym l exec ldoce5viewer, mode "default"
-        bindsym m exec xst -e 'alsamixer', mode "default"
+        bindsym m exec termite -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
         bindsym s exec slack, mode "default"
         bindsym t exec telegram-desktop, mode "default"
-        bindsym v exec xst -e vifm, mode "default"
+        bindsym v exec termite -e vifm, mode "default"
         bindsym z exec zeal, mode "default"
 
         # exit resize mode: Enter or Escape

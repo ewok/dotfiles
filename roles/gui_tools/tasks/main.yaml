@@ -1,7 +1,7 @@
 ---
 
 - aur:
-    name: [ "xst", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
+    name: [ "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
@@ -27,6 +27,7 @@
     state: link
     force: True
   loop:
+    - { src: "{{ role_path }}/files/termite", dest: "~/.config/termite" }
     - { src: "{{ role_path }}/files/.i3", dest: "~/.i3" }
     - { src: "{{ role_path }}/files/.i3status.conf", dest: "~/.i3status.conf" }
     - { src: "{{ role_path }}/files/.xprofile", dest: "~/.xprofile" }
