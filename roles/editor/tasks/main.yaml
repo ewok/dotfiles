@@ -3,7 +3,7 @@
 - aur:
     name: [
         "neovim", "ctags", "global", "the_silver_searcher",
-        "xkb-switch", "cht.sh", "shellcheck", "yamllint",
+        "xkb-switch-i3", "cht.sh", "shellcheck", "yamllint",
         "vale-bin", "hadolint-bin"
         ]
     skip_installed: True
