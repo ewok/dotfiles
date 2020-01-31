@@ -1,14 +1,22 @@
 ---
 
+- pacman:
+    name:
+        - palemoon-bin
+        - xfce4-power-manager
+        - xst
+    state: absent
+  become: True
+
 - aur:
     name: [ "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
-        "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol",
+        "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
         "albert", "muparser", "joplin", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
-        "xdotool", "xorg-xwininfo", "uget"
+        "xdotool", "xorg-xwininfo", "uget", "gpmdp"
         ]
     skip_installed: True
 

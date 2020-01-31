@@ -18,8 +18,6 @@
 - pacman:
     name:
         - vim
-        - palemoon-bin
-        - xfce4-power-manager
         - upower
     state: absent
   become: True
