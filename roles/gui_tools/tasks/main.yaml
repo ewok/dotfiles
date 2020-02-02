@@ -9,14 +9,15 @@
   become: True
 
 - aur:
-    name: [ "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
+    name: [
+        "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
         "albert", "muparser", "joplin", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
-        "xdotool", "xorg-xwininfo", "uget", "gpmdp"
+        "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader"
         ]
     skip_installed: True
 

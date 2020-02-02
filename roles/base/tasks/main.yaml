@@ -23,14 +23,16 @@
   become: True
 
 - aur:
-    name: [ "gcc", "tmux", "python2", "python3",
+    name: [
+        "gcc", "tmux", "python2", "python3",
         "python-virtualenv", "unzip", "p7zip",
         "zsh-autosuggestions", "restic", "trash-cli",
         "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "blacklist_pcspkr",
         "gotty", "podman", "vifm", "python-ueberzug",
-        "unzip", "fzf", "reptyr" ]
+        "unzip", "fzf", "reptyr", "cabextract", "dfc"
+        ]
     skip_installed: True
 
 - file:
