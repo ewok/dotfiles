@@ -21,7 +21,7 @@ urgent_on_bell = true
 browser = xdg-open
 
 # "system", "on" or "off"
-cursor_blink = on
+cursor_blink = off
 
 # "block", "underline" or "ibeam"
 cursor_shape = block
