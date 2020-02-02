@@ -1893,6 +1893,3 @@ catch
     " Ignoring
 endtry
 " }}}
-"
-lua require("navigation")
-let g:fzf_layout = { 'window': 'lua NavigationFloatingWin()' }
