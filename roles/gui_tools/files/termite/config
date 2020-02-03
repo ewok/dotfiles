@@ -49,7 +49,7 @@ scrollbar = right
 #background = #3f3f3f
 foreground = #ffffff
 foreground_bold = #ffffff
-background = #161616
+background = #000000
 
 # 20% background transparency (requires a compositor)
 #background = rgba(63, 63, 63, 0.8)
