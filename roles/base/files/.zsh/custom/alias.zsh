@@ -30,5 +30,3 @@ alias k='kubectl'
 alias kx='kubectx'
 
 alias docker=podman
-
-alias j=joplin

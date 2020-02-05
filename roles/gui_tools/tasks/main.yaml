@@ -16,7 +16,7 @@
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
-        "albert", "muparser", "joplin", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
+        "albert", "muparser", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader"
         ]
     skip_installed: True
@@ -28,7 +28,6 @@
   loop:
     -  "~/.local/share/albert/org.albert.extension.python/modules/"
     -  "~/.config/albert"
-    -  "~/.config/joplin"
 
 - file:
     src: "{{ item.src }}"
@@ -44,7 +43,6 @@
     - { src: "{{ role_path }}/files/Zeal", dest: "~/.config/Zeal" }
     - { src: "{{ role_path }}/files/albert/modules/locate.py", dest: "~/.local/share/albert/org.albert.extension.python/modules/locate.py" }
     - { src: "{{ role_path }}/files/albert/albert.conf", dest: "~/.config/albert/albert.conf" }
-    - { src: "{{ role_path }}/files/joplin/keymap.json", dest: "~/.config/joplin/keymap.json" }
 
 # Not implemented yet
 #  if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi

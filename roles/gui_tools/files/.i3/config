@@ -125,7 +125,6 @@ mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
         bindsym d exec todoist, mode "default"
         bindsym e exec pcmanfm, mode "default"
-        bindsym j exec joplin-desktop, mode "default"
         bindsym l exec ldoce5viewer, mode "default"
         bindsym m exec termite -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
