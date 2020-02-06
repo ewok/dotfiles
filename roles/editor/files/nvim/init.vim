@@ -297,17 +297,6 @@ nmap zj zjmzzMzvzz15<c-e>`z
 nmap zk zkmzzMzvzz15<c-e>`z
 
 " " }}}
-" -> Switch off bad habits {{{
-imap  <up>    <Nop>
-imap  <down>  <Nop>
-imap  <left>  <Nop>
-imap  <right> <Nop>
-
-nmap  <up>    <Nop>
-nmap  <down>  <Nop>
-nmap  <left>  <Nop>
-nmap  <right> <Nop>
-" }}}
 " -> TODOs {{{
 inoremap \td <C-R>=split(&commentstring, '%s')[0] . 'TODO: '<CR><CR><C-R>=expand("%:h") . '/' . expand("%:t") . ':' . line(".")<CR><C-G><C-K><C-O>A
 inoremap \dts <C-R>=strftime("%Y-%m-%d %H:%M:%S") . " "<CR>
