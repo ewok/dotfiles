@@ -653,6 +653,24 @@ augroup ft_log
     au BufNewFile,BufRead *.log set filetype=log
 augroup END
 "  }}}
+" -> Terraform {{{
+augroup ft_terraform
+    au!
+
+    au FileType terraform call LoadTerraformFT()
+    function! LoadTerraformFT() " {{{
+
+        call ale#linter#Define('terraform', {
+                    \   'name': 'terraform-lsp',
+                    \   'lsp': 'stdio',
+                    \   'executable': 'terraform-lsp',
+                    \   'command': '%e',
+                    \   'project_root': getcwd(),
+                    \})
+    endfunction " }}}
+
+augroup END
+"  }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "
@@ -1226,11 +1244,35 @@ Plug 'tpope/vim-commentary'
 set commentstring=#\ %s
 " }}}
 " -> Autocompletion {{{
-"
 Plug 'deoplete-plugins/deoplete-tag'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 let g:deoplete#enable_at_startup = 1
+
+"use <tab> for completion
+function! TabWrap()
+    if pumvisible()
+        return "\<C-N>"
+    elseif strpart( getline('.'), 0, col('.') - 1 ) =~ '^\s*$'
+        return "\<tab>"
+    elseif &omnifunc !~ ''
+        return "\<C-X>\<C-O>"
+    else
+        return "\<C-N>"
+    endif
+endfunction
+
+" power tab
+imap <silent><expr><tab> TabWrap()
+
+" Enter: complete&close popup if visible (so next Enter works); else: break undo
+inoremap <silent><expr> <Cr> pumvisible() ?
+            \ deoplete#close_popup() : "<C-g>u<Cr>"
+
+" Ctrl-Space: summon FULL (synced) autocompletion
+inoremap <silent><expr> <C-Space> deoplete#manual_complete()
+
+" Escape: exit autocompletion, go to Normal mode
+inoremap <silent><expr> <Esc> pumvisible() ? "<C-e><Esc>" : "<Esc>"
 " }}}
 " -> Snippets {{{
 Plug 'Shougo/neosnippet.vim'
@@ -1422,7 +1464,7 @@ let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '..'
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_insert_leave = 0
-
+let g:ale_completion_enabled = 0
 " }}}
 " -> AutoIndent {{{
 Plug 'tpope/vim-sleuth'
@@ -1432,10 +1474,6 @@ Plug 'obreitwi/vim-sort-folds', { 'on': '<Plug>SortFolds' }
 let g:lmap.s.f = { 'name': 'Fold' }
 vmap <silent> <leader>sf <Plug>SortFolds
 " }}}
-" -> LSP {{{
-Plug 'neovim/nvim-lsp'
-Plug 'Shougo/deoplete-lsp'
-"  }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "
@@ -1840,6 +1878,7 @@ function! AfterVimEnter()
 
     call deoplete#custom#source('_', 'sorters', ['sorter_rank'])
     call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
+    call deoplete#custom#source('ale', 'rank', 999)
 endfunction
 
 " Load local vars {{{
