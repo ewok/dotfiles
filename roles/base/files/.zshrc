@@ -31,12 +31,11 @@ ZSH_CUSTOM=~/.zsh/custom
 source $ZSH/oh-my-zsh.sh
 
 # Tuning appearance of the git prompt
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}($fg[blue]%}git%{$reset_color%}:"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}) "
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}(%{$fg[blue]%}git%{$fg[white]%}:"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[white]%}) "
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{.%G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{x%G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{+%G%}"
-
 # User configuration
 PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) $(git_super_status)$(tf_prompt_info_patched)%{$reset_color%}'
 RPROMPT="[%*]"
