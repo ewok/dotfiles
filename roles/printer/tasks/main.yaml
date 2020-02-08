@@ -1,0 +1,24 @@
+---
+
+- aur:
+    name: [
+        "cups", "xsane", "system-config-printer", "ghostscript",
+        ]
+    skip_installed: True
+
+- git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  loop:
+      - { repo: "https://github.com/ondrej-zary/carps-cups.git", dest: "/tmp/carps-cups" }
+      - { repo: "git://github.com/robbyrussell/oh-my-zsh.git", dest: "~/.oh-my-zsh" }
+
+- shell: |
+    cd /tmp/carps-cups;
+    make && sudo make install;
+  become: True
+
+- systemd:
+    name: cups-browsed
+    state: started
+    enabled: True

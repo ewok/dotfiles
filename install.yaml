@@ -46,6 +46,13 @@
             - editor
       tags:
         - editor
+    - include_role:
+        name: printer
+        apply:
+          tags:
+            - printer
+      tags:
+        - printer
     - shell: cd pkg/add_td && makepkg -sicf
       ignore_errors: True
       tags:
