@@ -660,11 +660,13 @@ call plug#begin('~/.config/nvim/local/plugged')
 " Filetype plugins -------------------------------------------------------- {{{
 " -> Ansible {{{
 Plug 'pearofducks/ansible-vim', { 'for': 'yaml.ansible' }
-au! User ansible-vim call LoadAnsible()
 
-function! LoadAnsible()
-    let g:ansible_unindent_after_newline = 0
-endfunction
+let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby', '*.py.j2': 'python' }
+let g:ansible_unindent_after_newline = 1
+let g:ansible_attribute_highlight = "ob"
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_normal_keywords_highlight = 'Constant'
+let g:ansible_with_keywords_highlight = 'Constant'
 " }}}
 " -> CSV {{{
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
@@ -672,39 +674,23 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " -> Rust {{{
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-au! User rust.vim call LoadRust()
-
-function! LoadRust()
-    let g:racer_experimental_completer = 1
-endfunction
+let g:racer_experimental_completer = 1
 
 " }}}
 " -> Go {{{
 "  TODO: Still not working
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-au! User vim-go call LoadGo()
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
-function! LoadGo() " {{{
-
-    " let $GOPATH = $HOME . '/share/gopath/default'
-    " @todo: Make it getting from .gopath
-    ". fnamemodify(getcwd(), ':t')
-    " let $GOBIN = $HOME . '/.local/bin'
-    " let $PATH = $PATH . ':' . $GOBIN
-
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_interfaces = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_build_constraints = 1
-
-    " let g:go_auto_type_info = 1
-    let g:go_auto_sameids = 1
-    " let g:go_fmt_autosave = 0
-    " let g:go_fmt_command = "goimports"
-
-endfunction " }}}
+" let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+" let g:go_fmt_autosave = 0
+" let g:go_fmt_command = "goimports"
 
 " }}}
 " -> Logstash {{{
@@ -712,12 +698,8 @@ Plug 'robbles/logstash.vim', { 'for': 'logstash' }
 " }}}
 " -> Markdown {{{
 Plug 'shime/vim-livedown', { 'for': 'markdown' }
-au! User vim-livedown call LoadLivedown()
-
-function! LoadLivedown()
-    let g:livedown_browser = 'firefox'
-    let g:livedown_port = 14545
-endfunction
+let g:livedown_browser = 'firefox'
+let g:livedown_port = 14545
 " }}}
 " -> Puppet {{{
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
@@ -726,33 +708,26 @@ Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 let g:puppet_align_hashes = 0
 " }}}
 " -> Python {{{
-Plug 'ewok/vim-virtualenv', { 'for': 'python' }
-au! User vim-virtualenv call LoadVirtualenv()
-function! LoadVirtualenv() " {{{
-    let g:virtualenv_directory = $PWD
-endfunction " }}}
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+let g:virtualenv_directory = $PWD
 
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-au! User jedi-vim call LoadJedi()
+let g:jedi#goto_command = ""
+let g:jedi#goto_assignments_command = "gA"
+let g:jedi#goto_definitions_command = "gd"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "gr"
+let g:jedi#completions_command = ""
+let g:jedi#rename_command = "<leader>rR"
+let g:jedi#completions_enabled = 0
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#goto_stubs_command = ""
 
-function! LoadJedi() " {{{
-    let g:jedi#goto_command = ""
-    let g:jedi#goto_assignments_command = "gA"
-    let g:jedi#goto_definitions_command = "gd"
-    let g:jedi#documentation_command = "K"
-    let g:jedi#usages_command = "gr"
-    let g:jedi#completions_command = ""
-    let g:jedi#rename_command = "<leader>rR"
-    let g:jedi#completions_enabled = 0
-    let g:jedi#use_splits_not_buffers = "right"
-    let g:jedi#goto_stubs_command = ""
-
-    let g:deoplete#sources#jedi#show_docstring = 1
-endfunction " }}}
+let g:deoplete#sources#jedi#show_docstring = 1
 " }}}
 " -> Salt {{{
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
@@ -760,6 +735,11 @@ Plug 'saltstack/salt-vim', { 'for': 'sls' }
 " -> SQL {{{
 " Plug 'martingms/vipsql', { 'for': 'sql' }
 " }}}
+" -> Terraform {{{
+Plug 'hashivim/vim-terraform'
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+"  }}}
 " -> VIM {{{
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 " }}}
@@ -819,7 +799,6 @@ Plug 'kana/vim-textobj-user'
 
 " Adds: f - function
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
-au! User vim-textobj-python call LoadTextObjPython()
 
 let g:textobj_python_no_default_key_mappings = 1
 xmap af <Plug>(textobj-python-function-a)
@@ -1111,14 +1090,9 @@ let g:indent_guides_default_mapping = 0
 " }}}
 " -> Lightline {{{
 Plug 'itchyny/lightline.vim'
-au! User lightline call LoadLight()
-
-function LoadLight()
-    if !has('gui_running')
-        set t_Co=256
-    endif
-
-endfunction
+if !has('gui_running')
+    set t_Co=256
+endif
 " }}}
 " -> NERTree {{{
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTree'] }
@@ -1271,8 +1245,6 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'jsfaint/gen_tags.vim'
 
-au! User tagbar call LoadTagBar()
-
 nnoremap <silent> <leader>pt :TagbarToggle<CR>
 
 let g:lmap.t.u = 'tag-Update'
@@ -1280,89 +1252,85 @@ nmap <leader>tu :!ctags -R --exclude=.git --exclude=.idea --exclude=log<CR><CR>
 
 set tags=tags;/,codex.tags;/
 
-function! LoadTagBar()
+let g:tagbar_type_puppet = {
+            \ 'ctagstype': 'puppet',
+            \ 'kinds': [
+            \'c:class',
+            \'s:site',
+            \'n:node',
+            \'d:definition',
+            \'r:resource',
+            \'f:default'
+            \]
+            \}
 
-    let g:tagbar_type_puppet = {
-                \ 'ctagstype': 'puppet',
-                \ 'kinds': [
-                \'c:class',
-                \'s:site',
-                \'n:node',
-                \'d:definition',
-                \'r:resource',
-                \'f:default'
-                \]
-                \}
+let g:tagbar_type_haskell = {
+            \ 'ctagsbin'  : 'hasktags',
+            \ 'ctagsargs' : '-x -c -o-',
+            \ 'kinds'     : [
+            \  'm:modules:0:1',
+            \  'd:data: 0:1',
+            \  'd_gadt: data gadt:0:1',
+            \  't:type names:0:1',
+            \  'nt:new types:0:1',
+            \  'c:classes:0:1',
+            \  'cons:constructors:1:1',
+            \  'c_gadt:constructor gadt:1:1',
+            \  'c_a:constructor accessors:1:1',
+            \  'ft:function types:1:1',
+            \  'fi:function implementations:0:1',
+            \  'o:others:0:1'
+            \ ],
+            \ 'sro'        : '.',
+            \ 'kind2scope' : {
+            \ 'm' : 'module',
+            \ 'c' : 'class',
+            \ 'd' : 'data',
+            \ 't' : 'type'
+            \ },
+            \ 'scope2kind' : {
+            \ 'module' : 'm',
+            \ 'class'  : 'c',
+            \ 'data'   : 'd',
+            \ 'type'   : 't'
+            \ }
+            \ }
 
-    let g:tagbar_type_haskell = {
-                \ 'ctagsbin'  : 'hasktags',
-                \ 'ctagsargs' : '-x -c -o-',
-                \ 'kinds'     : [
-                \  'm:modules:0:1',
-                \  'd:data: 0:1',
-                \  'd_gadt: data gadt:0:1',
-                \  't:type names:0:1',
-                \  'nt:new types:0:1',
-                \  'c:classes:0:1',
-                \  'cons:constructors:1:1',
-                \  'c_gadt:constructor gadt:1:1',
-                \  'c_a:constructor accessors:1:1',
-                \  'ft:function types:1:1',
-                \  'fi:function implementations:0:1',
-                \  'o:others:0:1'
-                \ ],
-                \ 'sro'        : '.',
-                \ 'kind2scope' : {
-                \ 'm' : 'module',
-                \ 'c' : 'class',
-                \ 'd' : 'data',
-                \ 't' : 'type'
-                \ },
-                \ 'scope2kind' : {
-                \ 'module' : 'm',
-                \ 'class'  : 'c',
-                \ 'data'   : 'd',
-                \ 'type'   : 't'
-                \ }
-                \ }
+let g:tagbar_type_go = {
+            \ 'ctagstype' : 'go',
+            \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+            \ ],
+            \ 'sro' : '.',
+            \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+            \ },
+            \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+            \ },
+            \ 'ctagsbin'  : 'gotags',
+            \ 'ctagsargs' : '-sort -silent'
+            \ }
 
-    let g:tagbar_type_go = {
-                \ 'ctagstype' : 'go',
-                \ 'kinds'     : [
-                \ 'p:package',
-                \ 'i:imports:1',
-                \ 'c:constants',
-                \ 'v:variables',
-                \ 't:types',
-                \ 'n:interfaces',
-                \ 'w:fields',
-                \ 'e:embedded',
-                \ 'm:methods',
-                \ 'r:constructor',
-                \ 'f:functions'
-                \ ],
-                \ 'sro' : '.',
-                \ 'kind2scope' : {
-                \ 't' : 'ctype',
-                \ 'n' : 'ntype'
-                \ },
-                \ 'scope2kind' : {
-                \ 'ctype' : 't',
-                \ 'ntype' : 'n'
-                \ },
-                \ 'ctagsbin'  : 'gotags',
-                \ 'ctagsargs' : '-sort -silent'
-                \ }
-
-    let g:tagbar_type_ansible = {
-                \ 'ctagstype' : 'ansible',
-                \ 'kinds' : [
-                \ 't:tasks'
-                \ ],
-                \ 'sort' : 0
-                \ }
-
-endfunction
+let g:tagbar_type_ansible = {
+            \ 'ctagstype' : 'ansible',
+            \ 'kinds' : [
+            \ 't:tasks'
+            \ ],
+            \ 'sort' : 0
+            \ }
 " }}}
 " -> @todo: Check actuality Folding  {{{
 Plug 'pseewald/vim-anyfold'
@@ -1466,7 +1434,7 @@ vmap <silent> <leader>sf <Plug>SortFolds
 " }}}
 " -> LSP {{{
 Plug 'neovim/nvim-lsp'
-
+Plug 'Shougo/deoplete-lsp'
 "  }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{

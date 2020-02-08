@@ -19,6 +19,7 @@
     name:
         - vim
         - upower
+        - podman
     state: absent
   become: True
 
@@ -30,7 +31,7 @@
         "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
         "rbenv", "ruby-build", "moc", "jq", "pyenv",
         "pyenv-virtualenv", "npm", "blacklist_pcspkr",
-        "gotty", "podman", "vifm", "python-ueberzug",
+        "gotty", "docker", "vifm", "python-ueberzug",
         "unzip", "fzf", "reptyr", "cabextract", "dfc",
         "gnu-netcat"
         ]
