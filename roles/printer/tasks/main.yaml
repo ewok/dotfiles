@@ -11,11 +11,11 @@
     dest: "{{ item.dest }}"
   loop:
       - { repo: "https://github.com/ondrej-zary/carps-cups.git", dest: "/tmp/carps-cups" }
-      - { repo: "git://github.com/robbyrussell/oh-my-zsh.git", dest: "~/.oh-my-zsh" }
+  become: True
 
 - shell: |
     cd /tmp/carps-cups;
-    make && sudo make install;
+    make && make install;
   become: True
 
 - systemd:
