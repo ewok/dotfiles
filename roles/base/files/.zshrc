@@ -5,7 +5,7 @@ ZSH_THEME="norm"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Plugins
-plugins=(fzf colored-man-pages tmux ssh-agent git rbenv)
+plugins=(fzf colored-man-pages tmux ssh-agent git git-prompt rbenv terraform)
 
 # HISTORY_OPTION
 HISTFILE="$HOME/.zsh_history"
@@ -30,8 +30,15 @@ ZSH_CUSTOM=~/.zsh/custom
 
 source $ZSH/oh-my-zsh.sh
 
+# Tuning appearance of the git prompt
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}($fg[blue]%}git%{$reset_color%}:"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}) "
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{.%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{x%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{+%G%}"
+
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) $(git_super_status)$(tf_prompt_info_patched)%{$reset_color%}'
 RPROMPT="[%*]"
 
 # SSH-AGENT

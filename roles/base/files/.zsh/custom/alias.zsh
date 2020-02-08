@@ -30,3 +30,4 @@ alias k='kubectl'
 alias kx='kubectx'
 
 alias docker=podman
+alias t=terraform
