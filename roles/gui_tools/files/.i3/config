@@ -77,13 +77,13 @@ bindsym $mod+d exec --no-startup-id albert, exec albert toggle
 # bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
-bindsym $mod_a+z exec --no-startup-id morc_menu
+# bindsym $mod_a+z exec --no-startup-id morc_menu
 
 # Lock screen
 bindsym $mod_a+l exec --no-startup-id blurlock
 
 # Dmenu
-bindsym $mod_a+d exec --no-startup-id dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
+# bindsym $mod_a+d exec --no-startup-id dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -121,7 +121,7 @@ bindsym Control+period exec --no-startup-id "/opt/enpass/Enpass showassistant"
 bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?' && xdotool type "==== ${USER} $(date +'%Y-%m-%d %H:%M') ===="
 
 # Start Applications
-bindsym $mod_a+o mode "$mode_apps"
+bindsym $mod+o mode "$mode_apps"
 set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (j)oplin, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
 mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
@@ -161,9 +161,6 @@ bindsym $mod+Shift+l         exec "~/.i3/mc-win-center.sh move right"
 
 workspace_auto_back_and_forth no
 
-# split orientation
-bindsym $mod+$mod_a+l split h;exec notify-send 'tile horizontally'
-bindsym $mod+$mod_a+j split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
 # enter fullscreen mode for the focused container
@@ -309,7 +306,7 @@ mode "$mode_display" {
 }
 # Declare here the shortcut to bring the display selection menu
 
-bindsym $mod_a+x mode "$mode_display"
+bindsym $mod+x mode "$mode_display"
 ################################################################################################
 # Colors
 ################################################################################################
