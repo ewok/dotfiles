@@ -55,6 +55,7 @@ for_window [class="Blueman-manager"] floating enable
 for_window [class="TelegramDesktop"] floating enable sticky enable move position center
 for_window [class="Cawbird"] border normal
 for_window [class="albert"] move position center
+for_window [class="Syncthing GTK"] floating enable sticky enable move position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -460,6 +461,7 @@ exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep todoist || todoist
 exec_always --no-startup-id pgrep cawbird || cawbird
+exec_always --no-startup-id pgrep syncthing-gtk || syncthing-gtk
 
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager

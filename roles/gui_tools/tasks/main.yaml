@@ -17,7 +17,8 @@
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
         "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
         "albert", "muparser", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
-        "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader"
+        "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader",
+        "syncthing-gtk"
         ]
     skip_installed: True
 
