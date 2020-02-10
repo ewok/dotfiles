@@ -29,4 +29,5 @@ fi
 alias k='kubectl'
 alias kx='kubectx'
 
-alias t=terraform
+alias tf=terraform
+alias tg=terragrunt

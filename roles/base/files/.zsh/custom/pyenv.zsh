@@ -2,7 +2,10 @@ if [[ ! -o interactive ]]; then
     return
 fi
 
-FOUND_PYENV=$+commands[pyenv]
+# Load pyenv only if command not already available
+command -v pyenv &> /dev/null && FOUND_PYENV=1 || FOUND_PYENV=0
+
+# FOUND_PYENV=$+commands[pyenv]
 
 if [[ $FOUND_PYENV -ne 1 ]]; then
     pyenvdirs=("$HOME/.pyenv" "/usr/local/pyenv" "/opt/pyenv" "/usr/local/opt/pyenv")
@@ -32,10 +35,25 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
 fi
 
 if [[ $FOUND_PYENV -eq 1 ]]; then
-    eval "$(pyenv init - --no-rehash zsh)"
-    if (( $+commands[pyenv-virtualenv-init] )); then
-        eval "$(pyenv virtualenv-init - zsh)"
+    eval "$(pyenv init --no-rehash - zsh)"
+
+    _pyenv_virtualenv_hook() {
+      local ret=$?
+      if [ -f $PWD/.python-version ] ; then
+        eval "$(pyenv sh-activate --quiet || pyenv sh-deactivate --quiet || true)" || true
+      else
+        if [ -n "$VIRTUAL_ENV" ]; then
+          eval "$(pyenv sh-deactivate --quiet || true)" || true
+        fi
+      fi
+      return $ret
+    };
+
+    typeset -g -a precmd_functions
+    if [[ -z $precmd_functions[(r)_pyenv_virtualenv_hook] ]]; then
+      precmd_functions=(_pyenv_virtualenv_hook $precmd_functions);
     fi
+
     function pyenv_prompt_info() {
         echo "$(pyenv version-name)"
     }
@@ -47,3 +65,4 @@ else
 fi
 
 unset FOUND_PYENV pyenvdirs dir
+

@@ -200,6 +200,8 @@ bindsym $mod+minus scratchpad show
 #navigate workspaces next / previous
 bindsym $mod+n workspace next
 bindsym $mod+b workspace prev
+bindsym $mod_a+n exec i3-display-swap.sh right
+bindsym $mod_a+b exec i3-display-swap.sh left
 
 bindsym $mod+Shift+n move workspace to output right
 bindsym $mod+Shift+b move workspace to output left
