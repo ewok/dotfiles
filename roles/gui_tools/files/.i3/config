@@ -77,7 +77,7 @@ bindsym $mod+d exec --no-startup-id albert, exec albert toggle
 # bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
-# bindsym $mod_a+z exec --no-startup-id morc_menu
+bindsym $mod_a+z exec --no-startup-id morc_menu
 
 # Lock screen
 bindsym $mod_a+l exec --no-startup-id blurlock
@@ -93,6 +93,24 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Choose keyboard
+bindsym $mod_a+k mode "$mode_keyb"
+set $mode_keyb (1)laptop,(2)external or default
+mode "$mode_keyb" {
+        bindsym 1 exec keyb-laptop.sh 1, mode "default"
+        bindsym 2 exec keyb-laptop.sh, mode "default"
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Ctrl+m mode "default"
+        bindsym Ctrl+[ mode "default"
+}
+
+bindsym $mod_a+1 exec "xkb-switch -s us; pkill -x --signal=SIGUSR1 i3status"
+bindsym $mod_a+2 exec "xkb-switch -s ru; pkill -x --signal=SIGUSR1 i3status"
+bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -121,7 +139,7 @@ bindsym Control+period exec --no-startup-id "/opt/enpass/Enpass showassistant"
 bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?' && xdotool type "==== ${USER} $(date +'%Y-%m-%d %H:%M') ===="
 
 # Start Applications
-bindsym $mod+o mode "$mode_apps"
+bindsym $mod_a+o mode "$mode_apps"
 set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (j)oplin, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
 mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
@@ -308,7 +326,7 @@ mode "$mode_display" {
 }
 # Declare here the shortcut to bring the display selection menu
 
-bindsym $mod+x mode "$mode_display"
+bindsym $mod_a+x mode "$mode_display"
 ################################################################################################
 # Colors
 ################################################################################################
@@ -346,7 +364,7 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	i3bar_command i3bar
-	status_command i3status
+	status_command ~/bin/i3status.sh
 	position top
 
 	# output eDP1
@@ -468,7 +486,7 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec_always --no-startup-id pkill pa-applet; sleep 5; pa-applet
 exec_always --no-startup-id pkill blueman-applet; blueman-applet
-exec_always --no-startup-id pkill sbxkb; sbxkb
+exec_always --no-startup-id pkill xkb-switch; xkb-switch --i3
 exec_always --no-startup-id fix_xcursor
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec --no-startup-id battery-warning

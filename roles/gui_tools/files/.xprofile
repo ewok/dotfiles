@@ -1,7 +1,4 @@
 xset r rate 220 25
-setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option
-setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:win_space_toggle"
-# setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:win_space_toggle,ctrl:swapcaps"
 
 xinput --set-prop "Elan Touchpad" "libinput Natural Scrolling Enabled" 1 &
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1 &
