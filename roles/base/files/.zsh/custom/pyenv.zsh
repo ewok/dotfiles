@@ -44,11 +44,14 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
 
     _pyenv_virtualenv_hook() {
       local ret=$?
-      if [ -f $PWD/.python-version ] ; then
+      if [ -f .python-version ] ; then
+        if [ -n "$VIRTUAL_ENV" ]; then
+          eval "$(pyenv sh-deactivate --quiet || true)" || true
+        fi
         eval "$(pyenv sh-activate --quiet || pyenv sh-deactivate --quiet || true)" || true
       else
         if [ -n "$VIRTUAL_ENV" ]; then
-          eval "$(pyenv sh-deactivate --quiet || true)" || true
+          eval "$(pyenv sh-deactivate --quiet || pyenv sh-activate --quiet|| true)" || true
         fi
       fi
       return $ret
