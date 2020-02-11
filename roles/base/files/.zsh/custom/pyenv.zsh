@@ -5,6 +5,8 @@ fi
 # Load pyenv only if command not already available
 command -v pyenv &> /dev/null && FOUND_PYENV=1 || FOUND_PYENV=0
 
+# Disable devault virtualenv prompt
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # FOUND_PYENV=$+commands[pyenv]
 
 if [[ $FOUND_PYENV -ne 1 ]]; then
@@ -34,6 +36,9 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
   }
 fi
 
+ZSH_THEME_PY_PROMPT_PREFIX="%{$fg[white]%}(%{$fg[blue]%}py%{$fg[white]%}:%{$reset_color%}"
+ZSH_THEME_PY_PROMPT_SUFFIX="%{$fg[white]%})%{$reset_color%} "
+
 if [[ $FOUND_PYENV -eq 1 ]]; then
     eval "$(pyenv init --no-rehash - zsh)"
 
@@ -55,12 +60,15 @@ if [[ $FOUND_PYENV -eq 1 ]]; then
     fi
 
     function pyenv_prompt_info() {
-        echo "$(pyenv version-name)"
+      py_version=$(pyenv version-name)
+      if [ "$py_version" != "system" ]; then
+        echo "${ZSH_THEME_PY_PROMPT_PREFIX}${py_version}${ZSH_THEME_PY_PROMPT_SUFFIX}"
+      fi
     }
 else
     # fallback to system python
     function pyenv_prompt_info() {
-        echo "system: $(python -V 2>&1 | cut -f 2 -d ' ')"
+        echo "${ZSH_THEME_PY_PROMPT_PREFIX}sys:$(python -V 2>&1 | cut -f 2 -d ' ')${ZSH_THEME_PY_PROMPT_SUFFIX}"
     }
 fi
 

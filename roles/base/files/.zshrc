@@ -34,7 +34,8 @@ source $ZSH/oh-my-zsh.sh
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}(%{$fg[blue]%}git%{$fg[white]%}:"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[white]%}) "
 # User configuration
-PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) $(git_prompt_info)$(tf_prompt_info_patched)%{$reset_color%}'
+# PROMPT='%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) $(pyenv_prompt_info)$(git_prompt_info)$(tf_prompt_info_patched)%{$reset_color%}'
+PROMPT='$(pyenv_prompt_info)$(git_prompt_info)$(tf_prompt_info_patched)%{$fg[yellow]%}λ %{$fg[cyan]%}$USER@%m %{$fg[green]%}%(5~|%-1~/…/%3~|%4~) %{$reset_color%}'
 RPROMPT="[%*]"
 
 # SSH-AGENT
