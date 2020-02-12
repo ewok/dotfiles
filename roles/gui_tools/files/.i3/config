@@ -108,8 +108,8 @@ mode "$mode_keyb" {
         bindsym Ctrl+[ mode "default"
 }
 
-bindsym $mod_a+F1 exec "xkb-switch -s us; pkill -x --signal=SIGUSR1 i3status"
-bindsym $mod_a+F2 exec "xkb-switch -s ru; pkill -x --signal=SIGUSR1 i3status"
+bindsym $mod_a+1 exec "xkb-switch -s us; pkill -x --signal=SIGUSR1 i3status"
+bindsym $mod_a+2 exec "xkb-switch -s ru; pkill -x --signal=SIGUSR1 i3status"
 bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 
 ################################################################################################
