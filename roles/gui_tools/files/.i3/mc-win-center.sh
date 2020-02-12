@@ -15,3 +15,6 @@ if [ $ULX != "-1" -o $ULY != "-1" ]; then
 
     xdotool mousemove --window $WINDOW $NX $NY
 fi
+
+# Refresh i3status to update keyboard layout status
+pkill -x --signal=SIGUSR1 i3status

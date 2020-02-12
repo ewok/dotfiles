@@ -2,7 +2,7 @@
 allow_bold = true
 audible_bell = false
 bold_is_bright = true
-clickable_url = true
+clickable_url = false
 dynamic_title = true
 font = Liberation Mono 13
 fullscreen = true
@@ -27,7 +27,7 @@ cursor_blink = off
 cursor_shape = block
 
 # Hide links that are no longer valid in url select overlay mode
-filter_unmatched_urls = true
+filter_unmatched_urls = false
 
 # Emit escape sequences for extra modified keys
 modify_other_keys = true
