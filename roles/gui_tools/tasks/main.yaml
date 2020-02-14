@@ -18,7 +18,7 @@
         "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
         "albert", "muparser", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader",
-        "syncthing-gtk"
+        "syncthing-gtk", "discord"
         ]
     skip_installed: True
 
