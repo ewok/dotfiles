@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export PATH=$HOME/bin:$PATH
 
 ZSH_THEME="norm"
 HIST_STAMPS="yyyy-mm-dd"

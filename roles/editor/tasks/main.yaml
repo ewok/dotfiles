@@ -11,7 +11,8 @@
     name: [
         "neovim", "ctags", "global", "the_silver_searcher",
         "xkb-switch-i3", "cht.sh", "shellcheck", "yamllint",
-        "vale-bin", "hadolint-bin", "terraform-lsp-bin"
+        "vale-bin", "hadolint-bin", "terraform-lsp-bin",
+        "lua-language-server-git"
         ]
     skip_installed: True
 
@@ -32,6 +33,7 @@
     - markdownlint-cli
     - bash-language-server
     - livedown
+  become: True
 
 - pip:
     name:
@@ -42,6 +44,10 @@
   loop:
     - { python: "python2", path: "~/share/venv/neovim2" }
     - { python: "python3", path: "~/share/venv/neovim3" }
+
+- file:
+    path: "~/.local/bin"
+    state: directory
 
 - get_url:
     url: "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"

@@ -8,17 +8,24 @@
     state: absent
   become: True
 
-- aur:
+- pacman:
     name: [
         "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
-        "cawbird", "masterpdfeditor-free", "cryptomator", "firefox", "enpass-bin",
-        "albert", "muparser", "ldoce5viewer-pyqt5-git", "grive-git", "inotify-tools",
-        "xdotool", "xorg-xwininfo", "uget", "gpmdp", "calibre-python3", "deluge", "fbreader",
+        "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
+        "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
         "syncthing-gtk", "discord"
+        ]
+    state: present
+  become: True
+
+- aur:
+    name: [
+        "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", 
+         "enpass-bin", "gpmdp" 
         ]
     skip_installed: True
 

@@ -671,6 +671,24 @@ augroup ft_terraform
 
 augroup END
 "  }}}
+" -> LUA {{{
+augroup ft_lua
+    au!
+
+    au FileType lua call LoadLUAFT()
+    function! LoadLUAFT() " {{{
+
+        call ale#linter#Define('lua', {
+                    \   'name': 'lua-language-server',
+                    \   'lsp': 'stdio',
+                    \   'executable': 'lua-language-server',
+                    \   'command': '%e',
+                    \   'project_root': getcwd(),
+                    \})
+    endfunction " }}}
+
+augroup END
+"  }}}
 " }}}
 " Plugins ----------------------------------------------------------------- {{{
 "

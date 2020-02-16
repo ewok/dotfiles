@@ -23,9 +23,16 @@
     state: absent
   become: True
 
+- pacman:
+    name:
+      - base-devel
+      - gcc
+    state: present
+  become: True
+
 - aur:
     name: [
-        "gcc", "tmux", "python2", "python3",
+        "tmux", "python2", "python3",
         "python-virtualenv", "unzip", "p7zip",
         "zsh-autosuggestions", "restic", "trash-cli",
         "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
@@ -57,6 +64,10 @@
   loop:
       - { repo: "https://github.com/tmux-plugins/tmux-resurrect", dest: "~/.tmux/resurrect" }
       - { repo: "git://github.com/robbyrussell/oh-my-zsh.git", dest: "~/.oh-my-zsh" }
+
+- file:
+    path: "~/.local/bin"
+    state: directory
 
 - get_url:
     url: "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
