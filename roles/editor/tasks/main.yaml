@@ -11,8 +11,7 @@
     name: [
         "neovim", "ctags", "global", "the_silver_searcher",
         "xkb-switch-i3", "cht.sh", "shellcheck", "yamllint",
-        "vale-bin", "hadolint-bin", "terraform-lsp-bin",
-        "lua-language-server-git"
+        "vale-bin", "hadolint-bin", "terraform-lsp-bin"
         ]
     skip_installed: True
 

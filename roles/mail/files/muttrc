@@ -48,7 +48,6 @@ bind index - collapse-thread
 bind index _ collapse-all
 
 bind editor <space> noop
-bind index D delete-message
 bind index G last-entry
 bind index U undelete-message
 bind index,pager d half-down
