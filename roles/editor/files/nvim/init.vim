@@ -1285,12 +1285,14 @@ imap <silent><expr><tab> TabWrap()
 " Enter: complete&close popup if visible (so next Enter works); else: break undo
 inoremap <silent><expr> <Cr> pumvisible() ?
             \ deoplete#close_popup() : "<C-g>u<Cr>"
+inoremap <silent><expr> <C-M> pumvisible() ?
+            \ deoplete#close_popup() : "<C-g>u<Cr>"
 
 " Ctrl-Space: summon FULL (synced) autocompletion
 inoremap <silent><expr> <C-Space> deoplete#manual_complete()
 
 " Escape: exit autocompletion, go to Normal mode
-inoremap <silent><expr> <Esc> pumvisible() ? "<C-e><Esc>" : "<Esc>"
+" inoremap <silent><expr> <Esc> pumvisible() ? "<C-e><Esc>" : "<Esc>"
 " }}}
 " -> Snippets {{{
 Plug 'Shougo/neosnippet.vim'
