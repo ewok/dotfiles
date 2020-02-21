@@ -16,6 +16,11 @@
   become: True
 
 - pacman:
+    update_cache: yes
+    upgrade: yes
+  become: True
+
+- pacman:
     name:
         - vim
         - upower

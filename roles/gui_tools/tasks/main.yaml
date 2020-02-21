@@ -1,5 +1,11 @@
 ---
 
+- lineinfile:
+    path: /etc/X11/xorg.conf.d/00-keyboard.conf
+    regexp: '^.*Option "XkbLayout" .*'
+    line: '        Option "XkbLayout" "us,ru"'
+  become: True
+
 - pacman:
     name:
         - palemoon-bin
