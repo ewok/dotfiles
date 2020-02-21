@@ -23,7 +23,7 @@
         "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
-        "syncthing-gtk", "discord"
+        "syncthing-gtk", "discord", "alternating-layouts-git"
         ]
     state: present
   become: True
