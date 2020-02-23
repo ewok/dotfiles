@@ -479,7 +479,7 @@ exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep todoist || todoist
 exec_always --no-startup-id pgrep cawbird || cawbird
 exec_always --no-startup-id pgrep syncthing-gtk || syncthing-gtk
-exec_always --no-startup-id pgrep -f alternating_layouts.py || alternating_layouts.py
+exec_always --no-startup-id alternating_layouts.py
 
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager

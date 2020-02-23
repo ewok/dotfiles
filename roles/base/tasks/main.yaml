@@ -32,6 +32,7 @@
     name:
       - base-devel
       - gcc
+      - rclone
     state: present
   become: True
 
