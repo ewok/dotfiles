@@ -1,12 +1,14 @@
 ---
 
 - aur:
-    name: [
-        "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
-        "davmail", "goobook", "lbdb", "vcal", "pass",
-        "pandoc"
-        ]
+    name: "{{ item }}"
     skip_installed: True
+  loop: [
+      "mbsync", "msmtp", "neomutt", "notmuch", "notmuch-mutt",
+      "davmail", "goobook", "lbdb", "vcal", "pass",
+      "pandoc"
+      ]
+
 
 - file:
     src: "{{ item.src }}"

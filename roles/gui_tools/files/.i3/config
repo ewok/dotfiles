@@ -472,13 +472,14 @@ mode "$mode_gaps_outer" {
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always --no-startup-id pgrep pcloud || pcloud
-exec_always --no-startup-id pgrep Enpass || enpass
+exec_always --no-startup-id pgrep enpass || enpass
 exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep todoist || todoist
 exec_always --no-startup-id pgrep cawbird || cawbird
 exec_always --no-startup-id pgrep syncthing-gtk || syncthing-gtk
+exec_always --no-startup-id pgrep -f alternating_layouts.py || alternating_layouts.py
 
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
@@ -492,4 +493,3 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec --no-startup-id battery-warning
 exec --no-startup-id ~/.xprofile
 exec_always --no-startup-id sleep 10; nitrogen --restore
-exec --no-startup-id alternating_layouts.py

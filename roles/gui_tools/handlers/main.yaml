@@ -1,0 +1,6 @@
+- name: bluetooth
+  systemd:
+    name: bluetooth
+    state: started
+    enabled: True
+  become: True

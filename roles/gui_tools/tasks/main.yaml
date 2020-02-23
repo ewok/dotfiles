@@ -15,23 +15,25 @@
   become: True
 
 - pacman:
-    name: [
-        "termite", "siji-git", "ttf-unifont", "nerd-fonts-noto-sans-mono",
+    name: "{{ item }}"
+    state: present
+  become: True
+  loop: [
+        "termite", "nerd-fonts-noto-sans-mono",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
-        "flameshot", "todoist-linux-bin", "slack-desktop", "redshift-gtk-git", "zeal",
+        "flameshot", "slack-desktop", "zeal", "telegram-desktop",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
-        "syncthing-gtk", "discord", "alternating-layouts-git"
+        "syncthing-gtk", "discord", "libappindicator-gtk3"
         ]
-    state: present
-  become: True
+
 
 - aur:
     name: [
         "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", 
-         "enpass-bin", "gpmdp" 
+         "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "todoist-linux-bin",  "redshift-gtk-git", "alternating-layouts-git"
         ]
     skip_installed: True
 

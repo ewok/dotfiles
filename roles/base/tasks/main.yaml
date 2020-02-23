@@ -36,18 +36,19 @@
   become: True
 
 - aur:
-    name: [
-        "tmux", "python2", "python3",
-        "python-virtualenv", "unzip", "p7zip",
-        "zsh-autosuggestions", "restic", "trash-cli",
-        "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
-        "rbenv", "ruby-build", "moc", "jq", "pyenv",
-        "pyenv-virtualenv", "npm", "blacklist_pcspkr",
-        "gotty", "docker", "vifm", "python-ueberzug",
-        "unzip", "fzf", "reptyr", "cabextract", "dfc",
-        "gnu-netcat"
-        ]
+    name: "{{ item }}"
     skip_installed: True
+  loop: [
+      "tmux", "python2", "python3",
+      "python-virtualenv", "unzip", "p7zip",
+      "zsh-autosuggestions", "restic", "trash-cli",
+      "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
+      "rbenv", "ruby-build", "moc", "jq", "pyenv",
+      "pyenv-virtualenv", "npm", "blacklist_pcspkr",
+      "gotty", "docker", "vifm", "python-ueberzug",
+      "unzip", "fzf", "reptyr", "cabextract", "dfc",
+      "gnu-netcat"
+      ]
 
 - file:
     src: "{{ item.src }}"
