@@ -39,6 +39,7 @@
     name:
       - neovim
       - pynvim
+      - msgpack
     virtualenv: "{{ item.path }}"
     virtualenv_python: "{{ item.python }}"
   loop:
