@@ -472,7 +472,8 @@ mode "$mode_gaps_outer" {
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always --no-startup-id pgrep pcloud || pcloud
-exec_always --no-startup-id pgrep enpass || enpass
+exec_always --no-startup-id pgrep insync || insync
+exec_always --no-startup-id pgrep cryptomator || cryptomator
 exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
@@ -480,10 +481,9 @@ exec_always --no-startup-id pgrep todoist || todoist
 exec_always --no-startup-id pgrep cawbird || cawbird
 exec_always --no-startup-id pgrep syncthing-gtk || syncthing-gtk
 
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
+exec_always --no-startup-id pgrep nm-applet || nm-applet
+exec_always --no-startup-id pgrep pamac-tray || pamac-tray
+exec_always --no-startup-id pgrep clipit || clipit
 exec_always --no-startup-id pkill pa-applet; sleep 5; pa-applet
 exec_always --no-startup-id pkill blueman-applet; blueman-applet
 exec_always --no-startup-id pkill xkb-switch; xkb-switch --i3
