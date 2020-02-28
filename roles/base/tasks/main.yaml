@@ -23,6 +23,11 @@
 - pacman:
     name:
         - vim
+        - nautilus
+        - insync-nautilus
+        - python-nautilus
+        - tracker-miners
+        - tracker
         - upower
         - podman
     state: absent

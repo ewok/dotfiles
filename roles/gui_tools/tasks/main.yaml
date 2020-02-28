@@ -8,6 +8,8 @@
 
 - pacman:
     name:
+        - manjaro-i3-settings
+        - i3-gaps
         - palemoon-bin
         - xfce4-power-manager
         - xst
@@ -26,14 +28,14 @@
         "flameshot", "slack-desktop", "zeal", "telegram-desktop",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
-        "syncthing-gtk", "discord", "libappindicator-gtk3"
+        "discord", "libappindicator-gtk3", "i3-wm", "trayer"
         ]
 
 
 - aur:
     name: [
-        "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", 
-         "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "todoist-linux-bin",  "redshift-gtk-git", "alternating-layouts-git"
+        "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git",
+         "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "todoist-linux-bin",  "redshift-gtk-git"
         ]
     skip_installed: True
 
