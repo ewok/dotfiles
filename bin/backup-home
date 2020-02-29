@@ -75,12 +75,13 @@ status)
     ;;
 backup)
     echo ${BACKUP_CMD};
-    select yn in "Yes" "No"; do
-      case $yn in
-        Yes ) eval ${BACKUP_CMD}; break;;
-        No ) exit;;
-      esac
-    done
+    eval ${BACKUP_CMD};
+    # select yn in "Yes" "No"; do
+    #   case $yn in
+    #     Yes ) eval ${BACKUP_CMD}; break;;
+    #     No ) exit;;
+    #   esac
+    # done
     ;;
 *)
     echo "Usage : $0 [clean, backup, check, restore(to current path), prune, status] <what> <where>"
