@@ -145,7 +145,7 @@ bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
-set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (j)oplin, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
+set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
 mode "$mode_apps" {
         bindsym b exec firefox, mode "default"
         bindsym d exec todoist, mode "default"
@@ -180,15 +180,12 @@ bindsym $mod+Shift+j         exec "~/.i3/mc-win-center.sh move down"
 bindsym $mod+Shift+k         exec "~/.i3/mc-win-center.sh move up"
 bindsym $mod+Shift+l         exec "~/.i3/mc-win-center.sh move right"
 
-
-
 workspace_auto_back_and_forth no
 
 bindsym $mod+q split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f exec "~/.i3/mc-win-center.sh fullscreen"
-
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -311,17 +308,19 @@ bindsym $mod_a+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 # Display management
 ################################################################################################
 ## Manual management of external displays
-set $mode_display Ext Screen (d/D) DP1 ON/OFF, (h/H) HDMI ON/OFF, (i) toggle Intel-virtual-output, (v/V) VIRTUAL ON/OFF, (l) Load autorandr profile, (r) Refresh
+set $mode_display Ext Screen ON/OFF (d/D)DP1, (h/H)HDMI, (v/V) VIRTUAL, (i) intel-virtual-output, (a) autorandr, (r) Refresh, (t) toogle rfkill
 mode "$mode_display" {
+    bindsym a exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P "Profile($(autorandr | awk NF=NF RS= OFS=' ')): ", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --right-of eDP1 --auto' -P "Num($(xrandr | awk '/^DP.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --left-of eDP1 --auto' -P "Num($(xrandr | awk '/^HDMI.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --right-of eDP1 --auto' -P "Num($(xrandr | awk '/^VIRTUAL.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym Shift+d exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output DP%s --off' -P "Num($(xrandr | awk '/^DP.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym Shift+h exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output HDMI%s --off' -P "Num($(xrandr | awk '/^HDMI.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym Shift+v exec i3-input -l 1 -F 'exec --no-startup-id xrandr --output VIRTUAL%s --off' -P "Num($(xrandr | awk '/^VIRTUAL.* connected/{printf $1 }')):", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym r exec 'xrandr --auto', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
     bindsym i exec intel-virtual-output, exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
-    bindsym l exec i3-input -F 'exec --no-startup-id autorandr -l %s' -P "Profile($(autorandr | awk NF=NF RS= OFS=' ')): ", exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+    bindsym r exec 'xrandr --auto', exec "$HOME/.xprofile; DISPLAY=:8 $HOME/.xprofile", mode "default"
+
+    bindsym t exec i3-input -l 1 -F 'exec --no-startup-id rfkill-toggle %s' -P "$(rfkill-status)", mode "default"
 
     # back to normal: Enter or Escape
     bindsym Retun mode "default"
@@ -386,7 +385,7 @@ bar {
         statusline #F9FAF9
         separator  #454947
 
-#                      border  backgr. text
+    #                      border  backgr. text
         focused_workspace  #F9FAF9 #16a085 #292F34
         active_workspace   #595B5B #353836 #FDF6E3
         inactive_workspace #595B5B #222D31 #EEE8D5
@@ -407,69 +406,6 @@ bindsym $mod+m bar mode toggle
   client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
   client.background       #2B2C2B
-
-#############################
-### settings for i3-gaps: ###
-#############################
-
-# Set inner/outer gaps
-# gaps inner 2
-# gaps outer 2
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
-# Smart gaps (gaps used if only more than one container on the workspace)
-# smart_gaps off
-
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-# smart_borders no_gaps
-
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-# set $mode_gaps Gaps: (o) outer, (i) inner
-# set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-# set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-# bindsym $mod+Shift+g mode "$mode_gaps"
-# 
-# mode "$mode_gaps" {
-#         bindsym o      mode "$mode_gaps_outer"
-#         bindsym i      mode "$mode_gaps_inner"
-#         bindsym Return mode "default"
-#         bindsym Escape mode "default"
-#         bindsym Ctrl+m mode "default"
-#         bindsym Ctrl+[ mode "default"
-# }
-# mode "$mode_gaps_inner" {
-#         bindsym plus  gaps inner current plus 5
-#         bindsym minus gaps inner current minus 5
-#         bindsym 0     gaps inner current set 0
-# 
-#         bindsym Shift+plus  gaps inner all plus 5
-#         bindsym Shift+minus gaps inner all minus 5
-#         bindsym Shift+0     gaps inner all set 0
-# 
-#         bindsym Return mode "default"
-#         bindsym Escape mode "default"
-#         bindsym Ctrl+m mode "default"
-#         bindsym Ctrl+[ mode "default"
-# }
-# mode "$mode_gaps_outer" {
-#         bindsym plus  gaps outer current plus 5
-#         bindsym minus gaps outer current minus 5
-#         bindsym 0     gaps outer current set 0
-# 
-#         bindsym Shift+plus  gaps outer all plus 5
-#         bindsym Shift+minus gaps outer all minus 5
-#         bindsym Shift+0     gaps outer all set 0
-# 
-#         bindsym Return mode "default"
-#         bindsym Escape mode "default"
-#         bindsym Ctrl+m mode "default"
-#         bindsym Ctrl+[ mode "default"
-# }
 
 ################################################################################################
 # Autostart applications
@@ -494,7 +430,7 @@ exec_always --no-startup-id pgrep pa-applet || pa-applet
 exec_always --no-startup-id pgrep blueman-applet || blueman-applet
 exec_always --no-startup-id pkill xkb-switch; xkb-switch --i3
 exec_always --no-startup-id fix_xcursor
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 15 -locker blurlock
 exec --no-startup-id battery-warning
 exec --no-startup-id ~/.xprofile
 exec_always --no-startup-id sleep 10; nitrogen --restore

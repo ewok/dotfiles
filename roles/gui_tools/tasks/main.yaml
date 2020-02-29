@@ -21,7 +21,7 @@
     state: present
   become: True
   loop: [
-        "termite", "nerd-fonts-noto-sans-mono",
+        "termite", "nerd-fonts-noto-sans-mono", "scrot",
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",

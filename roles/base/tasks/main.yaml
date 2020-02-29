@@ -99,3 +99,10 @@
     - { regexp: "HandleLidSwitch=", line: "HandleLidSwitch=suspend" }
     - { regexp: "HandleLidSwitchExternalPower=", line: "HandleLidSwitchExternalPower=ignore" }
     - { regexp: "HandleLidSwitchDocked=", line: "HandleLidSwitchDocked=ignore" }
+
+- name: adding existing user "{{ ansible_user }}" to some groups
+  user:
+     name: "{{ ansible_user }}"
+     groups: wheel,docker,rfkill
+     append: yes
+  become: True

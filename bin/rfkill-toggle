@@ -1,0 +1,8 @@
+#!/bin/bash
+# Location: /etc/acpi/actions
+# Perms: ugo+rx
+
+if [ "$1" == "" ];then exit 1;fi
+
+# 1 means on.  Requires rfkill package.
+[ "$(</sys/class/rfkill/rfkill$1/state)" = "1" ] && rfkill block $1 || rfkill unblock $1
