@@ -1494,6 +1494,10 @@ Plug 'obreitwi/vim-sort-folds', { 'on': '<Plug>SortFolds' }
 let g:lmap.s.f = { 'name': 'Fold' }
 vmap <silent> <leader>sf <Plug>SortFolds
 " }}}
+" -> AnyJump {{{
+Plug 'pechorin/any-jump.vim'
+let g:any_jump_search_prefered_engine = 'rg'
+"  }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
 "

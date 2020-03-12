@@ -32,8 +32,8 @@ popup_during_fullscreen leave_fullscreen
 
 # Open applications on specific workspaces
 assign [class="Google Play Music Desktop Player"] $ws8
-assign [class="Slack"] $ws5
-assign [class="Cawbird"] $ws5
+assign [class="Slack"] $ws3
+assign [class="Cawbird"] $ws3
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -61,6 +61,7 @@ for_window [class="trayer"] floating enable; border none
 for_window [title="Cryptomator"] floating enable; border none
 for_window [title="Unlock Vault"] floating enable; border none
 for_window [title="DavMail Gateway Settings"] floating enable; border none
+for_window [title="Enpass"] floating enable; border none
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
