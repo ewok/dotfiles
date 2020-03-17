@@ -479,6 +479,9 @@ augroup ft_markdown
         nmap <buffer> <silent> <leader>rt :LivedownToggle<CR>
         nmap <buffer> <silent> <leader>rk :LivedownKill<CR>
 
+        command! -bang -nargs=? EvalBlock call medieval#eval(<bang>0, <f-args>)
+        nmap <buffer> <leader>rb "":EvalBlock<CR>
+
     endfunction " }}}
 
 augroup END
@@ -1497,6 +1500,10 @@ vmap <silent> <leader>sf <Plug>SortFolds
 " -> AnyJump {{{
 Plug 'pechorin/any-jump.vim'
 let g:any_jump_search_prefered_engine = 'rg'
+"  }}}
+" -> EvalBlock {{{
+Plug 'gpanders/vim-medieval', {'for': ['markdown', 'vimwiki']}
+let g:medieval_langs = ['python=python3', 'ruby', 'sh', 'console=bash', 'bash']
 "  }}}
 " }}}
 " Small plugins ----------------------------------------------------------- {{{
