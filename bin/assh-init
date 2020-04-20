@@ -25,14 +25,12 @@ echo "usage: `basename $0` <host>"
 exit 1
 fi
 
-source ~/share/venv_ansible/bin/activate
-
 if [[ $($SSH $1 -l $2 "echo YEP") ]];
 then
     echo Key installed
-    ansible-playbook -i $1, ${PWD}/assh-play/install.yml -e server=$1 -u $2
+    ansible-playbook -i $1, ${PWD}/assh-play/install.yml -e server=$1
 else
     echo Key NOT installed
-    ansible-playbook -i $1, ${PWD}/assh-play/install.yml -k -e server=$1 -u $2
+    ansible-playbook -i $1, ${PWD}/assh-play/install.yml -k -e server=$1
 fi
 

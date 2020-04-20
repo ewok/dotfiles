@@ -55,7 +55,7 @@ _promptdir=/usr/share/zsh/$ZSH_VERSION/functions
 autoload -U promptinit
 promptinit
 
-prompt fade
+prompt clint
 
 path=($path /usr/bin /bin /usr/local/bin /usr/X11R6/bin /sbin /usr/sbin /home/ewok/bin)
 export path

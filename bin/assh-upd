@@ -17,5 +17,5 @@ elif [[ $platform == 'macos' ]]; then
     cd $(dirname "$(readlink -n $0)")
 fi
 
-ansible-playbook -i $1, ${PWD}/assh-play/install.yml -e server=$1 -u $2
+ansible-playbook -i $1, ${PWD}/assh-play/install.yml -e server=$1
 

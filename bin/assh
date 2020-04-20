@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 platform='unknown'
 unamestr=`uname`
@@ -35,8 +35,6 @@ fi
 
 CP="/tmp/ssh_${1:0:50}_%r_%p"
 
-source ~/share/venv/ans7/bin/activate
-
 if ! /usr/bin/ssh -o ConnectTimeout=10 -o BatchMode=yes -o "ControlPath=$CP" $@ '[ -d .art ]'; then
     read -p "No, do you want to install[Yy]? " -n 1 -r
     echo
@@ -47,7 +45,7 @@ fi
 
 echo -ne "\033]0;$@\007"
 
-/usr/local/bin/ssh -C -t -o "ControlPath=$CP" -o ControlMaster=yes  $@ 'SESS=$(tmux -L artur list-sessions | grep -v attached | cut -d: -f1 | head -n 1);if [[ -n "$SESS" ]];then tmux -L artur attach -t $SESS; else tmux -L artur -f ~/.art/.tmux-art new;fi'
+/usr/bin/ssh -C -t -o "ControlPath=$CP" -o ControlMaster=yes  $@ 'SESS=$(tmux -L artur list-sessions | grep -v attached | cut -d: -f1 | head -n 1);if [[ -n "$SESS" ]];then tmux -L artur attach -t $SESS; else tmux -L artur -f ~/.art/.tmux-art new;fi'
 
 if [ $? -eq 0 ]; then
     echo "$@" >> ~/assh.log

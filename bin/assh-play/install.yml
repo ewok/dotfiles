@@ -7,14 +7,6 @@
   # gather_facts: False
   tasks:
 
-    - file: path="{{ item }}" state=directory mode=0700 owner={{ ansible_user_id }}
-      with_items:
-        - "~/.ssh"
-        - "~/.mc"
-
-    - name: Add ssh_key
-      authorized_key: user={{ ansible_user_id }} key="{{lookup('file', '~/.ssh/id_rsa.pub')}}"
-
     - name: config dir
       file: path=~/.art state=directory mode=0755
 
@@ -24,12 +16,6 @@
     - name: copy zsh config
       copy: src=zshrc dest=~/.art/.zshrc mode=0644
 
-    - name: copy mc config
-      copy: src={{ item }} dest="~/.mc/" mode=0644
-      with_items:
-        - "ini"
-        - "panels.ini"
-
     - include: apt.yml
       become: True
       when: ansible_pkg_mgr == 'apt'
@@ -37,11 +23,6 @@
     - include: yum.yml
       become: True
       when: ansible_pkg_mgr == 'yum'
-
-    #- name: Kill tmux sessions
-      #command: killall tmux
-      #ignore_errors: True
-      #tags: killtmux
 
     - file: path={{ item }} state=absent
       with_items:
