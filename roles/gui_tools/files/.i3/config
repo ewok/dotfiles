@@ -265,7 +265,7 @@ bindsym $mod+Shift+8 exec "~/.i3/mc-win-center.sh move container to workspace 8"
 bindsym $mod+Shift+9 exec "~/.i3/mc-win-center.sh move container to workspace 9"
 
 # Set shut down, restart and locking features
-bindsym $mod+0 mode "$mode_system"
+bindsym $mod+$mod_a+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
