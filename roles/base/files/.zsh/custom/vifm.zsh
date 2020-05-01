@@ -10,7 +10,7 @@ vifm()
     rm "$FIFO_UEBERZUG" 2>/dev/null
     mkfifo "$FIFO_UEBERZUG"
     trap cleanup EXIT
-    tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash -l thread &
+    tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash -l thread 2>/dev/null &
 
     dst="$(command vifm --choose-dir - "$@")"
     if [ -z "$dst" ]; then
