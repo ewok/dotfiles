@@ -57,12 +57,13 @@ for_window [title="Cryptomator"] floating enable sticky enable
 for_window [class="Cawbird"] border normal
 for_window [class="albert"] move position center
 for_window [class="Syncthing GTK"] floating enable sticky enable move position center
-for_window [class="trayer"] floating enable; border none
-for_window [title="Cryptomator"] floating enable; border none
-for_window [title="Unlock Vault"] floating enable; border none
-for_window [title="DavMail Gateway Settings"] floating enable; border none
-for_window [title="Enpass"] floating enable; border none
-for_window [title="Insync"] floating enable; border none
+for_window [class="trayer"] floating enable
+for_window [class="Tusk"] floating enable; sticky enable
+for_window [title="Cryptomator"] floating enable
+for_window [title="Unlock Vault"] floating enable
+for_window [title="DavMail Gateway Settings"] floating enable
+for_window [title="Enpass"] floating enable
+for_window [title="Insync"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -147,16 +148,15 @@ bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
-set $mode_apps (b)rowser, to(d)oist, (e)xplorer, (l)doce, (m)ixer, (p)avu, (s)lack, (t)elegram, (v)ifm, (z)eal
+set $mode_apps  (1)tusk, (2)ldoce, (3)slack, (4)telegram, (b)rowser, (m)ixer, (p)avu, (v)ifm, (z)eal,
 mode "$mode_apps" {
+        bindsym 1 exec tusk, mode "default"
+        bindsym 2 exec ldoce5viewer, mode "default"
+        bindsym 3 exec slack, mode "default"
+        bindsym 4 exec telegram-desktop, mode "default"
         bindsym b exec firefox, mode "default"
-        bindsym d exec todoist, mode "default"
-        bindsym e exec pcmanfm, mode "default"
-        bindsym l exec ldoce5viewer, mode "default"
         bindsym m exec termite -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
-        bindsym s exec slack, mode "default"
-        bindsym t exec telegram-desktop, mode "default"
         bindsym v exec termite -e vifm, mode "default"
         bindsym z exec zeal, mode "default"
 
