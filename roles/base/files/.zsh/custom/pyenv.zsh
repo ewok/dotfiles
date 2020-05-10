@@ -40,7 +40,7 @@ ZSH_THEME_PY_PROMPT_PREFIX="%{$fg[white]%}(%{$fg[blue]%}py%{$fg[white]%}:%{$rese
 ZSH_THEME_PY_PROMPT_SUFFIX="%{$fg[white]%})%{$reset_color%} "
 
 if [[ $FOUND_PYENV -eq 1 ]]; then
-    eval "$(pyenv init --no-rehash - zsh)"
+    eval "$(pyenv init - zsh)"
 
     _pyenv_virtualenv_hook() {
       local ret=$?
