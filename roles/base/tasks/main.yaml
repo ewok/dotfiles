@@ -38,6 +38,7 @@
       - base-devel
       - gcc
       - rclone
+      - sshuttle
     state: present
   become: True
 
