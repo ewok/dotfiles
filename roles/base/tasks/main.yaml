@@ -54,7 +54,7 @@
       "pyenv-virtualenv", "npm", "blacklist_pcspkr",
       "gotty", "docker", "vifm", "python-ueberzug",
       "unzip", "fzf", "reptyr", "cabextract", "dfc",
-      "gnu-netcat"
+      "gnu-netcat", "smem"
       ]
 
 - file:

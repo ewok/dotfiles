@@ -8,6 +8,9 @@ function setjdk() {
     export PATH=$JAVA_HOME/bin:$PATH
 
     java -version
+  else
+    echo "Available versions:"
+    ls /usr/lib/jvm
   fi
 }
 function removeFromPath() {

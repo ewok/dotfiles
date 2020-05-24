@@ -31,3 +31,4 @@ alias kx='kubectx'
 
 alias tf=terraform
 alias tg=terragrunt
+alias mem-proc='smem -t -k -c pss -P'
