@@ -2,12 +2,12 @@
 
 - hosts: localhost
   pre_tasks:
-    - name: Ensure yay exists
-      pacman:
-        name: yay
-        state: present
-      tags:
-        - pre
+    #    - name: Ensure yay exists
+    #  pacman:
+    #    name: yay
+    #    state: present
+    #  tags:
+    #    - pre
     - name: Provide bin
       file:
         src: "{{ playbook_dir }}/bin"

@@ -1,6 +1,8 @@
 #/usr/bin/env bash
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$WSLENV" != "" ]]; then
+    explorer.exe "$@"
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     xdg-open "$@"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     /usr/bin/open "$@"

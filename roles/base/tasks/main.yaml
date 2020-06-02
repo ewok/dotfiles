@@ -49,7 +49,7 @@
       "tmux", "python2", "python3",
       "python-virtualenv", "unzip", "p7zip",
       "zsh-autosuggestions", "restic", "trash-cli",
-      "nvme-cli", "par", "sshfs", "curlftpfs", "archivemount",
+      "nvme-cli", "par", "sshfs", "curlftpfs",
       "rbenv", "ruby-build", "moc", "jq", "pyenv",
       "pyenv-virtualenv", "npm", "blacklist_pcspkr",
       "gotty", "docker", "vifm", "python-ueberzug",
@@ -86,6 +86,16 @@
     url: "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     dest: "~/.local/bin/appimagetool"
     mode: 0755
+
+- get_url:
+    url: "https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip"
+    dest: "/tmp/win32yank.zip"
+
+- shell: unzip /tmp/win32yank.zip win32yank.exe -d ~/.local/bin
+  args:
+    creates: ~/.local/bin/win32yank.exe
+
+- shell: chmod +x ~/.local/bin/win32yank.exe
 
 - lineinfile:
     path: /etc/systemd/logind.conf
