@@ -1068,7 +1068,7 @@ let g:vimwiki_ext2syntax = {'.md': 'markdown',
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_hl_cb_checked = 2
-let g:vimwiki_markdown_link_ext = 1
+"let g:vimwiki_markdown_link_ext = 1
 
 " }}}
 " }}}
