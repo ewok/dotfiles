@@ -17,11 +17,11 @@
 command! rsync LIST=$(for f in %f;do echo "$f\n";done);rsync_tq.sh %d %D "$LIST"
 
 command! df df -h %m 2> /dev/null
-command! diff nvim -d %f %F
+command! diff vim -d %f %F
 command! run !! ./%f
 command! make !!make %a
 command! mkcd :mkdir %a | cd %a
-command! vgrep nvim "+grep %a"
+command! vgrep vim "+grep %a"
 
 command! reload :write | restart
 
@@ -29,7 +29,7 @@ command! j :execute 'cd' system('autojump %a')
 command! jd !!autojump -d %a
 command! ji !!autojump -i %a
 
-command! vim nvim %a
+command! vim vim %a
 command! nvim nvim %a
 command! vimr vimr %a
 
