@@ -4,8 +4,8 @@ alias exit='sync; sync; sync; clear; exit'
 
 # Neovim
 NVIM=$(which nvim)
-alias vi="$NVIM"
-alias vim="$NVIM"
+VIM=$(which vim)
+alias vi="$VIM"
 
 # fzf
 alias cdf="cd \$(dirname \"\$(fzf)\")"
