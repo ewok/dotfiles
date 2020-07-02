@@ -11,7 +11,7 @@ set sort_aux="reverse-last-date-received"
 set mail_check=60
 set timeout=15
 unset collapse_unread
-set new_mail_command="notify-send -i /usr/share/icons/Papirus/32x32/apps/email.svg -t 5000 '%n new messages, %u unread.'"
+# set new_mail_command="notify-send -i /usr/share/icons/Papirus/32x32/apps/email.svg -t 5000 '%n new messages, %u unread.'"
 
 # View and reply with different formats
 send2-hook . 'set mailcap_path=~/.mutt/mailcap'

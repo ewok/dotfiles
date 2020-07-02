@@ -17,13 +17,35 @@ Inbox ~/mail/work/Inbox
 Channel work-main
 Master :work-remote:
 Slave :work-local:
-Patterns "INBOX" "Archive" "Important" "Junk" "Drafts"
+Patterns "Archive" "Important" "Drafts"
 Create Both
 Remove Both
 Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+
+Channel work-junk
+Master :work-remote:Junk
+Slave :work-local:Junk
+Create Both
+Remove Both
+Expunge Both
+Sync All
+SyncState *
+CopyArrivalDate yes
+MaxMessages 50
+
+Channel work-inbox
+Master :work-remote:INBOX
+Slave :work-local:Inbox
+Create Both
+Remove Both
+Expunge Both
+Sync All
+SyncState *
+CopyArrivalDate yes
+MaxMessages 500
 
 Channel work-nn
 Master :work-remote:NN
@@ -34,6 +56,7 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+MaxMessages 200
 
 Channel work-devops
 Master :work-remote:DevOps
@@ -44,6 +67,7 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+MaxMessages 1000
 
 Channel work-low
 Master :work-remote:LowPriority
@@ -54,6 +78,7 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+MaxMessages 100
 
 Channel work-trash
 Master :work-remote:"Deleted Items"
@@ -64,6 +89,7 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+MaxMessages 100
 
 Channel work-sent
 Master :work-remote:"Sent Items"
@@ -74,9 +100,12 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
+MaxMessages 100
 
 Group work
+Channel work-inbox
 Channel work-main
+Channel work-junk
 Channel work-nn
 Channel work-devops
 Channel work-low
