@@ -77,19 +77,18 @@ for_window [urgent=latest] focus
 bindsym $mod+Return exec "~/.i3/mc-win-center.sh exec termite"
 
 # kill focused window
-bindsym $mod+q kill
-bindsym $mod_a+q kill
-bindsym $mod_a+Shift+x --release exec --no-startup-id xkill
+bindsym $mod+Shift+q kill
+bindsym $mod_a+Shift+q --release exec --no-startup-id xkill
 
 # start program launcher
-bindsym $mod+space exec --no-startup-id albert, exec albert toggle
+bindsym $mod+d exec --no-startup-id albert, exec albert toggle
 # bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
-# bindsym $mod_a+z exec --no-startup-id morc_menu
+bindsym $mod_a+z exec --no-startup-id morc_menu
 
 # Lock screen
-bindsym $mod+$mod_a+l exec --no-startup-id blurlock
+bindsym $mod_a+l exec --no-startup-id blurlock
 
 # Dmenu
 # bindsym $mod_a+d exec --no-startup-id dmenu_recent -fn 'xos4 Terminus:size=15' -i -l 14 -w 600 -y $PANEL_HEIGHT
@@ -104,7 +103,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Choose keyboard
-bindsym $mod+shift+k mode "$mode_keyb"
+bindsym $mod_a+k mode "$mode_keyb"
 set $mode_keyb (1)laptop,(2)external or default
 mode "$mode_keyb" {
         bindsym 1 exec keyb-laptop.sh 1, mode "default"
@@ -117,7 +116,7 @@ mode "$mode_keyb" {
         bindsym Ctrl+[ mode "default"
 }
 
-bindsym $mod_c+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
+bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -172,38 +171,38 @@ mode "$mode_apps" {
 # Windows control
 ################################################################################################
 # change focus
-bindsym $mod_a+h         exec "~/.i3/mc-win-center.sh focus left"
-bindsym $mod_a+j         exec "~/.i3/mc-win-center.sh focus down"
-bindsym $mod_a+k         exec "~/.i3/mc-win-center.sh focus up"
-bindsym $mod_a+l         exec "~/.i3/mc-win-center.sh focus right"
-bindsym $mod_a+Shift+h         exec "~/.i3/mc-win-center.sh move left"
-bindsym $mod_a+Shift+j         exec "~/.i3/mc-win-center.sh move down"
-bindsym $mod_a+Shift+k         exec "~/.i3/mc-win-center.sh move up"
-bindsym $mod_a+Shift+l         exec "~/.i3/mc-win-center.sh move right"
+bindsym $mod+h         exec "~/.i3/mc-win-center.sh focus left"
+bindsym $mod+j         exec "~/.i3/mc-win-center.sh focus down"
+bindsym $mod+k         exec "~/.i3/mc-win-center.sh focus up"
+bindsym $mod+l         exec "~/.i3/mc-win-center.sh focus right"
+bindsym $mod+Shift+h         exec "~/.i3/mc-win-center.sh move left"
+bindsym $mod+Shift+j         exec "~/.i3/mc-win-center.sh move down"
+bindsym $mod+Shift+k         exec "~/.i3/mc-win-center.sh move up"
+bindsym $mod+Shift+l         exec "~/.i3/mc-win-center.sh move right"
 
 workspace_auto_back_and_forth no
 
-bindsym $mod_a+Return split toggle
+bindsym $mod+q split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod_a+f exec "~/.i3/mc-win-center.sh fullscreen"
+bindsym $mod+f exec "~/.i3/mc-win-center.sh fullscreen"
 
 # change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+s layout stacking
-# bindsym $mod+t layout tabbed
-# bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod_a+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod_a+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod_a+p sticky toggle,exec notify-send 'sticky'
+bindsym $mod+p sticky toggle,exec notify-send 'sticky'
 
 # focus the parent container
-bindsym $mod_a+a exec "~/.i3/mc-win-center.sh focus parent"
+bindsym $mod+a exec "~/.i3/mc-win-center.sh focus parent"
 
 ################################################################################################
 # Scratchpad
@@ -219,11 +218,13 @@ bindsym $mod+minus scratchpad show
 # Workspaces
 ################################################################################################
 #navigate workspaces next / previous
-bindsym $mod_a+n workspace next
-bindsym $mod_a+b workspace prev
+bindsym $mod+n workspace next
+bindsym $mod+b workspace prev
+bindsym $mod_a+n exec i3-display-swap.sh right
+bindsym $mod_a+b exec i3-display-swap.sh left
 
-bindsym $mod_a+Shift+n move workspace to output right
-bindsym $mod_a+Shift+b move workspace to output left
+bindsym $mod+Shift+n move workspace to output right
+bindsym $mod+Shift+b move workspace to output left
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -281,7 +282,7 @@ mode "$mode_system" {
 }
 
 # Resize window (you can also use the mouse for that)
-bindsym $mod_a+r mode "resize"
+bindsym $mod+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # Pressing left will shrink the window’s width.
@@ -301,7 +302,7 @@ mode "resize" {
 }
 
 # Rename
-bindsym $mod_a+shift+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+bindsym $mod_a+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
 ################################################################################################
 # Display management
