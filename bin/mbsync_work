@@ -1,8 +1,15 @@
 #!/bin/env bash
 
-USERNAME=$(cat ~/.mutt_work)
-sed -e "s/%USERNAME%/$USERNAME/" ~/.mbsyncrc > /tmp/.mbsyncrc
-mbsync -c /tmp/.mbsyncrc "$@"
-rm -f /tmp/.mbsyncrc
+ping -q -w1 -c1 google.com &>/dev/null || exit 1
 
-notmuch new
+if ! pgrep mbsync
+then
+    USERNAME=$(cat ~/.mutt_work)
+    sed -e "s/%USERNAME%/$USERNAME/" ~/.mbsyncrc > /tmp/.mbsyncrc
+    mbsync -c /tmp/.mbsyncrc "$@"
+    rm -f /tmp/.mbsyncrc
+
+    notmuch new
+else
+    exit 2
+fi
