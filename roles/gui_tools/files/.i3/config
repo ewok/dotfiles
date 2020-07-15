@@ -136,6 +136,7 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 
 # Screenshots
 bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
+bindsym $mod_a+Print exec --no-startup-id flameshot screen -p ~/Pictures/Screenshots/
 bindsym $mod_c+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshots/
 
 # Other
@@ -146,12 +147,12 @@ bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
-set $mode_apps  (1)tusk, (2)ldoce, (3)slack, (4)telegram, (b)rowser, (m)ixer, (p)avu, (v)ifm, (z)eal,
+set $mode_apps  (T)tusk, (l)ldoce, (s)slack, (t)telegram, (b)rowser, (m)ixer, (p)avu, (v)ifm, (z)eal,
 mode "$mode_apps" {
-        bindsym 1 exec tusk, mode "default"
-        bindsym 2 exec ldoce5viewer, mode "default"
-        bindsym 3 exec slack, mode "default"
-        bindsym 4 exec telegram-desktop, mode "default"
+        bindsym T exec tusk, mode "default"
+        bindsym l exec ldoce5viewer, mode "default"
+        bindsym s exec slack, mode "default"
+        bindsym t exec telegram-desktop, mode "default"
         bindsym b exec firefox, mode "default"
         bindsym m exec termite -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
@@ -420,7 +421,6 @@ exec_always --no-startup-id pgrep cryptomator || cryptomator
 exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
-exec_always --no-startup-id pgrep todoist || todoist
 exec_always --no-startup-id pgrep cawbird || cawbird
 
 exec_always --no-startup-id pgrep nm-applet || nm-applet

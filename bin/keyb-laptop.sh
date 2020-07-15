@@ -6,3 +6,6 @@ if [ $1 -eq 1 ]; then
 else
   setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option
 fi
+
+pkill xcape
+xcape

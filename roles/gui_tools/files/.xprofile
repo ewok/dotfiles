@@ -4,6 +4,8 @@ xinput --set-prop "Elan Touchpad" "libinput Natural Scrolling Enabled" 1 &
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1 &
 
 xsetroot -cursor_name left_ptr &
+pkill xcape
+xcape
 
 ## enable local fonts in .fonts directory
 xset +fp /usr/share/fonts/local &
