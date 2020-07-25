@@ -19,6 +19,7 @@ mailboxes +work/Inbox \
           +work/DevOps \
           +work/NN \
           +work/LowPriority \
+          +work/Service \
           +work/Trash
 
 set from        ="`cat ~/.mutt_work`"

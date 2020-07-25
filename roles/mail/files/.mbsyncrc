@@ -80,6 +80,17 @@ SyncState *
 CopyArrivalDate yes
 MaxMessages 100
 
+Channel work-service
+Master :work-remote:Service
+Slave :work-local:Service
+Create Both
+Remove Both
+Expunge Both
+Sync All
+SyncState *
+CopyArrivalDate yes
+MaxMessages 100
+
 Channel work-trash
 Master :work-remote:"Deleted Items"
 Slave :work-local:Trash
@@ -111,3 +122,4 @@ Channel work-devops
 Channel work-low
 Channel work-trash
 Channel work-sent
+Channel work-service

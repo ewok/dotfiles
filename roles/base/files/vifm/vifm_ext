@@ -118,7 +118,7 @@ fileviewer *.[1-8] gtbl %c | groff -Tascii -man | col -b
 
 " Image
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-        \ {View in viewnior}
+        \ {View in viewniorviewnior}
         \ viewnior %c %i &,
 "         \ {View in gpicview}
 "         \ gpicview %c,
