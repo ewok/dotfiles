@@ -1,0 +1,5 @@
+functions/*
+!functions/vifm.fish
+!functions/_aliases.fish
+conf.d/*
+fish_variables
