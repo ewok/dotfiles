@@ -20,7 +20,6 @@ command! df df -h %m 2> /dev/null
 command! diff vim -d %f %F
 command! run !! ./%f
 command! make !!make %a
-command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 
 command! reload :write | restart
@@ -35,12 +34,10 @@ command! vimr vimr %a
 
 command! code code %a
 
-command! zip for f in %f; do zip -r "$f.zip" "$f"; done
+command! zip bash -c 'for f in %f; do zip -r "$f.zip" "$f"; done'
 command! zipto zip -r %a.zip %f
-command! targz for f in %f; do unset CMD; CMD="tar -zcvf \"$f.tar.gz\" $f"; case "$f" in; *.tar.gz) CMD="tar -zxvf \"$f\"";;; esac; sh -c $CMD;done
-command! tarbz for f in %f; do unset CMD; CMD="tar -ycvf \"$f.tar.bz2\" $f"; case "$f" in; *.tar.bz2) CMD="tar -yxvf \"$f\"";;; esac; sh -c $CMD;done
-
-command! test for ff in %f; do echo $ff; sleep 1;done
+command! targz bax 'for f in %f; do unset CMD; CMD="tar -zcvf \"$f.tar.gz\" $f"; case "$f" in; *.tar.gz) CMD="tar -zxvf \"$f\"";;; esac; sh -c $CMD;done'
+command! tarbz bax 'for f in %f; do unset CMD; CMD="tar -ycvf \"$f.tar.bz2\" $f"; case "$f" in; *.tar.bz2) CMD="tar -yxvf \"$f\"";;; esac; sh -c $CMD;done'
 
 command! gz unset DECOMP; case %f in; *.gz) DECOMP=-d;;; *.[zZ]) DECOMP=-d;;; esac; gzip $DECOMP -v %f
 command! bzip unset DECOMP; case %f in; *.bz2) DECOMP=-d;;; esac; bzip2 $DECOMP -v %f
