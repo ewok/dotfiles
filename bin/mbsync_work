@@ -1,5 +1,14 @@
 #!/bin/env bash
 
+set -e
+
+if ! pgrep -f davmail
+then
+    davmail >/dev/null 2>&1 || echo "Error running DAVmail" &
+    # Give a time to DAVmail
+    sleep 2
+fi
+
 ping -q -w1 -c1 google.com &>/dev/null || exit 1
 
 if ! pgrep mbsync

@@ -14,16 +14,20 @@ set -x LC_MEASUREMENT "ru_RU.UTF-8"
 set -x LC_IDENTIFICATION "ru_RU.UTF-8"
 set -x LC_ALL
 
-set -x OPEN_CMD open
-
 # Plugins configuration
-# Done
-set -U __done_notify_sound 1
-set -U __done_notification_urgency_level critical
-
 # Pure
 set -g pure_symbol_prompt "λ"
-set -g pure_color_primary green
 set -g pure_color_success green
+# FZF
+set -U FZF_LEGACY_KEYBINDINGS 0
 
 _aliases
+
+status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
+# Other local staff
+set -x OPEN_CMD open
+
+#
+#set -x MAIN_DISPLAY

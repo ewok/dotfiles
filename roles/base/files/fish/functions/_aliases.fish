@@ -3,12 +3,12 @@ function tailf
     tail -f $argv
 end
 
-function exi
+function exit
    sync
    sync
    sync
    clear
-   exit
+   builtin exit
 end
 
 function git
