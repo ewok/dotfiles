@@ -126,6 +126,13 @@ bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 #bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
+# Media
+################################################################################################
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+
+################################################################################################
 # Screen brightness controls
 ################################################################################################
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
