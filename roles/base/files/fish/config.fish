@@ -20,6 +20,9 @@ set -g pure_symbol_prompt "λ"
 set -g pure_color_success green
 # FZF
 set -U FZF_LEGACY_KEYBINDINGS 0
+set -x FZF_FIND_FILE_COMMAND 'rg --hidden --no-ignore --files'
+set -x FZF_CD_COMMAND 'rg --hidden --no-ignore --files'
+set -x FZF_OPEN_COMMAND 'rg --hidden --no-ignore --files'
 
 _aliases
 
