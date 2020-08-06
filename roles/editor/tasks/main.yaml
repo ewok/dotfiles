@@ -64,6 +64,7 @@
 
 - shell: nvim +PlugInstall +PlugUpdate +qall
   changed_when: False
+  ignore_errors: True
 
 - get_url:
     url: "http://www.gitignore.io/api/go,python,linux,macos"
@@ -83,6 +84,7 @@
 - shell: cd /usr/share/git/credential/gnome-keyring && make
   changed_when: False
   become: True
+  changed_when: False
 
 - copy:
     content: |
