@@ -13,6 +13,7 @@
         - palemoon-bin
         - xfce4-power-manager
         - xst
+        - dunst
     state: absent
   become: True
 
@@ -28,7 +29,8 @@
         "flameshot", "slack-desktop", "zeal", "telegram-desktop", "meld",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
-        "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape"
+        "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape",
+        "deadd-notification-center", "playerctl"
         ]
 
 
@@ -62,6 +64,7 @@
     - { src: "{{ role_path }}/files/Zeal", dest: "~/.config/Zeal" }
     - { src: "{{ role_path }}/files/albert/modules/locate.py", dest: "~/.local/share/albert/org.albert.extension.python/modules/locate.py" }
     - { src: "{{ role_path }}/files/albert/albert.conf", dest: "~/.config/albert/albert.conf" }
+    - { src: "{{ role_path }}/files/deadd", dest: "~/.config/deadd" }
 
 # Not implemented yet
 #  if [ -d $HOME/.puppetlsp ]; then rm -rf $HOME/.puppetlsp;fi

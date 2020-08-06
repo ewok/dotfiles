@@ -35,13 +35,13 @@ set sendmail        ="msmtp_work -a work"
 # hdr_order from: to: cc: date: subject:  # and in this order
 
 macro index F "<shell-escape>mbsync_work work<enter>" "run mbsync to sync all mail"
-macro index,pager D "<save-message>=work/Trash<enter><enter><sync-mailbox>y" "Trash"
-macro index,pager ma "<save-message>=work/Archive<enter><enter><sync-mailbox>y" "Move to Archive"
-macro index,pager md "<save-message>=work/DevOps<enter><enter><sync-mailbox>y" "Move to DevOps"
-macro index,pager mi "<save-message>=work/Inbox<enter><enter><sync-mailbox>y" "Move to Inbox"
-macro index,pager mI "<save-message>=work/Important<enter><enter><sync-mailbox>y" "Move to Important"
-macro index,pager ml "<save-message>=work/LowPriority<enter><enter><sync-mailbox>y" "Move to LowPriority"
-macro index,pager mn "<save-message>=work/NN<enter><enter><sync-mailbox>y" "Move to NN"
+macro index,pager D "<save-message>=work/Trash<enter><enter><sync-mailbox>" "Trash"
+macro index,pager ma "<save-message>=work/Archive<enter><enter><sync-mailbox>" "Move to Archive"
+macro index,pager md "<save-message>=work/DevOps<enter><enter><sync-mailbox>" "Move to DevOps"
+macro index,pager mi "<save-message>=work/Inbox<enter><enter><sync-mailbox>" "Move to Inbox"
+macro index,pager mI "<save-message>=work/Important<enter><enter><sync-mailbox>" "Move to Important"
+macro index,pager ml "<save-message>=work/LowPriority<enter><enter><sync-mailbox>" "Move to LowPriority"
+macro index,pager mn "<save-message>=work/NN<enter><enter><sync-mailbox>" "Move to NN"
 macro index ga "<change-folder>=work/Archive<enter>" "Go to Archive"
 macro index gd "<change-folder>=work/DevOps<enter>" "Go to devops"
 macro index gI "<change-folder>=work/Important<enter>" "Go to important"
@@ -53,7 +53,7 @@ macro index gn "<change-folder>=work/NN<enter>" "Go to NN"
 set query_command="lbdbq '%s'"
 bind editor <Tab> complete-query
 
-set delete=ask-yes
+set delete=yes
 
 set signature=~/.signature_work_plain
 macro index,pager,attach rm "<enter-command>set signature=~/.signature_work_md<enter><enter-command>set mailcap_path=~/.mutt/mailcap_reply<enter><reply>"

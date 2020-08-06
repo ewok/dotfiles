@@ -31,9 +31,9 @@ popup_during_fullscreen leave_fullscreen
 ################################################################################################
 
 # Open applications on specific workspaces
-assign [class="Google Play Music Desktop Player"] $ws8
-assign [class="Slack"] $ws3
+assign [class="Slack"] $ws4
 assign [class="Cawbird"] $ws3
+assign [class="Spotify"] $ws8
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -126,6 +126,13 @@ bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 #bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
+# Media
+################################################################################################
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+
+################################################################################################
 # Screen brightness controls
 ################################################################################################
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
@@ -140,7 +147,7 @@ bindsym $mod_c+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshot
 # bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
 bindsym Shift+space exec "add_td"
 bindsym Control+period exec --no-startup-id "/opt/enpass/Enpass showassistant"
-bindsym --release F12 exec --no-startup-id zenity --question --text 'Enter date?' && xdotool type "==== ${USER} $(date +'%Y-%m-%d %H:%M') ===="
+bindsym --release F12 exec --no-startup-id kill -s USR1 $(pidof deadd-notification-center)
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
@@ -413,6 +420,7 @@ exec --no-startup-id trayer --transparent true  --alpha 255
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+exec_always --no-startup-id deadd
 exec_always --no-startup-id pgrep pcloud || pcloud
 exec_always --no-startup-id pgrep insync || insync
 exec_always --no-startup-id pgrep cryptomator || cryptomator

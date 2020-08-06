@@ -1,0 +1,19 @@
+#!/bin/env bash
+
+set -e
+
+if pgrep deadd-notificat
+then
+    pkill deadd-notificat
+    sleep 2
+fi
+
+CONFIG="$HOME/.config/deadd/deadd.conf"
+
+if [ -e ${CONFIG}.tpl ]
+then
+    MAIN_DISPLAY=${MAIN_DISPLAY:-0}
+    sed -e "s/%MAIN_DISPLAY%/$MAIN_DISPLAY/" ${CONFIG}.tpl > ${CONFIG}
+fi
+
+deadd-notification-center

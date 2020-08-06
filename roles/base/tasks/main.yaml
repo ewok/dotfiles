@@ -54,7 +54,7 @@
       "pyenv-virtualenv", "npm", "blacklist_pcspkr",
       "gotty", "docker", "vifm", "python-ueberzug",
       "unzip", "fzf", "reptyr", "cabextract", "dfc",
-      "gnu-netcat", "smem"
+      "gnu-netcat", "smem", "fish"
       ]
 
 - file:
@@ -66,6 +66,7 @@
     - { src: "{{ role_path }}/files/.tmux.conf", dest: "~/.tmux.conf" }
     - { src: "{{ role_path }}/files/.zshrc", dest: "~/.zshrc" }
     - { src: "{{ role_path }}/files/.zsh", dest: "~/.zsh" }
+    - { src: "{{ role_path }}/files/fish", dest: "~/.config/fish" }
     - { src: "{{ role_path }}/files/.zprofile", dest: "~/.zprofile" }
     - { src: "{{ role_path }}/files/.profile", dest: "~/.profile" }
     - { src: "{{ role_path }}/files/vifm", dest: "~/.vifm" }
