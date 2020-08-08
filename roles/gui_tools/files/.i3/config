@@ -422,7 +422,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always --no-startup-id deadd
 exec_always --no-startup-id pgrep pcloud || pcloud
-exec_always --no-startup-id pgrep insync || insync
+exec_always --no-startup-id pgrep insync || insync start
 exec_always --no-startup-id pgrep cryptomator || cryptomator
 exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk

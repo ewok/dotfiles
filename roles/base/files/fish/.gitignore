@@ -4,4 +4,5 @@ functions/*
 !functions/fish_right_prompt.fish
 conf.d/*
 !conf.d/zz_my_git_abbr.fish
+completions/*
 fish_variables

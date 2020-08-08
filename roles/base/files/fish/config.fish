@@ -14,31 +14,75 @@ set -x LC_MEASUREMENT "ru_RU.UTF-8"
 set -x LC_IDENTIFICATION "ru_RU.UTF-8"
 set -x LC_ALL
 
-# Plugins configuration
-# Pure
-set -g pure_symbol_prompt "λ"
-set -g pure_color_success green
-# FZF
-set -U FZF_LEGACY_KEYBINDINGS 0
-set -x FZF_FIND_FILE_COMMAND 'rg --hidden --no-ignore --files'
-set -x FZF_CD_COMMAND 'rg --hidden --no-ignore --files'
-set -x FZF_OPEN_COMMAND 'rg --hidden --no-ignore --files'
+if status is-interactive
 
-_aliases
+  # Plugins configuration
+  # Pure
+  set -Ux pure_symbol_prompt "λ"
+  set -Ux pure_color_success green
+  # FZF
+  set -Ux FZF_LEGACY_KEYBINDINGS 0
+  set -Ux FZF_FIND_FILE_COMMAND 'rg --hidden --no-ignore --files'
+  set -Ux FZF_CD_COMMAND 'rg --hidden --no-ignore --files'
+  set -Ux FZF_OPEN_COMMAND 'rg --hidden --no-ignore --files'
 
-status --is-interactive; and source (pyenv init -|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
+  _aliases
 
-# Other local staff
-set -x OPEN_CMD open
+  source (pyenv init -|psub)
+  source (pyenv virtualenv-init -|psub)
 
-#
-#set -x MAIN_DISPLAY
+  # Other local staff
+  set -Ux OPEN_CMD open
 
-if test -z (pgrep ssh-agent)
-  set -e SSH_AUTH_SOCK
-  set -e SSH_AGENT_PID
-  eval (ssh-agent -c)
-  set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
-  set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+  #
+  #set -x MAIN_DISPLAY
+  #
+  # Abbr
+
+    abbr -a k kubectl
+    abbr -a kx kubectx
+    abbr -a tf terraform
+    abbr -a tg terragrunt
+    abbr -a h helm
+    abbr -a mproc "smem -t -k -c pss -P"
+
+end
+
+# SSH-AGENT
+setenv SSH_ENV $HOME/.ssh/environment
+
+function start_agent
+    echo "Initializing new SSH agent ..."
+    ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
+    echo "succeeded"
+    chmod 600 $SSH_ENV
+    . $SSH_ENV > /dev/null
+    ssh-add
+end
+
+function test_identities
+    ssh-add -l | grep "The agent has no identities" > /dev/null
+    if [ $status -eq 0 ]
+        ssh-add
+        if [ $status -eq 2 ]
+            start_agent
+        end
+    end
+end
+
+if [ -n "$SSH_AGENT_PID" ]
+    ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+    if [ $status -eq 0 ]
+        test_identities
+    end
+else
+    if [ -f $SSH_ENV ]
+        . $SSH_ENV > /dev/null
+    end
+    ps -ef | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
+    if [ $status -eq 0 ]
+        test_identities
+    else
+        start_agent
+    end
 end

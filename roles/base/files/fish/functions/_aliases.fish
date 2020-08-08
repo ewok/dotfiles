@@ -27,26 +27,6 @@ end
 #    alias idea='open -a "IntelliJ IDEA CE" .'
 #end
 
-function k
-    kubectl $argv
-end
-
-function kx
-    kubectx $argv
-end
-
-function tf
-    terraform $argv
-end
-
-function tg
-    terragrunt $argv
-end
-
-function mem-proc
-    smem -t -k -c pss -P $argv
-end
-
 function _aliases
  #   echo ".aliases loaded"
 end

@@ -32,6 +32,6 @@ fi
 
 NOTI_ID=$(notify-send "Volume" "$VOLUME/100" \
                          --hint=string:image-path:$ICON --hint=int:transient:1 \
-                         -h string:synchronous:volume -t 150)
+                         -h string:synchronous:volume -t 100)
 
 paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
