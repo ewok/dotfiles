@@ -119,9 +119,9 @@ bindsym $mod_a+space exec "xkb-switch -n; pkill -x --signal=SIGUSR1 i3status"
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-# bindsym XF86AudioRaiseVolume exec changeVolumePulse '+2%'
-# bindsym XF86AudioLowerVolume exec changeVolumePulse '-2%'
-# bindsym XF86AudioMute exec changeVolumePulse toggle
+bindsym XF86AudioRaiseVolume exec deadd_volume inc
+bindsym XF86AudioLowerVolume exec deadd_volume dec
+bindsym XF86AudioMute exec deadd_volume mute
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
 
@@ -432,7 +432,6 @@ exec_always --no-startup-id pgrep cawbird || cawbird
 exec_always --no-startup-id pgrep nm-applet || nm-applet
 exec_always --no-startup-id pgrep pamac-tray || pamac-tray
 exec_always --no-startup-id pgrep clipit || clipit
-exec_always --no-startup-id pgrep pa-applet || pa-applet
 exec_always --no-startup-id pgrep blueman-applet || blueman-applet
 exec_always --no-startup-id pkill xkb-switch; xkb-switch --i3
 exec_always --no-startup-id fix_xcursor

@@ -16,4 +16,4 @@ then
     sed -e "s/%MAIN_DISPLAY%/$MAIN_DISPLAY/" ${CONFIG}.tpl > ${CONFIG}
 fi
 
-deadd-notification-center
+deadd-notification-center </dev/null &>/dev/null &
