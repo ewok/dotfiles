@@ -17,7 +17,16 @@ function kubectl_status
   set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
   [ -z $ns ]; and set -l ns 'default'
 
-  echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color white)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"
+  set -l width (math -s0 (tput cols) \* 0.3)
+  set -l half_width (math -s0 $width / 2)
+
+  if test (echo $ctx$KUBECTL_PROMPT_SEPARATOR$ns | string length) -ge $width
+      set -l ctx_tr (echo "$ctx" | string sub -l $half_width)
+      set -l ctx_tr_end (echo "$ctx" | string sub -s -$half_width)
+      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color white)"($ctx_tr..$ctx_tr_end$KUBECTL_PROMPT_SEPARATOR$ns)"
+  else
+      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color white)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"
+  end
 end
 
 function fish_right_prompt
