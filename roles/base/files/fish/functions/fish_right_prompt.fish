@@ -20,12 +20,14 @@ function kubectl_status
   set -l width (math -s0 (tput cols) \* 0.3)
   set -l half_width (math -s0 $width / 2)
 
+  set -l color (echo $ctx | grep -q "prod"; and echo "red"; or echo "white")
+
   if test (echo $ctx$KUBECTL_PROMPT_SEPARATOR$ns | string length) -ge $width
       set -l ctx_tr (echo "$ctx" | string sub -l $half_width)
       set -l ctx_tr_end (echo "$ctx" | string sub -s -$half_width)
-      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color white)"($ctx_tr..$ctx_tr_end$KUBECTL_PROMPT_SEPARATOR$ns)"
+      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color $color)"($ctx_tr..$ctx_tr_end$KUBECTL_PROMPT_SEPARATOR$ns)"
   else
-      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color white)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"
+      echo (set_color cyan)$KUBECTL_PROMPT_ICON" "(set_color $color)"($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"
   end
 end
 
