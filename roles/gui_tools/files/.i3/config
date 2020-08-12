@@ -143,6 +143,8 @@ bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
 bindsym $mod_a+Print exec --no-startup-id flameshot screen -p ~/Pictures/Screenshots/
 bindsym $mod_c+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshots/
 
+bindsym ctrl+Return exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
+
 # Other
 # bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
 bindsym Shift+space exec "add_td"
