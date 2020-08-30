@@ -26,7 +26,7 @@
         "xclip", "xsel", "autorandr", "timeshift", "ttf-liberation",
         "xorg-xbacklight", "manjaro-pulse", "pa-applet", "pavucontrol", "pulseaudio-bluetooth",
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
-        "flameshot", "slack-desktop", "zeal", "telegram-desktop", "meld",
+        "flameshot", "slack-desktop", "telegram-desktop", "meld",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
         "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape",
@@ -36,7 +36,7 @@
 
 - aur:
     name: [
-        "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git",
+        "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", "zeal",
          "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "todoist-linux-bin",  "redshift-gtk-git"
         ]
     skip_installed: True

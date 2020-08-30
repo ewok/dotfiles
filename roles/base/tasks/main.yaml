@@ -11,7 +11,13 @@
 
 - pacman_key:
     id: 3056513887B78AEB
-    keyserver: keys.mozilla.org
+    keyserver: hkp://keyserver.ubuntu.com
+    state: present
+  become: True
+
+- pacman_key:
+    id: 8A9E14A07010F7E3
+    keyserver: hkp://keyserver.ubuntu.com
     state: present
   become: True
 

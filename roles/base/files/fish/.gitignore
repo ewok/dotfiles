@@ -2,6 +2,7 @@ functions/*
 !functions/vifm.fish
 !functions/_aliases.fish
 !functions/fish_right_prompt.fish
+!functions/fisher.fish
 conf.d/*
 !conf.d/zz_my_git_abbr.fish
 completions/*
