@@ -79,6 +79,7 @@ Sync All
 SyncState *
 CopyArrivalDate yes
 MaxMessages 100
+ExpireUnread yes
 
 Channel work-service
 Master :work-remote:Service
@@ -90,6 +91,7 @@ Sync All
 SyncState *
 CopyArrivalDate yes
 MaxMessages 100
+ExpireUnread yes
 
 Channel work-trash
 Master :work-remote:"Deleted Items"
@@ -101,6 +103,7 @@ Sync All
 SyncState *
 CopyArrivalDate yes
 MaxMessages 100
+ExpireUnread yes
 
 Channel work-sent
 Master :work-remote:"Sent Items"
