@@ -29,6 +29,7 @@
     force: True
   loop:
     - { src: "~/dotvim", dest: "~/.config/nvim" }
+    - { src: "~/dotvim", dest: "~/.vim" }
     - { src: "{{ role_path }}/files/.ideavimrc", dest: "~/.ideavimrc" }
     - { src: "{{ role_path }}/files/.ctags", dest: "~/.ctags" }
 
