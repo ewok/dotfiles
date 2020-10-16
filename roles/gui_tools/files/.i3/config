@@ -78,7 +78,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod_a+Shift+q --release exec --no-startup-id xkill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id albert, exec albert toggle
+bindsym $mod+d exec --no-startup-id albert, exec albert toggle, exec xkb-switch -s us
 # bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
@@ -142,8 +142,6 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
 bindsym $mod_a+Print exec --no-startup-id flameshot screen -p ~/Pictures/Screenshots/
 bindsym $mod_c+Print exec --no-startup-id flameshot gui -p ~/Pictures/Screenshots/
-
-bindsym ctrl+Return exec --no-startup-id flameshot full -p ~/Pictures/Screenshots/
 
 # Other
 # bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
@@ -430,6 +428,7 @@ exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep cawbird || cawbird
+exec_always --no-startup-id pgrep -f SparkleShare.exe || sparkleshare
 
 exec_always --no-startup-id pgrep nm-applet || nm-applet
 exec_always --no-startup-id pgrep pamac-tray || pamac-tray

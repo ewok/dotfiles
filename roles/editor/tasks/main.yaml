@@ -12,7 +12,7 @@
     skip_installed: True
   loop: [
       "neovim", "ctags", "global", "the_silver_searcher",
-      "xkb-switch-i3", "shellcheck", "yamllint",
+      "xkb-switch-i3-git", "shellcheck", "yamllint",
       "vale-bin", "hadolint-bin", "terraform-lsp-bin", "ripgrep"
       ]
 

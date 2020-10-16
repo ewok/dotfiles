@@ -41,6 +41,7 @@ if status is-interactive
 
     abbr -a k kubectl
     abbr -a kx kubectx
+    abbr -a ke kubens
     abbr -a tf terraform
     abbr -a tg terragrunt
     abbr -a h helm
