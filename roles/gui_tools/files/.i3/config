@@ -31,8 +31,8 @@ popup_during_fullscreen leave_fullscreen
 ################################################################################################
 
 # Open applications on specific workspaces
-assign [class="Slack"] $ws4
-assign [class="Cawbird"] $ws3
+assign [class="Slack"] $ws9
+assign [class="Cawblrd"] $ws3
 assign [class="Spotify"] $ws8
 
 # Open specific applications in floating mode
@@ -428,7 +428,7 @@ exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
 exec_always --no-startup-id pgrep redshift-gtk || redshift-gtk
 exec_always --no-startup-id pgrep zeal || zeal
 exec_always --no-startup-id pgrep cawbird || cawbird
-exec_always --no-startup-id pgrep -f SparkleShare.exe || sparkleshare
+exec_always --no-startup-id sparkleshare
 
 exec_always --no-startup-id pgrep nm-applet || nm-applet
 exec_always --no-startup-id pgrep pamac-tray || pamac-tray
