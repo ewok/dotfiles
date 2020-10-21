@@ -1,0 +1,2 @@
+#!/bin/env bash
+sudo ip r add $1 dev tun0 proto static scope link metric 40

@@ -1,0 +1,2 @@
+#!/bin/env bash
+sudo ip r add $1 dev vpn0 proto static scope link metric 40
