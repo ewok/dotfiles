@@ -46,6 +46,7 @@ if status is-interactive
     abbr -a tg terragrunt
     abbr -a h helm
     abbr -a mproc "smem -t -k -c pss -P"
+    abbr -a egrep "egrep --color=always"
 
 end
 

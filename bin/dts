@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 ## Rename all known media files to their DTS (date/time stamp)
 ## ATTN: renames ALL files in current directory, no backups or ability to restore old filename
 ## ---------- JPEG --------------
+
+if ! which jhead 2>/dev/null;then echo "jhead not found";  exit 1;fi
 
 jhead -ft *.jpg
 jhead -ft *.JPG

@@ -30,7 +30,7 @@
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
         "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
         "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape",
-        "deadd-notification-center", "playerctl", "sparkleshare"
+        "deadd-notification-center-bin", "playerctl", "sparkleshare"
         ]
 
 
