@@ -6,3 +6,4 @@ acomagu/fish-async-prompt
 rafaelrinaldi/pure
 jethrokuan/fzf
 evanlucas/fish-kubectl-completions
+DrPhil/kubectl-fish-abbr

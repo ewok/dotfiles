@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+set -e
+
+if [ $# -gt 1 ];then
+  echo "Usage: $(basename $0) [pod name]"
+  exit 1
+fi
+
+NAME="debug"
+test "$1" != "" && NAME="$1"
+
+if ! which kubectl &>/dev/null;then
+  echo "kubectl not found, please run the command below:"
+  echo
+  CMD="echo"
+fi
+
+$CMD kubectl run "$NAME" --restart='Never' --image docker.io/bitnami/kafka:2.5.0-debian-10-r112 -it --rm -- bash
+sleep 1
+$CMD kubectl get po | grep "$NAME" && echo "ERROR: Pod was not deleted!"

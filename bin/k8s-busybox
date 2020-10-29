@@ -2,13 +2,16 @@
 
 set -e
 
-if [ $# -gt 1 ];then
-  echo "Usage: $(basename $0) [pod name]"
+if [ $# -gt 2 ];then
+  echo "Usage: $(basename $0) [pod name] [cmd]"
   exit 1
 fi
 
 NAME="debug"
 test "$1" != "" && NAME="$1"
+
+RUN="sh"
+test "$2" != "" && RUN="$2"
 
 if ! which kubectl &>/dev/null;then
   echo "kubectl not found, please run the command below:"
@@ -16,6 +19,6 @@ if ! which kubectl &>/dev/null;then
   CMD="echo"
 fi
 
-$CMD kubectl run $NAME --image=busybox -it --rm --restart='Never' -- sh
+$CMD kubectl run $NAME --image=busybox -it --rm --restart='Never' -- $RUN
 sleep 1
 $CMD kubectl get po | grep $NAME && echo "ERROR: Pod was not deleted!"
