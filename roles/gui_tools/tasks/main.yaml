@@ -28,16 +28,16 @@
         "blueman", "zathura", "zathura-cb", "zathura-djvu", "zathura-pdf-mupdf",
         "flameshot", "slack-desktop", "telegram-desktop", "meld",
         "masterpdfeditor-free", "firefox", "albert", "muparser","inotify-tools",
-        "xdotool", "xorg-xwininfo", "uget", "calibre-python3", "deluge", "fbreader",
-        "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape",
-        "deadd-notification-center-bin", "playerctl", "sparkleshare"
+        "xdotool", "xorg-xwininfo", "uget", "calibre", "deluge", "fbreader",
+        "discord", "libappindicator-gtk3", "i3-wm", "trayer", "autokey", "i3exit", "xcape"
         ]
 
 
 - aur:
     name: [
         "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", "zeal",
-         "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "todoist-linux-bin",  "redshift-gtk-git"
+         "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "redshift-gtk-git",
+         "deadd-notification-center-bin", "playerctl", "sparkleshare"
         ]
     skip_installed: True
 
