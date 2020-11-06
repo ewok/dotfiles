@@ -31,37 +31,36 @@ popup_during_fullscreen leave_fullscreen
 ################################################################################################
 
 # Open applications on specific workspaces
-assign [class="Slack"] $ws9
-assign [class="Cawblrd"] $ws3
-assign [class="Spotify"] $ws8
+assign [class="Slack"] $ws4
+assign [class="Cawbird"] $ws3
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [title="File Transfer*"] floating enable
-for_window [class="GParted"] floating enable border normal
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [class="albert"] move position center
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Cawbird"] move right,move right,move right, resize set 20 ppt
+for_window [title=".* - TickTick$"] move container to workspace 3,  move left,move left,move left, resize set 80 ppt
+for_window [title="Enpass Assistant"] floating enable", move position mouse
+for_window [class="GParted"] floating enable border normal, move position center
+for_window [class="Insync"] floating enable, move position center
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal, move position center
+for_window [class="Manjaro Settings Manager"] floating enable border normal, move position center
 for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
+for_window [class="Pamac-manager"] floating enable, move position center
+for_window [class="Pavucontrol"] floating enable, move position center
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="Blueman-manager"] floating enable
-for_window [class="Cawbird"] border normal
-for_window [class="albert"] move position center
+for_window [class="Spotify"]  move container to workspace 8
 for_window [class="Syncthing GTK"] floating enable sticky enable move position center
+for_window [class="TelegramDesktop"] border pixel, move right,move right,move right, resize set 20 ppt
+for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="trayer"] floating enable
-for_window [class="Tusk"] floating enable; sticky enable
+for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="Cryptomator"] floating enable
-for_window [title="Unlock Vault"] floating enable
 for_window [title="DavMail Gateway Settings"] floating enable
-for_window [class="Enpass"] floating enable
-for_window [class="Insync"] floating enable
-
+for_window [title="File Transfer*"] floating enable
+for_window [title="Unlock Vault"] floating enable
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -151,17 +150,16 @@ bindsym --release F12 exec --no-startup-id kill -s USR1 $(pidof deadd-notificati
 
 # Start Applications
 bindsym $mod_a+o mode "$mode_apps"
-set $mode_apps  (T)tusk, (l)ldoce, (s)slack, (b)rowser, (m)ixer, (p)avu, (v)ifm, (z)eal, (t)ticktick, (d)telegram, (w)twitter
+set $mode_apps  (l)ldoce, (s)slack, (b)rowser, (m)ixer, (p)avu, (z)eal, (t)ticktick, (d)telegram, (w)twitter
 mode "$mode_apps" {
-        bindsym w exec tusk, mode "default"
-        bindsym l exec ldoce5viewer, mode "default"
-        bindsym s exec slack, mode "default"
-        bindsym t exec ticktick, mode "default"
-        bindsym d exec telegram-desktop, mode "default"
         bindsym b exec firefox, mode "default"
+        bindsym d exec telegram-desktop, mode "default"
+        bindsym l exec ldoce5viewer, mode "default"
         bindsym m exec termite -e 'alsamixer', mode "default"
         bindsym p exec pavucontrol, mode "default"
-        bindsym v exec termite -e vifm, mode "default"
+        bindsym s exec slack, mode "default"
+        bindsym t exec ticktick, mode "default"
+        bindsym w exec cawbird, mode "default"
         bindsym z exec zeal, mode "default"
 
         # exit resize mode: Enter or Escape
