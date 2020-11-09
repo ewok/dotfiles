@@ -60,7 +60,8 @@
       "pyenv-virtualenv", "npm", "blacklist_pcspkr",
       "gotty", "docker", "vifm", "python-ueberzug",
       "unzip", "fzf", "reptyr", "cabextract", "dfc",
-      "gnu-netcat", "smem", "fish", "task-spooler"
+      "gnu-netcat", "smem", "fish", "task-spooler",
+      "starship-bin"
       ]
 
 - file:
@@ -77,6 +78,7 @@
     - { src: "{{ role_path }}/files/.profile", dest: "~/.profile" }
     - { src: "{{ role_path }}/files/vifm", dest: "~/.vifm" }
     - { src: "{{ role_path }}/files/vifm", dest: "~/.config/vifm" }
+    - { src: "{{ role_path }}/files/starship.toml", dest: "~/.config/starship.toml" }
 
 - git:
     repo: "{{ item.repo }}"

@@ -1,0 +1,61 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+[character]
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
+vicmd_symbol = "[λ](bold blue)"
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+[[battery.display]]
+threshold = 15
+style = "bold red"
+
+[[battery.display]] # стиль "bold yellow" (жирный желтый) если заряд между 10% и 30%
+threshold = 30
+style = "bold yellow"
+
+[directory]
+truncation_length = 8
+truncation_symbol = "…/"
+
+[gcloud]
+format = 'on [($symbol$project)]($style) '
+
+# [env_var]
+# variable = "SHELL"
+# default = "unknown shell"
+
+[git_status]
+modified = "*"
+renamed = "R"
+
+[status]
+style = "bg:blue"
+format = '[\[$symbol$status\]]($style) '
+disabled = false
+
+# Disabled module
+[conda]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[erlang]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[php]
+disabled = true
+

@@ -14,6 +14,8 @@ set -x LC_MEASUREMENT "ru_RU.UTF-8"
 set -x LC_IDENTIFICATION "ru_RU.UTF-8"
 set -x LC_ALL
 
+set fish_greeting
+
 if status is-interactive
 
   # Plugins configuration
@@ -39,14 +41,16 @@ if status is-interactive
   #
   # Abbr
 
-    abbr -a k kubectl
-    abbr -a kx kubectx
-    abbr -a ke kubens
-    abbr -a tf terraform
-    abbr -a tg terragrunt
-    abbr -a h helm
-    abbr -a mproc "smem -t -k -c pss -P"
-    abbr -a egrep "egrep --color=always"
+  abbr -a k kubectl
+  abbr -a kx kubectx
+  abbr -a ke kubens
+  abbr -a tf terraform
+  abbr -a tg terragrunt
+  abbr -a h helm
+  abbr -a mproc "smem -t -k -c pss -P"
+  abbr -a egrep "egrep --color=always"
+
+  bind \cw backward-kill-word
 
 end
 
@@ -88,3 +92,6 @@ else
         start_agent
     end
 end
+
+starship init fish | source
+

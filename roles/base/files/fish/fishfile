@@ -1,9 +1,7 @@
-jorgebucaran/bax.fish
-jorgebucaran/spark.fish
 jhillyerd/plugin-git
 Gazorby/fish-abbreviation-tips
 acomagu/fish-async-prompt
-rafaelrinaldi/pure
+# rafaelrinaldi/pure
 jethrokuan/fzf
-evanlucas/fish-kubectl-completions
-DrPhil/kubectl-fish-abbr
+# evanlucas/fish-kubectl-completions
+# DrPhil/kubectl-fish-abbr

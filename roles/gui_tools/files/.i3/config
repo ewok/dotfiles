@@ -414,7 +414,7 @@ bindsym $mod+m bar mode toggle
 ################################################################################################
 # Autostart applications
 ################################################################################################
-exec --no-startup-id trayer --transparent true  --alpha 255
+exec_always --no-startup-id pgrep trayer || trayer --transparent true  --alpha 255
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
