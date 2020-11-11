@@ -15,8 +15,8 @@ Path ~/mail/work/
 Inbox ~/mail/work/Inbox
 
 Channel work-main
-Master :work-remote:
-Slave :work-local:
+Far :work-remote:
+Near :work-local:
 Patterns "Archive" "Important" "Drafts"
 Create Both
 Remove Both
@@ -26,8 +26,8 @@ SyncState *
 CopyArrivalDate yes
 
 Channel work-junk
-Master :work-remote:Junk
-Slave :work-local:Junk
+Far :work-remote:Junk
+Near :work-local:Junk
 Create Both
 Remove Both
 Expunge Both
@@ -37,8 +37,8 @@ CopyArrivalDate yes
 MaxMessages 50
 
 Channel work-inbox
-Master :work-remote:INBOX
-Slave :work-local:Inbox
+Far :work-remote:INBOX
+Near :work-local:Inbox
 Create Both
 Remove Both
 Expunge Both
@@ -48,8 +48,8 @@ CopyArrivalDate yes
 MaxMessages 500
 
 Channel work-nn
-Master :work-remote:NN
-Slave :work-local:NN
+Far :work-remote:NN
+Near :work-local:NN
 Create Both
 Remove Both
 Expunge Both
@@ -59,8 +59,8 @@ CopyArrivalDate yes
 MaxMessages 200
 
 Channel work-devops
-Master :work-remote:DevOps
-Slave :work-local:DevOps
+Far :work-remote:DevOps
+Near :work-local:DevOps
 Create Both
 Remove Both
 Expunge Both
@@ -70,8 +70,8 @@ CopyArrivalDate yes
 MaxMessages 1000
 
 Channel work-low
-Master :work-remote:LowPriority
-Slave :work-local:LowPriority
+Far :work-remote:LowPriority
+Near :work-local:LowPriority
 Create Both
 Remove Both
 Expunge Both
@@ -82,8 +82,8 @@ MaxMessages 100
 ExpireUnread yes
 
 Channel work-service
-Master :work-remote:Service
-Slave :work-local:Service
+Far :work-remote:Service
+Near :work-local:Service
 Create Both
 Remove Both
 Expunge Both
@@ -94,8 +94,8 @@ MaxMessages 100
 ExpireUnread yes
 
 Channel work-trash
-Master :work-remote:"Deleted Items"
-Slave :work-local:Trash
+Far :work-remote:"Deleted Items"
+Near :work-local:Trash
 Create Both
 Remove Both
 Expunge Both
@@ -106,8 +106,8 @@ MaxMessages 100
 ExpireUnread yes
 
 Channel work-sent
-Master :work-remote:"Sent Items"
-Slave :work-local:Sent
+Far :work-remote:"Sent Items"
+Near :work-local:Sent
 Create Both
 Remove Both
 Expunge Both

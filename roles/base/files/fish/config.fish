@@ -14,6 +14,17 @@ set -x LC_MEASUREMENT "ru_RU.UTF-8"
 set -x LC_IDENTIFICATION "ru_RU.UTF-8"
 set -x LC_ALL
 
+set -gx TERM screen-256color;
+
+set -gx PATH $HOME/bin $HOME/.local/bin $PATH
+set -gx TZ 'Europe/Moscow'
+set -gx BROWSER /usr/bin/firefox
+set -gx EDITOR 'nvim'
+set -gx GUI_EDITOR /usr/bin/nvim
+set -gx TERMINAL /usr/bin/termite
+set -gx VISUAL 'nvim'
+set -gx XDG_CONFIG_HOME "$HOME/.config"
+
 set fish_greeting
 
 if status is-interactive
