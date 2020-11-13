@@ -45,7 +45,7 @@ Expunge Both
 Sync All
 SyncState *
 CopyArrivalDate yes
-MaxMessages 500
+MaxMessages 300
 
 Channel work-nn
 Far :work-remote:NN

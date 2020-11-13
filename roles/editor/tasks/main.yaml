@@ -32,6 +32,7 @@
     - { src: "~/dotvim", dest: "~/.vim" }
     - { src: "{{ role_path }}/files/.ideavimrc", dest: "~/.ideavimrc" }
     - { src: "{{ role_path }}/files/.ctags", dest: "~/.ctags" }
+    - { src: "{{ role_path }}/files/.gitexcludes", dest: "~/.gitexcludes" }
 
 - npm:
     name: "{{ item }}"
@@ -65,12 +66,6 @@
 
 - shell: nvim +PlugInstall +PlugUpdate +qall
   changed_when: False
-  ignore_errors: True
-
-- get_url:
-    url: "http://www.gitignore.io/api/go,python,linux,macos"
-    dest: "~/.gitexcludes"
-    mode: 0644
   ignore_errors: True
 
 - git_config:
@@ -116,4 +111,18 @@
         [*.{md,txt}]
         vale.Editorializing = NO
     dest: "~/.vale.ini"
+
+- block:
+    - get_url:
+        url: "https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip"
+        dest: "/tmp/win32yank.zip"
+
+    - shell: unzip /tmp/win32yank.zip win32yank.exe -d ~/.local/bin
+      args:
+        creates: ~/.local/bin/win32yank.exe
+
+    - shell: chmod +x ~/.local/bin/win32yank.exe
+  tags:
+    - wsl
+    - never
 

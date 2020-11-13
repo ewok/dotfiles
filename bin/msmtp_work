@@ -1,6 +1,22 @@
 #!/bin/env bash
 
+set -e
+
+if [ "$(pgrep -f '/bin/java -jar /usr/share/java/davmail/davmail.jar')" == "" ]
+then
+    davmail >/dev/null 2>&1 || echo "Error running DAVmail" &
+    # Give a time to DAVmail
+    sleep 2
+fi
+
 USERNAME=$(cat ~/.mutt_work)
 sed -e "s/%USERNAME%/$USERNAME/" ~/.msmtp > /tmp/.msmtp
 msmtp -C /tmp/.msmtp "$@"
 rm -f /tmp/.msmtp
+
+if [ "$(pgrep -f '/bin/java -jar /usr/share/java/davmail/davmail.jar')" != "" ]
+then
+    pkill -f '/bin/java -jar /usr/share/java/davmail/davmail.jar'
+fi
+
+echo Message was sent!

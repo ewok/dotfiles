@@ -4,5 +4,5 @@ port 1025
 protocol smtp
 from %USERNAME%
 user %USERNAME%
-passwordeval pass `cat ~/.mutt_work`
+passwordeval pass $(cat ~/.mutt_work)
 auth login
