@@ -60,6 +60,7 @@ if status is-interactive
   abbr -a h helm
   abbr -a mproc "smem -t -k -c pss -P"
   abbr -a egrep "egrep --color=always"
+  abbr -a j jrnl
 
   bind \cw backward-kill-word
 

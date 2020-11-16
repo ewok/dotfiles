@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -ge 1 ]
+then
+    echo "$@" >> ~/Notes/diary/$(date +%Y-%m-%d-%H).md
+    vim ~/Notes/diary/$(date +%Y-%m-%d-%H).md
+else
+  vim +VimwikiMakeDiaryNote
+fi
