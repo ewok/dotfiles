@@ -111,18 +111,3 @@
         [*.{md,txt}]
         vale.Editorializing = NO
     dest: "~/.vale.ini"
-
-- block:
-    - get_url:
-        url: "https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip"
-        dest: "/tmp/win32yank.zip"
-
-    - shell: unzip /tmp/win32yank.zip win32yank.exe -d ~/.local/bin
-      args:
-        creates: ~/.local/bin/win32yank.exe
-
-    - shell: chmod +x ~/.local/bin/win32yank.exe
-  tags:
-    - wsl
-    - never
-

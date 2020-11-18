@@ -37,7 +37,7 @@
     name: [
         "cawbird", "cryptomator", "ldoce5viewer-pyqt5-git", "grive-git", "zeal",
          "enpass-bin", "gpmdp", "siji-git", "ttf-unifont", "redshift-gtk-git",
-         "deadd-notification-center-bin", "playerctl", "sparkleshare"
+         "deadd-notification-center-bin", "playerctl", "sparkleshare", "typora"
         ]
     skip_installed: True
 
