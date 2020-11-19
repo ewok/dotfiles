@@ -2,12 +2,12 @@
 
 - hosts: localhost
   pre_tasks:
-    #    - name: Ensure yay exists
-    #  pacman:
-    #    name: yay
-    #    state: present
-    #  tags:
-    #    - pre
+    - name: Ensure yay exists
+      pacman:
+        name: yay
+        state: present
+      tags:
+        - pre
     - name: Provide bin
       file:
         src: "{{ playbook_dir }}/bin"
@@ -53,23 +53,3 @@
             - printer
       tags:
         - printer
-    - shell: cd pkg/add_td && makepkg -sicf
-      ignore_errors: True
-      tags:
-        - td
-        - never
-
-    - block:
-        - get_url:
-            url: "https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip"
-            dest: "/tmp/win32yank.zip"
-
-        - shell: unzip /tmp/win32yank.zip win32yank.exe -d ~/.local/bin
-          args:
-            creates: ~/.local/bin/win32yank.exe
-
-        - shell: chmod +x ~/.local/bin/win32yank.exe
-      tags:
-        - never
-        - wsl
-
