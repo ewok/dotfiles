@@ -29,6 +29,13 @@ pkgs.mkShell {
 
   shellHook = ''
     # PATH=${nix}/bin:$PATH
+    echo *******************START*******************
     git-crypt-status
+    curl -sL 'https://github.com/ewok/fedora-config/raw/main/settings.yaml' | md5sum -c settings.yaml.md5
+    if [ $? -ne 0 ]; then
+      echo WARNING WARNING settings.yaml does not match hash!
+      exit 1
+    fi
+    echo ********************END********************
   '';
 }
