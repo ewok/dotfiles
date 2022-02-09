@@ -1,0 +1,5 @@
+- name: "relaod daemon"
+  ignore_errors: True
+  become: True
+  systemd:
+    daemon_reload: True

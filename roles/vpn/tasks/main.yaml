@@ -1,0 +1,119 @@
+# Enable port for openvpn via:
+# semanage port -a -t openvpn_port_t -p tcp 23231
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - vpn
+  block:
+
+    - name: "Create basic dirs"
+      file:
+        dest: "~/share/vpn"
+        state: directory
+
+    - name: "Setup vpn"
+      become: True
+      copy:
+        content: |
+          [Unit]
+          Description=OpenVPN tunnel for %I
+          After=syslog.target network-online.target
+          Wants=network-online.target
+          Documentation=man:openvpn(8)
+          Documentation=https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+          Documentation=https://community.openvpn.net/openvpn/wiki/HOWTO
+
+          [Service]
+          Type=notify
+          ExecStart=/usr/sbin/openvpn --config {{ lookup('env', 'HOME') }}/share/vpn/%i.ovpn --status /run/openvpn-%i.status 10 --daemon openvpn@%i --cd {{ lookup('env', 'HOME') }}/share/vpn/ --auth-user-pass {{ lookup('env', 'HOME') }}/share/vpn/%i.pw
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: "/etc/systemd/system/vpn@.service"
+      notify: "relaod daemon"
+
+    - name: "VPN script"
+      copy:
+        content: |
+          #!/bin/bash
+
+          # Init sudo
+          prompt=$(sudo -nv 2>&1)
+          if [ $? -eq 0 ]; then
+            echo "Sudo priveleges available."
+          elif echo $prompt | grep -q '^sudo:'; then
+            echo "$(rofi_run -password -dmenu -p 'Sudo password' -l 0 -sidebar -width 20)" | sudo -S echo "Granted"
+          else
+            rofi -dmenu -mesg "You don't have sudo priveleges." -a "vpn"
+            exit 2
+          fi
+
+          cleanup()
+          {
+            sudo rm -f ~/share/vpn/*.pw
+          }
+          trap 'cleanup' 1 2 3 6 15
+
+          NAME="$1"
+
+          get()
+          {
+            prop_name=$1
+            echo "$(bash ~/share/vpn/$NAME.conf | grep "$prop_name" | cut -f2 -d=)"
+          }
+
+          PASSWORD_TOOL=$(get PwdTool)
+          PASSWORD_ENTITY=$(get PwdEntity)
+          OTP_ENTITY=$(get OtpEntity)
+
+          sudo systemctl stop vpn@$1.service
+
+          if [[ "$2" == "stop" ]];then exit 0;fi
+
+          if [[ -n "$PASSWORD_TOOL" ]]
+          then
+            sudo rm -f ~/share/vpn/$NAME.pw
+
+            set -e
+            case "$PASSWORD_TOOL" in
+              lpass)
+                lpass show $PASSWORD_ENTITY --username > ~/share/vpn/$NAME.pw
+                lpass show $PASSWORD_ENTITY --password >> ~/share/vpn/$NAME.pw
+              ;;
+              op)
+                op-session get item $PASSWORD_ENTITY --fields username > ~/share/vpn/$NAME.pw
+                op-session get item $PASSWORD_ENTITY --fields password >> ~/share/vpn/$NAME.pw
+              ;;
+              *)
+                echo "Unsupported PW tool $PASSWORD_TOOL"
+                exit 2
+              ;;
+            esac
+
+            sudo chmod 0600 ~/share/vpn/$NAME.pw
+            sudo chown openvpn ~/share/vpn/$NAME.pw
+            sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" ~/share/vpn/$NAME.pw
+
+            if [[ -n "$OTP_ENTITY" ]]; then
+              set +e
+              ykman oath accounts code openvpn_$NAME | awk '{print $2}' | wl-copy
+              set -e
+            fi
+
+          else
+            echo "nobody" > ~/share/vpn/$NAME.pw
+            echo "nopassword" >> ~/share/vpn/$NAME.pw
+            sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" ~/share/vpn/$NAME.pw
+          fi
+
+          sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" ~/share/vpn/$NAME.ovpn
+          sudo systemctl start vpn@$1.service
+
+          set +e
+          notify-send -t 5000 "VPN $NAME complete"
+          cleanup
+
+        dest: "~/.local/bin/vpn"
+        mode: 0755
+      notify: "relaod daemon"

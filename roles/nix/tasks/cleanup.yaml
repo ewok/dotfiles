@@ -1,0 +1,14 @@
+- name: "Cleanup"
+  become: True
+  file:
+    dest: "{{item}}"
+    state: absent
+  loop:
+    - "~/.nix-store"
+    - "~/.nix-channels"
+    - "~/.nix-defexpr"
+    - "~/.nix-profile"
+    - "~/.local/share/direnv"
+  tags:
+    - never
+    - cleanup

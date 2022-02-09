@@ -1,0 +1,68 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - rofi
+  block:
+
+    - name: "Provide config dir"
+      file:
+        dest: "~/.config/rofi"
+        state: directory
+
+    - name: "Rofi theme colors"
+      copy:
+        content: |
+          * {
+            background: #{{colors.color10}}ff;
+            foreground: #{{colors.foreground}}ff;
+            lightbg:    #{{colors.color11}}ff;
+            lightfg:    #{{colors.foreground}}ff;
+            red:        #{{colors.color1}}ff;
+            blue:       #{{colors.color4}}ff;
+            font:       "{{ regularFont }} {{ regularFontSize }}";
+          }
+        dest: "~/.config/rofi/colors.rasi"
+
+    - name: "Rofi theme"
+      template:
+        src: "{{ item }}"
+        dest: "~/.config/rofi/{{ item | basename }}"
+      loop: "{{ lookup('fileglob', '{{ role_path }}/templates/*.rasi', wantlist=True) }}"
+
+    - name: "dmcalc"
+      copy:
+        content: |
+          dmenucmd="rofi_run -dmenu -p Calc $@"
+          while : ; do
+              result=$(wl-paste | $dmenucmd | xargs echo | bc -l 2>&1)
+              if [[ $result ]]; then
+                  printf "$result" | wl-copy
+              fi
+              [[ $result ]] || break
+          done
+        dest: "~/.local/bin/dmcalc"
+        mode: 0755
+
+    - name: "dmmyip"
+      copy:
+        content: |
+          dmenucmd="rofi_run -dmenu -p MyIP: $@"
+          while : ; do
+              result=$(curl ifconfig.me | $dmenucmd)
+              if [[ $result ]]; then
+                  printf "$result" | wl-copy
+              fi
+              [[ $result ]] || break
+          done
+        dest: "~/.local/bin/myip"
+        mode: 0755
+
+    - name: "rofi_run"
+      copy:
+        content: |
+          #!/bin/env fish
+          /usr/bin/rofi \
+           -icon-theme "Papirus" -show-icons -terminal lxterminal -theme default $argv
+        dest: "~/.local/bin/rofi_run"
+        mode: 0755

@@ -1,0 +1,11 @@
+- name: "Cleanup"
+  file:
+    dest:  "{{ item }}"
+    state: absent
+  loop:
+    - "~/.local/share/zoho"
+  tags:
+    - never
+    - cleanup
+
+

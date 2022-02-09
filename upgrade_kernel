@@ -1,0 +1,27 @@
+#!/bin/bash
+
+KERNEL="5.14.14-200.fc34.x86_64"
+KERNEL_H="5.14.9-200.fc34.x86_64"
+REPO="https://mirror.yandex.ru/fedora/linux/updates/34/Everything/x86_64/Packages/k"
+rpm-ostree override replace \
+  $REPO/kernel-$KERNEL.rpm \
+  $REPO/kernel-core-$KERNEL.rpm \
+  $REPO/kernel-devel-$KERNEL.rpm \
+  $REPO/kernel-modules-$KERNEL.rpm \
+  $REPO/kernel-modules-extra-$KERNEL.rpm  \
+  $REPO/kernel-headers-$KERNEL_H.rpm
+exit 0
+rpm-ostree override replace \
+  --remove=kernel \
+  --remove=kernel-core \
+  --remove=kernel-modules \
+  --remove=kernel-modules-extra \
+  --remove=kernel-devel \
+  --remove=kernel-headers \
+  --install=$REPO/kernel-$KERNEL.rpm \
+  --install=$REPO/kernel-core-$KERNEL.rpm \
+  --install=$REPO/kernel-devel-$KERNEL.rpm \
+  --install=$REPO/kernel-modules-$KERNEL.rpm \
+  --install=$REPO/kernel-modules-extra-$KERNEL.rpm  \
+  --install=$REPO/kernel-headers-$KERNEL_H.rpm \
+  $REPO/kernel-$KERNEL.rpm

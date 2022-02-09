@@ -1,0 +1,50 @@
+FROM docker.io/library/archlinux:base-devel AS yay
+
+RUN pacman -Sy --noconfirm archlinux-keyring
+RUN pacman -Su --noconfirm
+RUN pacman -S --needed --noconfirm git inetutils
+
+RUN useradd --system --create-home makepkgs \
+  && echo "makepkgs ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/makepkgs \
+  && pacman -Syu --needed --noconfirm go
+USER makepkgs
+WORKDIR /home/makepkgs
+
+RUN git clone https://aur.archlinux.org/yay.git \
+  && mkdir -p /tmp/pkg \
+  && cd yay \
+  && makepkg -sr --needed --noconfirm \
+  && mv yay*zst /tmp/pkg \
+  && rm -rf /home/makepkgs/.cache /home/makepkgs/yay
+
+FROM docker.io/library/archlinux:base-devel
+
+COPY VERSION /
+
+RUN pacman -Syy
+
+ENV NAME=archlinux-toolbox VERSION=base-devel
+LABEL com.github.containers.toolbox="true" \
+      name="$NAME" \
+      version="$VERSION" \
+      usage="This image is meant to be used with the toolbox command" \
+      summary="Base image for creating Arch Linux toolbox containers" \
+      maintainer="ewok"
+
+COPY extra-packages /
+RUN pacman -Syu --needed --noconfirm - < extra-packages
+RUN rm /extra-packages
+
+# Install extra packages
+RUN useradd --system --create-home -d /tmp/yay yay \
+  && echo "yay ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/yay
+COPY --from=yay /tmp/pkg /tmp/pkg
+RUN pacman -U --needed --noconfirm /tmp/pkg/*
+
+# Clean up cache
+RUN pacman -Scc --noconfirm
+
+# Enable sudo permission for wheel users
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
+
+CMD /bin/fish

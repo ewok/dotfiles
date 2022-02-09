@@ -1,0 +1,17 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Remove app"
+      community.general.flatpak:
+        name: "{{ item }}"
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"
+      loop:
+        - com.slack.Slack
+        - org.signal.Signal
+        - org.telegram.desktop
+        - uk.co.ibboard.cawbird
+        - us.zoom.Zoom

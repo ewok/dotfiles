@@ -1,0 +1,13 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "~/.ssh/config"
+        - "~/.ssh/known_hosts"

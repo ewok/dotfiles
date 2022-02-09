@@ -1,0 +1,9 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  file:
+    dest: "{{ item }}"
+    state: absent
+  loop:
+    - "~/.config/emacs"

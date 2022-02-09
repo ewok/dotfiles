@@ -1,0 +1,337 @@
+- import_tasks: cleanup.yaml
+
+- name: "WM: Install"
+  tags:
+    - sway
+    - wm
+  block:
+
+    - name: "provide config dir"
+      file:
+        dest: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.config/gtk-3.0"
+        - "~/.config/i3blocks"
+        - "~/.config/i3blocks/scripts"
+        - "~/.config/kanshi"
+        - "~/.config/mako"
+        - "~/.config/sway"
+        - "~/.config/waybar"
+
+    - name: "provide sway config"
+      template:
+        src: "config"
+        dest: "~/.config/sway/config"
+
+    - name: "i3blocks config"
+      template:
+        src: "i3blocks-config"
+        dest: "~/.config/i3blocks/config"
+
+    - name: "i3blocks scripts"
+      template:
+        src: "{{item}}"
+        dest: "~/.config/i3blocks/scripts/"
+        mode: 0755
+      with_fileglob:
+        - "{{ role_path }}/templates/i3blocks/*"
+
+    - name: "coffeine dummy script"
+      copy:
+        content: |
+          #!/bin/bash
+          #
+          if pidof -x "caffeine-running.sh" >/dev/null; then
+              echo "Process already running"
+              exit 1
+          fi
+          while true
+          do
+            echo caffeine running
+            sleep 60
+          done
+        dest: "~/.local/bin/caffeine-running.sh"
+        mode: 0755
+
+    - name: "sway-session.target"
+      copy:
+        content: |
+          [Unit]
+          Description=Sway compositor session
+          Documentation=man:systemd.special
+          BindsTo=graphical-session.target
+          Wants=graphical-session-pre.target
+          After=graphical-session-pre.target
+        dest: "~/.config/systemd/user/sway-session.target"
+
+    - name: "Provide kanshi config"
+      copy:
+        content: |
+          {% for profile in kanshi %}
+          {% set X = namespace(value=0) -%}
+          profile {{profile.name}} {
+            {% for output in profile.outputs %}
+            {% if loop.previtem is defined -%}
+              {% set X.value = (loop.previtem.H // loop.previtem.scale) + X.value + 5 -%}
+            {% endif -%}
+              output "{{output.id}}" mode {{output.H}}x{{output.V}} scale {{output.scale}} position {{X.value|int}},0
+            {% endfor %}
+          }
+          {% endfor %}
+        dest: "~/.config/kanshi/config"
+
+    - name: "kanshi.service"
+      copy:
+        content: |
+          [Unit]
+          Description=Dynamic output configuration for Wayland compositors
+          Documentation=https://github.com/emersion/kanshi
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/kanshi
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/kanshi.service"
+
+    - name: "Kanshi enable service"
+      ignore_errors: True
+      systemd:
+        scope: user
+        daemon_reload: True
+        enabled: True
+        name: kanshi
+
+    - name: "sway-input"
+      copy:
+        content: |
+          #!/bin/sh
+          format="%s"
+          dmenu="rofi_run -dmenu"
+          swaymsg="swaymsg"
+          while [ $# -gt 0 ]
+          do
+              case $1 in
+                  -s)
+                      swaymsg="$swaymsg -s '$2'"
+                      shift
+                      ;;
+                  -F)
+                      format="$2"
+                      shift
+                      ;;
+                  -f)
+                      dmenu="$dmenu -fn '$2'"
+                      shift
+                      ;;
+                  -P)
+                      dmenu="$dmenu -p '$2'"
+                      shift
+                      ;;
+                  -l)
+                      echo "Warning: -l is not supported"
+                      ;;
+                  -v)
+                      exec swaymsg -v
+                      ;;
+                  *)
+                      echo "Unknown argument '$1'" >&2
+                      exit 1
+                      ;;
+              esac
+              shift
+          done
+          cmd=$(eval $dmenu < /dev/null)
+          [ $? -ne 0 ] && exit $?
+          cmd=$(printf "$format" "$cmd")
+          eval $swaymsg "$cmd"
+          exit $?
+        dest: "~/.local/bin/sway-input"
+        mode: 0755
+
+    - name: "sway-exit"
+      copy:
+        content: |
+          #!/bin/bash
+          case "$1" in
+            lock)
+                playerctl pause
+                swaylock -f -c 333333
+                ;;
+            logout)
+                swaymsg exit
+                ;;
+            suspend)
+                swaylock -f -c 333333 && systemctl {{ suspend_type | default("suspend-then-hibernate") }}
+                ;;
+            hibernate)
+                swaylock -f -c 333333 && systemctl hibernate
+                ;;
+            reboot)
+                systemctl reboot
+                ;;
+            shutdown)
+                systemctl poweroff
+                ;;
+            *)
+                echo "== ! i3exit: missing or invalid argument ! =="
+                echo "Try again with: lock | logout | suspend | hibernate | reboot | shutdown"
+                exit 2
+          esac
+        dest: "~/.local/bin/sway-exit"
+        mode: 0755
+
+    - name: "pactl-mute-all"
+      copy:
+        content: |
+          #!/bin/bash
+          case "$1" in
+            sources)
+              LIST="$(pactl list short sources | grep -v 'alsa_output' | cut -f1)"
+
+              CURRENT_SOURCE=$(pactl info | grep "Default Source" | cut -f3 -d" ")
+              if [[ -z "$(pactl list sources | grep -A 10 $CURRENT_SOURCE | grep 'Mute: yes')" ]]
+              then
+                ST=1
+              else
+                ST=0
+              fi
+
+              for id in $LIST;do pactl set-source-mute $id $ST; done
+
+              pactl set-source-mute $id $ST
+
+              notify-send -t 2000 "$(pactl list sources | grep -A 10 'Name: alsa_input' | grep "Mute")"
+              ;;
+
+            sinks)
+              LIST="$(pactl list short sinks | cut -f1)"
+
+              CURRENT_SINK=$(pactl info | grep "Default Sink" | cut -f3 -d" ")
+              if [[ -z "$(pactl list sinks | grep -A 10 $CURRENT_SINK | grep 'Mute: yes')" ]]
+              then
+                ST=1
+              else
+                ST=0
+              fi
+
+              for id in $LIST;do pactl set-sink-mute $id $ST; done
+
+              pactl set-sink-mute $id $ST
+
+              notify-send -t 2000 "$(pactl list sinks | grep "Mute")"
+              ;;
+            *)
+              exit 1
+          esac
+
+        dest: "~/.local/bin/pactl-mute-all"
+        mode: 0755
+
+    - name: "Provide gtk dark theme"
+      copy:
+        content: |
+          [Settings]
+          gtk-application-prefer-dark-theme=true
+          gtk-font-name={{regularFont}} {{regularFontSize}}
+          gtk-icon-theme-name=Adwaita
+          gtk-theme-name=Adwaita-dark
+          gtk-cursor-theme-name=Adwaita
+          gtk-cursor-theme-size=0
+          gtk-toolbar-style=GTK_TOOLBAR_BOTH
+          gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+          gtk-button-images=0
+          gtk-menu-images=0
+          gtk-enable-event-sounds=1
+          gtk-enable-input-feedback-sounds=1
+          gtk-xft-antialias=1
+          gtk-xft-hinting=1
+          gtk-xft-hintstyle=hintfull
+        dest: "~/.config/gtk-3.0/settings.ini"
+
+
+    - name: "Provide gtk dark theme 2"
+      copy:
+        content: |
+          include "/var/home/ataranchiev/.gtkrc-2.0.mine"
+          gtk-theme-name="Adwaita-dark"
+          gtk-icon-theme-name="Adwaita"
+          gtk-font-name="{{regularFont}} {{regularFontSize}}"
+          gtk-cursor-theme-name="Adwaita"
+          gtk-cursor-theme-size=0
+          gtk-toolbar-style=GTK_TOOLBAR_BOTH
+          gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+          gtk-button-images=0
+          gtk-menu-images=0
+          gtk-enable-event-sounds=1
+          gtk-enable-input-feedback-sounds=1
+          gtk-xft-antialias=1
+          gtk-xft-hinting=1
+          gtk-xft-hintstyle="hintfull"
+        dest: "~/.gtkrc-2.0"
+
+    - name: "Provide notification configuration"
+      copy:
+        content: |
+          max-history=5
+          background-color=#{{colors.color0}}
+          text-color=#{{colors.color3}}
+          default-timeout=5000
+        dest: "~/.config/mako/config"
+
+    - name: "Fixing some issues with java apps(fish)"
+      tags:
+        - fish
+      copy:
+        content: |
+          if test "$XDG_SESSION_DESKTOP" = "sway"
+              # https://github.com/swaywm/sway/issues/595
+              set -gx _JAVA_AWT_WM_NONREPARENTING 1
+              set -gx QT_QPA_PLATFORM wayland
+          end
+        dest: "~/.config/fish/conf.d/20_sway-java.fish"
+
+    # - name: "Install Flatpak theme"
+    #   community.general.flatpak:
+    #     name: "{{ item }}"
+    #     state: present
+    #     remote: "flathub"
+    #     method: "user"
+    #     executable: "~/.local/bin/flatpak-internal"
+    #   loop:
+    #     - org.kde.KStyle.Adwaita//5.15
+    #     - org.kde.PlatformTheme.QGnomePlatform//5.15
+    #     - org.gtk.Gtk3theme.Adwaita-dark
+
+    - name: "track-layout.py"
+      template:
+        src: "track-layout.py"
+        dest: "~/.config/sway/track-layout.py"
+
+    - name: "track-layout systemd unit"
+      copy:
+        content: |
+          [Unit]
+          Description=Sway layout per application script
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=python {{ lookup('env', 'HOME') }}/.config/sway/track-layout.py
+          Restart=on-failure
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/sway-track-layout.service"
+
+    - name: "enable sway-track-layout"
+      ignore_errors: True
+      systemd:
+        daemon_reload: True
+        scope: user
+        enabled: True
+        name: "sway-track-layout"
+        state: started

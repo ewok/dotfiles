@@ -1,0 +1,16 @@
+#!/bin/bash
+
+FAN_SPEED="$(sensors | grep fan1 | awk '{ print $2}')"
+FAN_SPEED=${FAN_SPEED:-0}
+
+if [ $FAN_SPEED -gt 0 ]
+then
+echo " $FAN_SPEED"
+echo " $FAN_SPEED"
+echo ${COLOR_WARN:-#ffffff}
+else
+echo "ﴛ"
+echo "ﴛ"
+echo ${COLOR_NORMAL:-#000000}
+fi
+

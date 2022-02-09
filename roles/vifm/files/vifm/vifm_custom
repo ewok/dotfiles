@@ -1,0 +1,36 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+
+if system('uname') == 'Linux'
+    set deleteprg=trash-put
+else
+    " Installation: brew install trash
+    " set deleteprg=Trash
+    set grepprg=ag\ --line-numbers\ %i\ %a\ %s
+    set findprg="find %s %a -print"
+endif
+" Add additional place to look for executables
+" let $PATH=$HOME.'/bin/fuse:'.$PATH
+
+" Block particular shortcut
+nnoremap <left> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <right> <nop>
+nnoremap <a-left> <nop>
+nnoremap <a-up> <nop>
+nnoremap <a-down> <nop>
+nnoremap <a-right> <nop>
+nnoremap <c-left> <nop>
+nnoremap <c-up> <nop>
+nnoremap <c-down> <nop>
+nnoremap <c-right> <nop>
+nnoremap <s-left> <nop>
+nnoremap <s-up> <nop>
+nnoremap <s-down> <nop>
+nnoremap <s-right> <nop>
+
+nnoremap da :%d
+
+" set confirm=permdelete
+"

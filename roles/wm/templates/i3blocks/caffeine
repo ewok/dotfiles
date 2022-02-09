@@ -1,0 +1,18 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+  1) lxterminal --title caffeine-bg -e bash caffeine-running.sh &>/dev/null & disown
+    echo "☕"
+    echo "☕"
+  ;; # left click
+  3) pkill -f '^bash caffeine-running.sh$' &>/dev/null
+    echo "💤"
+    echo "💤"
+  ;; # right click
+  *) if [[ "$(swaymsg -t get_tree | jq '.. | select(.inhibit_idle? == true)')" == "" ]] ;then ICON=💤;else ICON=☕;fi
+
+    echo "$ICON"
+    echo "$ICON"
+  ;;
+
+esac

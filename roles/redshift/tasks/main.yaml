@@ -1,0 +1,29 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - redshift
+  block:
+
+    - name: "gammastep.service"
+      copy:
+        content: |
+          [Unit]
+          Description=Set day/night screen temp
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/gammastep -l {{latitude}}:{{longitude}} -t {{day}}:{{night}} -m wayland
+          Restart = "on-failure"
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/gammastep.service"
+
+    - name: "Enable service"
+      systemd:
+        scope: user
+        daemon_reload: True
+        enabled: True
+        name: gammastep

@@ -1,0 +1,13 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      become: True
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/etc/systemd/system/vpn@.service"

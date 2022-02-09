@@ -1,0 +1,10 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  file:
+    dest: "{{ item }}"
+    state: absent
+  loop:
+    - "~/.local/share/fonts-archive"
+    - "~/.local/share/fonts"

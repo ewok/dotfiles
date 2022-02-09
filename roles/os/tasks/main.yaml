@@ -1,0 +1,58 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  become: True
+  tags:
+    - os
+  block:
+
+  - name: "Install overlay_packages"
+    community.general.rpm_ostree_pkg:
+      name: "{{ overlay_packages }}"
+      state: present
+    ignore_errors: True
+    when: "overlay_packages is defined"
+
+  - name: "Set user groups"
+    user:
+      name: "{{ username }}"
+      append: True
+      shell: "/usr/bin/fish"
+      groups:
+        - "users"
+        - "wheel"
+        - "{{ username }}"
+
+  - name: "Enable startup services"
+    systemd:
+      name: "{{ item }}"
+      enabled: True
+      daemon_reload: True
+    loop:
+      - "getty@.service"
+      - "systemd-timesyncd.service"
+      - "systemd-resolved.service"
+      - "systemd-homed.service"
+      - "sshd.socket"
+
+  - name: "Hosts: Provide config"
+    blockinfile:
+      block: |
+        {% for host in hosts -%}
+        {{host.ip}} {{host.domain}}
+        {% endfor %}
+      dest: "/etc/hosts"
+    tags:
+      - hosts
+
+  - name: "Local docker registry"
+    copy:
+      content: |
+        unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "docker.io", "quay.io"]
+        short-name-mode="enforcing"
+
+        [[registry]]
+        prefix = "nas:50000"
+        location = "nas:50000"
+        insecure = true
+      dest: "/etc/containers/registries.conf"

@@ -1,0 +1,75 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - clipboard
+  block:
+
+    - name: "Systemd unit for clipman"
+      copy:
+        content: |
+          [Unit]
+          Description=Clipman
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=wl-paste -t text --watch clipman store --max-items=60 --histpath="~/.local/share/clipman.json"
+          Restart=on-failure
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/clipman.service"
+
+    - name: "Systemd unit for clipman-primary"
+      copy:
+        content: |
+          [Unit]
+          Description=Clipman Primary
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=wl-paste -p -t text --watch clipman store --max-items=60 --histpath="~/.local/share/clipman.json"
+          Restart=on-failure
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/clipman-primary.service"
+
+    - name: "enable clipman"
+      ignore_errors: True
+      systemd:
+        daemon_reload: True
+        scope: user
+        enabled: True
+        name: "{{ item }}"
+        state: started
+      loop:
+        - "clipman"
+        - "clipman-primary"
+
+    - name: "Systemd unit for clip sync"
+      copy:
+        content: |
+          [Unit]
+          Description=Clipman
+          BindsTo=sway-session.target
+
+          [Service]
+          Type=simple
+          ExecStart=wl-paste -wp wl-copy
+          Restart=on-failure
+
+          [Install]
+          WantedBy=sway-session.target
+        dest: "~/.config/systemd/user/clip-sync.service"
+
+    - name: "disable clipsync"
+      ignore_errors: True
+      systemd:
+        daemon_reload: True
+        scope: user
+        enabled: False
+        name: clip-sync
+

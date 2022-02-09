@@ -1,0 +1,12 @@
+FROM registry.fedoraproject.org/fedora-toolbox:35
+
+ENV TB=os
+
+ENV GTK_THEME=Adwaita:dark
+
+RUN sudo dnf install -y \
+  pavucontrol \
+  fish \
+  fzf \
+  gnome-themes-extra \
+  keepassxc

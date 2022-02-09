@@ -1,0 +1,32 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - fonts
+  block:
+
+    - name: "Provide config dir"
+      file:
+        dest: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.cache/rpms"
+        - "~/.local/share/fonts"
+
+    - name: "Download Fira Code"
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "~/.cache/rpms/{{ item.name }}"
+        remote_src: yes
+      loop:
+        - { url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip", name: "FiraCode.zip" }
+        - { url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraMono.zip", name: "FiraMono.zip" }
+
+    - name: "Install Fira Code"
+      ansible.builtin.unarchive:
+        src: "~/.cache/rpms/{{ item }}"
+        dest: "~/.local/share/fonts"
+        remote_src: yes
+      loop:
+        - "FiraCode.zip"
+        - "FiraMono.zip"

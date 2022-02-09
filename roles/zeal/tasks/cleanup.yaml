@@ -1,0 +1,12 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup Zeal"
+      community.general.flatpak:
+        name: org.zealdocs.Zeal
+        method: user
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"

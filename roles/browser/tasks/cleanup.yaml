@@ -1,0 +1,38 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      become: True
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/home/{{username}}/.librewolf/profile.default/extensions"
+        - "/home/{{username}}/.librewolf/profile.default/chrome"
+        - "/home/{{username}}/.local/share/librewolf/"
+        - "/etc/yum.repos.d/google-chrome.repo"
+
+    - name: "Remove app"
+      community.general.flatpak:
+        name: "{{ item }}"
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"
+      loop:
+        - io.gitlab.librewolf-community
+
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup-hard
+  block:
+
+    - name: "Cleanup files"
+      become: True
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/home/{{username}}/.librewolf"

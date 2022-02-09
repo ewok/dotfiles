@@ -1,0 +1,15 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      file:
+        dest: "~/.config/git"
+        state: absent
+
+    - name: "Cleanup files"
+      file:
+        dest: "~/.subversion/config"
+        state: absent

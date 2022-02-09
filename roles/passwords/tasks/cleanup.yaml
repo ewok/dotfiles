@@ -1,0 +1,22 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      become: True
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/etc/polkit-1/rules.d/10-{{username}}-org.debian.pcsc-lite.rules"
+        - "/etc/udev/rules.d/01-disable-alcor-micro.rules"
+        - "/etc/sudoers.d/10-tweaks"
+        - "/etc/selinux_custom"
+
+    - name: "Cleanup Seahorse"
+      community.general.flatpak:
+        name: org.gnome.seahorse.Application
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"

@@ -1,0 +1,12 @@
+- name: "Cleanup"
+  file:
+    dest:  "{{ item }}"
+    state: absent
+  loop:
+    -  "~/.cache/Popcorn-Time"
+    - "~/.local/share/lbry"
+  tags:
+    - never
+    - cleanup
+
+

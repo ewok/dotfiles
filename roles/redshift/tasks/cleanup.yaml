@@ -1,0 +1,14 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Disable service"
+      ignore_errors: True
+      systemd:
+        scope: user
+        daemon_reload: True
+        enabled: False
+        name: gammastep
+        state: stopped

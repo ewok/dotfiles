@@ -1,0 +1,4 @@
+- name: "fisher update"
+  shell: "fisher update"
+  args:
+    executable: /usr/bin/fish

@@ -1,0 +1,13 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      file:
+        dest: "{{ item.dir }}"
+        state: absent
+      loop:
+        - { dir: "~/.config/fish" }
+        - { dir: "~/.local/share/fish" }

@@ -1,0 +1,14 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      file:
+        dest: "{{ item }}"
+        state: absent
+      loop:
+        - "~/.local/bin/cryptomator"
+        - "~/.local/share/Cryptomator/cryptomator-bin"
+        - "~/.local/share/applications/cryptomator.desktop"

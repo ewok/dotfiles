@@ -1,0 +1,22 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Cleanup files"
+      file:
+        dest: "~/.cache/spotify"
+        state: absent
+
+    - name: "Cleanup app"
+      community.general.flatpak:
+        name: com.spotify.Client
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"
+
+    - name: "Cleanup app"
+      community.general.flatpak:
+        name: app.ytmdesktop.ytmdesktop
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"

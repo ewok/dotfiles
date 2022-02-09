@@ -1,0 +1,15 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+    - name: "Cleanup apps"
+      community.general.flatpak:
+        name: "{{ item }}"
+        state: absent
+        executable: "~/.local/bin/flatpak-internal"
+      loop:
+        - net.ankiweb.Anki
+        - com.github.johnfactotum.Foliate
+        - com.github.gi_lom.dialect
+        - org.goldendict.GoldenDict

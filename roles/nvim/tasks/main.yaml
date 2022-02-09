@@ -1,0 +1,61 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - nvim
+    - vim
+  block:
+
+    - name: "Ensure config dir exists"
+      file:
+        dest: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.host/config/nvim"
+        - "~/.config/nvim"
+
+    - name: "EnvVars"
+      tags:
+        - fish
+      copy:
+        content: |
+          #set -gx EDITOR "vim";
+          #set -gx VISUAL "vim";
+          #set -gx GUI_EDITOR "vim";
+          if test "$TB" = "dev"
+            fish_add_path --path -a ~/.local/share/nvim/site/pack/packer/opt/vim-iced/bin
+          end
+        dest: "~/.config/fish/conf.d/20_nvim-vars.fish"
+
+    - name: "Command"
+      copy:
+        content: |
+          #!/bin/bash
+          if [ -z "$TB" ]
+          then
+            export XDG_CONFIG_HOME="$HOME/.host/config"
+            export XDG_DATA_HOME="$HOME/.host/data"
+            export XDG_CACHE_HOME="$HOME/.host/cache"
+            exec -a "$0" "/usr/bin/nvim" "$@"
+          elif [ "$TB" == dev ]
+          then
+            exec -a "$0" "/usr/bin/nvim" "$@"
+          else
+            exec -a "$0" "/usr/bin/toolbox" "run" "-c" "dev" "nvim" "$@"
+          fi
+        dest: "~/.local/bin/{{ item }}"
+        mode: 0755
+      loop:
+        - "vim"
+        - "nvim"
+
+    - template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - { src: "neovim/ctags", dest: "~/.ctags" }
+        - { src: "neovim/vale.ini", dest: "~/.vale.ini" }
+        - { src: "neovim/init.lua", dest: "~/.config/nvim/init.lua" }
+        - { src: "neovim/init.lua", dest: "~/.host/config/nvim/init.lua" }
+
+- import_tasks: notes.yaml

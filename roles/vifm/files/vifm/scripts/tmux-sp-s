@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -n "$TMUX" ]
+then
+    tmux split-window -p 20
+else
+    $SHELL
+fi
+
+#nnoremap v :!if [ -n "$TMUX" ]; then I=$(T=$(tty);tmux lsp -F'#{pane_tty} #{pane_index}'|grep ^$T|cut -f2 -d' ');ALL=$(tmux lsp|wc -l); if [ $((ALL-I)) -le 1 ];then I=$(($I-1));fi; tmux split-window -p 40 -h -t $((I+1)) ;else zsh; fi<cr>
+#nnoremap t :!if [ -n "$TMUX" ]; then tmux new-window;else zsh; fi<cr>

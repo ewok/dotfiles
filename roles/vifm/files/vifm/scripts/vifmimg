@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+set -e
+
+readonly ID_PREVIEW="preview"
+
+# AUTO_REMOVE="yes"
+# By enabling this option the script will remove the preview file after it is drawn
+# and by doing so the preview will always be up-to-date with the file.
+# This however, requires more CPU and therefore affects the overall performance.
+
+PREFIX="/tmp/vifm_img"
+NAME=$(echo "$6" | md5sum | cut -f1 -d' ')
+tmp_folder="$PREFIX/$(echo "${PWD}/$6" | md5sum | cut -f1 -d' ')"
+
+function cleanup(){
+    if [[ "$tmp_folder" == "$PREFIX"* ]]; then
+        rm -rf "$tmp_folder"
+    fi
+}
+
+if [ -e "$FIFO_UEBERZUG" ]; then
+    if [[ "$1" == "draw" ]]; then
+        declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+                           [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+                           [path]="${PWD}/$6") \
+            > "$FIFO_UEBERZUG"
+
+    elif [[ "$1" == "videopreview" ]]; then
+        echo -e "Loading preview..\nFile: $6"
+        [[ ! -d "$tmp_folder" ]] && mkdir -p "$tmp_folder"
+        [[ ! -f "$tmp_folder/$6.png" ]] && ffmpegthumbnailer -i "${PWD}/$6" -o "$tmp_folder/$6.png" -s 0 -q 10
+        declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+                           [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+                           [path]="$tmp_folder/$6.png") \
+            > "$FIFO_UEBERZUG"
+
+    elif [[ "$1" == "gifpreview" ]]; then
+        echo -e "Loading preview..\nFile: $6"
+        [[ ! -d "$tmp_folder" ]] && mkdir -p "$tmp_folder"
+        convert -coalesce "${PWD}/$6" "$tmp_folder/$NAME.png"
+        for frame in $(ls -1 $tmp_folder/$NAME*.png | sort -V); do
+           declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+                           [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+                           [path]="$frame") \
+            > "$FIFO_UEBERZUG"
+            # Sleep between frames to make the animation smooth.
+            sleep .07
+        done
+
+    elif [[ "$1" == "pdfpreview" ]]; then
+        echo -e "Loading preview..\nFile: $6"
+        [[ ! -d "$tmp_folder" ]] && mkdir -p "$tmp_folder"
+        [[ ! -f "$tmp_folder/$6.png" ]] && pdftoppm -png -singlefile "$6" "$tmp_folder/$6"
+        declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+                           [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+                           [path]="$tmp_folder/$6.png") \
+            > "$FIFO_UEBERZUG"
+
+    elif [[ "$1" == "magickpreview" ]]; then
+        [[ ! -d "$tmp_folder" ]] && mkdir -p "$tmp_folder"
+        [[ ! -f "$tmp_folder/$6.png" ]] && \
+            convert -quiet -thumbnail $(identify -quiet -format "%wx%h" "$6") "$PWD/$6" "$tmp_folder/$6.png"
+
+        declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+                           [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+                           [path]="$tmp_folder/$6.png") \
+            > "$FIFO_UEBERZUG"
+
+    elif [[ "$1" == "clear" ]]; then
+        declare -p -A cmd=([action]=remove [identifier]="$ID_PREVIEW") \
+            > "$FIFO_UEBERZUG"
+        [[ ! -z $AUTO_REMOVE ]] && [[ -f "$tmp_folder/$NAME.png" ]] && rm -f "$tmp_folder/$NAME.png"
+        [[ ! -z $AUTO_REMOVE ]] && [[ -f "$tmp_folder/$6.png" ]] && rm -f "$tmp_folder/$6.png"
+        [[ ! -z $AUTO_REMOVE ]] && [[ -f "$tmp_folder/$6.jpg" ]] && rm -f "$tmp_folder/$6.jpg"
+        [[ ! -z $AUTO_REMOVE ]] && [[ -d "$tmp_folder" ]] && rm -rf "$tmp_folder"
+
+    fi
+fi

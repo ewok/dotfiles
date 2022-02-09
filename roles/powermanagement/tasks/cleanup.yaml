@@ -1,0 +1,36 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  become: True
+  block:
+
+    - name: "Stop services"
+      ignore_errors: True
+      systemd:
+        name: "{{ item }}"
+        enabled: False
+        daemon_reload: True
+        state: stopped
+      loop:
+        - "tlp"
+        - "ac_init"
+        - "bat_init"
+
+    - name: "Cleanup files"
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/etc/selinux_custom"
+        - "/etc/systemd/logind.conf.d"
+        - "/etc/systemd/sleep.conf.d"
+        - "/etc/systemd/system/ac_init.service"
+        - "/etc/systemd/system/ac.target"
+        - "/etc/systemd/system/bat_init.service"
+        - "/etc/systemd/system/battery.target"
+        - "/etc/udev/rules.d/99-powertargets.rules"
+        - "/home/{{ username }}/.config/systemd/user/ac.target"
+        - "/home/{{ username }}/.config/systemd/user/battery.target"
+        - "/usr/local/bin/ac_bat_target"
+      notify: reload udev

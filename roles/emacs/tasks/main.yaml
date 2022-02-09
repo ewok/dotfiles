@@ -1,0 +1,71 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - emacs
+  block:
+
+    - name: "Ensure config dir exists"
+      file:
+        dest: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.config/emacs"
+        - "~/.cache/emacs/backups"
+        - "~/.cache/emacs/auto-save"
+
+    - name: "Ensure config dir exists"
+      file:
+        dest: "{{ item }}"
+        state: absent
+      loop:
+        - "~/.emacs.d"
+
+    - name: "EnvVars"
+      tags:
+        - fish
+      copy:
+        content: |
+          set -gx EDITOR "em -t";
+          set -gx VISUAL "em";
+          set -gx GUI_EDITOR "em";
+        dest: "~/.config/fish/conf.d/20_emacs-vars.fish"
+
+    - name: "Command"
+      copy:
+        content: |
+          #!/bin/fish
+          if test -z $TB
+            /usr/bin/emacsclient -a "d /usr/bin/emacs" -c $argv
+            #/usr/bin/toolbox run -c dev emacs $argv
+          else if test $TB = "dev"
+            fish_add_path --path -a ~/.nix-profile/bin
+            /usr/bin/emacsclient -a "/usr/bin/emacs" -c $argv
+          else
+            /usr/bin/toolbox run -c dev em $argv
+          end
+        dest: "~/.local/bin/{{ item }}"
+        mode: 0755
+      loop:
+        - "em"
+
+    - name: "vterm helper"
+      copy:
+        content: |
+          function vterm_printf;
+              if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
+                  # tell tmux to pass the escape sequences through
+                  printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
+              else if string match -q -- "screen*" "$TERM"
+                  # GNU screen (screen, screen-256color, screen-256color-bce)
+                  printf "\eP\e]%s\007\e\\" "$argv"
+              else
+                  printf "\e]%s\e\\" "$argv"
+              end
+          end
+        dest: "~/.config/fish/conf.d/01_vterm_helper.fish"
+        mode: 0755
+
+    - name: Provide config
+      shell: |
+        d /usr/bin/emacs --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "{{ role_path }}/templates/emacs/emacs.org")'

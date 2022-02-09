@@ -1,0 +1,18 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: "Stop services"
+      ignore_errors: True
+      systemd:
+        name: "{{ item }}"
+        daemon_reload: True
+        scope: user
+        enabled: False
+        state: stopped
+      loop:
+        - clip-sync
+        - clipman
+        - clipman-primary

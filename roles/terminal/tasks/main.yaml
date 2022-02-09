@@ -1,0 +1,161 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - terminal
+  block:
+
+    - name: "LXTerminal config dir"
+      file:
+        dest: "~/.config/lxterminal"
+        state: directory
+      when: terminal == "lxterminal"
+
+    - name: "LXTerminal config"
+      copy:
+        content: |
+          [general]
+          fontname={{ monospaceFont }} {{ monospaceFontSize }}
+          selchars=-A-Za-z0-9,./?%&#:_
+          scrollback=100000
+          bgcolor={{ colors.rgb_background }}
+          fgcolor={{ colors.rgb_foreground }}
+          palette_color_0={{ colors.rgb_color0 }}
+          palette_color_1={{ colors.rgb_color1 }}
+          palette_color_2={{ colors.rgb_color2 }}
+          palette_color_3={{ colors.rgb_color3 }}
+          palette_color_4={{ colors.rgb_color4 }}
+          palette_color_5={{ colors.rgb_color5 }}
+          palette_color_6={{ colors.rgb_color6 }}
+          palette_color_7={{ colors.rgb_color7 }}
+          palette_color_8={{ colors.rgb_color8 }}
+          palette_color_9={{ colors.rgb_color9 }}
+          palette_color_10={{ colors.rgb_color10 }}
+          palette_color_11={{ colors.rgb_color11 }}
+          palette_color_12={{ colors.rgb_color12 }}
+          palette_color_13={{ colors.rgb_color13 }}
+          palette_color_14={{ colors.rgb_color14 }}
+          palette_color_15={{ colors.rgb_color15 }}
+          color_preset=Custom
+          disallowbold=false
+          boldbright=false
+          cursorblinks=false
+          cursorunderline=false
+          audiblebell=false
+          visualbell=false
+          tabpos=top
+          geometry_columns=80
+          geometry_rows=24
+          hidescrollbar=false
+          hidemenubar=true
+          hideclosebutton=true
+          hidepointer=false
+          disablef10=false
+          disablealt=false
+          disableconfirm=false
+
+          [shortcut]
+          new_window_accel=<Primary><Shift>n
+          new_tab_accel=<Primary><Shift>t
+          close_tab_accel=<Primary><Shift>w
+          close_window_accel=<Primary><Shift>q
+          copy_accel=<Primary><Shift>c
+          paste_accel=<Primary><Shift>v
+          name_tab_accel=
+          previous_tab_accel=<Primary><Shift>Page_Up
+          next_tab_accel=<Primary><Shift>Page_Down
+          move_tab_left_accel=
+          move_tab_right_accel=
+          zoom_in_accel=<Primary><Shift>plus
+          zoom_out_accel=<Primary><Shift>underscore
+          zoom_reset_accel=<Primary><Shift>parenright
+
+        dest: "~/.config/lxterminal/lxterminal.conf"
+      when: terminal == "lxterminal"
+
+    - name: "Alacritty config dir"
+      file:
+        dest: "~/.config/alacritty"
+        state: directory
+      when: terminal == "alacritty"
+
+    - name: "Alacritty config"
+      copy:
+        content: |
+          {
+            "colors": {
+              "bright": {
+                "black":"0x{{colors.color8}}",
+                "blue":"0x{{colors.color12}}",
+                "cyan":"0x{{colors.color14}}",
+                "green":"0x{{colors.color10}}",
+                "magenta":"0x{{colors.color13}}",
+                "red":"0x{{colors.color9}}",
+                "white":"0x{{colors.color15}}",
+                "yellow":"0x{{colors.color11}}"
+              },
+              "normal":{
+                "black":"0x{{colors.color0}}",
+                "blue":"0x{{colors.color4}}",
+                "cyan":"0x{{colors.color6}}",
+                "green":"0x{{colors.color2}}",
+                "magenta":"0x{{colors.color5}}",
+                "red":"0x{{colors.color1}}",
+                "white":"0x{{colors.color7}}",
+                "yellow":"0x{{colors.color3}}"
+              },
+              "primary":{
+                "background":"0x{{colors.background}}",
+                "foreground":"0x{{colors.foreground}}"
+              }
+            },
+            "cursor":{
+              "blinking":"On",
+              "cursor":"0x{{colors.cursor}}",
+              "style":"Block",
+              "text":"0x{{colors.text}}"
+            },
+            "font":{
+              "normal":{
+                "family":"{{monospaceFont}}",
+                "style":"Regular"
+              },
+                "size":{{monospaceFontSize}}
+              },
+              "key_bindings":[
+                {
+                  "chars":"\x1b[13;5u", "key":"Return", "mods":"Control"
+                },{
+                  "chars":"\x1b[13;2u","key":"Return","mods":"Shift"
+                }
+              ],
+              "scrolling":{
+                "history":100000
+              }
+          }
+        dest: "~/.config/alacritty/alacritty.yml"
+      when: terminal == "alacritty"
+
+    - name: "Starship init"
+      tags:
+        - fish
+      copy:
+        content: |
+          if status --is-interactive
+            if test -n "$TB"
+              if command -vq -- starship
+                source (/usr/bin/starship init fish --print-full-init | psub)
+              else
+                function fish_prompt -d "Write out the prompt"
+                    printf '⬢ [%s@%s %s%s%s] > ' $USER $hostname \
+                        (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+                end
+              end
+            end
+          end
+        dest: "~/.config/fish/conf.d/99_starship.fish"
+
+    - name: "Starship config"
+      template:
+        src: "starship.toml"
+        dest: "~/.config/starship.toml"

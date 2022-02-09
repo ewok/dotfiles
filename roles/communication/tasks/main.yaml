@@ -1,0 +1,37 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - comm
+
+  block:
+
+    - name: "Install Slack"
+      community.general.flatpak:
+        name: com.slack.Slack
+        state: present
+        executable: "~/.local/bin/flatpak-internal"
+
+    - name: "Install Signal"
+      community.general.flatpak:
+        name: org.signal.Signal
+        state: present
+        executable: "~/.local/bin/flatpak-internal"
+
+    - name: "Install Telegram"
+      community.general.flatpak:
+        name: org.telegram.desktop
+        state: present
+        executable: "~/.local/bin/flatpak-internal"
+
+    - name: "Install Cawbird"
+      community.general.flatpak:
+        name: uk.co.ibboard.cawbird
+        state: present
+        executable: "~/.local/bin/flatpak-internal"
+
+    - name: "Install Zoom"
+      community.general.flatpak:
+        name: us.zoom.Zoom
+        state: present
+        executable: "~/.local/bin/flatpak-internal"

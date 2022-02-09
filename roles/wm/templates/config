@@ -1,0 +1,387 @@
+input type:keyboard {
+    xkb_layout "us,ru"
+    xkb_variant ","
+    xkb_options "grp:win_space_toggle,ctrl:swapcaps,altwin:swap_alt_win"
+    xkb_model "pc105"
+    repeat_delay 200
+    repeat_rate 30
+}
+
+input "65261:91:QMK_QMK_USB-USB_Converter" {
+    xkb_options "grp:win_space_toggle,altwin:swap_alt_win"
+}
+
+input "12136:32832:Hoksi_Technology_DURGOD_Infinite_Link" {
+    xkb_options "grp:win_space_toggle"
+}
+
+input "2314:321:DURGOD_FUSION_Keyboard" {
+    xkb_options "grp:win_space_toggle"
+}
+
+input "12136:321:Hoksi_Technology_DURGOD_FUSION" {
+    xkb_options "grp:win_space_toggle"
+}
+
+input "12136:321:Hoksi_Technology_DURGOD_FUSION_Keyboard" {
+    xkb_options "grp:win_space_toggle"
+}
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+input 1267:11337:ELAN2514:00_04F3:2C49 {
+   map_to_output eDP-1
+}
+
+
+{% for output in profile %}
+output "{{profile[output].id}}" {
+    mode "{{profile[output].H}}x{{profile[output].V}}"
+    scale {{profile[output].scale}}
+}
+{% endfor %}
+
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
+
+bindswitch --reload --locked tablet:on output eDP-1 transform 180
+bindswitch --reload --locked tablet:off output eDP-1 transform 0
+
+set $mod Mod4
+set $mod_a Mod1
+set $mod_c Control
+
+################################################################################################
+# Settings
+################################################################################################
+
+gaps inner 7
+smart_gaps on
+
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+default_border pixel 3
+default_floating_border pixel
+
+# Hide borders
+hide_edge_borders smart_no_gaps
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:{{ regularFont }} {{ regularFontSize }}
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+popup_during_fullscreen leave_fullscreen
+
+focus_follows_mouse yes
+
+################################################################################################
+# Window Settings
+################################################################################################
+
+# Open applications on specific workspaces
+assign [class="Slack"] 4
+
+
+for_window [app_id="blueman-manager"] floating enable, resize set 40 ppt, resize set height 60 ppt, move position center
+for_window [app_id="cawbird"] resize set 20 ppt
+for_window [app_id="com.github.johnfactotum.Foliate"] inhibit_idle visible, exec pkill -SIGRTMIN+4 i3blocks
+for_window [app_id="nm-connection-editor"] floating enable, resize set 40 ppt, resize set height 60 ppt, move position center
+for_window [app_id="org.telegram.desktop"] resize set 20 ppt
+for_window [app_id="pavucontrol" title="Volume Control"] fullscreen enable
+for_window [app_id="com.github.gi_lom.dialect"] floating enable
+for_window [app_id="gnome-calculator"] floating enable
+for_window [class="1Password" floating] move position mouse
+for_window [class="GParted"] floating enable border normal, move position center
+for_window [class="Insync"] floating enable, move position center
+for_window [class="Popcorn-Time"] inhibit_idle visible, exec pkill -SIGRTMIN+4 i3blocks
+for_window [class="Spotify"]  move container to workspace 8
+for_window [class="Syncthing GTK"] floating enable, sticky enable, move position center
+for_window [class="qt5ct"] floating enable, sticky enable, border normal
+for_window [class="vlc"] inhibit_idle visible, exec pkill -SIGRTMIN+4 i3blocks
+for_window [title="File Transfer.*"] floating enable
+for_window [title="Picture in picture"] floating enable, inhibit_idle visible, exec pkill -SIGRTMIN+4 i3blocks, sticky enable
+for_window [title="Picture-in-Picture" class="LibreWolf"] floating enable, inhibit_idle visible, exec pkill -SIGRTMIN+4 i3blocks, sticky enable
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="caffeine-bg"] inhibit_idle open, move scratchpad
+for_window [title="notes-float"] floating enable, resize set 60 ppt, resize set height 80 ppt, move position center
+
+# Cryptomator
+for_window [class="java" title="Cryptomator"] floating enable
+for_window [class="java" title="Add Vault"] floating enable
+for_window [class="java" title="Preferences"] floating enable
+for_window [class="java" title="Vault"] floating enable
+for_window [class="java" title="Change Password"] floating enable
+for_window [class="java" title="Recovery Key"] floating enable
+for_window [class="java" title="Health Check of .Vault."] floating enable
+for_window [class="java" title="Unlock .Vault."] floating enable
+
+# switch to workspace with urgent window automatically
+# for_window [urgent=latest] focus
+
+################################################################################################
+# Keybindings
+################################################################################################
+
+# start a terminal
+# bindsym Shift+Return exec {{ terminal }}
+
+# start emacs
+bindsym $mod+Return exec em
+
+# kill focused window
+bindsym --to-code $mod+Shift+q kill
+bindsym --to-code $mod+d exec --no-startup-id "rofi_run -show combi -combi-modi drun,run,ssh"
+bindsym --to-code $mod_a+$mod_c+l exec --no-startup-id "sway-exit lock"
+bindsym --to-code $mod+Shift+r reload, exec "sleep 3;systemctl --user restart kanshi.service"
+
+bindsym $mod+space exec "pkill -SIGRTMIN+2 i3blocks"
+
+# Pipewire-pulse
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -2%;pkill -SIGRTMIN+5 i3blocks"
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +2%;pkill -SIGRTMIN+5 i3blocks"
+bindsym --release --no-repeat XF86AudioMute exec "pactl-mute-all sinks;pkill -SIGRTMIN+5 i3blocks"
+bindsym --release --no-repeat XF86AudioMicMute exec  "pactl-mute-all sources;pkill -SIGRTMIN+5 i3blocks"
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+################################################################################################
+# Screen brightness controls
+################################################################################################
+bindsym XF86MonBrightnessUp exec "brightnessctl s 1%+;pkill -SIGRTMIN+1 i3blocks"
+bindsym XF86MonBrightnessDown exec "brightnessctl s 1%-;pkill -SIGRTMIN+1 i3blocks"
+
+bindsym $mod_c+XF86MonBrightnessUp exec "brightnessctl s 5%+;pkill -SIGRTMIN+1 i3blocks"
+bindsym $mod_c+XF86MonBrightnessDown exec "brightnessctl s 5%-;pkill -SIGRTMIN+1 i3blocks"
+
+# Screenshots
+bindsym Print exec --no-startup-id grim ~/Pictures/Screenshots/$(date "+%Y-%m-%d-%H%M%S").png
+bindsym $mod_c+Print exec --no-startup-id grim -g "$(slurp)" - | swappy -f -
+
+# Other
+# bindsym Shift+space exec "szAnswer=$(zenity --entry --text \\"Todoist: Add Task\\" --entry-text \\"\\"); td $szAnswer && dunstify \\"Task added\\" || dunstify -u critical \\"Error\\""
+#
+# bindsym Shift+space exec "xkb-switch -s us; alacritty --title TODO -e todo"
+bindsym Shift+space exec "add-todo"
+
+bindsym --to-code $mod_a+n exec makoctl restore
+
+# Start Applications
+bindsym $mod_a+Return exec {{ terminal }}
+
+set $mode_apps (b)luetooth,(c)alc,(d)ict,(e)xplorer,(j)ournal,(p)avucontrol,(T)ranslate,(t)erminal,(n)etwork-manager,(C)lipboard,(1)password,(w)iki
+bindsym --to-code $mod+o mode "$mode_apps"
+mode "$mode_apps" {
+    bindsym --to-code 1 exec rofi_run -modi 1pass:rofi-1pass -show 1pass, mode "default"
+    bindsym --to-code Shift+c exec clipman pick --tool="rofi" --max-items=30 --histpath="~/.local/share/clipman.json", mode "default"
+    bindsym --to-code t exec com.github.gi_lom.dialect, mode "default"
+    bindsym --to-code b exec --no-startup-id blueman-manager, mode "default"
+    bindsym --to-code c exec dmcalc, mode "default"
+    bindsym --to-code d exec org.goldendict.GoldenDict, mode "default"
+    bindsym --to-code e exec pcmanfm, mode "default"
+    # bindsym --to-code j exec "add-note", mode "default"
+    bindsym --to-code n exec --no-startup-id nm-connection-editor, mode "default"
+    bindsym --to-code p exec --no-startup-id pavucontrol, mode "default"
+    bindsym --to-code Shift+t exec --no-startup-id "{{ terminal }}", mode "default"
+    # bindsym --to-code t exec --no-startup-id "todofi.sh", mode "default"
+    bindsym --to-code w exec --no-startup-id "em ~/Notes/roam/index.org", mode "default"
+
+    # exit resize mode: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Ctrl+m mode "default"
+
+}
+
+################################################################################################
+# Windows control
+################################################################################################
+# change focus
+bindsym --to-code $mod+h focus left
+bindsym --to-code $mod+j focus down
+bindsym --to-code $mod+k focus up
+bindsym --to-code $mod+l focus right
+bindsym --to-code $mod+Shift+h move left
+bindsym --to-code $mod+Shift+j move down
+bindsym --to-code $mod+Shift+k move up
+bindsym --to-code $mod+Shift+l move right
+
+workspace_auto_back_and_forth no
+
+bindsym --to-code $mod+q split toggle
+
+# enter fullscreen mode for the focused container
+bindsym --to-code $mod+f fullscreen
+
+# toggle sticky
+# bindsym --to-code $mod+p sticky toggle,exec notify-send -t 2000 'sticky'
+
+set $mode_win p(a)rent,(e)split,(f)loating,re(n)ame,(p)in,(r)esize,(s)tacking,(t)abbed,space-toggle
+bindsym --to-code $mod+w mode "$mode_win"
+mode "$mode_win" {
+
+{% for mod in [ "","$mod+" ] %}
+        bindsym --to-code {{mod}}a focus parent, mode "default"
+        bindsym --to-code {{mod}}e layout toggle split, mode "default"
+        bindsym --to-code {{mod}}f floating toggle, mode "default"
+        bindsym --to-code {{mod}}n exec sway-input -F 'rename workspace to "%s"' -P 'New name: ', mode "default"
+        bindsym --to-code {{mod}}p sticky toggle, exec notify-send -t 2000 'sticky', mode "default"
+        bindsym --to-code {{mod}}r mode "resize"
+        bindsym --to-code {{mod}}s layout stacking, mode "default"
+        bindsym --to-code {{mod}}t layout tabbed, mode "default"
+        bindsym --to-code {{mod}}space focus mode_toggle, mode "default"
+{% endfor %}
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Ctrl+m mode "default"
+}
+################################################################################################
+# Scratchpad
+################################################################################################
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+################################################################################################
+# Workspaces
+################################################################################################
+bindsym $mod_a+Up output eDP-1 transform 180
+bindsym $mod_a+Down output eDP-1 transform 0
+bindsym $mod_a+Left output eDP-1 transform 270
+bindsym $mod_a+Right output eDP-1 transform 90
+
+#navigate workspaces next / previous
+bindsym --to-code $mod+n workspace next, exec pkill -SIGRTMIN+4 i3blocks
+bindsym --to-code $mod+b workspace prev, exec pkill -SIGRTMIN+4 i3blocks
+
+bindsym --to-code $mod+Shift+b move workspace to output left
+bindsym --to-code $mod+$mod_a+n move workspace to output down
+bindsym --to-code $mod+$mod_a+b move workspace to output up
+bindsym --to-code $mod+Shift+n move workspace to output right
+
+# switch to workspace
+{% for count in range(1,9) %}
+set $ws{{count}} {{count}}
+bindsym $mod+{{count}} workspace {{count}}, exec pkill -SIGRTMIN+4 i3blocks
+bindsym $mod+Shift+{{count}} move container to workspace {{count}}, exec pkill -SIGRTMIN+4 i3blocks
+{% endfor %}
+
+# Set shut down, restart and locking features
+set $mode_system (l)ock, (e)xit, (s)uspend, (h)ibernate, (r)eboot, (P)oweroff
+bindsym $mod+0 mode "$mode_system"
+mode "$mode_system" {
+    bindsym --to-code l exec --no-startup-id "sway-exit lock", mode "default"
+    bindsym --to-code s exec --no-startup-id "sway-exit suspend", mode "default"
+    bindsym --to-code e exec --no-startup-id "sway-exit logout", mode "default"
+    bindsym --to-code h exec --no-startup-id "sway-exit hibernate", mode "default"
+    bindsym --to-code r exec --no-startup-id "sway-exit reboot", mode "default"
+    bindsym --to-code Shift+p exec --no-startup-id "sway-exit shutdown", mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Ctrl+m mode "default"
+}
+
+mode "resize" {
+
+{% for mod,size in [ ["",2],["$mod+",10] ] %}
+        bindsym --to-code {{mod}}h resize shrink width {{size}} px or {{size}} ppt
+        bindsym --to-code {{mod}}j resize grow height {{size}} px or {{size}} ppt
+        bindsym --to-code {{mod}}k resize shrink height {{size}} px or {{size}} ppt
+        bindsym --to-code {{mod}}l resize grow width {{size}} px or {{size}} ppt
+{% endfor %}
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Ctrl+m mode "default"
+}
+
+# Outputs
+set $mode_outputs Enable/Disable: (lL)aptop display
+## bindsym $mod+d mode "$mode_outputs"
+## mode "$mode_outputs" {
+##     bindsym --to-code l output eDP-1 disable, mode "default"
+##     bindsym --to-code Shift+l output eDP-1 enable, mode "default"
+## 
+##     # exit system mode: "Enter" or "Escape"
+##     bindsym Return mode "default"
+##     bindsym Escape mode "default"
+##     bindsym Ctrl+m mode "default"
+## }
+################################################################################################
+# Colors
+################################################################################################
+set $base00 #{{ colors.color0 }}
+set $base01 #{{ colors.color10 }}
+set $base02 #{{ colors.color11 }}
+set $base03 #{{ colors.color8 }}
+set $base04 #{{ colors.color12 }}
+set $base05 #{{ colors.color7 }}
+set $base06 #{{ colors.color13 }}
+set $base07 #{{ colors.color15 }}
+set $base08 #{{ colors.color1 }}
+set $base09 #{{ colors.color9 }}
+set $base0A #{{ colors.color3 }}
+set $base0B #{{ colors.color2 }}
+set $base0C #{{ colors.color6 }}
+set $base0D #{{ colors.color4 }}
+set $base0E #{{ colors.color5 }}
+set $base0F #{{ colors.color14 }}
+
+# Basic bar configuration using the Base16 variables.
+bar {
+    status_command SCRIPT_DIR=$HOME/.config/i3blocks/scripts i3blocks
+#    font pango:DejaVu Sans Mono, FontAwesome 11
+    font pango:{{monospaceFont}} {{monospaceFontSize-3}}
+    position top
+    colors {
+        background $base00
+        separator  $base01
+        statusline $base04
+
+        # State             Border  BG      Text
+        focused_workspace   $base05 $base0D $base00
+        active_workspace    $base05 $base03 $base00
+        inactive_workspace  $base03 $base01 $base05
+        urgent_workspace    $base08 $base08 $base00
+        binding_mode        $base00 $base0A $base00
+    }
+}
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0F $base0C
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
+
+################################################################################################
+# Autostart applications
+################################################################################################
+#exec_always --no-startup-id caffeine -k
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
+
+exec swayidle -w \
+    timeout 300  'swaylock -f -c 333333' \
+    timeout 600  'swaymsg "output * dpms off"' \
+         resume  'swaymsg "output * dpms on"' \
+    before-sleep 'playerctl pause; swaylock -f -c 333333'
+
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

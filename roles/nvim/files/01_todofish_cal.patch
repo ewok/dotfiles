@@ -1,0 +1,21 @@
+*** /var/home/ataranchiev/.local/bin/todofi.sh  2021-12-08 22:50:02.935549729 +0300
+--- todofi.sh   2021-12-08 22:49:24.502652174 +0300
+*************** getprojconheader() {
+*** 168,174 ****
+      listcon=`highlight "${listcon}"`
+
+      echo "Projects: ${listproj}
+! Context: ${listcon}"
+  }
+
+  getlinenumber() {
+--- 168,175 ----
+      listcon=`highlight "${listcon}"`
+
+      echo "Projects: ${listproj}
+! Context: ${listcon}
+! $(cal -3 --color --monday)"
+  }
+
+  getlinenumber() {
+

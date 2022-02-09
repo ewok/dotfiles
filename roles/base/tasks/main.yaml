@@ -1,0 +1,79 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - always
+  block:
+
+    - name: "Create basic dirs"
+      file:
+        dest: "{{ item.dir }}"
+        state: directory
+      loop:
+        - { dir: "~/.cache/rpms" }
+        - { dir: "~/.config/fish/conf.d" }
+        - { dir: "~/.config/fish/functions" }
+        - { dir: "~/.config/systemd/" }
+        - { dir: "~/.config/systemd/user" }
+        - { dir: "~/.local/bin" }
+        - { dir: "~/.local/share/applications" }
+        - { dir: "~/Pictures" }
+        - { dir: "~/Pictures/Screenshots" }
+        - { dir: "~/mnt" }
+        - { dir: "~/share" }
+
+    - name: "runner"
+      copy:
+        content: |
+          #!/bin/env fish
+          set -g HOST $argv[1]
+          set -g CMD $argv[2..]
+          if test "$HOST" = "host"
+            if test "$HOSTNAME" = "toolbox"
+              flatpak-spawn --host /bin/fish -ic "$CMD"
+            else
+              $CMD
+            end
+          else
+            if test "$TB" = "$HOST"
+              $CMD
+            else
+              toolbox run -c $HOST /bin/fish -ic "$CMD"
+            end
+          end
+        dest: "~/.local/bin/run"
+        mode: 0755
+
+    - name: "aliases"
+      copy:
+        content: |
+          #!/bin/bash
+          {{item.cmd}}
+        dest: "~/.local/bin/{{item.alias}}"
+        mode: 0755
+      loop:
+        - {alias: "rebuild-tools", cmd: 'bash {{playbook_dir}}/update_toolboxes "$@"'}
+        - {alias: "restart-tools", cmd: 'bash {{playbook_dir}}/restart_toolboxes "$@"'}
+        - {alias: "rebuild-os", cmd: 'bash {{playbook_dir}}/rebuild.sh "$@"'}
+        - {alias: "rebuild-check", cmd: 'bash {{playbook_dir}}/rebuild.sh -C "$@"'}
+        - {alias: "tb", cmd: 'toolbox "$@"'}
+        - {alias: "d", cmd: 'if [[ -n "$1" ]];then toolbox run -c dev "$@";else toolbox enter dev;fi'}
+        - {alias: "u", cmd: 'if [[ -n "$1" ]];then toolbox run -c gui "$@";else toolbox enter gui;fi'}
+        - {alias: "o", cmd: 'if [[ -n "$1" ]];then toolbox run -c os "$@";else toolbox enter os;fi'}
+
+    - name: flatpak-host host
+      copy:
+        content: |
+          #!/bin/env bash
+          flatpak $@
+        dest: "~/.local/bin/flatpak-internal"
+        mode: 0755
+
+    - name: Setup flathub
+      shell: |
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    - name: Setup flathub
+      become: True
+      shell: |
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

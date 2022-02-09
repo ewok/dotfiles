@@ -1,0 +1,76 @@
+- import_tasks: cleanup.yaml
+
+- name: "Install"
+  tags:
+    - nix
+  block:
+
+    - name: "Install direnv"
+      tags:
+        - fish
+      copy:
+        content: |
+            if command -vq -- direnv
+              direnv hook fish | source
+            end
+        dest: "~/.config/fish/conf.d/90_direnv_init.fish"
+
+    - name: "Install direnv"
+      tags:
+        - fish
+      copy:
+        content: |
+            if test "$TB" = "dev"
+
+              if ! string match --regex -q 'nix' (mount)
+                if test -d ~/.nix-store
+                  sudo mount -o bind ~/.nix-store /nix
+                end
+              end
+
+              if test -e ~/.nix-profile/etc/profile.d/nix.sh
+                fenv source  ~/.nix-profile/etc/profile.d/nix.sh
+              end
+              fish_add_path --path -a ~/.nix-profile/bin
+
+              if ! command -vq -- nix
+                nix-init
+              end
+
+            end
+        dest: "~/.config/fish/conf.d/10_nix-init.fish"
+
+    - name: "nix-init"
+      copy:
+        content: |
+          #!/bin/bash
+          set -e
+          #
+          sudo mkdir -p /nix
+          sudo chown $USER /nix
+          mkdir -p ~/.nix-store
+          #
+          if ! mount | grep -q nix
+          then
+            sudo mount -o bind ~/.nix-store /nix
+          fi
+          #
+          curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+          #
+          . /var/home/ataranchiev/.nix-profile/etc/profile.d/nix.sh
+          #
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+          nix-channel --update
+        dest: "~/.local/bin/nix-init"
+        mode: 0755
+
+    - name: "Provide directories"
+      file:
+        path: "~/.config/nix"
+        state: directory
+
+    - name: "nix configuration"
+      copy:
+        content: |
+          experimental-features = nix-command flakes
+        dest: "~/.config/nix/nix.conf"
