@@ -67,18 +67,6 @@
     (exec-path-from-shell-initialize))
 #+end_src
 
-** Startup benchmark
-
-#+begin_src emacs-lisp
-  (use-package benchmark-init
-  :disabled
-  :straight t
-  ;; :ensure t
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-#+end_src
-
 ** Clean .emacs.d
 
 #+begin_src emacs-lisp
@@ -155,12 +143,14 @@
 
   ;; Faced an error that this var is void
   (setq read-symbol-positions-list nil)
+
+  ;; Don't show multiline messages in echo area
+  (setq eldoc-echo-area-use-multiline-p nil)
 #+end_src
 
 ** Attempt to configure smooth scroll
 
 #+begin_src emacs-lisp
-  ;; Autosave every 500 typed characters
   (setq auto-save-interval 1000)
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)) ;; one line at a time
@@ -177,9 +167,6 @@
 ** Font Configuration
 
 #+begin_src emacs-lisp
-  ;; (defvar view/default-font "FiraMono Nerd Font Mono")
-  ;; (defvar view/default-font-size 140)
-
   (set-face-attribute 'default nil :font "FiraMono Nerd Font" :height 140)
 
   ;; Set the fixed pitch face
@@ -231,7 +218,6 @@
 ** X-menu
 
 #+begin_src emacs-lisp
-  ;; (define-key ctl-x-map (kbd "x") 'execute-extended-command)
   (define-key ctl-x-map (kbd "e") 'eval-last-sexp)
 
   (dolist (key '("(" ")" "q"))
@@ -251,12 +237,6 @@
       :states '(normal insert visual emacs)
       :prefix "SPC"
       :global-prefix "C-SPC")
-
-    ;; (general-create-definer leaders/second
-    ;;   :states '(normal visual emacs insert)
-    ;;   :which-key "second-menu"
-    ;;   :prefix "M-SPC"
-    ;;   :global-prefix "M-SPC")
 
     (leaders/main
       ;; "e" '(:ignore t :which-key "_reserved_")
@@ -280,167 +260,162 @@
       "h"  'help-command
       ;;Git
       "g"  '(:ignore t :which-key "git")
-      ;; C-x
-      ;; "x"  (general-simulate-key "C-x")
-      ;;"c"  '(:ignore t :which-key "code")
-      ;;"c"  (general-simulate-key "C-c" :which-key "c-action")
       "x"  '(:ignore t :which-key "eXtra")
       ;; settings
       "t"  '(:ignore t :which-key "toggles")
       "tw" 'whitespace-mode
       "te" '(:ignore t :which-key "encoding")
       "te" (general-simulate-key "C-x RET")
-      ;; "SPC" (general-simulate-key "M-SPC")
       ))
 #+end_src
 
 ** Evil
 
 #+begin_src emacs-lisp
-  (defun evil-window-vsplit-and-focus ()
-    "Spawn a new window right of the current one and focus it."
-    (interactive)
-    (evil-window-vsplit)
-    (windmove-right))
+    (defun evil-window-vsplit-and-focus ()
+      "Spawn a new window right of the current one and focus it."
+      (interactive)
+      (evil-window-vsplit)
+      (windmove-right))
 
-  (defun evil-window-split-and-focus ()
-    "Spawn a new window below the current one and focus it."
-    (interactive)
-    (evil-window-split)
-    (windmove-down))
+    (defun evil-window-split-and-focus ()
+      "Spawn a new window below the current one and focus it."
+      (interactive)
+      (evil-window-split)
+      (windmove-down))
 
-  (defun insert-mark ()
-    (interactive)
-    (insert "`"))
+    (defun insert-mark ()
+      (interactive)
+      (insert "`"))
 
-  (use-package evil
-    :straight t
-    :after general
-    :init
-    (setq evil-want-integration t
-          evil-want-keybinding nil
-          evil-want-C-u-scroll t
-          evil-respect-visual-line-mode t
-          evil-undo-system 'undo-tree
-          evil-kill-on-visual-paste nil)
-    :config
-    (evil-mode 1)
+    (use-package evil
+      :straight t
+      :after general
+      :init
+      (setq evil-want-integration t
+            evil-want-keybinding nil
+            evil-want-C-u-scroll t
+            evil-respect-visual-line-mode t
+            evil-undo-system 'undo-tree
+            evil-kill-on-visual-paste nil)
+      :config
+      (evil-mode 1)
 
-    (general-define-key
-     :keymaps 'evil-insert-state-map
-     "C-g" 'evil-normal-state
-     "C-h" 'evil-delete-backward-char-and-join)
+      (general-define-key
+       :keymaps 'evil-insert-state-map
+       "C-g" 'evil-normal-state
+       "C-h" 'evil-delete-backward-char-and-join)
 
-    (general-define-key
-     :states 'normal
-     :keymaps 'override
-     "`" nil
-     "`a" 'insert-mark
-     "C-j" 'evil-window-down
-     "C-k" 'evil-window-up
-     "C-l" 'evil-window-right
-     "C-h" 'evil-window-left
-     "S" 'newline-and-indent
-     ";" 'eval-expression)
+      (general-define-key
+       :states 'normal
+       :keymaps 'override
+       "`" nil
+       "`a" 'insert-mark
+       "C-j" 'evil-window-down
+       "C-k" 'evil-window-up
+       "C-l" 'evil-window-right
+       "C-h" 'evil-window-left
+       "S" 'newline-and-indent
+       ";" 'eval-expression)
 
-    (general-define-key
-     :keymaps 'override
-     "s-x" 'execute-extended-command)
+      (general-define-key
+       :keymaps 'override
+       "s-x" 'execute-extended-command)
 
-    (general-def 'motion
-      "j" 'evil-next-visual-line
-      "k" 'evil-previous-visual-line)
+      (general-def 'motion
+        "j" 'evil-next-visual-line
+        "k" 'evil-previous-visual-line)
 
-    (general-define-key
-     :prefix "C-w"
-     :states 'normal
-     ;; tabs
-     "t" (general-simulate-key "C-x t")
-     ;; windows
-     "r" 'window-resize/body
-     "q" 'evil-window-delete
-     "C-q" 'evil-window-delete
-     "s" 'evil-window-split-and-focus
-     "v" 'evil-window-vsplit-and-focus
-     ;; buffers
-     "d" 'evil-delete-buffer
-     "C-d" 'evil-delete-buffer
-     ;; frames
-     "f" (general-simulate-key "C-x 5"))
+      (general-define-key
+       :prefix "C-w"
+       :states 'normal
+       ;; tabs
+       "t" (general-simulate-key "C-x t")
+       ;; windows
+       "r" 'window-resize/body
+       "q" 'evil-window-delete
+       "C-q" 'evil-window-delete
+       "s" 'evil-window-split-and-focus
+       "v" 'evil-window-vsplit-and-focus
+       ;; buffers
+       "d" 'evil-delete-buffer
+       "C-d" 'evil-delete-buffer
+       ;; frames
+       "f" (general-simulate-key "C-x 5"))
 
-    (general-define-key
-     :states 'normal
-     ;; "S" "mzi<CR><ESC>`z"
-     ;; "J" "mzJ`z"
-     "Y" "y$"
-     "H" "^"
-     "L" "$")
+      (general-define-key
+       :states 'normal
+       ;; "S" "mzi<CR><ESC>`z"
+       ;; "J" "mzJ`z"
+       "Y" "y$"
+       "H" "^"
+       "L" "$")
 
-    (general-define-key
-     :states 'visual
-     "H" "^"
-     "L" "$"
-     "<" (lambda ()
-           (interactive)
-           (evil-shift-left (region-beginning) (region-end))
-           (evil-normal-state)
-           (evil-visual-restore))
-     ">" (lambda ()
-           (interactive)
-           (evil-shift-right (region-beginning) (region-end))
-           (evil-normal-state)
-           (evil-visual-restore)))
+      (general-define-key
+       :states 'visual
+       "H" "^"
+       "L" "$"
+       "<" (lambda ()
+             (interactive)
+             (evil-shift-left (region-beginning) (region-end))
+             (evil-normal-state)
+             (evil-visual-restore))
+       ">" (lambda ()
+             (interactive)
+             (evil-shift-right (region-beginning) (region-end))
+             (evil-normal-state)
+             (evil-visual-restore))))
 
-    (defadvice
-        evil-search-forward
-        (after evil-search-forward-recenter activate)
-      (recenter))
-    (ad-activate 'evil-search-forward)
 
-    (defadvice
-        evil-search-next
-        (after evil-search-next-recenter activate)
-      (recenter))
-    (ad-activate 'evil-search-next)
+      ;; Recenter when searching
+      ;; (defadvice
+      ;;     evil-search-forward
+      ;;     (after evil-search-forward-recenter activate)
+      ;;   (recenter))
+      ;; (ad-activate 'evil-search-forward)
 
-    (defadvice
-        evil-search-previous
-        (after evil-search-previous-recenter activate)
-      (recenter))
-    (ad-activate 'evil-search-previous))
+      ;; (defadvice
+      ;;     evil-search-next
+      ;;     (after evil-search-next-recenter activate)
+      ;;   (recenter))
+      ;; (ad-activate 'evil-search-next)
 
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'treemacs-mode 'emacs)
-  (evil-set-initial-state 'calc-mode 'emacs)
-  (evil-set-initial-state 'dashboard-mode 'normal)
+      ;; (defadvice
+      ;;     evil-search-previous
+      ;;     (after evil-search-previous-recenter activate)
+      ;;   (recenter))
+      ;; (ad-activate 'evil-search-previous)
 
-  (use-package evil-collection
-    :straight t
-    :after (evil general)
-    ;; :init
-    ;; (setq evil-collection-mode-list '(not evil-collection-)
-    :config
-    (evil-collection-init))
 
-  (use-package evil-nerd-commenter
-    :straight t
-    :after (evil general)
-    :config
-    (general-define-key
-     :states 'normal
-     "gc" 'evilnc-comment-operator)
-    (general-define-key
-     :states 'visual
-     "gc" 'evilnc-comment-or-uncomment-lines))
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'treemacs-mode 'emacs)
+    (evil-set-initial-state 'calc-mode 'emacs)
 
-  (use-package evil-numbers
-    :straight t
-    :after (evil general)
-    :config
-    (general-define-key
-     :states '(normal visual)
-     "+" 'evil-numbers/inc-at-pt
-     "-" 'evil-numbers/dec-at-pt))
+    (use-package evil-collection
+      :straight t
+      :after (evil general)
+      :config
+      (evil-collection-init))
+
+    (use-package evil-nerd-commenter
+      :straight t
+      :after (evil general)
+      :config
+      (general-define-key
+       :states 'normal
+       "gc" 'evilnc-comment-operator)
+      (general-define-key
+       :states 'visual
+       "gc" 'evilnc-comment-or-uncomment-lines))
+
+    (use-package evil-numbers
+      :straight t
+      :after (evil general)
+      :config
+      (general-define-key
+       :states '(normal visual)
+       "+" 'evil-numbers/inc-at-pt
+       "-" 'evil-numbers/dec-at-pt))
 #+end_src
 
 * General UI configuration
@@ -448,17 +423,37 @@
 *** Auto-Save
 
 #+begin_src emacs-lisp
+  (use-package auto-save
+    :straight (:host github :repo "manateelazycat/auto-save" :files ("auto-save.el"))
+    :config
+    (auto-save-enable)
+    (setq auto-save-silent t))
+
   (use-package super-save
+    :disabled
     :straight t
     :defer 1
     :diminish super-save-mode
     :config
-    (super-save-mode +1)
     (setq super-save-auto-save-when-idle t)
-    ;; turning off default auto-save
-    (setq auto-save-default nil)
+
+    (setq super-save-triggers
+          '(switch-to-buffer
+            other-window
+            windmove-up
+            windmove-down
+            windmove-left
+            windmove-right
+            next-buffer
+            previous-buffer
+            evil-window-prev
+            evil-window-next))
+
+    ;; ;; turning off default auto-save
+    ;; (setq auto-save-default nil)
     ;; turning off remote files autosaving
-    (setq super-save-remote-files nil))
+    (setq super-save-remote-files nil)
+    (super-save-mode +1))
 #+end_src
 
 *** Auto-Revert
@@ -491,8 +486,6 @@
 
 ** Better Modeline
 
-*NOTE:* The first time you load your configuration on a new machine, you'll need to run `M-x all-the-icons-install-fonts` so that mode line icons display correctly.
-
 #+begin_src emacs-lisp
   (use-package all-the-icons
     :straight t)
@@ -514,36 +507,6 @@
     (doom-modeline-minor-modes t)
     (doom-modeline-buffer-file-name-style 'truncate-except-project)
     (doom-modeline-major-mode-icon nil))
-#+end_src
-
-** Clipboard
-
-#+begin_src emacs-lisp
-  ;; (setq wl-copy-process nil)
-
-  ;; (defun wl-copy (text)
-  ;;   (setq wl-copy-process (make-process :name "wl-copy"
-  ;;                                       :buffer nil
-  ;;                                       :command '("wl-copy" "-f" "-n")
-  ;;                                       :connection-type 'pipe))
-  ;;   (process-send-string wl-copy-process text)
-  ;;   (process-send-eof wl-copy-process))
-
-  ;; (defun wl-paste ()
-  ;;   (if (and wl-copy-process (process-live-p wl-copy-process))
-  ;;       nil ; should return nil if we're the current paste owner
-  ;;     (shell-command-to-string "wl-paste -n")))
-
-  ;; (setq interprogram-cut-function 'wl-copy)
-  ;; (setq interprogram-paste-function 'wl-paste)
-#+end_src
-
-** Command Log Mode
-
-#+begin_src emacs-lisp
-  (use-package command-log-mode
-    :straight t
-    :commands command-log-mode)
 #+end_src
 
 ** Consult
@@ -594,16 +557,7 @@
       "fo" '(consult-find :which-key "file")
       "fr" '(consult-register :which-key "register")
       "fu" '(consult-outline :which-key "in-outline")
-      "tt" '(consult-theme :which-key "choose theme"))
-    ;; (projectile-load-known-projects)
-    ;; (setq my-consult-source-projectile-projects
-    ;;       `(:name "Projectile projects"
-    ;;               :narrow   ?P
-    ;;               :category project
-    ;;               :action   ,#'projectile-switch-project-by-name
-    ;;               :items    ,projectile-known-projects))
-    ;; (add-to-list 'consult-buffer-sources my-consult-source-projectile-projects 'append)
-    )
+      "tt" '(consult-theme :which-key "choose theme")))
 #+end_src
 
 ** Color Theme
@@ -612,24 +566,6 @@
   (use-package doom-themes
     :straight t
     :init (load-theme 'doom-one t))
-#+end_src
-
-** Dashboard
-
-#+begin_src emacs-lisp
-  (use-package dashboard
-    :disabled
-    :straight t
-    :config
-    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
-          dashboard-startup-banner nil
-          dashboard-footer-messages nil
-          dashboard-footer-icon nil
-          dashboard-projects-switch-function 'projectile-persp-switch-project)
-    (setq dashboard-items '((agenda . 15)
-                            (bookmarks . 5)
-                            (projects . 5)))
-    (dashboard-setup-startup-hook))
 #+end_src
 
 ** Dired
@@ -662,30 +598,30 @@
                   (hl-line-mode 1)
                   ))
 
-      (use-package dired-rainbow
-        :straight t
-        :defer 2
-        :config
-        (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
-        (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
-        (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
-        (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
-        (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
-        (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
-        (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
-        (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
-        (dired-rainbow-define log "#c17d11" ("log"))
-        (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
-        (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
-        (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
-        (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
-        (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
-        (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
-        (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
-        (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
-        (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
-        (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
-        (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
+      ;; (use-package dired-rainbow
+      ;;   :straight t
+      ;;   :defer 2
+      ;;   :config
+      ;;   (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+      ;;   (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+      ;;   (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+      ;;   (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+      ;;   (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+      ;;   (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+      ;;   (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+      ;;   (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+      ;;   (dired-rainbow-define log "#c17d11" ("log"))
+      ;;   (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+      ;;   (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+      ;;   (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+      ;;   (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+      ;;   (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+      ;;   (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+      ;;   (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+      ;;   (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+      ;;   (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+      ;;   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+      ;;   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
       (use-package dired-single
         :straight t)
@@ -710,9 +646,7 @@
         "y" 'dired-ranger-copy
         "P" 'dired-ranger-move
         "p" 'dired-ranger-paste
-        (kbd "SPC") nil
-        ))
-    ;; (general-define-key :states 'normal' :keymaps 'dired-mode-map (kbd "SPC") nil)
+        (kbd "SPC") nil))
 #+end_src
 
 ** Emojis
@@ -736,9 +670,6 @@
   (use-package helpful
     :straight t
     :commands (helpful-callable helpful-variable helpful-command helpful-key)
-    ;;  :custom
-    ;;  (counsel-describe-function-function #'helpful-callable)
-    ;;  (counsel-describe-variable-function #'helpful-variable)
     :bind
     ([remap apropos-command] . consult-apropos)
     ([remap describe-command] . helpful-command)
@@ -772,6 +703,20 @@
 
   (leaders/main
     "tS" '(hydra-text-scale/body :which-key "scale text"))
+#+end_src
+
+** Indent-Guides
+
+#+begin_src emacs-lisp
+  (use-package highlight-indent-guides
+    :straight t
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :config
+    (setq highlight-indent-guides-method 'bitmap
+          highlight-indent-guides-responsive 'top
+          highlight-indent-guides-bitmap-function 'highlight-indent-guides--bitmap-line
+          highlight-indent-guides-delay 0.35
+          ))
 #+end_src
 
 ** Line numbers
@@ -814,25 +759,11 @@ https://github.com/hlissner/evil-multiedit
     (evil-multiedit-default-keybinds))
 #+end_src
 
-** PDF[off]
-
-#+begin_src emacs-lisp
-  (use-package pdf-tools
-    :disabled
-    :straight t
-    :config
-    (pdf-tools-install)
-    (setq pdf-view-resize-factor 1.1)
-    (setq-default pdf-view-display-size 'fit-page))
-#+end_src
-
 ** Perspective
 
 #+begin_src emacs-lisp
   (use-package perspective
     :straight t
-    ;; :bind
-    ;; ("C-x C-b" . persp-list-buffers)   ; or use a nicer switcher, see below
     :custom
     (persp-mode-prefix-key (kbd "C-x C-M-x"))
     (persp-state-default-file (expand-file-name "~/.cache/emacs/persp-state.el"))
@@ -867,28 +798,13 @@ https://github.com/hlissner/evil-multiedit
     :init
     (setq popper-reference-buffers
           '(
-            ;; "\\*Apropos\\*"
-            ;; "\\*Async-native-compile-log\\*"
-            ;; "\\*Async Shell Command\\*"
-            ;; "\\*cider-doc\\*"
-            ;; "\\*cider-result\\*"
-            ;; "\\*cider-error\\*"
             "\\*Buffer List\\*"
-            ;; "\\*Embark Actions\\*"
             "\\*Embark Collect\\*"
             "\\*Embark Export"
             "\\*envrc\\*"
             "\\*eldoc\\*"
-            ;; "\\*helpful"
-            ;; "\\*Messages\\*"
             "Output\\*$"
-            ;; "Pfuture-Callback"
-            ;; "\\*straight-byte-compilation\\*"
-            ;; "\\*straight-process\\*"
-            ;; "\\*Warnings\\*"
             "\\*org-roam\\*"
-            ;; dired-mode
-            ;; help-mode
             occur-mode
             messages-mode
             compilation-mode))
@@ -896,9 +812,10 @@ https://github.com/hlissner/evil-multiedit
     (popper-echo-mode +1))
 
   (setq display-buffer-base-action
-        '((display-buffer-reuse-mode-window
-           display-buffer-reuse-window
-           display-buffer-same-window)))
+        '((display-buffer-reuse-window
+           display-buffer-reuse-mode-window
+           display-buffer-same-window
+           display-buffer-below-selected)))
 
   (setq even-window-sizes nil)
 #+end_src
@@ -920,13 +837,7 @@ https://github.com/hlissner/evil-multiedit
        "d" 'projectile-remove-known-project
        "D" 'projectile-clear-known-projects
        "C" 'projectile-cleanup-known-projects
-       "g" 'projectile-vc)
-      ;; :init
-      ;; NOTE: Set this to the folder where you keep your Git repos!
-      ;; (when (file-directory-p "~/projects")
-      ;;   (setq projectile-project-search-path '("~/projects")))
-      ;; (setq projectile-switch-project-action #'projectile-dired)
-  )
+       "g" 'projectile-vc))
 #+end_src
 
 ** Persp+Projectile
@@ -964,11 +875,6 @@ https://www.emacswiki.org/emacs/MultiTerm
     (evil-window-split)
     (windmove-down)
     (multi-vterm))
-
-  (use-package eterm-256color
-    :disabled
-    :straight t
-    :hook (term-mode . eterm-256color-mode))
 
   (use-package vterm
     :straight t
@@ -1074,7 +980,6 @@ https://github.com/Alexander-Miller/treemacs
 #+begin_src emacs-lisp
   (use-package treemacs
     :straight t
-    ;; :ensure t
     :commands (treemacs-select-window treemacs-find-file)
     :defer t
     :init
@@ -1237,6 +1142,9 @@ https://github.com/Alexander-Miller/treemacs
       (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
             (t                            '(0.5 . 0.5))))
     (custom-set-variables
+     '(zoom-ignored-major-modes '(dired-mode org-agenda-mode org-capture-mode))
+     ;; '(zoom-ignored-buffer-names '("*Agenda Commands*"))
+     ;; '(zoom-ignored-buffer-name-regexps '("^*Org"))
      '(temp-buffer-resize-mode t)
      '(zoom-size 'size-callback)
      '(zoom-mode t)))
@@ -1266,22 +1174,6 @@ https://github.com/Alexander-Miller/treemacs
 #+end_src
 
 ** Completion
-*** Corfu
-
-#+begin_src emacs-lisp
-  (use-package corfu
-    :disabled
-    :bind (:map corfu-map
-                ("C-j" . corfu-next)
-                ("C-k" . corfu-previous)
-                ("C-f" . corfu-insert))
-    :custom
-    (corfu-cycle t)
-    (corfu-auto t)
-    :config
-    (corfu-global-mode))
-#+end_src
-
 *** Company
 
 #+begin_src emacs-lisp
@@ -1292,31 +1184,37 @@ https://github.com/Alexander-Miller/treemacs
            :map company-active-map
            ("C-m" . nil)
            ("<return>" . nil)
+           ("C-s" . #'company-filter-candidates)
+           ("C-M-s" . #'company-search-candidates)
            ("C-f" . #'company-complete-selection))
     :init
-    (setq company-minimum-prefix-length 2
+    (setq company-search-regexp-function 'company-search-flex-regexp
+
+          company-minimum-prefix-length 2
+
           company-tooltip-limit 14
           company-tooltip-align-annotations t
-          company-require-match 'never
+          company-tooltip-flip-when-above t
+
+          company-require-match 'nil
           company-global-modes '(not erc-mode message-mode help-mode)
+
           company-frontends
           '(company-pseudo-tooltip-frontend ; always show candidates in overlay tooltip
             company-echo-metadata-frontend) ; show selected candidate docs in echo area
+
           company-backends '((company-capf company-yasnippet :separate)
                              (company-dabbrev company-ispell :separate)
                              company-files)
+
           company-auto-complete nil
           company-auto-complete-chars nil
           company-dabbrev-other-buffers nil
           company-dabbrev-ignore-case nil
-          company-dabbrev-downcase nil)
+          company-dabbrev-downcase nil
+          org-roam-completion-everywhere t
+          company-idle-delay 0.35)
     :config
-    (setq org-roam-completion-everywhere t
-          company-idle-delay 0.35
-          ;; company-require-match nil
-          ;; company-selection-wrap-around t
-          ;; company-tooltip-align-annotations t
-          )
     (global-company-mode)
 
     (general-define-key
@@ -1331,14 +1229,6 @@ https://github.com/Alexander-Miller/treemacs
   (use-package company-box
     :straight t
     :hook (company-mode . company-box-mode))
-  ;; (use-package company-quickhelp
-  ;;   :straight t
-  ;;   :after 'company
-  ;;   :bind (:map company-active-map
-  ;;               ("C-i" . company-quickhelp-manual-begin))
-  ;;   :config
-  ;;   ;; (define-key company-active-map (kbd "C-h") #'company-quickhelp-manual-begin)
-  ;;   (company-quickhelp-mode))
 #+end_src
 
 *** Embark
@@ -1446,9 +1336,6 @@ Should be late to be first
     :straight t
     :config
     (envrc-global-mode))
-  ;; :hook (
-  ;;        (clojure-mode . envrc-mode)
-  ;;        (python-mode . envrc-mode)))
 #+end_src
 
 ** Folding
@@ -1476,18 +1363,6 @@ https://github.com/Fuco1/smartparens
 #+begin_src emacs-lisp
   ;; test:
   ;; [1 2 (2 (((3 4))) (1 2) 1)]
-
-  ;; Puni
-  (use-package puni
-    :straight t
-    :disabled
-    :defer t
-    :init
-    ;; The autoloads of Puni are set up so you can enable `puni-mode` or
-    ;; `puni-global-mode` before `puni` is actually loaded. Only after you press
-    ;; any key that calls Puni commands, it's loaded.
-    (puni-global-mode)
-    (add-hook 'term-mode-hook #'puni-disable-puni-mode))
 
   (defun sp-wrap-d-quote ()
     (interactive)
@@ -1663,10 +1538,9 @@ Alternative LSP engine
 https://github.com/joaotavora/eglot
 
 #+begin_src emacs-lisp
-  (defun my/load-eglot ()
+  (defun my/eglot-ensure ()
     (interactive)
-    ;; (envrc-mode t)
-    ;; (flycheck-mode t)
+    (flycheck-mode)
     (eglot-ensure))
 
   (use-package eglot
@@ -1676,7 +1550,7 @@ https://github.com/joaotavora/eglot
     (leaders/main
       "l" '(:ignore t :which-key "lsp")
       ;; start lsp
-      "ll" 'my/load-eglot)
+      "ll" 'eglot)
 
     (leaders/main
       :states '(normal visual emacs)
@@ -1701,10 +1575,7 @@ https://github.com/joaotavora/eglot
       "lo" '(:ignore t :which-key "open-info")
       "lor" 'eglot-stderr-buffer
       "loe" 'eglot-events-buffer)
-    ;; (advice-add 'eglot-ensure :before #'envrc-mode)
-    ;; (advice-add 'eglot :around #'envrc-propagate-environment)
 
-    ;; (add-to-list 'eglot-server-programs '(clojure-mode . ("clojure-lsp")))
     (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve"))))
 
   (use-package consult-eglot
@@ -1718,7 +1589,8 @@ https://github.com/joaotavora/eglot
 #+begin_src emacs-lisp
   (use-package flycheck
     :straight t
-    :hook (prog-mode . flycheck-mode)
+    ;; :hook (eglot-mode . flycheck-mode)
+    :commands flycheck-mode
     :defer t)
 
   (use-package flycheck-elsa
@@ -1772,7 +1644,6 @@ Installation instruction is [[https://emacs-lsp.github.io/lsp-mode/page/installa
 
     (advice-add 'lsp :before #'envrc-mode)
 
-    ;; :hook ((lsp-mode . lsp-enable-which-key-integration))
     :commands (lsp lsp-deferred))
 
   ;; optionally
@@ -1788,18 +1659,6 @@ Installation instruction is [[https://emacs-lsp.github.io/lsp-mode/page/installa
     (setq lsp-ui-sideline-show-hover nil)
     (setq lsp-ui-doc-position 'bottom)
     (lsp-ui-doc-show))
-
-  ;; if you are helm user
-  ;;(use-package helm-lsp :commands helm-lsp-workspace-symbol)
-  (use-package flycheck
-    :disabled
-    :straight t
-    :defer t
-    :hook (lsp-mode . flycheck-mode))
-
-  ;; (use-package lsp-treemacs
-  ;;   :straight t
-  ;;   :commands lsp-treemacs-errors-list)
 
   (use-package consult-lsp
     :disabled
@@ -1901,14 +1760,12 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
       "r" (general-simulate-key "C-C C-r" :which-key "clojure-refactor")
       "xc" (general-simulate-key "C-C C-x" :which-key "cider-connect"))
 
-    ;; (add-hook 'clojure-mode-hook 'lsp-deferred)
-    ;; (add-hook 'clojurescript-mode-hook 'lsp-deferred)
-    ;; (add-hook 'clojurec-mode-hook 'lsp-deferred)
+    (add-hook 'clojure-mode-hook 'my/eglot-ensure)
+    (add-hook 'clojurescript-mode-hook 'my/eglot-ensure)
+    (add-hook 'clojurec-mode-hook 'my/eglot-ensure)
 
     (setq read-process-output-max (* 1024 1024)
           treemacs-space-between-root-nodes nil
-          ;; lsp-lens-enable t
-          ;; lsp-signature-auto-activate t
           cider-eldoc-display-for-symbol-at-point nil ; disable cider showing eldoc during symbol at point
           cljr-add-ns-to-blank-clj-files nil))
 #+end_src
@@ -1918,7 +1775,6 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
 #+begin_src emacs-lisp
   (use-package cider
     :straight t
-    ;; :mode "\\.clj[sc]?\\'"
     :hook   ((cider-mode . cider-company-enable-fuzzy-completion)
              (cider-repl-mode . (lambda ()
                                   (setq-local beacon-blink-when-window-scrolls nil)))
@@ -1932,8 +1788,6 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
           cider-repl-history-size 1000
           cider-repl-pop-to-buffer-on-connect nil
           cider-repl-wrap-history t)
-
-    ;; (evil-collection-cider-setup)
 
     (general-define-key
      :keymaps 'cider-eval-commands-map
@@ -1975,7 +1829,7 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
     :straight t
     :mode ("Dockerfile\\'" "Containerfile\\'")
     :config
-    ;; (add-hook 'dockerfile-mode-hook 'lsp-deferred)
+    (add-hook 'dockerfile-mode-hook 'my/eglot-ensure)
     (setq dockerfile-mode-command "podman"))
 #+end_src
 
@@ -1993,9 +1847,6 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
            (scheme-mode . lispy-mode)
            (clojure-mode . lispy-mode)
            ))
-
-  ;; (use-package evil-lispy
-  ;;   :hook ((lispy-mode . evil-lispy-mode)))
 
   (use-package lispyville
     :straight t
@@ -2020,7 +1871,8 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
   (use-package nix-mode
     :straight t
     :defer t
-    ;; :hook (nix-mode . 'lsp-deferred)
+    :hook (nix-mode . (lambda () (print "Nix-mode") ))
+    ;; :hook (nix-mode . 'my/eglot-ensure)
     :mode "\\.nix\\'")
 #+end_src
 
@@ -2029,14 +1881,7 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
 https://emacs-lsp.github.io/lsp-python-ms/
 
 #+begin_src emacs-lisp
-  ;; (add-hook 'python-mode 'lsp-deferred)
-  ;; (use-package lsp-python-ms
-  ;;   :straight t
-  ;;   :defer t
-  ;;   :init (setq lsp-python-ms-auto-install-server t)
-  ;;   :hook (python-mode . (lambda ()
-  ;;                          (require 'lsp-python-ms)
-  ;;                          (lsp))))  ; or lsp-deferred
+  (add-hook 'python-mode 'my/eglot-ensure)
 #+end_src
 
 *** Rust
@@ -2045,6 +1890,7 @@ https://emacs-lsp.github.io/lsp-python-ms/
   (use-package rust-mode
     :straight t
     :mode "\\.rs\\'"
+    :hook (rust-mode . 'my/eglot-ensure)
     :init (setq rust-format-on-save t))
 
   (use-package cargo
@@ -2055,6 +1901,7 @@ https://emacs-lsp.github.io/lsp-python-ms/
 *** Shell
 
 #+begin_src emacs-lisp
+  (add-hook 'sh-mode-hook 'my/eglot-ensure)
   (use-package company-shell
     :straight t
     :defer t
@@ -2075,6 +1922,7 @@ https://emacs-lsp.github.io/lsp-python-ms/
 #+begin_src emacs-lisp
   (use-package terraform-mode
     :straight t
+    :hook (terraform-mode . my/eglot-ensure)
     :mode "\\.tf\\'")
 
   (use-package company-terraform
@@ -2123,17 +1971,11 @@ To build `metals-emacs`
 #+begin_src emacs-lisp
   (use-package sbt-mode
     :straight t
-    :commands sbt-start sbt-command
-    :config
-    ;; ;; WORKAROUND: allows using SPACE when in the minibuffer
-    ;; (substitute-key-definition
-    ;;  'minibuffer-complete-word
-    ;;  'self-insert-command
-    ;;  minibuffer-local-completion-map)
-    )
+    :commands sbt-start sbt-command)
 
   (use-package scala-mode
     :straight t
+    :hook (scala-mode . my/eglot-ensure)
     :interpreter
     ("scala" . scala-mode))
 
@@ -2176,19 +2018,6 @@ To build `metals-emacs`
 
     (transient-append-suffix 'magit-dispatch "\""
       '("." "+File" magit-file-dispatch)))
-
-  (use-package diff-hl
-    :disabled
-    :straight t
-    :config
-    (global-diff-hl-mode)
-    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-
-    (general-define-key
-     :states 'normal
-     "]g" 'diff-hl-next-hunk
-     "[g" 'diff-hl-previous-hunk))
 
   (use-package git-gutter
     :straight t
@@ -2251,8 +2080,6 @@ To build `metals-emacs`
 * Org Mode
 ** Auto-tangle Configuration Files
 
-This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
-
 #+begin_src emacs-lisp
   ;; Automatically tangle our Emacs.org config file when we save it
   (defun efs/org-babel-tangle-config ()
@@ -2266,8 +2093,6 @@ This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-con
 #+end_src
 
 ** Babel Languages
-
-To execute or export code in =org-mode= code blocks, you'll need to set up =org-babel-load-languages= for each language you'd like to use.  [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][This page]] documents all of the languages that you can use with =org-babel=.
 
 #+begin_src emacs-lisp
   (with-eval-after-load 'org
@@ -2351,8 +2176,8 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
 
     (setq org-refile-targets
           '(
-            ("tasks.org" :maxlevel . 1)
-            ("work.org" :maxlevel . 1)
+            ("org_tasks.org" :maxlevel . 1)
+            ("org_work.org" :maxlevel . 1)
             ))
 
     ;; Save Org buffers after refiling!
@@ -2550,7 +2375,6 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
   (use-package org-roam
     :straight t
     :after (evil org hydra)
-    ;; :ensure t
     :custom
     (org-roam-directory (file-truename "~/Notes/roam/"))
     :config
@@ -2584,11 +2408,6 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
       "od" '(hydra-dailies-scroll/body :which-key "roam-dailies-scroll")
       "ol" '(org-roam-buffer-toggle :which-key "roam-links")
       "og" '(org-roam-graph :which-key "roam-graph")))
-
-  ;; (use-package org-pandoc-import
-  ;;   :straight (:host github
-  ;;                    :repo "tecosaur/org-pandoc-import"
-  ;;                    :files ("*.el" "filters" "preprocessors")))
 
   (defun org-roam-update-ids ()
     "Update all org-ids in org-roam-directory."
