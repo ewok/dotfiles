@@ -7,6 +7,7 @@
   block:
 
     - name: Setup flathub
+      changed_when: False
       shell: |
         sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

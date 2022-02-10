@@ -67,5 +67,6 @@
         mode: 0755
 
     - name: Provide config
+      changed_when: False
       shell: |
         d /usr/bin/emacs --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "{{ role_path }}/templates/emacs/emacs.org")'

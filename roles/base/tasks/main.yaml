@@ -70,10 +70,12 @@
         mode: 0755
 
     - name: Setup flathub
+      changed_when: False
       shell: |
         flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     - name: Setup flathub
+      changed_when: False
       become: True
       shell: |
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

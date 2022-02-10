@@ -14,6 +14,7 @@
     when: "overlay_packages is defined"
 
   - name: "Set user groups"
+    changed_when: False
     user:
       name: "{{ username }}"
       append: True

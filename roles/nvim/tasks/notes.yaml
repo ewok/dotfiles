@@ -132,6 +132,7 @@
 
     # Rofi + todo.txt
     - name: "todofi.sh"
+      changed_when: False
       get_url:
         url: "https://raw.githubusercontent.com/hugokernel/todofi.sh/master/todofi.sh"
         dest: "~/.local/bin/todofi.sh"
@@ -139,6 +140,7 @@
         checksum: "sha256:ba3a2157eb957e3792dc0cdc823bfcce090776a2558efd20ed92b1e8dff33a85"
 
     - name: "Patch todofi.sh"
+      changed_when: False
       patch:
         src: "01_todofish_cal.patch"
         dest: "~/.local/bin/todofi.sh"

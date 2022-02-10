@@ -274,8 +274,8 @@
         dest: "/etc/udev/rules.d/01-disable-alcor-micro.rules"
 
     - name: "Disable gpg-agent"
-      ignore_errors: True
       changed_when: False
+      ignore_errors: True
       systemd:
         name: gpg-agent
         scope: user

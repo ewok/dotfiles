@@ -29,7 +29,7 @@
           [Service]
           ExecStart=toolbox run -c gui rslsync --nodaemon --config {{ lookup('env', 'HOME') }}/.config/rslsync/config
           Type=simple
-          # Restart=on-failure
+          Restart=on-failure
           # SuccessExitStatus=3 4
           # RestartForceExitStatus=3 4
 
