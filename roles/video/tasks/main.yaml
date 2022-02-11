@@ -3,6 +3,7 @@
 - name: "Install"
   tags:
     - video
+  when: not work_machine is defined
   block:
 
     - name: "Install VLC"
