@@ -11,7 +11,7 @@
         dest: "~/.local/share/zoho"
         state: directory
 
-    - name: "Download Lbry AppImage"
+    - name: "Download Zoho AppImage"
       get_url:
         url: "https://downloads.zohocdn.com/zmail-desktop/linux/zoho-mail-desktop-x64-v1.3.2.AppImage"
         dest: "~/.local/share/zoho/zoho.AppImage"

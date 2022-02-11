@@ -48,6 +48,7 @@
         mode: 0755
       loop:
         - "em"
+        - "emacs"
 
     - name: "vterm helper"
       copy:
