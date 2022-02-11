@@ -1700,6 +1700,14 @@ Installation instruction is [[https://emacs-lsp.github.io/lsp-mode/page/installa
 #+end_src
 
 ** Languages
+*** Ansible
+
+#+begin_src emacs-lisp
+  (use-package ansible
+    :straight t
+    :hook (yaml-mode . (lambda () (ansible 1))))
+#+end_src
+
 *** Clojure
 
 https://emacs-lsp.github.io/lsp-mode/tutorials/clojure-guide/
@@ -1832,6 +1840,14 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
     (setq dockerfile-mode-command "podman"))
 #+end_src
 
+*** Json
+
+#+begin_src emacs-lisp
+  (use-package json-mode
+    :defer t
+    :straight t)
+#+end_src
+
 *** Lisp
 
 #+begin_src emacs-lisp
@@ -1854,14 +1870,6 @@ https://docs.cider.mx/cider/1.2/usage/misc_features.html
     (lispyville-set-key-theme '(operators c-w additional
                                           additional-movement slurp/barf-cp
                                           prettify)))
-#+end_src
-
-*** Json
-
-#+begin_src emacs-lisp
-  (use-package json-mode
-    :defer t
-    :straight t)
 #+end_src
 
 *** Nix
@@ -1916,37 +1924,7 @@ https://emacs-lsp.github.io/lsp-python-ms/
     (add-hook 'sh-mode-hook #'my-sh-mode-hook))
 #+end_src
 
-*** Terraform
-
-#+begin_src emacs-lisp
-  (use-package terraform-mode
-    :straight t
-    :hook (terraform-mode . my/eglot-ensure)
-    :mode "\\.tf\\'")
-
-  (use-package company-terraform
-    :straight t
-    :defer t
-    :after (company))
-
-  (defun my-terraform-mode-hook ()
-    (setq-local company-backends
-                '((company-capf
-                   company-terraform
-                   company-yasnippet
-                   :separate))))
-  (add-hook 'terraform-mode-hook #'my-terraform-mode-hook)
-#+end_src
-
-*** Yaml
-
-#+begin_src emacs-lisp
-  (use-package yaml-mode
-    :straight t
-    :mode "\\.ya?ml\\'")
-#+end_src
-
-*** SBT + scala [Not working]
+*** SBT + scala
 
 To build `metals-emacs`
 #+begin_src bash
@@ -1987,6 +1965,36 @@ To build `metals-emacs`
   ;;   ;; emacs can use indentation provided by scala-mode.
   ;;   ;;(lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
   ;;   :hook (scala-mode . lsp-deferred))
+#+end_src
+
+*** Terraform
+
+#+begin_src emacs-lisp
+  (use-package terraform-mode
+    :straight t
+    :hook (terraform-mode . my/eglot-ensure)
+    :mode "\\.tf\\'")
+
+  (use-package company-terraform
+    :straight t
+    :defer t
+    :after (company))
+
+  (defun my-terraform-mode-hook ()
+    (setq-local company-backends
+                '((company-capf
+                   company-terraform
+                   company-yasnippet
+                   :separate))))
+  (add-hook 'terraform-mode-hook #'my-terraform-mode-hook)
+#+end_src
+
+*** Yaml
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :straight t
+    :mode "\\.ya?ml\\'")
 #+end_src
 
 ** Magit
@@ -2255,6 +2263,27 @@ To build `metals-emacs`
             ("w" "Weight" table-line (file+headline "~/Notes/roam/org_metrics.org" "Weight")
              "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
+    ;; Remove dups in bable keys
+    (dolist (key '("\C-a"
+                   "\C-b"
+                   "\C-c"
+                   "\C-d"
+                   "\C-e"
+                   "\C-f"
+                   "\C-j"
+                   "\C-l"
+                   "\C-n"
+                   "\C-o"
+                   "\C-p"
+                   "\C-r"
+                   "\C-s"
+                   "\C-t"
+                   "\C-u"
+                   "\C-v"
+                   "\C-x"
+                   "\C-z"))
+      (define-key org-babel-map key nil))
+
     (org-font-setup))
 
 #+end_src
@@ -2273,7 +2302,7 @@ To build `metals-emacs`
     :hook (org-mode . org-mode-visual-fill))
 #+end_src
 
-** Keybindings
+** Org Keybindings
 
 #+begin_src emacs-lisp
 
@@ -2522,7 +2551,7 @@ To build `metals-emacs`
 ** Plugins
 - [ ] Yank/Paste(*)
 - [ ] Bufferline (like tabline)
-- [ ] Indent-guides
+- [X] Indent-guides
 - [X] Easyalign
 - [ ] Split/Join
 - [ ] Zeal(?)
