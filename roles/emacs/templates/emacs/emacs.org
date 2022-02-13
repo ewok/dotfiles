@@ -1,14 +1,55 @@
 #+title: Emacs Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.config/emacs/init.el :mkdirp yes
 
-* Startup
+* Basic configuration
+** Early Init
+
+#+begin_src emacs-lisp :tangle ~/.config/emacs/early-init.el
+  ;; Minimize garbage collection during startup
+  (setq gc-cons-threshold most-positive-fixnum)
+  (setq gc-cons-threshold 10000000)
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+  ;; Prefer loading newest compiled .el file
+  (setq load-prefer-newer noninteractive)
+
+  ;; Native compilation settings
+  (when (featurep 'native-compile)
+    ;; Silence compiler warnings as they can be pretty disruptive
+    (setq native-comp-async-report-warnings-errors nil)
+
+    ;; Make native compilation happens asynchronously
+    (setq native-comp-deferred-compilation t)
+
+    ;; Set the right directory to store the native compilation cache
+    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory)))
+
+  ;; Don't use package.el, we'll use straight.el instead
+  (setq package-enable-at-startup nil)
+
+  ;; Remove some unneeded UI elements (the user can turn back on anything they wish)
+  (setq inhibit-startup-message t)
+  (push '(tool-bar-lines . 0) default-frame-alist)
+  (push '(menu-bar-lines . 0) default-frame-alist)
+  (push '(vertical-scroll-bars) default-frame-alist)
+  (push '(background-color . "#232635") default-frame-alist)
+  (push '(foreground-color . "#FFFFFF") default-frame-alist)
+  (push '(mouse-color . "white") default-frame-alist)
+
+  ;; Make the initial buffer load faster by setting its mode to fundamental-mode
+  (setq initial-major-mode 'fundamental-mode)
+
+  ;; reduce warning leve
+  (setq warning-minimum-level :error)
+
+  (setq-default custom-file null-device)
+#+end_src
+
 ** Profiling
 
 #+begin_src emacs-lisp
   ;; show package loading
   ;; (setq use-package-verbose t)
-  ;; Minimize garbage collection during startup
-  (setq gc-cons-threshold most-positive-fixnum)
   ;; Profile emacs startup
   (add-hook 'emacs-startup-hook
             (lambda ()
@@ -85,15 +126,9 @@
   (load custom-file t)
 #+end_src
 
-* Basic configuration
 ** Some basics
 
 #+begin_src emacs-lisp
-  ;; reduce warning leve
-  (setq warning-minimum-level :error)
-
-  (setq-default custom-file null-device)
-
   ;; Answering just 'y' or 'n' will do
   (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -118,22 +153,10 @@
   ;; Just one space is needed.
   (setq sentence-end-double-space nil)
 
-  (setq inhibit-startup-message t)
-
-  (scroll-bar-mode -1)        ; Disable visible scrollbar
-  (tool-bar-mode -1)          ; Disable the toolbar
-  (tooltip-mode -1)           ; Disable tooltips
-  (set-fringe-mode 10)        ; Give some breathing room
-  (menu-bar-mode -1)          ; Disable the menu bar
-  (tab-bar-mode -1)
-
   (global-visual-line-mode)
   (diminish 'visual-line-mode)
 
   (setq uniquify-buffer-name-style 'forward)
-
-  ;; Don't beep at me
-  ;;(setq visible-bell t)
 
   ;; Prevent emacs from automatically exiting
   (setq confirm-kill-emacs 'y-or-n-p)
@@ -196,9 +219,12 @@
 ** Tab-prefix
 
 #+begin_src emacs-lisp
-  (define-key tab-prefix-map (kbd "t") 'tab-new)
+  (define-key tab-prefix-map (kbd "c") 'tab-new)
   (define-key tab-prefix-map (kbd "q") 'tab-close)
   (define-key tab-prefix-map (kbd "o") 'tab-close-other)
+
+  (define-key tab-prefix-map (kbd "j") 'tab-next)
+  (define-key tab-prefix-map (kbd "k") 'tab-previous)
 
   (dolist (key '("0" "1" "2"))
     (define-key tab-prefix-map key nil))
@@ -272,150 +298,150 @@
 ** Evil
 
 #+begin_src emacs-lisp
-    (defun evil-window-vsplit-and-focus ()
-      "Spawn a new window right of the current one and focus it."
-      (interactive)
-      (evil-window-vsplit)
-      (windmove-right))
+  (defun evil-window-vsplit-and-focus ()
+    "Spawn a new window right of the current one and focus it."
+    (interactive)
+    (evil-window-vsplit)
+    (windmove-right))
 
-    (defun evil-window-split-and-focus ()
-      "Spawn a new window below the current one and focus it."
-      (interactive)
-      (evil-window-split)
-      (windmove-down))
+  (defun evil-window-split-and-focus ()
+    "Spawn a new window below the current one and focus it."
+    (interactive)
+    (evil-window-split)
+    (windmove-down))
 
-    (defun insert-mark ()
-      (interactive)
-      (insert "`"))
+  (defun insert-mark ()
+    (interactive)
+    (insert "`"))
 
-    (use-package evil
-      :straight t
-      :after general
-      :init
-      (setq evil-want-integration t
-            evil-want-keybinding nil
-            evil-want-C-u-scroll t
-            evil-respect-visual-line-mode t
-            evil-undo-system 'undo-tree
-            evil-kill-on-visual-paste nil)
-      :config
-      (evil-mode 1)
+  (use-package evil
+    :straight t
+    :after general
+    :init
+    (setq evil-want-integration t
+          evil-want-keybinding nil
+          evil-want-C-u-scroll t
+          evil-respect-visual-line-mode t
+          evil-undo-system 'undo-tree
+          evil-kill-on-visual-paste nil)
+    :config
+    (evil-mode 1)
 
-      (general-define-key
-       :keymaps 'evil-insert-state-map
-       "C-g" 'evil-normal-state
-       "C-h" 'evil-delete-backward-char-and-join)
+    (general-define-key
+     :keymaps 'evil-insert-state-map
+     "C-g" 'evil-normal-state
+     "C-h" 'evil-delete-backward-char-and-join)
 
-      (general-define-key
-       :states 'normal
-       :keymaps 'override
-       "`" nil
-       "`a" 'insert-mark
-       "C-j" 'evil-window-down
-       "C-k" 'evil-window-up
-       "C-l" 'evil-window-right
-       "C-h" 'evil-window-left
-       "S" 'newline-and-indent
-       ";" 'eval-expression)
+    (general-define-key
+     :states 'normal
+     :keymaps 'override
+     "`" nil
+     "`a" 'insert-mark
+     "C-j" 'evil-window-down
+     "C-k" 'evil-window-up
+     "C-l" 'evil-window-right
+     "C-h" 'evil-window-left
+     "C-t" (general-simulate-key "C-x t")
+     ";" 'eval-expression)
 
-      (general-define-key
-       :keymaps 'override
-       "s-x" 'execute-extended-command)
+    (general-define-key
+     :keymaps 'override
+     "s-x" 'execute-extended-command)
 
-      (general-def 'motion
-        "j" 'evil-next-visual-line
-        "k" 'evil-previous-visual-line)
+    (general-def 'motion
+      "j" 'evil-next-visual-line
+      "k" 'evil-previous-visual-line)
 
-      (general-define-key
-       :prefix "C-w"
-       :states 'normal
-       ;; tabs
-       "t" (general-simulate-key "C-x t")
-       ;; windows
-       "r" 'window-resize/body
-       "q" 'evil-window-delete
-       "C-q" 'evil-window-delete
-       "s" 'evil-window-split-and-focus
-       "v" 'evil-window-vsplit-and-focus
-       ;; buffers
-       "d" 'evil-delete-buffer
-       "C-d" 'evil-delete-buffer
-       ;; frames
-       "f" (general-simulate-key "C-x 5"))
+    (general-define-key
+     :prefix "C-w"
+     :states 'normal
+     ;; tabs
+     ;; windows
+     "r" 'window-resize/body
+     "q" 'evil-window-delete
+     "C-q" 'evil-window-delete
+     "s" 'evil-window-split-and-focus
+     "v" 'evil-window-vsplit-and-focus
+     ;; buffers
+     "d" 'evil-delete-buffer
+     "C-d" 'evil-delete-buffer
+     ;; frames
+     "f" (general-simulate-key "C-x 5"))
 
-      (general-define-key
-       :states 'normal
-       ;; "S" "mzi<CR><ESC>`z"
-       ;; "J" "mzJ`z"
-       "Y" "y$"
-       "H" "^"
-       "L" "$")
+    (general-define-key
+     :states 'normal
+     "S" 'newline-and-indent
+     ;; "S" "mzi<CR><ESC>`z"
+     ;; "J" "mzJ`z"
+     "Y" "y$"
+     "H" "^"
+     "L" "$")
 
-      (general-define-key
-       :states 'visual
-       "H" "^"
-       "L" "$"
-       "<" (lambda ()
-             (interactive)
-             (evil-shift-left (region-beginning) (region-end))
-             (evil-normal-state)
-             (evil-visual-restore))
-       ">" (lambda ()
-             (interactive)
-             (evil-shift-right (region-beginning) (region-end))
-             (evil-normal-state)
-             (evil-visual-restore))))
-
-
-      ;; Recenter when searching
-      ;; (defadvice
-      ;;     evil-search-forward
-      ;;     (after evil-search-forward-recenter activate)
-      ;;   (recenter))
-      ;; (ad-activate 'evil-search-forward)
-
-      ;; (defadvice
-      ;;     evil-search-next
-      ;;     (after evil-search-next-recenter activate)
-      ;;   (recenter))
-      ;; (ad-activate 'evil-search-next)
-
-      ;; (defadvice
-      ;;     evil-search-previous
-      ;;     (after evil-search-previous-recenter activate)
-      ;;   (recenter))
-      ;; (ad-activate 'evil-search-previous)
+    (general-define-key
+     :states 'visual
+     "H" "^"
+     "L" "$"
+     "<" (lambda ()
+           (interactive)
+           (evil-shift-left (region-beginning) (region-end))
+           (evil-normal-state)
+           (evil-visual-restore))
+     ">" (lambda ()
+           (interactive)
+           (evil-shift-right (region-beginning) (region-end))
+           (evil-normal-state)
+           (evil-visual-restore))))
 
 
-    (evil-set-initial-state 'messages-buffer-mode 'normal)
-    (evil-set-initial-state 'treemacs-mode 'emacs)
-    (evil-set-initial-state 'calc-mode 'emacs)
+  ;; Recenter when searching
+  ;; (defadvice
+  ;;     evil-search-forward
+  ;;     (after evil-search-forward-recenter activate)
+  ;;   (recenter))
+  ;; (ad-activate 'evil-search-forward)
 
-    (use-package evil-collection
-      :straight t
-      :after (evil general)
-      :config
-      (evil-collection-init))
+  ;; (defadvice
+  ;;     evil-search-next
+  ;;     (after evil-search-next-recenter activate)
+  ;;   (recenter))
+  ;; (ad-activate 'evil-search-next)
 
-    (use-package evil-nerd-commenter
-      :straight t
-      :after (evil general)
-      :config
-      (general-define-key
-       :states 'normal
-       "gc" 'evilnc-comment-operator)
-      (general-define-key
-       :states 'visual
-       "gc" 'evilnc-comment-or-uncomment-lines))
+  ;; (defadvice
+  ;;     evil-search-previous
+  ;;     (after evil-search-previous-recenter activate)
+  ;;   (recenter))
+  ;; (ad-activate 'evil-search-previous)
 
-    (use-package evil-numbers
-      :straight t
-      :after (evil general)
-      :config
-      (general-define-key
-       :states '(normal visual)
-       "+" 'evil-numbers/inc-at-pt
-       "-" 'evil-numbers/dec-at-pt))
+
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'treemacs-mode 'emacs)
+  (evil-set-initial-state 'calc-mode 'emacs)
+
+  (use-package evil-collection
+    :straight t
+    :after (evil general)
+    :config
+    (evil-collection-init))
+
+  (use-package evil-nerd-commenter
+    :straight t
+    :after (evil general)
+    :config
+    (general-define-key
+     :states 'normal
+     "gc" 'evilnc-comment-operator)
+    (general-define-key
+     :states 'visual
+     "gc" 'evilnc-comment-or-uncomment-lines))
+
+  (use-package evil-numbers
+    :straight t
+    :after (evil general)
+    :config
+    (general-define-key
+     :states '(normal visual)
+     "+" 'evil-numbers/inc-at-pt
+     "-" 'evil-numbers/dec-at-pt))
 #+end_src
 
 * General UI configuration
@@ -488,7 +514,8 @@
 
 #+begin_src emacs-lisp
   (use-package all-the-icons
-    :straight t)
+    :straight t
+    :if (display-graphic-p))
 
   (use-package minions
     :straight t
@@ -538,6 +565,8 @@
                               consult--source-project-buffer))
     :config
 
+    (consult-customize consult-buffer :preview-key nil)
+
     (general-define-key
      :states 'normal
      "/" 'consult-line)
@@ -563,9 +592,16 @@
 ** Color Theme
 
 #+begin_src emacs-lisp
-  (use-package doom-themes
-    :straight t
-    :init (load-theme 'doom-one t))
+    (use-package doom-themes
+      :straight t
+      :config
+      (setq doom-themes-enable-bold t
+            doom-themes-enable-italic t)
+      (load-theme 'doom-one t)
+      (doom-themes-visual-bell-config)
+      (setq doom-themes-treemacs-theme "doom-atom")
+      (doom-themes-treemacs-config)
+      (doom-themes-org-config))
 #+end_src
 
 ** Dired
@@ -854,6 +890,54 @@ https://github.com/hlissner/evil-multiedit
     :straight t
     :init (setq save-place-limit 100)
     :config (save-place-mode))
+#+end_src
+
+** Tabline
+
+#+begin_src emacs-lisp
+  (use-package centaur-tabs
+    :straight t
+    :demand
+    :config
+    (setq centaur-tabs-style "bar")
+    (setq centaur-tabs-set-icons t)
+    (setq centaur-tabs-plain-icons t)
+    (setq centaur-tabs-set-close-button nil)
+
+    (defun centaur-tabs-hide-tab (x)
+      "Do no to show buffer X in tabs."
+      (let ((name (format "%s" x)))
+        (or
+         ;; Current window is not dedicated window.
+         (window-dedicated-p (selected-window))
+
+         ;; Buffer name not match below blacklist.
+         (string-prefix-p "*Compile-Log*" name)
+         (string-prefix-p "*lsp" name)
+         (string-prefix-p "*company" name)
+         (string-prefix-p "*Flycheck" name)
+         (string-prefix-p "*tramp" name)
+         (string-prefix-p " *Mini" name)
+         (string-prefix-p "*help" name)
+         (string-prefix-p "*straight" name)
+         (string-prefix-p " *temp" name)
+         (string-prefix-p "*Help" name)
+         (string-prefix-p "*mybuf" name)
+         (string-prefix-p "*Messages*" name)
+         (string-prefix-p "*Warnings*" name)
+         (string-prefix-p "*envrc*" name)
+         (string-prefix-p "*EGLOT" name)
+
+         ;; Is not magit buffer.
+         (and (string-prefix-p "magit" name)
+              (not (file-name-extension name))))))
+
+    (centaur-tabs-mode t)
+    (centaur-tabs-group-by-projectile-project)
+    :bind
+    (:map evil-normal-state-map
+          ("g t" . centaur-tabs-forward)
+          ("g T" . centaur-tabs-backward)))
 #+end_src
 
 ** Terminal
@@ -1301,6 +1385,17 @@ https://github.com/Alexander-Miller/treemacs
     (vertico-current ((t (:background "#3a3f5a"))))
     :init
     (vertico-mode))
+
+  ;; (use-package vertico-repeat
+  ;;   :after vertico
+  ;;   :straight nil
+  ;;   ;; ;; More convenient directory navigation commands
+  ;;   ;; :bind (:map vertico-map
+  ;;   ;;             ("RET" . vertico-directory-enter)
+  ;;   ;;             ("DEL" . vertico-directory-delete-char)
+  ;;   ;;             ("M-DEL" . vertico-directory-delete-word))
+  ;;   ;; Tidy shadowed file names
+  ;;   )
 #+end_src
 
 *** Orderless
@@ -1537,50 +1632,50 @@ Alternative LSP engine
 https://github.com/joaotavora/eglot
 
 #+begin_src emacs-lisp
-  (defun my/eglot-ensure ()
-    (interactive)
-    (flycheck-mode)
-    (eglot-ensure))
+    (defun my/eglot-ensure ()
+      (interactive)
+      (flycheck-mode)
+      (eglot-ensure))
 
-  (use-package eglot
-    :straight t
-    :config
-    (add-to-list 'eglot-stay-out-of 'company)
-    (leaders/main
-      "l" '(:ignore t :which-key "lsp")
-      ;; start lsp
-      "ll" 'eglot)
+    (use-package eglot
+      :straight t
+      :config
+      (add-to-list 'eglot-stay-out-of 'company)
+      (leaders/main
+        "l" '(:ignore t :which-key "lsp")
+        ;; start lsp
+        "ll" 'eglot)
 
-    (leaders/main
-      :states '(normal visual emacs)
-      :keymaps 'eglot-mode-map
-      ;; code modification
-      "la" 'eglot-code-actions
-      "lr" 'eglot-rename
-      "l=" 'eglot-format-buffer
-      ;; navigation
-      "ld" 'eglot-find-declaration
-      "li" 'eglot-find-implementation
-      "lt" 'eglot-find-typeDefinition
-      ;; server commands
-      "ls" '(:ignore t :which-key "server")
-      "lsc" 'eglot-clear-status
-      "lsp" 'eglot-forget-pending-continuations
-      "lsr" 'eglot-reconnect
-      "lss" 'eglot-shutdown
-      "lsS" 'eglot-shutdown-all
-      "lsC" 'eglot-signal-didChangeConfiguration
-      ;; info
-      "lo" '(:ignore t :which-key "open-info")
-      "lor" 'eglot-stderr-buffer
-      "loe" 'eglot-events-buffer)
+      (leaders/main
+        :states '(normal visual emacs)
+        :keymaps 'eglot-mode-map
+        ;; code modification
+        "la" 'eglot-code-actions
+        "lr" 'eglot-rename
+        "l=" 'eglot-format-buffer
+        ;; navigation
+        "ld" 'eglot-find-declaration
+        "li" 'eglot-find-implementation
+        "lt" 'eglot-find-typeDefinition
+        ;; server commands
+        "ls" '(:ignore t :which-key "server")
+        "lsc" 'eglot-clear-status
+        "lsp" 'eglot-forget-pending-continuations
+        "lsr" 'eglot-reconnect
+        "lss" 'eglot-shutdown
+        "lsS" 'eglot-shutdown-all
+        "lsC" 'eglot-signal-didChangeConfiguration
+        ;; info
+        "lo" '(:ignore t :which-key "open-info")
+        "lor" 'eglot-stderr-buffer
+        "loe" 'eglot-events-buffer)
 
-    (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve"))))
+      (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve"))))
 
-  (use-package consult-eglot
-    :straight t
-    :defer t
-    :after '(consult eglot))
+    (use-package consult-eglot
+      :straight t
+      :defer t
+      :after '(consult eglot))
 #+end_src
 
 *** Flycheck
@@ -1994,6 +2089,7 @@ To build `metals-emacs`
 #+begin_src emacs-lisp
   (use-package yaml-mode
     :straight t
+    :hook (yaml-mode . 'my/eglot-ensure)
     :mode "\\.ya?ml\\'")
 #+end_src
 
@@ -2284,7 +2380,8 @@ To build `metals-emacs`
                    "\C-z"))
       (define-key org-babel-map key nil))
 
-    (org-font-setup))
+    ;; (org-font-setup)
+    )
 
 #+end_src
 
