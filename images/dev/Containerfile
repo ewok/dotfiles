@@ -47,7 +47,8 @@ RUN yay -S --needed --noconfirm \
   whois \
   jq \
   clj-kondo-bin clojure-lsp-bin babashka \
-  pandoc cmake ttf-ancient-fonts
+  pandoc cmake ttf-ancient-fonts \
+  aspell aspell-en aspell-ru
 
 USER root
 

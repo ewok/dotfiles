@@ -193,7 +193,7 @@
   (set-face-attribute 'default nil :font "FiraMono Nerd Font" :height 140)
 
   ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil :font "FiraMono Nerd Font Mono" :height 145 :weight 'regular)
+ (set-face-attribute 'fixed-pitch nil :font "FiraMono Nerd Font Mono" :height 145 :weight 'regular)
 
   ;; Set the variable pitch face
   (set-face-attribute 'variable-pitch nil :font "FiraMono Nerd Font" :height 135 :weight 'regular)
@@ -322,7 +322,7 @@
           evil-want-keybinding nil
           evil-want-C-u-scroll t
           evil-respect-visual-line-mode t
-          evil-undo-system 'undo-tree
+          evil-undo-system 'undo-fu
           evil-kill-on-visual-paste nil)
     :config
     (evil-mode 1)
@@ -449,15 +449,14 @@
 
 #+begin_src emacs-lisp
   (use-package auto-save
+    :disabled
     :straight (:host github :repo "manateelazycat/auto-save" :files ("auto-save.el"))
     :config
     (auto-save-enable)
     (setq auto-save-silent t))
 
   (use-package super-save
-    :disabled
     :straight t
-    :defer 1
     :diminish super-save-mode
     :config
     (setq super-save-auto-save-when-idle t)
@@ -475,11 +474,12 @@
             evil-window-next))
 
     ;; ;; turning off default auto-save
-    ;; (setq auto-save-default nil)
+    (setq auto-save-default nil)
     ;; turning off remote files autosaving
     (setq super-save-remote-files nil)
     (super-save-mode +1))
 #+end_src
+
 
 *** Auto-Revert
 
@@ -533,6 +533,26 @@
     (doom-modeline-minor-modes t)
     (doom-modeline-buffer-file-name-style 'truncate-except-project)
     (doom-modeline-major-mode-icon nil))
+#+end_src
+
+** Clipboard (wl-copy)
+
+#+begin_src emacs-lisp
+  (when (getenv "WAYLAND_DISPLAY")
+    (setq wl-copy-process nil)
+    (defun wl-copy (text)
+      (setq wl-copy-process (make-process :name "wl-copy"
+                                          :buffer nil
+                                          :command '("wl-copy" "-f" "-n")
+                                          :connection-type 'pipe))
+      (process-send-string wl-copy-process text)
+      (process-send-eof wl-copy-process))
+    (defun wl-paste ()
+      (if (and wl-copy-process (process-live-p wl-copy-process))
+          nil       ; should return nil if we're the current paste owner
+        (shell-command-to-string "wl-paste -n | tr -d \\r")))
+    (setq interprogram-cut-function 'wl-copy)
+    (setq interprogram-paste-function 'wl-paste))
 #+end_src
 
 ** Consult
@@ -591,16 +611,16 @@
 ** Color Theme
 
 #+begin_src emacs-lisp
-  (use-package doom-themes
-    :straight t
-    :config
-    (setq doom-themes-enable-bold t
-          doom-themes-enable-italic t)
-    (load-theme 'doom-one t)
-    (doom-themes-visual-bell-config)
-    (setq doom-themes-treemacs-theme "doom-atom")
-    (doom-themes-treemacs-config)
-    (doom-themes-org-config))
+    (use-package doom-themes
+      :straight t
+      :config
+      (setq doom-themes-enable-bold t
+            doom-themes-enable-italic t)
+      (load-theme 'doom-one t)
+      (doom-themes-visual-bell-config)
+      (setq doom-themes-treemacs-theme "doom-atom")
+      (doom-themes-treemacs-config)
+      (doom-themes-org-config))
 #+end_src
 
 ** Dired
@@ -891,6 +911,7 @@ https://github.com/hlissner/evil-multiedit
 
 #+begin_src emacs-lisp
   (use-package centaur-tabs
+    :disabled
     :straight t
     :demand
     :config
@@ -992,22 +1013,19 @@ https://www.emacswiki.org/emacs/MultiTerm
     (general-define-key
      :states 'insert
      :keymaps 'vterm-mode-map
-     "<escape> C-c"      'evil-normal-state
-     "<escape> c"        'evil-normal-state
-     "<escape> C-j"      'evil-window-down
-     "<escape> j"        'evil-window-down
-     "<escape> C-k"      'evil-window-up
-     "<escape> k"        'evil-window-up
-     "<escape> C-l"      'evil-window-right
-     "<escape> l"        'evil-window-right
-     "<escape> C-h"      'evil-window-left
-     "<escape> h"        'evil-window-left
-     "C-c"               #'vterm--self-insert
+     "C-c C-j"           'evil-window-down
+     "C-c C-k"           'evil-window-up
+     "C-c C-l"           'evil-window-right
+     "C-c C-h"           'evil-window-left
+     "C-c C-c"           #'vterm-send-C-c
+     "C-c C-n"           #'multi-vterm-next
+     "C-c C-p"           #'multi-vterm-prev
+     "C-c C-g"           'evil-normal-state
      "C-g"               #'vterm--self-insert
      "C-j"               #'vterm--self-insert
      "C-h"               #'vterm--self-insert
      "C-SPC"             #'vterm--self-insert
-     "<escape><escape>"  #'vterm-send-escape))
+     "<escape>"          #'vterm--self-insert))
 #+end_src
 
 ** Tramp
@@ -1148,10 +1166,12 @@ https://github.com/Alexander-Miller/treemacs
     (treemacs-set-scope-type 'Perspectives))
 #+end_src
 
-** Undo Tree
+** Undo
 
+*** Tree
 #+begin_src emacs-lisp
   (use-package undo-tree
+    :disabled
     :straight t
     :init
     (global-undo-tree-mode 1)
@@ -1161,8 +1181,23 @@ https://github.com/Alexander-Miller/treemacs
     (add-hook 'evil-local-mode-hook 'turn-on-undo-tree-mode)
     (leaders/main
       "U" '(undo-tree-visualize :which-key "undo-tree")))
-
 #+end_src
+
+*** Fu
+
+#+begin_src emacs-lisp
+  (use-package undo-fu
+    :straight t)
+
+  (use-package undo-fu-session
+    :straight t
+    :after undo-fu
+    :config
+    (setq undo-fu-session-directory "~/.cache/emacs/undo")
+    (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+    (global-undo-fu-session-mode))
+#+end_src
+
 
 ** Which Key
 
@@ -1216,8 +1251,8 @@ https://github.com/Alexander-Miller/treemacs
     :straight t
     :config
     (defun size-callback ()
-      (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
-            (t                            '(0.5 . 0.5))))
+      (cond ((> (frame-pixel-width) 1280) '(100 . 0.618))
+            (t                            '(0.618 . 0.618))))
     (custom-set-variables
      '(zoom-ignored-major-modes '(dired-mode org-agenda-mode org-capture-mode))
      ;; '(zoom-ignored-buffer-names '("*Agenda Commands*"))
@@ -1412,17 +1447,6 @@ https://github.com/Alexander-Miller/treemacs
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
     (marginalia-mode))
-#+end_src
-
-** Direnv
-
-Should be late to be first
-
-#+begin_src emacs-lisp
-  (use-package envrc
-    :straight t
-    :config
-    (envrc-global-mode))
 #+end_src
 
 ** Folding
@@ -2599,6 +2623,18 @@ To build `metals-emacs`
           erc-server "irc.libera.chat"
           erc-nick "ewk"
           erc-track '("NICK" "333" "353" "JOIN" "PART" "AWAY")))
+#+end_src
+
+* Load Last
+** Direnv
+
+Should be late to be first
+
+#+begin_src emacs-lisp
+  (use-package envrc
+    :straight t
+    :config
+    (envrc-global-mode))
 #+end_src
 
 * TODO
