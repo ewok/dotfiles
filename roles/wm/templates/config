@@ -131,7 +131,7 @@ for_window [class="java" title="Unlock .Vault."] floating enable
 # bindsym Shift+Return exec {{ terminal }}
 
 # start emacs
-bindsym $mod+Return exec em
+bindsym $mod+Return exec em -c
 
 # kill focused window
 bindsym --to-code $mod+Shift+q kill
@@ -192,7 +192,7 @@ mode "$mode_apps" {
     bindsym --to-code p exec --no-startup-id pavucontrol, mode "default"
     bindsym --to-code Shift+t exec --no-startup-id "{{ terminal }}", mode "default"
     # bindsym --to-code t exec --no-startup-id "todofi.sh", mode "default"
-    bindsym --to-code w exec --no-startup-id "em ~/Notes/roam/index.org", mode "default"
+    bindsym --to-code w exec --no-startup-id "em -c ~/Notes/roam/index.org", mode "default"
 
     # exit resize mode: Enter or Escape
     bindsym Return mode "default"

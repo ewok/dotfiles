@@ -43,6 +43,7 @@
   (setq warning-minimum-level :error)
 
   (setq-default custom-file null-device)
+  (setq debug-on-error t)
 #+end_src
 
 ** Profiling
@@ -190,13 +191,17 @@
 ** Font Configuration
 
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "FiraMono Nerd Font" :height 140)
+  (defun my/load-fonts ()
+    (set-face-attribute 'default nil :font "FiraMono Nerd Font" :height 140)
 
-  ;; Set the fixed pitch face
- (set-face-attribute 'fixed-pitch nil :font "FiraMono Nerd Font Mono" :height 145 :weight 'regular)
+    ;; Set the fixed pitch face
+    (set-face-attribute 'fixed-pitch nil :font "FiraMono Nerd Font Mono" :height 145 :weight 'regular)
 
-  ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil :font "FiraMono Nerd Font" :height 135 :weight 'regular)
+    ;; Set the variable pitch face
+    (set-face-attribute 'variable-pitch nil :font "FiraMono Nerd Font" :height 135 :weight 'regular))
+  (if (display-graphic-p)
+      (my/load-fonts)
+    (add-hook 'server-after-make-frame-hook #'my/load-fonts))
 #+end_src
 
 ** Ediff
@@ -213,6 +218,28 @@
   (setq ediff-diff-options "-w")
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+end_src
+
+** Prevent last frame deletion
+
+#+begin_src emacs-lisp
+  ;; (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
+  ;;   "Ask for confirmation before deleting the last frame"
+  ;;   (let ((frame   (posn-window (event-start event)))
+  ;;         (numfrs  (length (visible-frame-list)))
+  ;;         (maxfrs (if (daemonp) 1 0))
+  ;;         )
+  ;;     (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
+  ;;       ad-do-it)))
+
+  ;; (defadvice delete-frame (around my-handle-delete-frame-advice activate)
+  ;;   "Ask for confirmation before deleting the last frame"
+  ;;   (let ((frame   (posn-window (event-start event)))
+  ;;         (numfrs  (length (visible-frame-list)))
+  ;;         (maxfrs (if (daemonp) 1 0))
+  ;;         )
+  ;;     (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
+  ;;       ad-do-it)))
 #+end_src
 
 * Keybinding Configuration
@@ -538,21 +565,21 @@
 ** Clipboard (wl-copy)
 
 #+begin_src emacs-lisp
-  (when (getenv "WAYLAND_DISPLAY")
-    (setq wl-copy-process nil)
-    (defun wl-copy (text)
-      (setq wl-copy-process (make-process :name "wl-copy"
-                                          :buffer nil
-                                          :command '("wl-copy" "-f" "-n")
-                                          :connection-type 'pipe))
-      (process-send-string wl-copy-process text)
-      (process-send-eof wl-copy-process))
-    (defun wl-paste ()
-      (if (and wl-copy-process (process-live-p wl-copy-process))
-          nil       ; should return nil if we're the current paste owner
-        (shell-command-to-string "wl-paste -n | tr -d \\r")))
-    (setq interprogram-cut-function 'wl-copy)
-    (setq interprogram-paste-function 'wl-paste))
+  ;; (when (getenv "WAYLAND_DISPLAY")
+  ;;   (setq wl-copy-process nil)
+  ;;   (defun wl-copy (text)
+  ;;     (setq wl-copy-process (make-process :name "wl-copy"
+  ;;                                         :buffer nil
+  ;;                                         :command '("wl-copy" "-f" "-n")
+  ;;                                         :connection-type 'pipe))
+  ;;     (process-send-string wl-copy-process text)
+  ;;     (process-send-eof wl-copy-process))
+  ;;   (defun wl-paste ()
+  ;;     (if (and wl-copy-process (process-live-p wl-copy-process))
+  ;;         nil       ; should return nil if we're the current paste owner
+  ;;       (shell-command-to-string "wl-paste -n | tr -d \\r")))
+  ;;   (setq interprogram-cut-function 'wl-copy)
+  ;;   (setq interprogram-paste-function 'wl-paste))
 #+end_src
 
 ** Consult
@@ -708,7 +735,7 @@
 #+begin_src emacs-lisp
   (use-package emojify
     :straight t
-    :hook (after-init . global-emojify-mode)
+    :hook (server-after-make-frame-hook . global-emojify-mode)
     :init
     (setq emojify-company-tooltips-p t))
 
@@ -767,7 +794,11 @@
     (setq highlight-indent-guides-method 'bitmap
           highlight-indent-guides-responsive 'top
           highlight-indent-guides-bitmap-function 'highlight-indent-guides--bitmap-line
-          highlight-indent-guides-delay 0.35))
+          highlight-indent-guides-delay 0.35)
+
+    (if (display-graphic-p)
+        (highlight-indent-guides-auto-set-faces)
+      (add-hook 'server-after-make-frame-hook #'highlight-indent-guides-auto-set-faces)))
 #+end_src
 
 ** Line numbers
@@ -1040,8 +1071,7 @@ https://www.emacswiki.org/emacs/MultiTerm
 #+begin_src emacs-lisp
   (defun treemacs-visit-node-vertical-split-of-recently-used-window (&optional arg)
     "Open current file or tag by vertically splitting `get-mru-window'.
-      Stay in the current window with a single prefix argument ARG, or close the
-      treemacs window with a double prefix argument."
+      And close treemacs"
     (interactive "P")
     (treemacs--execute-button-action
      :dir-action (dired (treemacs-safe-button-get btn :path))
@@ -1049,14 +1079,13 @@ https://www.emacswiki.org/emacs/MultiTerm
      :split-function #'split-window-vertically
      :tag-action (treemacs--goto-tag btn)
      :tag-section-action (treemacs--visit-or-expand/collapse-tag-node btn arg nil)
-     :window-arg arg
+     :window-arg '(16)
      :window (get-mru-window (selected-frame) nil :not-selected)
      :no-match-explanation "Node is neither a file, a directory or a tag - nothing to do here."))
 
   (defun treemacs-visit-node-horizontal-split-of-recently-used-window (&optional arg)
     "Open current file or tag by horizontally splitting `get-mru-window'.
-  Stay in the current window with a single prefix argument ARG, or close the
-  treemacs window with a double prefix argument."
+      And close treemacs"
     (interactive "P")
     (treemacs--execute-button-action
      :dir-action (dired (treemacs-safe-button-get btn :path))
@@ -1064,7 +1093,7 @@ https://www.emacswiki.org/emacs/MultiTerm
      :split-function #'split-window-horizontally
      :tag-action (treemacs--goto-tag btn)
      :tag-section-action (treemacs--visit-or-expand/collapse-tag-node btn arg nil)
-     :window-arg arg
+     :window-arg '(16)
      :window (get-mru-window (selected-frame) nil :not-selected)
      :no-match-explanation "Node is neither a file, a directory or a tag - nothing to do here."))
 #+end_src
@@ -1167,7 +1196,6 @@ https://github.com/Alexander-Miller/treemacs
 #+end_src
 
 ** Undo
-
 *** Tree
 #+begin_src emacs-lisp
   (use-package undo-tree
@@ -1197,7 +1225,6 @@ https://github.com/Alexander-Miller/treemacs
     (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
     (global-undo-fu-session-mode))
 #+end_src
-
 
 ** Which Key
 
@@ -1251,10 +1278,10 @@ https://github.com/Alexander-Miller/treemacs
     :straight t
     :config
     (defun size-callback ()
-      (cond ((> (frame-pixel-width) 1280) '(100 . 0.618))
+      (cond ((> (frame-pixel-width) 1280) '(120 . 0.75))
             (t                            '(0.618 . 0.618))))
     (custom-set-variables
-     '(zoom-ignored-major-modes '(dired-mode org-agenda-mode org-capture-mode))
+     '(zoom-ignored-major-modes '(dired-mode org-agenda-mode org-capture-mode org-mode))
      ;; '(zoom-ignored-buffer-names '("*Agenda Commands*"))
      ;; '(zoom-ignored-buffer-name-regexps '("^*Org"))
      '(temp-buffer-resize-mode t)
@@ -2105,7 +2132,6 @@ To build `metals-emacs`
 #+begin_src emacs-lisp
   (use-package yaml-mode
     :straight t
-    :hook (yaml-mode . 'my/eglot-ensure)
     :mode "\\.ya?ml\\'")
 #+end_src
 
@@ -2121,7 +2147,18 @@ To build `metals-emacs`
     :init
     (leaders/main "g" 'magit-dispatch)
     :custom
-    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    (magit-commit-diff-inhibit-same-window t)
+    :init
+    (defun magit-display-buffer-pop-up-frame (buffer)
+      (if (with-current-buffer buffer (eq major-mode 'magit-status-mode))
+          (display-buffer buffer
+                          '((display-buffer-reuse-window
+                             display-buffer-pop-up-window
+                             display-buffer-pop-up-frame)
+                            (reusable-frames . t)))
+        (magit-display-buffer-traditional buffer)))
+
+    (setq magit-display-buffer-function #'magit-display-buffer-pop-up-frame)
     :config
     (transient-append-suffix 'magit-dispatch "r"
       '("s" "Status" magit-status))
@@ -2143,22 +2180,20 @@ To build `metals-emacs`
     :after magit
     :custom
     (git-gutter:update-interval 2)
-    :config
+    :init
     (general-define-key
      :states 'normal
      "]g" 'git-gutter:next-hunk
      "[g" 'git-gutter:previous-hunk)
-
     (transient-define-prefix git-gutter-dispatch ()
       "Operate with hunks."
       ["Git-gutter"
        ("r" "Revert" git-gutter:revert-hunk)
        ("s" "Stage"  git-gutter:stage-hunk)
        ("p" "Popup"  git-gutter:popup-hunk)])
-
     (transient-append-suffix 'magit-dispatch "F"
       '("h" "Hunk" git-gutter-dispatch))
-
+    :config
     (global-git-gutter-mode 1))
 
   (use-package git-link
@@ -2166,10 +2201,11 @@ To build `metals-emacs`
     :defer t
     :commands 'git-link
     :after magit
-    :config
-    (setq git-link-open-in-browser t)
+    :init
     (transient-append-suffix 'magit-dispatch "F"
-      '("g" "Link" git-link)))
+      '("g" "Link" git-link))
+    :config
+    (setq git-link-open-in-browser t))
 
   (use-package magit-todos
     :straight t
@@ -2282,6 +2318,7 @@ To build `metals-emacs`
                              "~/Notes/roam/org_birthdays.org"
                              "~/Notes/roam/org_inbox.org"
                              "~/Notes/roam/org_work.org"
+                             "~/Notes/roam/org_ril.org"
                              ))
 
     (require 'org-habit)
@@ -2295,6 +2332,7 @@ To build `metals-emacs`
           '(
             ("org_tasks.org" :maxlevel . 1)
             ("org_work.org" :maxlevel . 1)
+            ("org_ril.org" :maxlevel . 1)
             ))
 
     ;; Save Org buffers after refiling!
@@ -2307,7 +2345,7 @@ To build `metals-emacs`
             ("@home" . ?h)
             ("@work" . ?w)
             ("planning" . ?p)
-            ("book" . ?b)
+            ("ril" . ?r)
             ("note" . ?n)
             ("idea" . ?i)))
 
@@ -2334,11 +2372,12 @@ To build `metals-emacs`
                     ((org-agenda-overriding-header "Active Projects")
                      (org-agenda-files org-agenda-files)))))
 
+            ("r" "Read it later"
+             ((alltodo "" ((org-agenda-files '("~/Notes/roam/org_ril.org"))))
+              (tags-todo "ril" )))
+
             ("p" "Planning"
              ((tags-todo "planning")))
-
-            ("b" "Books"
-             ((tags-todo "book")))
 
             ("i" "Ideas"
              ((tags-todo "idea")))
@@ -2393,7 +2432,9 @@ To build `metals-emacs`
                    "\C-z"))
       (define-key org-babel-map key nil))
 
-    ;; (org-font-setup)
+    (if (display-graphic-p)
+        (org-font-setup)
+      (add-hook 'server-after-make-frame-hook #'org-font-setup))
     )
 #+end_src
 
@@ -2656,7 +2697,6 @@ Should be late to be first
 - [X] Nix
 - [X] Org(should be)
 - [X] Python
-- [ ] Puppet(*)
 - [X] Rust
 - [X] Shell
 - [ ] SQL
