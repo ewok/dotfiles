@@ -228,16 +228,7 @@
           (numfrs  (length (visible-frame-list)))
           (maxfrs (if (daemonp) 1 0))
           )
-      (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
-        ad-do-it)))
-
-  (defadvice delete-frame (around my-handle-delete-frame-advice activate)
-    "Ask for confirmation before deleting the last frame"
-    (let ((frame   (posn-window (event-start event)))
-          (numfrs  (length (visible-frame-list)))
-          (maxfrs (if (daemonp) 1 0))
-          )
-      (when (y-or-n-p "Really close the frame? ")
+      (when (or (> numfrs maxfrs) (y-or-n-p "Really close the last frame? "))
         ad-do-it)))
 #+end_src
 
@@ -2109,7 +2100,6 @@ To build `metals-emacs`
 
   ls -la ~/.local/bin/metals-emacs
 #+end_src
-
 
 #+begin_src emacs-lisp
   (use-package sbt-mode
