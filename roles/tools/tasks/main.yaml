@@ -14,7 +14,8 @@
       then
         CMD=svn
       else
-        CMD="toolbox run -c dev svn"
+        echo "svn not found"
+        exit 1
       fi
       $CMD st | grep ! | cut -d! -f2| sed 's/^ *//' | sed 's/^/"/g' | sed 's/$/"/g'  | xargs $CMD rm
     dest: "~/.local/bin/svn-rm-rm"

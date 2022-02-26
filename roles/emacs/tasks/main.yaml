@@ -5,6 +5,13 @@
     - emacs
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name: "{{ emacs_packages }}"
+        use: yay
+      become: yes
+      become_user: aur_builder
+
     - name: "Ensure config dir exists"
       file:
         dest: "{{ item }}"
@@ -35,34 +42,11 @@
       copy:
         content: |
           #!/bin/fish
-          if test -z $TB
-            /usr/bin/emacsclient -a "d /usr/bin/emacs" $argv
-            #/usr/bin/toolbox run -c dev emacs $argv
-          else if test $TB = "dev"
-            fish_add_path --path -a ~/.nix-profile/bin
-            /usr/bin/emacsclient -a "/usr/bin/emacs" $argv
-          else
-            /usr/bin/toolbox run -c dev em $argv
-          end
+          /usr/bin/emacsclient -a "/usr/bin/emacs" $argv
         dest: "~/.local/bin/{{ item }}"
         mode: 0755
       loop:
         - "em"
-
-    - name: "Command"
-      copy:
-        content: |
-          #!/bin/fish
-          if test "$TB" = "dev"
-            fish_add_path --path -a ~/.nix-profile/bin
-            /usr/bin/emacs $argv
-          else
-            /usr/bin/toolbox run -c dev emacs $argv
-          end
-        dest: "~/.local/bin/{{ item }}"
-        mode: 0755
-      loop:
-        - "emacs"
 
     - name: "vterm helper"
       copy:
@@ -84,26 +68,7 @@
     - name: Provide config
       changed_when: False
       shell: |
-        d /usr/bin/emacs --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "{{ role_path }}/templates/emacs/emacs.org")'
-
-    - name: Emacs Daemon Unit
-      copy:
-        content: |
-          [Unit]
-          Description=Emacs text editor
-          Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
-
-          [Service]
-          Type=forking
-          ExecStart=toolbox run -c dev /usr/bin/emacs --daemon
-          ExecStop=toolbox run -c dev /usr/bin/emacsclient --eval "(kill-emacs)"
-          Environment=SSH_AUTH_SOCK=%t/keyring/ssh
-          Restart=on-failure
-
-          [Install]
-          WantedBy=default.target
-
-        dest: "~/.config/systemd/user/emacs-daemon.service"
+        /usr/bin/emacs --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "{{ role_path }}/templates/emacs/emacs.org")'
 
     - name: "Enable emacs-daemon"
       ignore_errors: True
@@ -111,4 +76,4 @@
         daemon_reload: True
         scope: user
         enabled: True
-        name: emacs-daemon
+        name: emacs

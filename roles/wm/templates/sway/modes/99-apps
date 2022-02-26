@@ -1,0 +1,23 @@
+set $mode_apps (b)luetooth,(c)alc,(d)ict,(e)xplorer,(j)ournal,(p)avucontrol,(t)ranslate,(n)etwork-manager,(C)lipboard,(1)password,(w)iki
+
+mode --pango_markup $mode_apps {
+
+    $bindsym 1 exec rofi_run -modi 1pass:rofi-1pass -show 1pass, mode "default"
+    $bindsym Shift+c exec $clipboard, mode "default"
+    $bindsym t exec com.github.gi_lom.dialect, mode "default"
+    $bindsym b exec --no-startup-id blueman-manager, mode "default"
+    $bindsym c exec rofi-calc, mode "default"
+    $bindsym d exec org.goldendict.GoldenDict, mode "default"
+    $bindsym e exec pcmanfm, mode "default"
+    $bindsym n exec --no-startup-id nm-connection-editor, mode "default"
+    $bindsym p exec --no-startup-id pavucontrol, mode "default"
+    $bindsym w exec --no-startup-id "em -c ~/Notes/roam/index.org", mode "default"
+
+    # exit resize mode: Enter or Escape
+    $bindsym Return mode "default"
+    $bindsym Escape mode "default"
+    $bindsym Ctrl+m mode "default"
+}
+
+## Launch // Apps Mode ##
+$bindsym $mod+o mode "$mode_apps"

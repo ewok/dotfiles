@@ -1,0 +1,10 @@
+- name: "Cleanup"
+  tags:
+    - never
+    - cleanup
+  block:
+
+    - name: Remove base packages
+      pacman:
+        name: "{{ gui_packages }}"
+        state: absent

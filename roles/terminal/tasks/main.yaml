@@ -5,6 +5,16 @@
     - terminal
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - starship
+          - lxterminal
+          - fzf
+        use: yay
+      become: yes
+      become_user: aur_builder
+
     - name: "LXTerminal config dir"
       file:
         dest: "~/.config/lxterminal"
@@ -142,15 +152,8 @@
       copy:
         content: |
           if status --is-interactive
-            if test -n "$TB"
-              if command -vq -- starship
-                source (/usr/bin/starship init fish --print-full-init | psub)
-              else
-                function fish_prompt -d "Write out the prompt"
-                    printf '⬢ [%s@%s %s%s%s] > ' $USER $hostname \
-                        (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
-                end
-              end
+            if command -vq -- starship
+              source (/usr/bin/starship init fish --print-full-init | psub)
             end
           end
         dest: "~/.config/fish/conf.d/99_starship.fish"

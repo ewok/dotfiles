@@ -21,7 +21,6 @@
             if builtin functions -q __abbr_tips_init
               __abbr_tips_init
             end
-
           end
         dest: "~/.config/fish/config.fish"
 
@@ -46,11 +45,14 @@
     - name: "PreInit"
       copy:
         content: |
-          if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
-            if status --is-login
-              abbr -e (abbr -l)
-              fisher update
-            end
+          if command -vq - fenv
+            fenv source ~/.profile
+          end
+
+          # if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
+          if status --is-login
+            abbr -e (abbr -l)
+            fisher update
           end
 
         dest: "~/.config/fish/conf.d/00_pre_init.fish"
@@ -85,7 +87,7 @@
           set -gx XDG_CURRENT_DESKTOP sway
 
           fish_add_path -ga  ~/.local/bin ~/bin
-          fish_add_path --path -a  /usr/local/sbin /usr/sbin
+          # fish_add_path --path -a  /usr/local/sbin /usr/sbin
 
           # Use it only in nixshell for projects
           # set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
@@ -110,11 +112,11 @@
               alias cat "bat"
             end
 
-            if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
-              if command -vq -- sway
-                exec sway
-              end
-            end
+            # if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
+            #   if command -vq -- sway
+            #     exec sway
+            #   end
+            # end
 
           end
         dest: "~/.config/fish/conf.d/01_init_interactive.fish"
@@ -124,21 +126,23 @@
         content: |
           function fish_greeting
 
-            if test -z "$TB" -a -t 2
-                systemctl --state=failed --no-legend --no-pager >&2
-                systemctl --user --state=failed --no-legend --no-pager >&2
-                if command -vq -- t
-                  t ls
-                end
+            if ! test -z "$TMUX"
+              if test -t 2
+                  systemctl --state=failed --no-legend --no-pager >&2
+                  systemctl --user --state=failed --no-legend --no-pager >&2
+                  if command -vq -- t
+                    t ls
+                  end
+              end
             end
 
-            if test -n "$INSIDE_EMACS"
-              set TMUX_CMD tmux -L emacs
-            else
-              set TMUX_CMD "tmux"
-            end
+            if command -vq -- tmux
+              if test -n "$INSIDE_EMACS"
+                set TMUX_CMD tmux -L emacs
+              else
+                set TMUX_CMD "tmux"
+              end
 
-            if test "$TB" = "dev"
               if test -z "$TMUX"
                 set -l SESS ($TMUX_CMD list-sessions | grep -v attached | cut -d: -f1 | head -n 1)
                 echo $SESS

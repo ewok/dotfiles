@@ -1,0 +1,15 @@
+base_packages:
+  - base-devel
+  - htop
+  - trash-cli
+  - the_silver_searcher
+  - ripgrep
+  - viddy
+  - dfc
+  - exa
+  - bat
+  - fd
+  - whois
+  - jq
+  - netcat
+  - global

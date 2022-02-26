@@ -22,11 +22,6 @@
     - cleanup-hard
   block:
 
-    - name: "Cleanup podman"
-      ignore_errors: True
-      shell: |
-        podman system prune -f
-
     - name: "Cleanup dirs"
       become: True
       file:

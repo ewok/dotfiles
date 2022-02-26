@@ -1,7 +1,0 @@
-- name: "Cleanup ostree"
-  ignore_errors: True
-  shell: "rpm-ostree reset"
-  become: True
-  tags:
-    - never
-    - cleanup-hard

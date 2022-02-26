@@ -1,11 +1,13 @@
-- name: "Install"
-  become: True
-  tags:
-    - printing
-  block:
+# - name: "Install"
+#   become: True
+#   tags:
+#     - printing
+#   block:
 
-    - name: "Install packages"
-      community.general.rpm_ostree_pkg:
-        name: "https://github.com/ewok/carps-cups/releases/download/v0.0.1/carps-cups-0.0.1-1.fc34.x86_64.rpm"
-        state: present
-      ignore_errors: True
+    # - name: Install base packages
+    #   kewlfft.aur.aur:
+    #     name: carps-cups-git
+    #     use: yay
+    #     update_cache: True
+    #   become: yes
+    #   become_user: aur_builder

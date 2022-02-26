@@ -1,0 +1,13 @@
+passwords_packages:
+  - 1password
+  - 1password-cli
+  - keepassxc
+  - lastpass-cli
+  - gnome-keyring
+  - libgnome-keyring
+  - openvpn
+  - pcsclite
+  - pcsc-tools
+  - pinentry
+  - yubikey-manager
+  - seahorse

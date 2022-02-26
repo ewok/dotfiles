@@ -1,0 +1,17 @@
+gui_packages:
+  - cryptomator-bin
+  # - anki
+  - foliate
+  - goldendict
+  - pavucontrol
+  - slack-desktop
+  - telegram-desktop
+  - cawbird
+  - zoom
+  - spotify
+  - popcorntime-bin
+  - vlc
+  - zeal
+  - notion-app
+  - libreoffice-still
+  - zoho-mail-desktop

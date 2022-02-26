@@ -1,8 +1,0 @@
-- name: "Cleanup"
-  community.general.flatpak:
-    name: org.libreoffice.LibreOffice
-    state: absent
-    executable: "~/.local/bin/flatpak-internal"
-  tags:
-    - never
-    - cleanup

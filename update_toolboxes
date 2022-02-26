@@ -1,9 +1,0 @@
-#!/bin/bash
-
-cd $(dirname "$0")
-set -e
-
-for i in images/*/build.sh
-do
-    bash $i "$@"
-done

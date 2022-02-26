@@ -1,0 +1,19 @@
+set $mode_recording "<span foreground='$base0A'></span>  \
+<span foreground='$base05'><b>Record</b></span> <span foreground='$base0A'>(<b>r</b>)</span> \
+<span foreground='$base05'>+ [<span foreground='$base0A'><b>Shift</b></span> for ]</span>"
+
+set $recorder /usr/share/sway/scripts/recorder.sh
+
+mode --pango_markup $mode_recording {
+        $bindsym r exec $recorder, mode "default"
+        $bindsym Shift+r exec $recorder -a, mode "default"
+
+        # Return to default mode.
+        $bindsym Escape mode "default"
+}
+
+## Launch // Recording Mode ##
+$bindsym $mod_c+Print mode $mode_recording
+
+## Launch // Stop Recording Mode ##
+$bindsym $mod+Escape exec killall -s SIGINT wf-recorder

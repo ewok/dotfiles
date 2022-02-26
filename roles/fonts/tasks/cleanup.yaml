@@ -2,9 +2,9 @@
   tags:
     - never
     - cleanup
-  file:
-    dest: "{{ item }}"
+  kewlfft.aur.aur:
+    name: otf-nerd-fonts-fira-mono
+    use: yay
     state: absent
-  loop:
-    - "~/.local/share/fonts-archive"
-    - "~/.local/share/fonts"
+  become: yes
+  become_user: aur_builder

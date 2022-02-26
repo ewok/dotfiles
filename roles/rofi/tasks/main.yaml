@@ -5,6 +5,15 @@
     - rofi
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - rofi
+          - rofi-calc
+        use: yay
+      become: yes
+      become_user: aur_builder
+
     - name: "Provide config dir"
       file:
         dest: "~/.config/rofi"
@@ -33,15 +42,8 @@
     - name: "dmcalc"
       copy:
         content: |
-          dmenucmd="rofi_run -dmenu -p Calc $@"
-          while : ; do
-              result=$(wl-paste | $dmenucmd | xargs echo | bc -l 2>&1)
-              if [[ $result ]]; then
-                  printf "$result" | wl-copy
-              fi
-              [[ $result ]] || break
-          done
-        dest: "~/.local/bin/dmcalc"
+          rofi -show calc -modi calc -no-show-match -no-sort
+        dest: "~/.local/bin/rofi-calc"
         mode: 0755
 
     - name: "dmmyip"

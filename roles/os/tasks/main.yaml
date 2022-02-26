@@ -1,42 +1,12 @@
 - import_tasks: cleanup.yaml
 
 - name: "Install"
-  become: True
   tags:
     - os
   block:
 
-  - name: "Install overlay_packages"
-    community.general.rpm_ostree_pkg:
-      name: "{{ overlay_packages }}"
-      state: present
-    ignore_errors: True
-    when: "overlay_packages is defined"
-
-  - name: "Set user groups"
-    changed_when: False
-    user:
-      name: "{{ username }}"
-      append: True
-      shell: "/usr/bin/fish"
-      groups:
-        - "users"
-        - "wheel"
-        - "{{ username }}"
-
-  - name: "Enable startup services"
-    systemd:
-      name: "{{ item }}"
-      enabled: True
-      daemon_reload: True
-    loop:
-      - "getty@.service"
-      - "systemd-timesyncd.service"
-      - "systemd-resolved.service"
-      - "systemd-homed.service"
-      - "sshd.socket"
-
   - name: "Hosts: Provide config"
+    become: True
     blockinfile:
       block: |
         {% for host in hosts -%}
@@ -46,14 +16,50 @@
     tags:
       - hosts
 
-  - name: "Local docker registry"
+  - name: "Provide open cmd"
     copy:
       content: |
-        unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "docker.io", "quay.io"]
-        short-name-mode="enforcing"
+        #!/bin/bash
+        if [[ "$WSLENV" != "" ]]; then
+            explorer.exe "$@"
+        elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+            xdg-open "$@"
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            /usr/bin/open "$@"
+        elif [[ "$OSTYPE" == "cygwin" ]]; then
+            exit 1
+        elif [[ "$OSTYPE" == "msys" ]]; then
+            exit 1
+        elif [[ "$OSTYPE" == "freebsd"* ]]; then
+            exit 1
+        else
+            exit 1
+        fi
+      dest: "~/.local/bin/open"
+      mode: 0755
 
-        [[registry]]
-        prefix = "nas:50000"
-        location = "nas:50000"
-        insecure = true
-      dest: "/etc/containers/registries.conf"
+  - name: ".profile"
+    copy:
+      content: |
+        export PATH="$HOME/.local/bin:$PATH"
+        # Most pure GTK3 apps use wayland by default, but some,
+        # like Firefox, need the backend to be explicitely selected.
+        export MOZ_ENABLE_WAYLAND=1
+        export MOZ_DBUS_REMOTE=1
+        export GTK_CSD=0
+
+        # qt wayland
+        export QT_QPA_PLATFORM="wayland"
+        export QT_QPA_PLATFORMTHEME=qt5ct
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+
+        #Java XWayland blank screens fix
+        export _JAVA_AWT_WM_NONREPARENTING=1
+
+        # set default shell and terminal
+        export SHELL=/usr/bin/fish
+        export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
+
+        # add default location for zeit.db
+        export ZEIT_DB=~/.config/zeit.db
+      dest: "~/.profile"

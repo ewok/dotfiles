@@ -1,0 +1,10 @@
+vifm_packages:
+  - vifm
+  - unzip
+  - p7zip
+  - sshfs
+  - curlftpfs
+#  - ts
+  - archivemount
+  - dpkg
+  - viu

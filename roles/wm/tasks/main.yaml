@@ -6,6 +6,29 @@
     - wm
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - swappy
+          - rofi-wayland
+          - i3blocks
+          - adwaita-maia
+          - waybar
+          - wlsunset
+          - gvfs-afc
+          # - gvfs-afp
+          # - gvfs-archive
+          # - gvfs-fuse
+          - gvfs-goa
+          - gvfs-gphoto2
+          - gvfs-mtp
+          - gvfs-smb
+          - kanshi
+        use: yay
+        update_cache: True
+      become: yes
+      become_user: aur_builder
+
     - name: "provide config dir"
       file:
         dest: "{{ item }}"
@@ -18,11 +41,32 @@
         - "~/.config/mako"
         - "~/.config/sway"
         - "~/.config/waybar"
+        - "~/.config/wlsunset"
 
-    - name: "provide sway config"
+    - name: "sway config"
       template:
-        src: "config"
-        dest: "~/.config/sway/config"
+        src: "sway/{{ item }}"
+        dest: "~/.config/sway/{{ item }}"
+      loop:
+        - "config"
+        - "theme.conf"
+        - "variables.conf"
+        - "inputs.conf"
+        - "outputs.conf"
+
+    - name: "sway config"
+      template:
+        src: "{{item}}"
+        dest: "~/.config/sway/config.d/"
+      with_fileglob:
+        - "{{ role_path }}/templates/sway/config.d/*"
+
+    - name: "sway config"
+      template:
+        src: "{{item}}"
+        dest: "~/.config/sway/modes/"
+      with_fileglob:
+        - "{{ role_path }}/templates/sway/modes/*"
 
     - name: "i3blocks config"
       template:
@@ -36,6 +80,13 @@
         mode: 0755
       with_fileglob:
         - "{{ role_path }}/templates/i3blocks/*"
+
+    - name: "waybar config"
+      template:
+        src: "{{item}}"
+        dest: "~/.config/waybar/"
+      with_fileglob:
+        - "{{ role_path }}/templates/waybar/*"
 
     - name: "coffeine dummy script"
       copy:
@@ -80,30 +131,6 @@
           }
           {% endfor %}
         dest: "~/.config/kanshi/config"
-
-    - name: "kanshi.service"
-      copy:
-        content: |
-          [Unit]
-          Description=Dynamic output configuration for Wayland compositors
-          Documentation=https://github.com/emersion/kanshi
-          BindsTo=sway-session.target
-
-          [Service]
-          Type=simple
-          ExecStart=/usr/bin/kanshi
-
-          [Install]
-          WantedBy=sway-session.target
-        dest: "~/.config/systemd/user/kanshi.service"
-
-    - name: "Kanshi enable service"
-      ignore_errors: True
-      systemd:
-        scope: user
-        daemon_reload: True
-        enabled: True
-        name: kanshi
 
     - name: "sway-input"
       copy:
@@ -152,37 +179,37 @@
         dest: "~/.local/bin/sway-input"
         mode: 0755
 
-    - name: "sway-exit"
-      copy:
-        content: |
-          #!/bin/bash
-          case "$1" in
-            lock)
-                playerctl pause
-                swaylock -f -c 333333
-                ;;
-            logout)
-                swaymsg exit
-                ;;
-            suspend)
-                swaylock -f -c 333333 && systemctl {{ suspend_type | default("suspend-then-hibernate") }}
-                ;;
-            hibernate)
-                swaylock -f -c 333333 && systemctl hibernate
-                ;;
-            reboot)
-                systemctl reboot
-                ;;
-            shutdown)
-                systemctl poweroff
-                ;;
-            *)
-                echo "== ! i3exit: missing or invalid argument ! =="
-                echo "Try again with: lock | logout | suspend | hibernate | reboot | shutdown"
-                exit 2
-          esac
-        dest: "~/.local/bin/sway-exit"
-        mode: 0755
+    #- name: "sway-exit"
+    #  copy:
+    #    content: |
+    #      #!/bin/bash
+    #      case "$1" in
+    #        lock)
+    #            playerctl pause
+    #            swaylock -f -c 333333
+    #            ;;
+    #        logout)
+    #            swaymsg exit
+    #            ;;
+    #        suspend)
+    #            swaylock -f -c 333333 && systemctl {{ suspend_type | default("suspend-then-hibernate") }}
+    #            ;;
+    #        hibernate)
+    #            swaylock -f -c 333333 && systemctl hibernate
+    #            ;;
+    #        reboot)
+    #            systemctl reboot
+    #            ;;
+    #        shutdown)
+    #            systemctl poweroff
+    #            ;;
+    #        *)
+    #            echo "== ! i3exit: missing or invalid argument ! =="
+    #            echo "Try again with: lock | logout | suspend | hibernate | reboot | shutdown"
+    #            exit 2
+    #      esac
+    #    dest: "~/.local/bin/sway-exit"
+    #    mode: 0755
 
     - name: "pactl-mute-all"
       copy:
@@ -231,47 +258,47 @@
         dest: "~/.local/bin/pactl-mute-all"
         mode: 0755
 
-    - name: "Provide gtk dark theme"
-      copy:
-        content: |
-          [Settings]
-          gtk-application-prefer-dark-theme=true
-          gtk-font-name={{regularFont}} {{regularFontSize}}
-          gtk-icon-theme-name=Adwaita
-          gtk-theme-name=Adwaita-dark
-          gtk-cursor-theme-name=Adwaita
-          gtk-cursor-theme-size=0
-          gtk-toolbar-style=GTK_TOOLBAR_BOTH
-          gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
-          gtk-button-images=0
-          gtk-menu-images=0
-          gtk-enable-event-sounds=1
-          gtk-enable-input-feedback-sounds=1
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle=hintfull
-        dest: "~/.config/gtk-3.0/settings.ini"
+    # - name: "Provide gtk dark theme"
+    #   copy:
+    #     content: |
+    #       [Settings]
+    #       gtk-application-prefer-dark-theme=true
+    #       gtk-font-name={{regularFont}} {{regularFontSize}}
+    #       gtk-icon-theme-name=Adwaita
+    #       gtk-theme-name=Adwaita-dark
+    #       gtk-cursor-theme-name=Adwaita
+    #       gtk-cursor-theme-size=0
+    #       gtk-toolbar-style=GTK_TOOLBAR_BOTH
+    #       gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+    #       gtk-button-images=0
+    #       gtk-menu-images=0
+    #       gtk-enable-event-sounds=1
+    #       gtk-enable-input-feedback-sounds=1
+    #       gtk-xft-antialias=1
+    #       gtk-xft-hinting=1
+    #       gtk-xft-hintstyle=hintfull
+    #     dest: "~/.config/gtk-3.0/settings.ini"
 
 
-    - name: "Provide gtk dark theme 2"
-      copy:
-        content: |
-          include "/var/home/ataranchiev/.gtkrc-2.0.mine"
-          gtk-theme-name="Adwaita-dark"
-          gtk-icon-theme-name="Adwaita"
-          gtk-font-name="{{regularFont}} {{regularFontSize}}"
-          gtk-cursor-theme-name="Adwaita"
-          gtk-cursor-theme-size=0
-          gtk-toolbar-style=GTK_TOOLBAR_BOTH
-          gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
-          gtk-button-images=0
-          gtk-menu-images=0
-          gtk-enable-event-sounds=1
-          gtk-enable-input-feedback-sounds=1
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle="hintfull"
-        dest: "~/.gtkrc-2.0"
+    # - name: "Provide gtk dark theme 2"
+    #   copy:
+    #     content: |
+    #       include "/var/home/ataranchiev/.gtkrc-2.0.mine"
+    #       gtk-theme-name="Adwaita-dark"
+    #       gtk-icon-theme-name="Adwaita"
+    #       gtk-font-name="{{regularFont}} {{regularFontSize}}"
+    #       gtk-cursor-theme-name="Adwaita"
+    #       gtk-cursor-theme-size=0
+    #       gtk-toolbar-style=GTK_TOOLBAR_BOTH
+    #       gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+    #       gtk-button-images=0
+    #       gtk-menu-images=0
+    #       gtk-enable-event-sounds=1
+    #       gtk-enable-input-feedback-sounds=1
+    #       gtk-xft-antialias=1
+    #       gtk-xft-hinting=1
+    #       gtk-xft-hintstyle="hintfull"
+    #     dest: "~/.gtkrc-2.0"
 
     - name: "Provide notification configuration"
       copy:
@@ -281,30 +308,6 @@
           text-color=#{{colors.color3}}
           default-timeout=5000
         dest: "~/.config/mako/config"
-
-    - name: "Fixing some issues with java apps(fish)"
-      tags:
-        - fish
-      copy:
-        content: |
-          if test "$XDG_SESSION_DESKTOP" = "sway"
-              # https://github.com/swaywm/sway/issues/595
-              set -gx _JAVA_AWT_WM_NONREPARENTING 1
-              set -gx QT_QPA_PLATFORM wayland
-          end
-        dest: "~/.config/fish/conf.d/20_sway-java.fish"
-
-    # - name: "Install Flatpak theme"
-    #   community.general.flatpak:
-    #     name: "{{ item }}"
-    #     state: present
-    #     remote: "flathub"
-    #     method: "user"
-    #     executable: "~/.local/bin/flatpak-internal"
-    #   loop:
-    #     - org.kde.KStyle.Adwaita//5.15
-    #     - org.kde.PlatformTheme.QGnomePlatform//5.15
-    #     - org.gtk.Gtk3theme.Adwaita-dark
 
     - name: "track-layout.py"
       template:
@@ -335,3 +338,22 @@
         enabled: True
         name: "sway-track-layout"
         state: started
+
+    - name: "Wlsunset config"
+      copy:
+        content: |
+          temp_low={{ night }}
+          temp_high={{ day }}
+          longitude={{ longitude }}
+          latitude={{ latitude }}
+          location="on
+        dest: "~/.config/wlsunset/config"
+
+    - name: "Random wallpaper script"
+      copy:
+        content: |
+          #!/bin/bash
+          WALLPAPER="$(ls {{ directory.wallpapers }} | shuf -n 1)"
+          swaymsg  output '*' bg "{{ directory.wallpapers }}/$WALLPAPER" fill
+        dest: "~/.local/bin/random-wallpaper.sh"
+        mode: 0755

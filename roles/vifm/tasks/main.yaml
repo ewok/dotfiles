@@ -5,6 +5,13 @@
     - vifm
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name: "{{ vifm_packages }}"
+        use: yay
+      become: yes
+      become_user: aur_builder
+
     - name: "Provide config"
       copy:
         src: "{{ item.src }}"
@@ -24,45 +31,13 @@
         - fish
       copy:
         content: |
-          if test "$TB" = "dev"
-            function vifm
-                set -l dst (command vifm --choose-dir - $argv)
-                if test -z "$dst"
-                    echo 'Directory picking cancelled/failed'
-                    return 1
-                end
+          function vifm
+              set -l dst (command vifm --choose-dir - $argv)
+              if test -z "$dst"
+                  echo 'Directory picking cancelled/failed'
+                  return 1
+              end
 
-                cd "$dst"
-            end
-          else
-            function vifm
-              toolbox run -c dev vifm $argv
-            end
+              cd "$dst"
           end
         dest: "~/.config/fish/functions/vifm.fish"
-
-    - name: "Provide open cmd"
-      copy:
-        content: |
-          #!/bin/bash
-          if [[ "$WSLENV" != "" ]]; then
-              explorer.exe "$@"
-          elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-            if [[ -z "$TB" ]]; then
-              xdg-open "$@"
-            else
-              run host xdg-open "$@"
-            fi
-          elif [[ "$OSTYPE" == "darwin"* ]]; then
-              /usr/bin/open "$@"
-          elif [[ "$OSTYPE" == "cygwin" ]]; then
-              exit 1
-          elif [[ "$OSTYPE" == "msys" ]]; then
-              exit 1
-          elif [[ "$OSTYPE" == "freebsd"* ]]; then
-              exit 1
-          else
-              exit 1
-          fi
-        dest: "~/.local/bin/open"
-        mode: 0755

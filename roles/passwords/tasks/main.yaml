@@ -7,46 +7,13 @@
     - gpg
   block:
 
-    - name: "Aliases"
-      copy:
-        content: |
-          #!/bin/bash
-          {{item.cmd}}
-        dest: "~/.local/bin/{{item.alias}}"
-        mode: 0755
-      loop:
-        - {alias: "1password", cmd: 'toolbox run -c gui 1password "$@"'}
-        - {alias: "keepassxc", cmd: 'toolbox run -c os keepassxc "$@"'}
-
-    - name: "1Password Desktop entry"
-      copy:
-        content: |
-          [Desktop Entry]
-          Categories=Utility
-          Comment=1Password
-          Exec=toolbox run -c gui 1password
-          Name=1Password
-          Terminal=false
-          Type=Application
-        dest: "~/.local/share/applications/1password.desktop"
-      tags:
-        - 1password
-
-    # 1Password Cli
-    - name: "Download op"
-      ansible.builtin.get_url:
-        url: "https://cache.agilebits.com/dist/1P/op/pkg/v1.12.3/op_linux_amd64_v1.12.3.zip"
-        dest: "~/.cache/rpms/op.zip"
-        remote_src: yes
-        checksum: "sha256:947df336974f1b16b2fad50fe1621799348a8316758fd733f58b4671f6b08990"
-
-    - name: "Install op"
-      ansible.builtin.unarchive:
-        src: "~/.cache/rpms/op.zip"
-        dest: "~/.local/bin"
-        mode: 0755
-        exclude:
-          - "op.sig"
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name: "{{ passwords_packages }}"
+        use: yay
+        update_cache: True
+      become: yes
+      become_user: aur_builder
 
     - name: "Rofi 1pass integration"
       template:
@@ -282,19 +249,13 @@
         enabled: False
         state: stopped
 
-    - name: "Install Seahorse"
-      community.general.flatpak:
-        name: org.gnome.seahorse.Application
-        state: present
-        executable: "~/.local/bin/flatpak-internal"
-
     - name: "Setup askpass(fish)"
       tags:
         - fish
       copy:
         content: |
           if test -z $TB
-            set -gx SSH_ASKPASS /var/lib/flatpak/app/org.gnome.seahorse.Application/x86_64/stable/active/files/libexec/seahorse/ssh-askpass
+            set -gx SSH_ASKPASS /usr/lib/seahorse/ssh-askpass
             set -gx SSH_ASKPASS_REQUIRE prefer
           end
         dest: "~/.config/fish/conf.d/10_ssh_askpass.fish"
@@ -331,7 +292,7 @@
         name: login
         type: auth
         control: include
-        module_path: postlogin
+        module_path: system-local-login
         new_control: optional
         new_type: auth
         new_module_path: pam_gnome_keyring.so
@@ -344,7 +305,7 @@
         name: login
         type: session
         control: include
-        module_path: postlogin
+        module_path: system-local-login
         new_control: optional
         new_type: session
         new_module_path: pam_gnome_keyring.so
@@ -370,19 +331,3 @@
             set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
           end
         dest: "~/.config/fish/conf.d/40_set_gpg_sock.fish"
-
-    - name: "Provide config dir"
-      become: True
-      file:
-        dest: "/etc/selinux_custom"
-        state: directory
-        mode: 0755
-
-    - name: "Enable login to run pam-gnome-keyring"
-      become: True
-      shell:
-        chdir: "/etc/selinux_custom"
-        creates: "/etc/selinux_custom/enable-gkr-pam.pp"
-        cmd: |
-          echo 'type=AVC msg=audit(1636575741.864:242): avc:  denied  { execute } for  pid=2040 comm="login" name="gnome-keyring-daemon" dev="dm-0" ino=2442485 scontext=system_u:system_r:local_login_t:s0-s0:c0.c1023 tcontext=system_u:object_r:gkeyringd_exec_t:s0 tclass=file permissive=0' | audit2allow -M enable-gkr-pam
-          semodule -X 300 -i enable-gkr-pam.pp

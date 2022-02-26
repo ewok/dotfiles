@@ -17,7 +17,7 @@
         content: |
           #!/bin/env bash
           set -e
-          toolbox run -c dev nc -z github.com 22
+          nc -z github.com 22
           DATE=$(date)
           git -C ~/Notes pull
           git -C ~/Notes add .
@@ -32,7 +32,7 @@
           [Service]
           CPUSchedulingPolicy=idle
           Environment=SSH_AUTH_SOCK={{  lookup('env', 'XDG_RUNTIME_DIR') }}/keyring/ssh
-          Environment=SSH_ASKPASS=/var/lib/flatpak/app/org.gnome.seahorse.Application/x86_64/stable/active/files/libexec/seahorse/ssh-askpass
+          Environment=SSH_ASKPASS=/usr/lib/seahorse/ssh-askpass
           Environment=SSH_ASKPASS_REQUIRE=prefer
           ExecStart={{ lookup('env', 'HOME') }}/.local/bin/notes-sync
           IOSchedulingClass=idle

@@ -14,6 +14,17 @@
         - "~/.host/config/nvim"
         - "~/.config/nvim"
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - neovim
+          - python-pynvim
+          - tree-sitter
+        use: yay
+        update_cache: True
+      become: yes
+      become_user: aur_builder
+
     - name: "EnvVars"
       tags:
         - fish
@@ -22,27 +33,14 @@
           #set -gx EDITOR "vim";
           #set -gx VISUAL "vim";
           #set -gx GUI_EDITOR "vim";
-          if test "$TB" = "dev"
-            fish_add_path --path -a ~/.local/share/nvim/site/pack/packer/opt/vim-iced/bin
-          end
+          fish_add_path --path -a ~/.local/share/nvim/site/pack/packer/opt/vim-iced/bin
         dest: "~/.config/fish/conf.d/20_nvim-vars.fish"
 
     - name: "Command"
       copy:
         content: |
           #!/bin/bash
-          if [ -z "$TB" ]
-          then
-            export XDG_CONFIG_HOME="$HOME/.host/config"
-            export XDG_DATA_HOME="$HOME/.host/data"
-            export XDG_CACHE_HOME="$HOME/.host/cache"
-            exec -a "$0" "/usr/bin/nvim" "$@"
-          elif [ "$TB" == dev ]
-          then
-            exec -a "$0" "/usr/bin/nvim" "$@"
-          else
-            exec -a "$0" "/usr/bin/toolbox" "run" "-c" "dev" "nvim" "$@"
-          fi
+          exec -a "$0" "/usr/bin/nvim" "$@"
         dest: "~/.local/bin/{{ item }}"
         mode: 0755
       loop:

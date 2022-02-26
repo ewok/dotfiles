@@ -5,6 +5,14 @@
     - tmux
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - tmux
+        use: yay
+      become: yes
+      become_user: aur_builder
+
     - name: "Provide config dir"
       file:
         dest: "~/.config/tmux"
@@ -24,12 +32,7 @@
           else
             SESSION="$1"
           fi
-          if [ "$TB" == "dev" ]
-          then
-            tmux attach -t $SESSION || tmux new -s $SESSION
-          else
-            echo "No tmux outside dev toolbox."
-          fi
+          tmux attach -t $SESSION || tmux new -s $SESSION
         dest: "~/.local/bin/tm"
         mode: 0755
 

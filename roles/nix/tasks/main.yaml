@@ -20,24 +20,24 @@
         - fish
       copy:
         content: |
-            if test "$TB" = "dev"
-
-              if ! string match --regex -q 'nix' (mount)
-                if test -d ~/.nix-store
-                  sudo mount -o bind ~/.nix-store /nix
-                end
+          if status --is-interactive
+            if ! string match --regex -q 'nix' (mount)
+              if test -d ~/.nix-store
+                sudo mount -o bind ~/.nix-store /nix
               end
-
-              if test -e ~/.nix-profile/etc/profile.d/nix.sh
-                fenv source  ~/.nix-profile/etc/profile.d/nix.sh
-              end
-              fish_add_path --path -a ~/.nix-profile/bin
-
-              if ! command -vq -- nix
-                nix-init
-              end
-
             end
+          end
+
+          if string match --regex -q 'nix' (mount)
+            if test -e ~/.nix-profile/etc/profile.d/nix.sh
+              fenv source  ~/.nix-profile/etc/profile.d/nix.sh
+            end
+            fish_add_path --path -a ~/.nix-profile/bin
+
+            if ! command -vq -- nix
+              nix-init
+            end
+          end
         dest: "~/.config/fish/conf.d/10_nix-init.fish"
 
     - name: "nix-init"
@@ -57,7 +57,7 @@
           #
           curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
           #
-          . /var/home/ataranchiev/.nix-profile/etc/profile.d/nix.sh
+          . /home/{{ username }}/.nix-profile/etc/profile.d/nix.sh
           #
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update

@@ -20,9 +20,6 @@ let
 in
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
-    update
-    rebuildTools
-
     git-crypt
     git-crypt-status
   ];

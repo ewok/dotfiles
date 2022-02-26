@@ -7,6 +7,19 @@
   become: True
   block:
 
+    - name: Install base packages
+      pacman:
+        name: power-profiles-daemon
+        state: absent
+
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name: tlp
+        use: yay
+        update_cache: True
+      become: yes
+      become_user: aur_builder
+
     - name: "Create dirs"
       file:
         dest: "{{ item }}"
@@ -14,7 +27,6 @@
       loop:
         - /etc/systemd/logind.conf.d/
         - /etc/systemd/sleep.conf.d/
-        - /etc/selinux_custom
 
     - name: "TLP config"
       ignore_errors: True
@@ -160,13 +172,13 @@
         dest: "/etc/udev/rules.d/99-powertargets.rules"
       notify: reload udev
 
-    - name: "Enable tlp se"
-      shell:
-        chdir: "/etc/selinux_custom"
-        creates: "/etc/selinux_custom/enable-tlp.pp"
-        cmd: |
-          echo 'type=AVC msg=audit(1637598556.058:2592): avc:  denied  { getattr } for  pid=47741 comm="tlp" path="/usr/bin/systemctl" dev="dm-0" ino=285150 scontext=system_u:system_r:tlp_t:s0-s0:c0.c1023 tcontext=system_u:object_r:systemd_systemctl_exec_t:s0 tclass=file permissive=0' | audit2allow -M enable-tlp
-          semodule -X 300 -i enable-tlp.pp
+    # - name: "Enable tlp se"
+    #   shell:
+    #     chdir: "/etc/selinux_custom"
+    #     creates: "/etc/selinux_custom/enable-tlp.pp"
+    #     cmd: |
+    #       echo 'type=AVC msg=audit(1637598556.058:2592): avc:  denied  { getattr } for  pid=47741 comm="tlp" path="/usr/bin/systemctl" dev="dm-0" ino=285150 scontext=system_u:system_r:tlp_t:s0-s0:c0.c1023 tcontext=system_u:object_r:systemd_systemctl_exec_t:s0 tclass=file permissive=0' | audit2allow -M enable-tlp
+    #       semodule -X 300 -i enable-tlp.pp
 
     - name: "Configure logind"
       copy:

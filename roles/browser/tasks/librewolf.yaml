@@ -1,0 +1,106 @@
+- name: "Install"
+  tags:
+    - browser
+
+  block:
+
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name: librewolf-bin
+        use: yay
+      become: yes
+      become_user: aur_builder
+      when: browser == "librewolf"
+
+    - name: "Share dir"
+      file:
+        dest: "{{ item }}"
+        state: directory
+      loop:
+        - "~/.librewolf"
+        - "~/.librewolf/profile.default/extensions"
+        - "~/.librewolf/profile.default/chrome"
+      when: browser == "librewolf"
+
+    - name: "Configure LibreWolf overrides"
+      copy:
+        content: |
+          // "DisableFirefoxAccounts": false;
+          // lockPref("identity.sync.tokenserver.uri", "https://token.services.mozilla.com/1.0/sync/1.5");
+
+          pref("browser.contentblocking.category", "custom"); // strict would force dFPI
+          defaultPref("privacy.firstparty.isolate", true); // enable FPI
+          defaultPref("network.cookie.cookieBehavior", 1); // block 3rd party cookies
+          defaultPref("network.cookie.lifetimePolicy", 0); // keep cookies untill they expire
+
+          defaultPref("media.peerconnection.enabled", true);
+          defaultPref("media.peerconnection.ice.no_host", false);
+
+          lockPref("browser.warnOnQuitShortcut", true);
+
+          lockPref("places.history.enabled", true);
+          lockPref("privacy.sanitize.pending", "[]");
+          lockPref("privacy.sanitize.sanitizeOnShutdown", false);
+
+          lockPref("browser.newtabpage.enabled", false);
+          lockPref("browser.startup.homepage", "about:blank");
+
+          defaultPref("browser.startup.page", 0);
+          lockPref("privacy.clearOnShutdown.history", false);
+
+          lockPref("font.name.serif.x-western", "{{ regularFont }}");
+          lockPref("font.size.variable.x-western", {{ regularFontSize }});
+
+          defaultPref("browser.policies.runOncePerModification.setDefaultSearchEngine", "Brave");
+
+          lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+          lockPref("dom.w3c_touch_events.enabled", 1);
+
+        dest: "~/.librewolf/librewolf.overrides.cfg"
+      when: browser == "librewolf"
+
+    - name: "Configure LibreWolf profile"
+      copy:
+        content: |
+          [Profile0]
+          Name=default
+          IsRelative=1
+          Path=profile.default
+          Default=1
+
+          [General]
+          StartWithLastProfile=1
+          Version=2
+        dest: "~/.librewolf/profiles.ini"
+      when: browser == "librewolf"
+
+    - name: "Configure LibreWolf NoTabs"
+      copy:
+        content: |
+          #TabsToolbar { visibility: collapse !important; }
+        dest: "~/.librewolf/profile.default/chrome/userChrome.css"
+      when: browser == "librewolf"
+
+    - name: "Install extenstions"
+      ignore_errors: True
+      get_url:
+        url: "{{ item.url }}"
+        dest: "~/.librewolf/profile.default/extensions/{{ item.name }}"
+      loop:
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3908159/tree_style_tab-3.8.21-fx.xpi"
+          name: "treestyletab@piro.sakura.ne.jp.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3864061/1password-2.1.4-fx.xpi"
+          name: "{d634138d-c276-4fc8-924b-40a0ea21d284}.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3859935/simplelogin_open_source_email_protection-2.5.1-an+fx.xpi"
+          name: "addon@simplelogin.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3878116/dark_reader-4.9.43-an+fx.xpi"
+          name: "addon@darkreader.org.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3871913/nas_download_manager_for_synology-0.12.0-fx.xpi"
+          name: "{b17c0686-033c-4d03-b526-b16c99998c98}.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3546070/xbrowsersync-1.5.2-fx.xpi"
+          name: "{019b606a-6f61-4d01-af2a-cea528f606da}.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5-fx.xpi"
+          name: "tst-wheel_and_double@dontpokebadgers.com.xpi"
+        - url: "https://addons.mozilla.org/firefox/downloads/file/3871992/tab_stash-2.10.1-fx.xpi"
+          name: "tab-stash@condordes.net.xpi"
+      when: browser == "librewolf"

@@ -6,6 +6,17 @@
     - svn
   block:
 
+    - name: Install base packages
+      kewlfft.aur.aur:
+        name:
+          - git-crypt
+          - git-trim
+          - pass-git-helper
+        use: yay
+        update_cache: True
+      become: yes
+      become_user: aur_builder
+
     - name: "Provide config dir"
       file:
         dest: "~/.config/git"

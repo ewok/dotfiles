@@ -1,4 +1,4 @@
-#+title: Emacs Configuration
++title: Emacs Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.config/emacs/init.el :mkdirp yes
 
 * Basic configuration
@@ -43,7 +43,6 @@
   (setq warning-minimum-level :error)
 
   (setq-default custom-file null-device)
-  (setq debug-on-error t)
 #+end_src
 
 ** Profiling
@@ -112,19 +111,19 @@
 ** Clean .emacs.d
 
 #+begin_src emacs-lisp
-  ;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-  (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-        url-history-file (expand-file-name "url/history" user-emacs-directory))
+  ;; ;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+  ;; (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+  ;;       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
-  ;; Use no-littering to automatically set common paths to the new user-emacs-directory
-  (use-package no-littering :straight t)
+  ;; ;; Use no-littering to automatically set common paths to the new user-emacs-directory
+  ;; (use-package no-littering :straight t)
 
-  ;; Keep customization settings in a temporary file (thanks Ambrevar!)
-  (setq custom-file
-        (if (boundp 'server-socket-dir)
-            (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-  (load custom-file t)
+  ;; ;; Keep customization settings in a temporary file (thanks Ambrevar!)
+  ;; (setq custom-file
+  ;;       (if (boundp 'server-socket-dir)
+  ;;           (expand-file-name "custom.el" server-socket-dir)
+  ;;         (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+  ;; (load custom-file t)
 #+end_src
 
 ** Some basics
@@ -223,23 +222,23 @@
 ** Prevent last frame deletion
 
 #+begin_src emacs-lisp
-  ;; (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
-  ;;   "Ask for confirmation before deleting the last frame"
-  ;;   (let ((frame   (posn-window (event-start event)))
-  ;;         (numfrs  (length (visible-frame-list)))
-  ;;         (maxfrs (if (daemonp) 1 0))
-  ;;         )
-  ;;     (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
-  ;;       ad-do-it)))
+  (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
+    "Ask for confirmation before deleting the last frame"
+    (let ((frame   (posn-window (event-start event)))
+          (numfrs  (length (visible-frame-list)))
+          (maxfrs (if (daemonp) 1 0))
+          )
+      (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
+        ad-do-it)))
 
-  ;; (defadvice delete-frame (around my-handle-delete-frame-advice activate)
-  ;;   "Ask for confirmation before deleting the last frame"
-  ;;   (let ((frame   (posn-window (event-start event)))
-  ;;         (numfrs  (length (visible-frame-list)))
-  ;;         (maxfrs (if (daemonp) 1 0))
-  ;;         )
-  ;;     (when (or (> numfrs 2) (y-or-n-p "Really close the last frame? "))
-  ;;       ad-do-it)))
+  (defadvice delete-frame (around my-handle-delete-frame-advice activate)
+    "Ask for confirmation before deleting the last frame"
+    (let ((frame   (posn-window (event-start event)))
+          (numfrs  (length (visible-frame-list)))
+          (maxfrs (if (daemonp) 1 0))
+          )
+      (when (y-or-n-p "Really close the frame? ")
+        ad-do-it)))
 #+end_src
 
 * Keybinding Configuration
@@ -319,6 +318,7 @@
       "tw" 'whitespace-mode
       "te" '(:ignore t :which-key "encoding")
       "te" (general-simulate-key "C-x RET")
+      "tD" 'toggle-debug-on-error
       ))
 #+end_src
 
@@ -400,8 +400,8 @@
      "S" 'newline-and-indent
      ;; "S" "mzi<CR><ESC>`z"
      ;; "J" "mzJ`z"
-     "Y" "y$"
      "H" "^"
+     "Y" "y$"
      "L" "$")
 
     (general-define-key
@@ -528,6 +528,7 @@
     (advice-add 'org-open-at-point-global :before 'better-jumper-set-jump)
     (advice-add 'org-roam-node-find :before 'better-jumper-set-jump)
     (advice-add 'markdown-do :before 'better-jumper-set-jump)
+    (advice-add 'find-file-at-point :before 'better-jumper-set-jump)
 
     (general-define-key
      :keymaps 'evil-normal-state-map
@@ -664,6 +665,8 @@
           dired-hide-details-hide-symlink-targets nil
           delete-by-moving-to-trash t)
 
+    (put 'dired-find-alternate-file 'disabled nil)
+
     (autoload 'dired-omit-mode "dired-x")
 
     (add-hook 'dired-load-hook
@@ -676,8 +679,7 @@
                 (interactive)
                 (dired-omit-mode 1)
                 (dired-hide-details-mode 1)
-                (hl-line-mode 1)
-                ))
+                (hl-line-mode 1))))
 
     (use-package dired-rainbow
       :straight t
@@ -711,23 +713,30 @@
       :straight t
       :defer t)
 
-    (eval-after-load "dired"
-      (lambda ()
-        (put 'dired-find-alternate-file 'disabled nil)
-        (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)))
-
     (use-package dired-collapse
       :straight t
       :defer t)
 
-    (evil-collection-define-key 'normal 'dired-mode-map
-      "h" 'dired-single-up-directory
-      "H" 'dired-omit-mode
-      "l" 'dired-single-buffer
-      "y" 'dired-ranger-copy
-      "P" 'dired-ranger-move
-      "p" 'dired-ranger-paste
-      (kbd "SPC") nil))
+    (general-define-key
+     :states 'normal
+     :keymaps 'dired-mode-map
+     "h" 'dired-single-up-directory
+     "H" 'dired-omit-mode
+     "l" 'dired-single-buffer
+     "y" 'dired-ranger-copy
+     "P" 'dired-ranger-move
+     "p" 'dired-ranger-paste
+     (kbd "SPC") nil
+     (kbd "RET") #'dired-find-alternate-file)
+
+    ;; (evil-collection-define-key 'normal 'dired-mode-map
+    ;;   "h" 'dired-single-up-directory
+    ;;   "H" 'dired-omit-mode
+    ;;   "l" 'dired-single-buffer
+    ;;   "y" 'dired-ranger-copy
+    ;;   "P" 'dired-ranger-move
+    ;;   "p" 'dired-ranger-paste
+    ;;   (kbd "SPC") nil))
 #+end_src
 
 ** Emojis
@@ -894,9 +903,9 @@ https://github.com/hlissner/evil-multiedit
 
   (setq display-buffer-base-action
         '((display-buffer-reuse-window
-           display-buffer-reuse-mode-window
            display-buffer-same-window
-           display-buffer-below-selected)))
+           display-buffer-below-selected)
+          (reusable-frames . t)))
 
   (setq even-window-sizes nil)
 #+end_src
@@ -1425,7 +1434,7 @@ https://github.com/Alexander-Miller/treemacs
       (kill-backward-chars arg)))
 
   (use-package vertico
-    :straight t
+    :straight (:includes (vertico-repeat vertico-directory))
     :bind (:map vertico-map
                 ("C-j" . vertico-next)
                 ("C-k" . vertico-previous)
@@ -1484,6 +1493,15 @@ https://github.com/Alexander-Miller/treemacs
     :hook (yaml-mode . origami-mode))
 #+end_src
 
+** Formatting
+
+#+begin_src emacs-lisp
+  (use-package apheleia
+    :straight t
+    :config
+    (apheleia-global-mode +1))
+    #+end_src
+
 ** Highlight Parens
 
 #+begin_src emacs-lisp
@@ -1492,6 +1510,16 @@ https://github.com/Alexander-Miller/treemacs
     :config
     (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
     (show-paren-mode 1))
+#+end_src
+
+** Indent mode(aggresive)
+
+#+begin_src emacs-lisp
+  (use-package aggressive-indent
+    :straight t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+    (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
 #+end_src
 
 ** Smart Parens
@@ -2141,7 +2169,7 @@ To build `metals-emacs`
 
 #+begin_src emacs-lisp
   (use-package magit
-    :straight t
+    :straight '(:type git :host github :repo "magit/magit" :commit "f44f6c14500476d918e9c01de8449edb20af4113")
     :defer t
     :commands (magit-dispatch)
     :init
@@ -2149,16 +2177,26 @@ To build `metals-emacs`
     :custom
     (magit-commit-diff-inhibit-same-window t)
     :init
-    (defun magit-display-buffer-pop-up-frame (buffer)
-      (if (with-current-buffer buffer (eq major-mode 'magit-status-mode))
-          (display-buffer buffer
-                          '((display-buffer-reuse-window
-                             display-buffer-pop-up-window
-                             display-buffer-pop-up-frame)
-                            (reusable-frames . t)))
-        (magit-display-buffer-traditional buffer)))
+    ;; (defun magit-display-buffer-pop-up-frame (buffer)
+    ;;   (if (with-current-buffer buffer (eq major-mode 'magit-status-mode))
+    ;;       (display-buffer buffer
+    ;;                       '((display-buffer-reuse-window
+    ;;                          display-buffer-pop-up-window
+    ;;                          display-buffer-pop-up-frame)
+    ;;                         (reusable-frames . t)))
+    ;;     (magit-display-buffer-traditional buffer)))
 
-    (setq magit-display-buffer-function #'magit-display-buffer-pop-up-frame)
+    ;; (setq magit-display-buffer-function #'magit-display-buffer-pop-up-frame)
+    ;; (defun bk/magit-display-diff-other-window (buffer)
+    ;;   "Display BUFFER in same-window but for magit-diff use other-window instead."
+    ;;   (display-buffer
+    ;;    buffer (if (with-current-buffer buffer (derived-mode-p 'magit-diff-mode))
+    ;;               '(display-buffer-pop-up-window)
+    ;;             '(display-buffer-same-window))))
+
+    ;; (setq magit-display-buffer-function
+    ;;       #'bk/magit-display-diff-other-window)
+
     :config
     (transient-append-suffix 'magit-dispatch "r"
       '("s" "Status" magit-status))
@@ -2175,43 +2213,43 @@ To build `metals-emacs`
     (transient-append-suffix 'magit-dispatch "\""
       '("." "+File" magit-file-dispatch)))
 
-  (use-package git-gutter
-    :straight t
-    :after magit
-    :custom
-    (git-gutter:update-interval 2)
-    :init
-    (general-define-key
-     :states 'normal
-     "]g" 'git-gutter:next-hunk
-     "[g" 'git-gutter:previous-hunk)
-    (transient-define-prefix git-gutter-dispatch ()
-      "Operate with hunks."
-      ["Git-gutter"
-       ("r" "Revert" git-gutter:revert-hunk)
-       ("s" "Stage"  git-gutter:stage-hunk)
-       ("p" "Popup"  git-gutter:popup-hunk)])
-    (transient-append-suffix 'magit-dispatch "F"
-      '("h" "Hunk" git-gutter-dispatch))
-    :config
-    (global-git-gutter-mode 1))
+    (use-package git-gutter
+      :straight t
+      :after magit
+      :custom
+      (git-gutter:update-interval 2)
+      :init
+      (general-define-key
+       :states 'normal
+       "]g" 'git-gutter:next-hunk
+       "[g" 'git-gutter:previous-hunk)
+      (transient-define-prefix git-gutter-dispatch ()
+        "Operate with hunks."
+        ["Git-gutter"
+         ("r" "Revert" git-gutter:revert-hunk)
+         ("s" "Stage"  git-gutter:stage-hunk)
+         ("p" "Popup"  git-gutter:popup-hunk)])
+      (transient-append-suffix 'magit-dispatch "F"
+        '("h" "Hunk" git-gutter-dispatch))
+      :config
+      (global-git-gutter-mode 1))
 
-  (use-package git-link
-    :straight t
-    :defer t
-    :commands 'git-link
-    :after magit
-    :init
-    (transient-append-suffix 'magit-dispatch "F"
-      '("g" "Link" git-link))
-    :config
-    (setq git-link-open-in-browser t))
+    (use-package git-link
+      :straight t
+      :defer t
+      :commands 'git-link
+      :after magit
+      :init
+      (transient-append-suffix 'magit-dispatch "F"
+        '("g" "Link" git-link))
+      :config
+      (setq git-link-open-in-browser t))
 
-  (use-package magit-todos
-    :straight t
-    :after magit
-    :init (magit-todos-mode 1)
-    :hook (magit-status-mode . magit-todos-mode))
+    (use-package magit-todos
+      :straight t
+      :after magit
+      :init (magit-todos-mode 1)
+      :hook (magit-status-mode . magit-todos-mode))
 #+end_src
 
 ** Rainbow Delimiters
