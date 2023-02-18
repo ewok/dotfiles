@@ -1,0 +1,39 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_backup_lock:
+    src: backup.lock
+    dst: ~/.local/backup.lock
+    actions:
+      - install_backup
+  f_backup_bin:
+    src: restic-backup
+    dst: /usr/bin/restic-backup
+    chmod: 0755
+  f_backup_service:
+    src: restic-backup.service
+    dst: /etc/systemd/system/restic-backup.service
+    actions:
+     - reload_backup_restic
+  f_backup_timer:
+    src: restic-backup.timer
+    dst: /etc/systemd/system/restic-backup.timer
+    actions:
+     - reload_backup_restic
+     - enable_backup_restic_timer
+     - start_backup_restic_timer
+actions:
+  pre:
+    install_backup: "{{@@ pm @@}} rclone restic"
+  post:
+    enable_backup_restic_timer: "systemctl enable restic-backup.timer"
+    start_backup_restic_timer: "systemctl start restic-backup.timer"
+    reload_backup_restic: "systemctl daemon-reload"
+profiles:
+  backup:
+    dotfiles:
+      - f_backup_lock
+      - f_backup_bin
+      - f_backup_service
+      - f_backup_timer

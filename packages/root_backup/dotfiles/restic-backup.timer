@@ -1,0 +1,15 @@
+[Install]
+WantedBy=timers.target
+WantedBy=ac.target
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=restic-backup.service
+RandomizedDelaySec=3600
+
+[Unit]
+Description=Restic backup timer
+Requisite=ac.target
+PartOf=ac.target
+

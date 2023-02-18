@@ -1,0 +1,20 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_cryptomator_lock:
+    src: cryptomator.lock
+    dst: ~/.local/cryptomator.lock
+    actions:
+      - install_cryptomator
+  f_cryptomator_config:
+    src: settings.json
+    dst: ~/.config/Cryptomator/settings.json
+actions:
+  pre:
+    install_cryptomator: "{{@@ pm @@}} cryptomator-bin"
+profiles:
+  cryptomator:
+    dotfiles:
+      - f_cryptomator_lock
+      - f_cryptomator_config

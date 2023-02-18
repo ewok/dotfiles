@@ -1,0 +1,8 @@
+[Service]
+ExecStart=xcape -e 'Control_L=Escape'
+Type=simple
+Restart=on-failure
+[Unit]
+Description=Xcape
+[Install]
+WantedBy=graphical-session.target

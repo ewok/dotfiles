@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+NOTE="$HOME/Notes/diary/$(date +%Y-%m-%d).md"
+if [ $# -ge 1 ]
+then
+echo "[$(date +%H:%M)] $*" >> "$NOTE"
+vim -c '$' -c 'startinsert!' "$NOTE"
+else
+vim -c '$' -c 'startinsert!' "$NOTE"
+fi

@@ -1,0 +1,27 @@
+config:
+  # import_variables:
+  #   - "local_vars.yaml"
+dotfiles:
+  f_terraform_lock:
+    src: terraform.lock
+    dst: ~/.local/terraform.lock
+    actions:
+      - install_terraform
+      - usermod_terraform
+  f_terraform_fish:
+    src: 90_tfenv_init.fish
+    dst: ~/.config/fish/conf.d/90_tfenv_init.fish
+  # f_terraform_bin:
+  #   src: tfenv
+  #   dst: "{{@@ bin @@}}/tfenv"
+  #   chmod: 0755
+actions:
+  pre:
+    install_terraform: "{{@@ pm @@}} aur/tfenv aur/helmenv-bin aur/tgenv"
+    usermod_terraform: "sudo usermod -aG tfenv $USER"
+profiles:
+  terraform:
+    dotfiles:
+      - f_terraform_lock
+      # - f_terraform_bin
+      - f_terraform_fish

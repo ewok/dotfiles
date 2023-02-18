@@ -1,0 +1,24 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_syncthing_lock:
+    src: syncthing.lock
+    dst: ~/.local/syncthing.lock
+    actions:
+      - install_syncthing
+  f_syncthing_gtk:
+    src: syncthing-gtk
+    dst: "~/.config/syncthing-gtk/config.json"
+  f_syncthing_i3:
+    src: i3_autostart
+    dst: ~/.config/i3/autostart.d/syncthing-gtk.conf
+actions:
+  pre:
+    install_syncthing: "{{@@ pm @@}} syncthing syncthing-gtk"
+profiles:
+  syncthing:
+    dotfiles:
+      - f_syncthing_lock
+      - f_syncthing_gtk
+      - f_syncthing_i3

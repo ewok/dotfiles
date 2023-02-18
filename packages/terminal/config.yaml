@@ -1,0 +1,20 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_terminal_lock:
+    src: terminal.lock
+    dst: ~/.local/terminal.lock
+    actions:
+      - install_terminal
+  f_terminal:
+    src: alacritty.yml
+    dst: ~/.config/alacritty/alacritty.yml
+actions:
+  pre:
+    install_terminal: "{{@@ pm @@}} alacritty"
+profiles:
+  terminal:
+    dotfiles:
+      - f_terminal_lock
+      - f_terminal

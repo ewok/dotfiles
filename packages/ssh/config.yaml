@@ -1,0 +1,10 @@
+config:
+dotfiles:
+  f_ssh:
+    src: config
+    dst: ~/.ssh/config
+    chmod: 0600
+profiles:
+  ssh:
+    dotfiles:
+      - f_ssh

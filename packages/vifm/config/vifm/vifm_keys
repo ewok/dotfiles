@@ -1,0 +1,112 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+"
+nnoremap g. :set dotfiles<cr>
+
+" Start shell in current directory
+nnoremap s :!tmux-sp-s<cr>
+nnoremap v :!tmux-sp-v<cr>
+nnoremap t :!tmux-sp-t<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" View marks, bookmarks, regs, tasks
+nnoremap Wj :jobs<cr>
+nnoremap Wm :marks<cr>
+nnoremap Wb :bmarks<cr>
+nnoremap Wr :reg<cr>
+nnoremap Wt :trashes<cr>
+
+" Open file
+nnoremap o :file<cr>
+nnoremap O :!$OPEN_CMD %f<cr>
+
+" Yank current directory path into the clipboard
+nnoremap yd :!echo %d | xclip %i<cr>
+
+" Yank current file path into the clipboard
+nnoremap yf :!echo %c:p | xclip %i<cr>
+
+" Put
+nnoremap pp :put<cr>
+nnoremap PP :put!<cr>
+
+nnoremap pb :put &<cr>
+nnoremap Pb :put! &<cr>
+nnoremap PB :put! &<cr>
+
+" Mappings for faster renaming
+nnoremap I cw<c-a>
+nnoremap cc cw<c-u>
+nnoremap A cw<c-w>
+
+" Open vim to edit vifmrc and apply settings after returning to vifm
+nnoremap ,c :write | execute ':!vim $MYVIFMRC' | restart<cr>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+" Example of standard two-panel file managers mappings
+nnoremap <f5> :copy
+nnoremap <f6> :move
+nnoremap <f7> :mkdir<space>
+nnoremap <f8> :delete
+nnoremap <f10> :q<cr>
+
+" Like in MC
+nnoremap <c-s> /
+nnoremap <m-i> :sync<cr>
+nnoremap <c-w>f :sync %c<cr><down>
+nnoremap <silent> <m-o> :sync %c<cr><down>
+nnoremap <m-?> :find<space>
+
+" Selecting like in MC
+nnoremap J av<c-g><c-g><c-m>j
+nnoremap K av<c-g><c-g><c-m>k
+
+" Tmux plugin navigator
+nnoremap <BS> :!if [ -n "$TMUX" ]; tmux select-pane -L;end<cr>
+nnoremap <c-h> :!if [ -n "$TMUX" ]; tmux select-pane -L;end<cr>
+nnoremap <c-j> :!if [ -n "$TMUX" ]; tmux select-pane -D;end<cr>
+nnoremap <c-k> :!if [ -n "$TMUX" ]; tmux select-pane -U;end<cr>
+nnoremap <c-l> :!if [ -n "$TMUX" ]; tmux select-pane -R;end<cr>
+
+" nnoremap io :code .<cr>
+nnoremap io :vim +'au VimEnter * silent! SessionLoad'<cr>
+nnoremap ii :vim %f<cr>
+nnoremap it :!if [ -n "$TMUX" ]; tmux new-window vim %f;end<CR>
+nnoremap is :!if [ -n "$TMUX" ]; tmux split-window -v -p 80 vim %f;end<CR>
+nnoremap iv :!if [ -n "$TMUX" ]; tmux split-window -h -p 80 vim %f;end<CR>
+
+" Autojump
+nnoremap gj :j<Space>
+
+" Tabs
+nnoremap <c-w>t :tabnew<CR>
+nnoremap <c-w>q :tabclose<CR>
+nnoremap gt :tabnext<CR>
+nnoremap gr :tabprevious<CR>
+
+" GoTo
+nnoremap gb :cd ~/bin<cr>
+nnoremap gd :cd ~/Documents<cr>
+nnoremap gD :cd ~/Downloads<cr>
+nnoremap gh :cd<cr>
+nnoremap gM :cd ~/media<cr>
+nnoremap gm :cd ~/mnt<cr>
+nnoremap gp :cd ~/projects<cr>
+nnoremap gT :cd ~/tmp<cr>
+
+" Registers
+nnoremap " :reg<cr>
+
+" Filter
+nnoremap f =
+
+" Quit
+nnoremap q :q<cr>

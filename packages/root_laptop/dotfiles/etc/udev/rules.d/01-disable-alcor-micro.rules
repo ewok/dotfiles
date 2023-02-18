@@ -1,0 +1,3 @@
+SUBSYSTEM=="usb", ACTION=="add", ATTR{removable}=="fixed", ATTR{idVendor}=="058f", ATTR{idProduct}=="9540", ATTR{authorized}="0"
+SUBSYSTEM=="usb", ACTION=="change", ATTR{removable}=="fixed", ATTR{idVendor}=="058f", ATTR{idProduct}=="9540", ATTR{authorized}="0"
+

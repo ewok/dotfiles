@@ -1,0 +1,16 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  d_nix_start:
+    src: .config
+    dst: ~/.config
+  f_nix:
+    src: nix-init
+    dst: "{{@@ bin @@}}/nix-init"
+    chmod: 0755
+profiles:
+  nix:
+    dotfiles:
+      - d_nix_start
+      - f_nix

@@ -1,0 +1,74 @@
+config:
+  backup: true
+  banner: false
+  create: true
+  ignoreempty: false
+  keepdot: false
+  longkey: false
+  showdiff: false
+  workdir: ~/.config/dotdrop
+  dotpath: packages
+  import_variables:
+    - "local_vars.yaml"
+  import_configs:
+    - packages/redshift/config.yaml
+    - packages/rofi/config.yaml
+      #- packages/rslsync/config.yaml
+    - packages/ssh/config.yaml
+    - packages/starship/config.yaml
+    - packages/svn/config.yaml
+    - packages/telegram/config.yaml
+    - packages/terminal/config.yaml
+    - packages/terraform/config.yaml
+    - packages/tmux/config.yaml
+    - packages/vifm/config.yaml
+    - packages/yubikey/config.yaml
+    - packages/notes/config.yaml
+    - packages/scripts/config.yaml
+    - packages/syncthing/config.yaml
+dotfiles:
+profiles:
+  ewok-t14s:
+    include:
+      - redshift
+      - rofi
+      - ssh
+      - starship
+      - svn
+      - telegram
+      - terminal
+      - terraform
+      - tmux
+      - vifm
+      - yubikey
+      - notes
+      - scripts
+      - syncthing
+    dynvariables:
+      hostname: echo ewok-t14s
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+  ewok-rpi:
+    include:
+      - ssh
+      - starship
+      - svn
+      - terraform
+      - tmux
+      - vifm
+      - notes
+      - scripts
+    dynvariables:
+      hostname: echo ewok-rpi
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+  vmi839551.contaboserver.net:
+    include:
+      - ssh
+      - starship
+      - svn
+      - terraform
+      - tmux
+      - vifm
+      - scripts
+    dynvariables:
+      hostname: echo vmi839551.contaboserver.net
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}

@@ -1,0 +1,39 @@
+config:
+dotfiles:
+  f_fish:
+    src: config.fish
+    dst: ~/.config/fish/config.fish
+    actions:
+      - install_fish
+  f_fish_fisher:
+    src: fisher.fish
+    dst: ~/.config/fish/functions/fisher.fish
+    actions:
+      - install_fish_fisher
+  f_fish_plugins:
+    src: fish_plugins
+    dst: ~/.config/fish/fish_plugins
+  f_fish_conf1:
+    src: 00_pre_init.fish
+    dst: ~/.config/fish/conf.d/00_pre_init.fish
+  f_fish_conf2:
+    src: 01_init_interactive.fish
+    dst: ~/.config/fish/conf.d/01_init_interactive.fish
+  f_fish_conf3:
+    src: 95_greeting.fish
+    dst: ~/.config/fish/conf.d/95_greeting.fish
+actions:
+  pre:
+    install_fish: "{{@@ pm @@}} community/fish community/fasd community/exa community/bat community/dfc community/fd community/global aur/viddy"
+    install_fish_fisher: "curl -o {{@@ _dotdrop_dotpath @@}}/fish/dotfiles/fisher.fish https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish"
+  post:
+    create_dirs: "mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d"
+profiles:
+  fish:
+    dotfiles:
+      - f_fish
+      - f_fish_fisher
+      - f_fish_plugins
+      - f_fish_conf1
+      - f_fish_conf2
+      - f_fish_conf3

@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+if bw status 2>/dev/null | grep -q '"locked"'
+ set -Ue BW_SESSION
+end

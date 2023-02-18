@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export TFENV_CONFIG_DIR="$HOME/.config/tfenv"
+exec -a "$0" "/usr/bin/tfenv" "$@"

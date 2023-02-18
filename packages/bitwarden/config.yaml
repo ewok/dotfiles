@@ -1,0 +1,25 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  d_bitwarden_start:
+    src: bitwarden.lock
+    dst: ~/.local/bitwarden.lock
+    actions:
+      - install_bitwarden
+  f_bitwarden_fish:
+    src: 99_bw.fish
+    dst: ~/.config/fish/conf.d/99_bw.fish
+  f_bitwarden_bin:
+    src: bw-reset
+    dst: "{{@@ bin @@}}/bw-reset"
+    chmod: 0755
+actions:
+  pre:
+    install_bitwarden: "{{@@ pm @@}} community/bitwarden community/bitwarden-cli"
+profiles:
+  bitwarden:
+    dotfiles:
+      - d_bitwarden_start
+      - f_bitwarden_fish
+      - f_bitwarden_bin

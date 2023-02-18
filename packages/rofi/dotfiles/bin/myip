@@ -1,0 +1,9 @@
+dmenucmd="rofi_run -dmenu -p MyIP: $@"
+while : ; do
+    result=$(curl ifconfig.me | $dmenucmd)
+    if [[ $result ]]; then
+        printf "$result" | xclip -i -f -selection primary | xclip -i -selection clipboard
+    fi
+    [[ $result ]] || break
+done
+

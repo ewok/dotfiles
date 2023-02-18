@@ -1,0 +1,60 @@
+add_newline = false
+scan_timeout = 10
+
+[battery]
+[[battery.display]]
+style = "bold red"
+threshold = 15
+
+[[battery.display]]
+style = "bold yellow"
+threshold = 30
+
+[character]
+error_symbol = "[λ](bold red)"
+success_symbol = "[λ](bold green)"
+vicmd_symbol = "[λ](bold blue)"
+
+[conda]
+disabled = true
+
+[directory]
+truncation_length = 8
+truncation_symbol = "…/"
+
+[dotnet]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[erlang]
+disabled = true
+
+[gcloud]
+format = "on [($symbol$project)]($style) "
+
+[git_status]
+modified = "*"
+renamed = "R"
+
+[nodejs]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[php]
+disabled = true
+
+[status]
+disabled = false
+format = "[[$symbol$status]]($style) "
+style = "bg:blue"
+
+[kubernetes]
+# format = '[⛵ $context ](dimmed green)'
+disabled = false

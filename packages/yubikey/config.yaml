@@ -1,0 +1,47 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_yubikey_lock:
+    src: yubikey.lock
+    dst: ~/.local/yubikey.lock
+    actions:
+      - install_yubikey
+      - enable_yubikey_pcscd
+      - start_yubikey_pcscd
+      # - disable_yubikey_gpg_agent
+      # - stop_yubikey_gpg_agent
+      # - disable_yubikey_keyring
+  d_yubikey:
+    src: gnupg
+    dst: ~/.gnupg
+  d_yubikey_bin:
+    src: bin
+    dst: "{{@@ bin @@}}"
+    chmod: 0755
+  d_yubikey_fish:
+    src: fish
+    dst: ~/.config/fish/conf.d
+  f_yubikey_keyring_service:
+    src: gnome-keyring-daemon.service
+    dst: ~/.config/systemd/user/gnome-keyring-daemon.service
+    actions:
+      - reload_yubikey_keyring
+actions:
+  pre:
+    install_yubikey: "{{@@ pm @@}} gnome-keyring libgnome-keyring pcsclite pcsc-tools pinentry yubikey-manager seahorse"
+  post:
+    enable_yubikey_pcscd: "sudo systemctl enable pcscd"
+    start_yubikey_pcscd: "sudo systemctl start pcscd"
+    reload_yubikey_keyring: "systemctl --user daemon-reload"
+    # disable_yubikey_gpg_agent: "systemctl --user disable gpg-agent"
+    # disable_yubikey_keyring: "systemctl --user disable --now gnome-keyring-daemon.service gnome-keyring-daemon.socket && systemctl --user mask gnome-keyring-daemon.socket"
+    # stop_yubikey_gpg_agent: "systemctl --user stop gpg-agent"
+profiles:
+  yubikey:
+    dotfiles:
+      - f_yubikey_lock
+      - d_yubikey
+      - d_yubikey_bin
+      - d_yubikey_fish
+      - f_yubikey_keyring_service

@@ -1,0 +1,85 @@
+config:
+  backup: true
+  banner: false
+  create: true
+  ignoreempty: false
+  keepdot: false
+  longkey: false
+  showdiff: false
+  workdir: ~/.config/dotdrop
+  dotpath: packages
+  import_variables:
+    - "local_vars.yaml"
+  import_configs:
+    - packages/aws/config.yaml
+    - packages/lisps/config.yaml
+    - packages/base/config.yaml
+    - packages/bitwarden/config.yaml
+    - packages/bluetooth/config.yaml
+    - packages/browser/config.yaml
+    - packages/cryptomator/config.yaml
+    - packages/direnv/config.yaml
+    - packages/fish/config.yaml
+    - packages/fonts/config.yaml
+    - packages/git/config.yaml
+    - packages/i3/config.yaml
+    - packages/kube/config.yaml
+    - packages/mimeapps/config.yaml
+    - packages/networkmanager/config.yaml
+    - packages/nix/config.yaml
+    - packages/nvim/config.yaml
+    - packages/obsidian/config.yaml
+    - packages/pipewire/config.yaml
+dotfiles:
+profiles:
+  ewok-t14s:
+    include:
+      - aws
+      - lisps
+      - base
+      - bitwarden
+      - bluetooth
+      - browser
+      - cryptomator
+      - direnv
+      - fish
+      - fonts
+      - git
+      - i3
+      - kube
+      - mimeapps
+      - networkmanager
+      - nix
+      - nvim
+      - obsidian
+      - pipewire
+    dynvariables:
+      hostname: echo ewok-t14s
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+  ewok-rpi:
+    include:
+      - aws
+      - lisps
+      - base
+      - direnv
+      - fish
+      - git
+      - kube
+      - nix
+      - nvim
+    dynvariables:
+      hostname: echo ewok-rpi
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+  vmi839551.contaboserver.net:
+    include:
+      - lisps
+      - base
+      - direnv
+      - fish
+      - git
+      - kube
+      - nix
+      - nvim
+    dynvariables:
+      hostname: echo vmi839551.contaboserver.net
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}

@@ -1,0 +1,21 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_obsidian_lock:
+    src: obsidian.lock
+    dst: ~/.local/obsidian.lock
+    actions:
+      - install_obsidian
+  f_obsidian_bin:
+    src: add-todo
+    dst: "{{@@ bin @@}}/add-todo"
+    chmod: 0755
+actions:
+  pre:
+    install_obsidian: "{{@@ pm @@}} obsidian"
+profiles:
+  obsidian:
+    dotfiles:
+      - f_obsidian_lock
+      - f_obsidian_bin

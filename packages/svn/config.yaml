@@ -1,0 +1,21 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_subversion:
+    src: config
+    dst: ~/.subversion/config
+    actions:
+      - install_svn
+  f_subversion_bin:
+    src: svn-rm-rm
+    dst: "{{@@ bin @@}}/svn-rm-rm"
+    chmod: 0755
+actions:
+  pre:
+    install_svn: "{{@@ pm @@}} extra/subversion"
+profiles:
+  svn:
+    dotfiles:
+      - f_subversion
+      - f_subversion_bin

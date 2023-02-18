@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+exec -a "$0" "/usr/bin/lazygit" "$@"
+

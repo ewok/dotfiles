@@ -3,16 +3,6 @@
 with pkgs;
 let
 
-  rebuildTools = writeScriptBin "rebuild-tools" ''
-    #!/bin/fish
-    run host rebuild-tools $argv
-  '';
-
-  update = writeScriptBin "rebuild-os" ''
-    #!/bin/fish
-    run host rebuild-os $argv
-  '';
-
   git-crypt-status = writeShellScriptBin "git-crypt-status" ''
     git-crypt status | grep -v not
   '';
@@ -28,7 +18,7 @@ pkgs.mkShell {
     # PATH=${nix}/bin:$PATH
     echo *******************START*******************
     git-crypt-status
-    curl -sL 'https://github.com/ewok/fedora-config/raw/main/settings.yaml' | md5sum -c settings.yaml.md5
+    curl -sL 'https://github.com/ewok/dotfiles/raw/main/local_vars.yaml' | md5sum -c local_vars.yaml.md5
     if [ $? -ne 0 ]; then
       echo WARNING WARNING settings.yaml does not match hash!
       exit 1

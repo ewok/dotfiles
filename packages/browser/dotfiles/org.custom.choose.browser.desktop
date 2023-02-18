@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Network;WebBrowser
+Comment=Choose browser to open URL
+Exec=choose-browser %U
+Name=ChooseBrowser
+Terminal=false
+Type=Application
+

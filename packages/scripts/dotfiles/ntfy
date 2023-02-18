@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 2 ]; then echo "Usage: ntfy <message> <topic>";fi
+
+curl -d "$1" ntfy.sh/$(echo -n "$2" | base64|sed 's/=//')

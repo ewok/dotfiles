@@ -1,0 +1,8 @@
+[Install]
+WantedBy=timers.target
+[Timer]
+OnCalendar=*:0/20
+Persistent=true
+Unit=notes-sync.service
+[Unit]
+Description=Sync notes

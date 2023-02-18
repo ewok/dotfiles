@@ -1,0 +1,49 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_laptop_lock:
+    src: laptop.lock
+    dst: ~/.local/laptop.lock
+    actions:
+      - install_laptop
+      - reload_udev_laptop
+      - enable_laptop_ac
+      - enable_laptop_battery
+      - start_laptop_ac
+      - start_laptop_battery
+  d_laptop_etc:
+    src: etc
+    dst: /etc
+    actions:
+      - enable_laptop_tlp
+      - start_laptop_tlp
+      - mask_laptop_rfkill_service
+      - mask_laptop_rfkill_socket
+      - enable_laptop_nm
+      - start_laptop_nm
+  f_laptop_usr:
+    src: usr/local/bin/ac_bat_target
+    dst: /usr/local/bin/ac_bat_target
+    chmod: 0755
+actions:
+  pre:
+    install_laptop: "{{@@ pm @@}} tlp powertop tlp-rdw"
+  post:
+    reload_udev_laptop: "udevadm control --reload-rules"
+    enable_laptop_ac: "systemctl enable ac_init"
+    enable_laptop_battery: "systemctl enable bat_init"
+    enable_laptop_tlp: "systemctl enable tlp"
+    start_laptop_ac: "systemctl start ac_init"
+    start_laptop_battery: "systemctl start bat_init"
+    start_laptop_tlp: "systemctl start tlp"
+    mask_laptop_rfkill_service: "systemctl mask systemd-rfkill.service"
+    mask_laptop_rfkill_socket: "systemctl mask systemd-rfkill.socket"
+    enable_laptop_nm: "systemctl enable NetworkManager-dispatcher.service"
+    start_laptop_nm: "systemctl start NetworkManager-dispatcher.service"
+profiles:
+  laptop:
+    dotfiles:
+      - f_laptop_usr
+      - d_laptop_etc
+      - f_laptop_lock

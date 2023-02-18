@@ -1,0 +1,55 @@
+{
+  # "env": {
+  #   "WINIT_X11_SCALE_FACTOR": "1"
+  # },
+  "colors": {
+    "bright": {
+      "black":"0x{{@@ colors.color8 @@}}",
+      "blue":"0x{{@@ colors.color12 @@}}",
+      "cyan":"0x{{@@ colors.color14 @@}}",
+      "green":"0x{{@@ colors.color10 @@}}",
+      "magenta":"0x{{@@ colors.color13 @@}}",
+      "red":"0x{{@@ colors.color9 @@}}",
+      "white":"0x{{@@ colors.color15 @@}}",
+      "yellow":"0x{{@@ colors.color11 @@}}"
+    },
+    "normal":{
+      "black":"0x{{@@ colors.color0 @@}}",
+      "blue":"0x{{@@ colors.color4 @@}}",
+      "cyan":"0x{{@@ colors.color6 @@}}",
+      "green":"0x{{@@ colors.color2 @@}}",
+      "magenta":"0x{{@@ colors.color5 @@}}",
+      "red":"0x{{@@ colors.color1 @@}}",
+      "white":"0x{{@@ colors.color7 @@}}",
+      "yellow":"0x{{@@ colors.color3 @@}}"
+    },
+    "primary":{
+      "background":"0x{{@@ colors.background @@}}",
+      "foreground":"0x{{@@ colors.foreground @@}}"
+    }
+  },
+  "cursor":{
+    "blinking":"On",
+    "cursor":"0x{{@@ colors.cursor @@}}",
+    "style":"Block",
+    "text":"0x{{@@ colors.text @@}}"
+  },
+  "font":{
+    "normal":{
+      "family":"{{@@ monospace_font @@}}",
+      "style":"Regular"
+    },
+      "size":{{@@ monospace_font_size @@}}
+    },
+    "key_bindings":[
+      {
+        "chars":"\x1b[13;5u", "key":"Return", "mods":"Control"
+      },{
+        "chars":"\x1b[13;2u","key":"Return","mods":"Shift"
+      }
+    ],
+    "scrolling":{
+      "history":100000
+    }
+}
+

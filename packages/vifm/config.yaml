@@ -1,0 +1,23 @@
+config:
+  dotpath: config
+dotfiles:
+  f_vifm_lock:
+    src: vifm.lock
+    dst: ~/.local/vifm.lock
+    actions:
+      - install_vifm
+  d_vifm:
+    src: vifm
+    dst: ~/.config/vifm
+  f_vifm:
+    src: vifm.fish
+    dst: ~/.config/fish/functions/vifm.fish
+actions:
+  pre:
+    install_vifm: "{{@@ pm @@}} exta/zip community/vifm extra/unzip extra/p7zip community/sshfs community/curlftpfs community/trash-cli aur/archivemount-git aur/epr-git"
+profiles:
+  vifm:
+    dotfiles:
+      - f_vifm_lock
+      - d_vifm
+      - f_vifm

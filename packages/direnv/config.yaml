@@ -1,0 +1,20 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_direnv_lock:
+    src: direnv.lock
+    dst: ~/.local/direnv.lock
+    actions:
+      - install_direnv
+  f_direnv_fish:
+    src: 90_direnv_init.fish
+    dst: ~/.config/fish/conf.d/90_direnv_init.fish
+actions:
+  pre:
+    install_direnv: "{{@@ pm @@}} community/direnv"
+profiles:
+  direnv:
+    dotfiles:
+      - f_direnv_lock
+      - f_direnv_fish

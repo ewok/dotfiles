@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ ! $(command -v xclip) ];then notify-send -t 5000 "xclip is not installed";fi
+
+PASS=""
+if [ ! "$(ykman info)" ]
+then
+    {{@@ bin @@}}/rofi_run -dmenu -mesg "Yubikey not detected." -a "{{@@ bin @@}}/rofi-ykman"
+    exit 1
+else
+    PASS_ENABLED=$(ykman oath info | grep "Password protection" | awk '{print $3}')
+    PASS_REMEMBERED=$(ykman oath info | grep -q "The password for this YubiKey is remembered by ykman.";echo $?)
+    if [ "$PASS_ENABLED" == "enabled" ]
+    then
+        if [ "$PASS_REMEMBERED" == "1" ]
+        then
+          PASS="-p $({{@@ bin @@}}/rofi_run -password -dmenu -p 'Vault Password' -l 0 -sidebar -width 20)"
+        fi
+    fi
+fi
+
+OPTIONS=$(ykman oath accounts list $PASS)
+LAUNCHER="{{@@ bin @@}}/rofi_run -dmenu -i -p YubikeyOATH"
+
+option=`echo "${OPTIONS/, TOTP/\n}" | $LAUNCHER`
+code=$(ykman oath accounts code $PASS "$option")
+IFS=', ' read -r -a code <<< "$code"
+echo "${code[-1]}" | xclip -i -f -selection primary | xclip -i -selection clipboard
+
+notify-send -t 5000 "${code[-1]}"

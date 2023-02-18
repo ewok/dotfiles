@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-1.yaml update $1
+dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-2.yaml update $1
+sudo dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-root.yaml update $1

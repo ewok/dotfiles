@@ -1,0 +1,24 @@
+config:
+dotfiles:
+  f_fonts:
+    src: fonts.lock
+    dst: ~/.local/fonts.lock
+    actions:
+      - create_fonts_folder
+      - download_fonts_mono
+      - download_fonts_code
+      - unpack_fonts_mono
+      - unpack_fonts_code
+      - install_fonts
+actions:
+  pre:
+    create_fonts_folder: "mkdir -p ~/.fonts"
+    download_fonts_mono: "curl -L -o ~/.local/FiraMono.zip -C - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraCode.zip"
+    download_fonts_code: "curl -L -o ~/.local/FiraCode.zip -C - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraMono.zip"
+    unpack_fonts_mono: "unzip -o -d ~/.fonts ~/.local/FiraMono.zip"
+    unpack_fonts_code: "unzip -o -d ~/.fonts ~/.local/FiraCode.zip"
+    install_fonts: "{{@@ pm @@}} ttf-font-awesome ttf-font-icons"
+profiles:
+  fonts:
+    dotfiles:
+      - f_fonts

@@ -1,0 +1,10 @@
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target bat_start"
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target ac_stop"
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target ac_start"
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target bat_stop"
+
+SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target bat_start"
+SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target ac_stop"
+SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target ac_start"
+SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target bat_stop"
+

@@ -1,0 +1,29 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  d_browser_start:
+    src: browser.lock
+    dst: ~/.local/browser.lock
+    actions:
+      - install_browser
+  f_browser_choose:
+    src: choose-browser
+    dst: "{{@@ bin @@}}/choose-browser"
+    chmod: 0755
+  f_browser_fish:
+    src: 50_browser.fish
+    dst: ~/.config/fish/conf.d/50_browser.fish
+  f_browser_mime:
+    src: org.custom.choose.browser.desktop
+    dst: ~/.local/share/applications/org.custom.choose.browser.desktop
+actions:
+  pre:
+    install_browser: "{{@@ pm @@}} google-chrome"
+profiles:
+  browser:
+    dotfiles:
+      - d_browser_start
+      - f_browser_choose
+      - f_browser_fish
+      - f_browser_mime

@@ -1,0 +1,9 @@
+* {
+  background: #{{@@ colors.color10 @@}}ff;
+  foreground: #{{@@ colors.foreground @@}}ff;
+  lightbg:    #{{@@ colors.color11 @@}}ff;
+  lightfg:    #{{@@ colors.foreground @@}}ff;
+  red:        #{{@@ colors.color1 @@}}ff;
+  blue:       #{{@@ colors.color4 @@}}ff;
+  font:       "{{@@ regular_font @@}} {{@@ regular_font_size @@}}";
+}

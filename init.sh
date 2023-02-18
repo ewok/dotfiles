@@ -4,7 +4,8 @@ set -e
 
 sudo pacman -Syu --needed
 sudo pacman -S --needed yay
-yay -S --needed ansible fish
-ansible-galaxy collection install community.general
-ansible-galaxy collection install kewlfft.aur
-sudo usermod -s /bin/fish $USER
+yay -S --needed dotdrop
+
+dotdrop -c config-user-1.yaml install
+dotdrop -c config-user-2.yaml install
+sudo dotdrop -c config-root.yaml install

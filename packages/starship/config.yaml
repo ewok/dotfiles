@@ -1,0 +1,18 @@
+config:
+dotfiles:
+  f_starship_config:
+    src: starship.toml
+    dst: ~/.config/starship.toml
+    actions:
+      - install_starship
+  f_starship_fish:
+    src: 99_starship.fish
+    dst: ~/.config/fish/conf.d/99_starship.fish
+actions:
+  pre:
+    install_starship: "{{@@ pm @@}} community/starship"
+profiles:
+  starship:
+    dotfiles:
+      - f_starship_config
+      - f_starship_fish

@@ -1,8 +1,0 @@
-- name: "Cleanup mime"
-  file:
-    path: "~/.config/mimeapps.list"
-    state: absent
-  tags:
-    - never
-    - cleanup
-

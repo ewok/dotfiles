@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+TOUCHPADS=$(xinput list --name-only | grep Touchpad)
+
+IFS=$'\n'
+for tch in $TOUCHPADS;do
+    xinput set-prop "$tch" "libinput Natural Scrolling Enabled" 1
+done

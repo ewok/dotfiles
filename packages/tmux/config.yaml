@@ -1,0 +1,26 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_tmux:
+    src: tmux.conf
+    dst: ~/.config/tmux/tmux.conf
+    actions:
+      - install_tmux
+  f_tmux_bin_tm:
+    src: tm
+    dst: "{{@@ bin @@}}/tm"
+    chmod: 0755
+  f_tmux_bin_tssh:
+    src: tssh
+    dst: "{{@@ bin @@}}/tssh"
+    chmod: 0755
+actions:
+  pre:
+    install_tmux: "{{@@ pm @@}} community/tmux"
+profiles:
+  tmux:
+    dotfiles:
+      - f_tmux
+      - f_tmux_bin_tm
+      - f_tmux_bin_tssh

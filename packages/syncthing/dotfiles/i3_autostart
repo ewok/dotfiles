@@ -1,0 +1,2 @@
+exec_always --no-startup-id pgrep syncthing-gtk || syncthing-gtk
+

@@ -1,0 +1,43 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+" COMMANDS
+
+" :com[mand][!] command_name action
+" The following macros can be used in a command
+" %a is replaced with the user arguments.
+" %c the current file under the cursor.
+" %C the current file under the cursor in the other directory.
+" %f the current selected file, or files.
+" %F the current selected file, or files in the other directory.
+" %b same as %f %F.
+" %d the current directory name.
+" %D the other window directory name.
+" %m run the command in a menu window
+
+command! rsync bash -c 'LIST=$(for f in %f;do echo -n "$f|";done);rsync_tq.sh %d %D "$LIST"'
+
+command! df df -h %m 2> /dev/null
+command! diff vim -d %f %F
+command! run !! ./%f
+command! make !!make %a
+command! vgrep vim "+grep %a"
+
+command! reload :write | restart
+
+command! j :execute 'cd' system('fasd -d1 %a')
+
+command! vim nvim %a
+command! nvim nvim %a
+command! em em %a
+
+command! code code %a
+
+command! zip bash -c 'for f in %f; do zip -r "$f.zip" "$f"; done'
+command! zipto zip -r %a.zip %f
+command! targz targz %f
+command! tarbz tarbz %f
+command! targz sh -c 'for f in %f; do tar -zcvf "$f.tar.gz" "$f";done'
+command! tarbz sh -c 'for f in %f; do tar -jcvf "$f.tar.bz2" "$f";done'
+
+command! gz unset DECOMP; case %f in; *.gz) DECOMP=-d;;; *.[zZ]) DECOMP=-d;;; esac; gzip $DECOMP -v %f
+command! bzip unset DECOMP; case %f in; *.bz2) DECOMP=-d;;; esac; bzip2 $DECOMP -v %f

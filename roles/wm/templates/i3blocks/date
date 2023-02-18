@@ -1,9 +1,0 @@
-#!/bin/bash
-
-DATE=$(date +"📆 %Y-%m-%d")
-MSK=$(date +"🇷🇺 %R")
-UTC=$(date -u +"🌐 %R")
-PHT=$(TZ='Asia/Manila' date +"🇵🇭 %R")
-KG=$(TZ='Asia/Bishkek' date +"🇰🇬 %R")
-echo "$DATE $UTC $MSK $KG $PHT"
-echo "$DATE $UTC $MSK $KG $PHT"

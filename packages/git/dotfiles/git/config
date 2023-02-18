@@ -1,0 +1,31 @@
+[absorb]
+  maxstack = 75
+
+[core]
+  askPass = ""
+  autocrlf = false
+  excludesfile = "~/.config/git/gitexcludes"
+  quotepath = false
+
+[credential]
+  helper = "pass-git-helper"
+
+[diff]
+  algorithm = "patience"
+
+[diff "gpg"]
+  textconv = "gpg2 --no-tty --decrypt"
+
+[push]
+  default = "simple"
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+
+[includeIf "gitdir:{{@@ accounts_home_path @@}}"]
+  path = "~/.config/git/home.cfg"
+
+[includeIf "gitdir:{{@@ accounts_work_path @@}}"]
+  path = "~/.config/git/work.cfg"
+

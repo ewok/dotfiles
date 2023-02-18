@@ -1,0 +1,14 @@
+config:
+dotfiles:
+  f_bluetooth_lock:
+    src: bluetooth.lock
+    dst: ~/.local/bluetooth.lock
+    actions:
+      - install_bluetooth
+actions:
+  pre:
+    install_bluetooth: "{{@@ pm @@}} blueberry blueman bluez bluez-libs bluez-utils"
+profiles:
+  bluetooth:
+    dotfiles:
+      - f_bluetooth_lock

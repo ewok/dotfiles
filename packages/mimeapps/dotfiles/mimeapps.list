@@ -1,0 +1,23 @@
+[Default Applications]
+application/epub+zip=org.pwmt.zathura.desktop
+application/pdf=org.pwmt.zathura.desktop
+application/x-extension-html=google-chrome.desktop
+application/x-extension-htm=google-chrome.desktop
+application/x-extension-shtml=google-chrome.desktop
+application/x-extension-xht=google-chrome.desktop
+application/xhtml+xml=google-chrome.desktop
+image/heif=viewnior.desktop
+image/jpeg=viewnior.desktop
+image/jpg=viewnior.desktop
+image/png=viewnior.desktop
+image/vnd.djvu+multipage=org.pwmt.zathura.desktop
+inode/directory=pcmanfm.desktop
+text/html=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/eclipse+command=_usr_lib_dbeaver_.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/notion=notion-app.desktop
+x-scheme-handler/tg=telegramdesktop.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/webcal=google-chrome.desktop

@@ -1,0 +1,29 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_git_lock:
+    src: git.lock
+    dst: ~/.local/git.lock
+    actions:
+      - install_git
+  d_git:
+    src: git
+    dst: ~/.config/git
+  f_git_fish:
+    src: 90_git-aliases.fish
+    dst: ~/.config/fish/conf.d/90_git-aliases.fish
+  f_git_bin:
+    src: sign
+    dst: "{{@@ bin @@}}/sign"
+    chmod: 0755
+actions:
+  pre:
+    install_git: "{{@@ pm @@}} git-crypt git-trim pass-git-helper git-extras git-filter-repo"
+profiles:
+  git:
+    dotfiles:
+      - f_git_lock
+      - d_git
+      - f_git_fish
+      - f_git_bin

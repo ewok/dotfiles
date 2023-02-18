@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+NOTE="$HOME/Notes/diary/$(date +%Y-%m-%d).md"
+dmenucmd="rofi_run -dmenu -p [$(date +%H:%M)] "
+result=$($dmenucmd | xargs echo)
+if [[ $result ]]; then
+  echo >> "$NOTE"
+  echo "[$(date +%H:%M)] $result" >> "$NOTE"
+fi

@@ -1,0 +1,34 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_PACKAGE_lock:
+    src: PACKAGE.lock
+    dst: ~/.local/PACKAGE.lock
+    actions:
+      - install_PACKAGE
+  d_PACKAGE:
+    src: source
+    dst: ~/.config/dest
+    link: relative
+  f_PACKAGE:
+    src: source.file
+    dst: ~/.config/dest.file
+  f_PACKAGE_bin:
+    src: source.file
+    dst: "{{@@ bin @@}}/PACKAGE.sh"
+    chmod: 0755
+  f_PACKAGE_fish:
+    src: source.file
+    dst: ~/.config/fish/conf.d/00-PACKAGE.fish
+actions:
+  pre:
+    install_PACKAGE: "{{@@ pm @@}} PACKAGE"
+profiles:
+  PACKAGE:
+    dotfiles:
+      - f_PACKAGE_lock
+      - d_PACKAGE
+      - f_PACKAGE
+      - f_PACKAGE_bin
+      - f_PACKAGE_fish

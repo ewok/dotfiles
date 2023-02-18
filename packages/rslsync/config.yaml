@@ -1,0 +1,28 @@
+config:
+dotfiles:
+  f_rslsync_lock:
+    src: rslsync.lock
+    dst: ~/.local/rslsync.lock
+    actions:
+      - install_rslsync
+  f_rslsync_config:
+    src: config
+    dst: ~/.config/rslsync/config
+  f_rslsync_service:
+    src: rslsync.service
+    dst: ~/.config/systemd/user/rslsync.service
+    actions:
+      - enable_rslsync
+      - start_rslsync
+actions:
+  pre:
+    install_rslsync: "{{@@ pm @@}} rslsync"
+  post:
+    enable_rslsync: "systemctl --user enable rslsync"
+    start_rslsync: "systemctl --user start rslsync"
+profiles:
+  rslsync:
+    dotfiles:
+      - f_rslsync_lock
+      - f_rslsync_config
+      - f_rslsync_service

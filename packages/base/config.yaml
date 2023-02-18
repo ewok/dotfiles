@@ -1,0 +1,37 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_base_start:
+    src: base.lock
+    dst: ~/.local/base.lock
+    actions:
+      - install_base
+      - install_base_devel
+  f_base_update:
+    src: update-config
+    dst: "{{@@ bin @@}}/update-config"
+    chmod: 0755
+  f_base_install:
+    src: install-config
+    dst: "{{@@ bin @@}}/install-config"
+    chmod: 0755
+  f_base_compare:
+    src: compare-config
+    dst: "{{@@ bin @@}}/compare-config"
+    chmod: 0755
+  f_base_open:
+    src: open
+    dst: "{{@@ bin @@}}/open"
+    chmod: 0755
+actions:
+  install_base: "mkdir -p ~/.cache/rpms ~/Pictures/Screenshots ~/mnt ~/share {{@@ bin @@}}"
+  install_base_devel: "{{@@ pm @@}} base-devel community/btop"
+profiles:
+  base:
+    dotfiles:
+      - f_base_start
+      - f_base_update
+      - f_base_install
+      - f_base_compare
+      - f_base_open

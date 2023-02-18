@@ -1,0 +1,47 @@
+" vim: filetype=vim :
+set notitle
+
+set syscalls
+set vicmd="nvim"
+set trash
+set history=1000
+set nofollowlinks
+set fastrun
+set sortnumbers
+set undolevels=100
+set novimhelp
+set norunexec
+set noiec
+set dotdirs=
+set rulerformat="%2l-%S%[ +%0-%]"
+
+set tuioptions-=s
+set fillchars=vborder:|
+" colorscheme theme
+
+set fusehome=/tmp/vifm_FUSE
+set timefmt=%m/%d/%y\ %H:%M
+set wildmenu
+set ignorecase
+set smartcase
+set nohlsearch
+set incsearch
+set scrolloff=4
+set slowfs=curlftpfs,smbfs,osxfusefs
+set statusline="  %t %= %A %10u:%-7g %20d %15s %15E "
+
+set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks
+
+windo set viewcolumns=-35{name}...,{size},7{mode},-10{uname},-7{gname},14{mtime}
+
+set wildmenu
+set wildstyle=popup
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+
+source $VIFM/vifm_commands
+source $VIFM/vifm_keys
+source $VIFM/vifm_ext
+source $VIFM/vifm_custom
+source $VIFM/plugins/devicons.vifm
+source $VIFM/colors/onedark.vifm

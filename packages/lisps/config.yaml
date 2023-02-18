@@ -1,0 +1,14 @@
+config:
+dotfiles:
+  f_lisps_lock:
+    src: lisps.lock
+    dst: ~/.local/lisps.lock
+    actions:
+      - install_lisps
+actions:
+  pre:
+    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel"
+profiles:
+  lisps:
+    dotfiles:
+      - f_lisps_lock

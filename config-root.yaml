@@ -1,0 +1,38 @@
+config:
+  backup: true
+  banner: false
+  create: true
+  ignoreempty: false
+  keepdot: false
+  longkey: false
+  showdiff: false
+  workdir: ~/.config/dotdrop
+  dotpath: packages
+  import_variables:
+    - "local_vars.yaml"
+  import_configs:
+    - packages/root_laptop/config.yaml
+    - packages/root_vpn/config.yaml
+    - packages/root_backup/config.yaml
+dotfiles:
+profiles:
+  ewok-t14s:
+    include:
+      - laptop
+      - vpn
+      - backup
+    dynvariables:
+      hostname: echo ewok-t14s
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+    variables:
+      pm: 'yes | pacman -S --needed --noconfirm'
+      suspend_type: suspend
+  ewok-rpi:
+    include:
+      - backup
+    dynvariables:
+      hostname: echo ewok-rpi
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+    variables:
+      pm: 'yes | pacman -S --needed --noconfirm'
+      suspend_type: suspend

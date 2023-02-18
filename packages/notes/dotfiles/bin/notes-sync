@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+nc -z github.com 22
+DATE=$(date)
+git -C ~/Notes pull
+git -C ~/Notes add .
+git -C ~/Notes commit -m "Auto commit + push. $DATE" || exit 0
+git -C ~/Notes push

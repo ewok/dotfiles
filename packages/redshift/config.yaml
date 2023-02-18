@@ -1,0 +1,22 @@
+config:
+dotfiles:
+  f_redshift_lock:
+    src: redshift.lock
+    dst: ~/.local/redshift.lock
+    actions:
+      - install_redshift
+      - enable_redshift
+      - start_redshift
+  f_redshift_i3:
+    src: i3_autostart
+    dst: ~/.config/i3/autostart.d/redshift.conf
+actions:
+  pre:
+    install_redshift: "{{@@ pm @@}} geoclue redshift"
+    enable_redshift: "systemctl --user enable  redshift-gtk"
+    start_redshift: "systemctl --user start redshift-gtk"
+profiles:
+  redshift:
+    dotfiles:
+      - f_redshift_lock
+      - f_redshift_i3

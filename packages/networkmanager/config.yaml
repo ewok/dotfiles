@@ -1,0 +1,16 @@
+config:
+dotfiles:
+  f_networkmanager_lock:
+    src: networkmanager.lock
+    dst: ~/.local/networkmanager.lock
+    actions:
+      - install_networkmanager
+      - install_networkmanager_1
+actions:
+  pre:
+    install_networkmanager: "{{@@ pm @@}} mobile-broadband-provider-info modemmanager networkmanager network-manager-applet networkmanager-openconnect"
+    install_networkmanager_1: "{{@@ pm @@}} networkmanager-openvpn networkmanager-pptp networkmanager-vpnc openresolv whois net-tools"
+profiles:
+  networkmanager:
+    dotfiles:
+      - f_networkmanager_lock

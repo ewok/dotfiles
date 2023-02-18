@@ -1,0 +1,51 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_nvim_lock:
+    src: nvim.lock
+    dst: ~/.local/nvim.lock
+    actions:
+      - install_nvim_nvim
+      - install_nvim_coursier
+      # - install_nvim_tools_apt
+      - install_nvim_tools_arch
+  d_nvim_config:
+    src: neovim
+    dst: ~/.config/nvim
+    actions:
+      - cleanup_nvim
+  f_nvim_fish:
+    src: 20_nvim-vars.fish
+    dst: ~/.config/fish/conf.d/20_nvim-vars.fish
+  f_nvim_ctags:
+    src: ctags
+    dst: ~/.ctags
+  f_nvim_vale:
+    src: vale.ini
+    dst: ~/.vale.ini
+  f_nvim_bin:
+    src: nvim
+    dst: "{{@@ bin @@}}/vim"
+    chmod: 0755
+  f_nvim_bin_lazygit:
+    src: lazygit
+    dst: "{{@@ bin @@}}/gg"
+    chmod: 0755
+actions:
+  pre:
+    cleanup_nvim: "rm -f ~/.config/nvim/init.lua ; rm -rf ~/.config/nvim/lua"
+    install_nvim_nvim: "{{@@ pm @@}} neovim lazygit"
+    install_nvim_tools_arch: "if which yay;then {{@@ pm @@}} the_silver_searcher ripgrep python-pynvim tree-sitter npm gnu-netcat jq yq fzf;fi"
+    install_nvim_tools_apt: "if which apt;then {{@@ pm @@}} silversearcher-ag python3-pynvim libtree-sitter-dev luarocks  ripgrep jq yq fzf;fi"
+    install_nvim_coursier: "curl -o {{@@ bin @@}}/coursier https://git.io/coursier-cli"
+profiles:
+  nvim:
+    dotfiles:
+      - f_nvim_lock
+      - d_nvim_config
+      - f_nvim_fish
+      - f_nvim_ctags
+      - f_nvim_vale
+      - f_nvim_bin
+      - f_nvim_bin_lazygit

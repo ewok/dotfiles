@@ -1,0 +1,81 @@
+config:
+  import_variables:
+    - "local_vars.yaml"
+dotfiles:
+  f_scripts_lock:
+    src: scripts.lock
+    dst: ~/.local/scripts.lock
+    actions:
+      - install_scripts
+  f_scripts_bin1:
+    src: ntfy
+    dst: "{{@@ bin @@}}/ntfy"
+    chmod: 0755
+  f_scripts_h:
+    src: hledger/h.sh
+    dst: "{{@@ bin @@}}/h"
+    chmod: 0755
+  f_scripts_h-bs:
+    src: hledger/bs.sh
+    dst: "{{@@ bin @@}}/h-bs"
+    chmod: 0755
+  f_scripts_h-budget:
+    src: hledger/budget.sh
+    dst: "{{@@ bin @@}}/h-budget"
+    chmod: 0755
+  f_scripts_h-ops:
+    src: hledger/budget-ops.sh
+    dst: "{{@@ bin @@}}/h-ops"
+    chmod: 0755
+  f_scripts_h-savings:
+    src: hledger/budget-savings.sh
+    dst: "{{@@ bin @@}}/h-savings"
+    chmod: 0755
+  f_scripts_h-status:
+    src: hledger/budget-status.clj
+    dst: "{{@@ bin @@}}/h-status"
+    chmod: 0755
+  f_scripts_h-ui:
+    src: hledger/ui.sh
+    dst: "{{@@ bin @@}}/h-ui"
+    chmod: 0755
+  f_scripts_h-update-pricses:
+    src: hledger/update-prices.clj
+    dst: "{{@@ bin @@}}/h-update-prices"
+    chmod: 0755
+  f_scripts_h-exp:
+    src: hledger/exp.sh
+    dst: "{{@@ bin @@}}/h-exp"
+    chmod: 0755
+  f_scripts_h-edit:
+    src: hledger/edit.sh
+    dst: "{{@@ bin @@}}/h-edit"
+    chmod: 0755
+  f_scripts_h-add:
+    src: hledger/add.sh
+    dst: "{{@@ bin @@}}/h-add"
+    chmod: 0755
+  f_scripts_check-colors:
+    src: check-colors
+    dst: "{{@@ bin @@}}/check-colors"
+    chmod: 0755
+actions:
+  pre:
+    install_scripts: "{{@@ pm @@}} aur/ntfy"
+profiles:
+  scripts:
+    dotfiles:
+      - f_scripts_lock
+      - f_scripts_bin1
+      - f_scripts_h
+      - f_scripts_h-bs
+      - f_scripts_h-budget
+      - f_scripts_h-status
+      - f_scripts_h-ops
+      - f_scripts_h-savings
+      - f_scripts_h-ui
+      - f_scripts_h-update-pricses
+      - f_scripts_h-exp
+      - f_scripts_h-edit
+      - f_scripts_h-add
+      - f_scripts_check-colors

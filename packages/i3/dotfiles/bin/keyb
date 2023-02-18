@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+LAYOUT=''${1:-0}
+if [ $LAYOUT -eq 1 ]; then
+  setxkbmap -rules "evdev" -model "pc105" -layout "us" -option ""
+  setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:shifts_toggle,caps:ctrl_modifier,altwin:swap_alt_win"
+  # xcape -e 'Control_L=Escape'
+elif [ $LAYOUT -eq 2 ]; then
+  setxkbmap -rules "evdev" -model "pc105" -layout "us" -option ""
+  setxkbmap -rules "evdev" -model "pc105" -layout "us,ru" -option "grp:shifts_toggle,caps:ctrl_modifier"
+  # xcape -e 'Control_L=Escape'
+else
+  setxkbmap -rules "evdev" -model "pc105" -layout "us" -option ""
+fi
+xset r rate 230 30
