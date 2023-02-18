@@ -1,3 +1,0 @@
-local aux = {}
-
-return aux
