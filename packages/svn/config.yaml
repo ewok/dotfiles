@@ -7,9 +7,13 @@ dotfiles:
     dst: ~/.subversion/config
     actions:
       - install_svn
-  f_subversion_bin:
+  f_subversion_bin_rm:
     src: svn-rm-rm
     dst: "{{@@ bin @@}}/svn-rm-rm"
+    chmod: 0755
+  f_subversion_bin_add:
+    src: svn-add-add
+    dst: "{{@@ bin @@}}/svn-add-add"
     chmod: 0755
 actions:
   pre:
@@ -18,4 +22,5 @@ profiles:
   svn:
     dotfiles:
       - f_subversion
-      - f_subversion_bin
+      - f_subversion_bin_rm
+      - f_subversion_bin_add

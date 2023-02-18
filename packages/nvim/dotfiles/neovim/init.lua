@@ -1082,6 +1082,7 @@ plugins = {
         config = function()
             local mason = require("mason")
             local mason_registry = require("mason-registry")
+
             mason.setup({
                 max_concurrent_installers = 20,
                 ui = {
@@ -1160,6 +1161,7 @@ plugins = {
                     { title = "Mason" }
                 )
             end
+
         end,
         -- }}}
     },
@@ -1572,13 +1574,8 @@ plugins = {
                 -- end
             end
 
-            local configurations_dir_path = "server_configurations/"
-
             for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-                -- local require_path = string.format("%s%s", configurations_dir_path, server_name)
                 local ok, settings = pcall(require, ("lsp.server_configurations.%s"):format(server_name))
-
-                -- local ok, settings = pcall(require, require_path)
 
                 if not ok then
                     settings = {}
@@ -1706,6 +1703,7 @@ plugins = {
         event = { "InsertEnter", "CmdlineEnter" },
         -- }}}
     },
+    -- NOTE: I am here
     {
         "hrsh7th/vim-vsnip", -- {{{
         config = function()
@@ -1724,7 +1722,6 @@ plugins = {
         end,
         -- }}}
     },
-    -- { "lamp/cmp-iced" },
     {
         "hrsh7th/nvim-cmp", -- {{{
         config = function()
@@ -2522,10 +2519,10 @@ plugins = {
                 sexp_swap_element_backward = "<E",
                 sexp_swap_element_forward = ">E",
 
-                sexp_emit_head_element = "><",
-                sexp_emit_tail_element = "<>",
-                sexp_capture_prev_element = "<<",
-                sexp_capture_next_element = ">>",
+                -- sexp_emit_head_element = "><",
+                -- sexp_emit_tail_element = "<>",
+                -- sexp_capture_prev_element = "<<",
+                -- sexp_capture_next_element = ">>",
             }
             -- vim.g.sexp_enable_insert_mode_mappings = 0
         end,
