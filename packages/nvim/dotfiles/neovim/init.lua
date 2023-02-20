@@ -782,6 +782,7 @@ end)
 -- >> Fennel {{{
 reg_ft("fennel", function()
     local _buffer = vim.api.nvim_get_current_buf()
+    map("n", "<leader>cf", ":!fnlfmt --fix %<cr><cr>", { buffer = _buffer, silent = true }, "Formatting[fnlfmt]")
     require("which-key").register({
         ec = { name = "Eval Comment[conjure]" },
         e = { name = "Eval[conjure]" },
@@ -1481,7 +1482,7 @@ plugins = {
                 virtual_text = { prefix = "●", source = "always" },
             })
 
-            -- TODO: Something wrong here
+            -- FIXME: Something wrong here
             -- for _type, _icon in pairs(icons) do
             --     local hl = "DiagnosticSign" .. _type
             --     vim.fn.sign_define(hl, { text = _icon, texthl = hl, numhl = hl })
@@ -1541,7 +1542,7 @@ plugins = {
                         require("telescope.builtin").lsp_definitions()
                     end, _md, "Go to definitions[LSP]")
                 end
-                -- TODO: fix
+                -- FIXME: This is not working
                 -- -- if client.resolved_capabilities.type_definition then
                 -- map("n", "gD", function()
                 --     require("telescope.builtin").lsp_type_definitions()
@@ -1703,7 +1704,6 @@ plugins = {
         event = { "InsertEnter", "CmdlineEnter" },
         -- }}}
     },
-    -- NOTE: I am here
     {
         "hrsh7th/vim-vsnip", -- {{{
         config = function()
@@ -2166,7 +2166,6 @@ plugins = {
                     eol = "gcA",
                 },
                 pre_hook = function(ctx)
-                    -- FIX: Lua does not distinguish between line and block comments
                     if vim.tbl_contains(valid_filtype, vim.bo.filetype) then
                         -- Determine whether to use linewise or blockwise commentstring
                         local type = ctx.ctype == comment_utils.ctype.linewise and "__default" or "__multiline"
@@ -2263,9 +2262,8 @@ plugins = {
         "aznhe21/hop.nvim", -- {{{
         branch = "fix-some-bugs",
         config = function()
-            require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-
             local hop = require("hop")
+            require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
             local directions = require("hop.hint").HintDirection
 
             map("", "f", function()
@@ -2466,30 +2464,30 @@ plugins = {
                 sexp_outer_element = "ae",
                 sexp_inner_element = "ie",
 
-                sexp_move_to_prev_bracket = "(",
-                sexp_move_to_next_bracket = ")",
+                sexp_move_to_prev_bracket = "[[",
+                sexp_move_to_next_bracket = "]]",
 
-                sexp_move_to_prev_element_head = "B",
-                sexp_move_to_next_element_head = "W",
-                sexp_move_to_prev_element_tail = "gE",
-                sexp_move_to_next_element_tail = "E",
+                sexp_move_to_prev_element_head = "b",
+                sexp_move_to_next_element_head = "w",
+                sexp_move_to_prev_element_tail = "ge",
+                sexp_move_to_next_element_tail = "e",
 
-                sexp_flow_to_prev_close = "<M-[>",
-                sexp_flow_to_next_open = "<M-]>",
-                sexp_flow_to_prev_open = "<M-{>",
-                sexp_flow_to_next_close = "<M-}>",
+                -- sexp_flow_to_prev_close = "<M-[>",
+                -- sexp_flow_to_next_open = "<M-]>",
+                -- sexp_flow_to_prev_open = "<M-{>",
+                -- sexp_flow_to_next_close = "<M-}>",
+                --
+                -- sexp_flow_to_prev_leaf_head = "<M-S-b>",
+                -- sexp_flow_to_next_leaf_head = "<M-S-w>",
+                -- sexp_flow_to_prev_leaf_tail = "<M-S-g>",
+                -- sexp_flow_to_next_leaf_tail = "<M-S-e>",
 
-                sexp_flow_to_prev_leaf_head = "<M-S-b>",
-                sexp_flow_to_next_leaf_head = "<M-S-w>",
-                sexp_flow_to_prev_leaf_tail = "<M-S-g>",
-                sexp_flow_to_next_leaf_tail = "<M-S-e>",
-
-                sexp_move_to_prev_top_element = "[[",
-                sexp_move_to_next_top_element = "]]",
-                sexp_select_prev_element = "[e",
-                sexp_select_next_element = "]e",
-                sexp_indent = "=>",
-                sexp_indent_top = "=<",
+                -- sexp_move_to_prev_top_element = "[[",
+                -- sexp_move_to_next_top_element = "]]",
+                -- sexp_select_prev_element = "[e",
+                -- sexp_select_next_element = "]e",
+                -- sexp_indent = "=>",
+                -- sexp_indent_top = "=<",
 
                 sexp_round_head_wrap_list = "<(",
                 sexp_round_tail_wrap_list = ">)",
@@ -2519,10 +2517,10 @@ plugins = {
                 sexp_swap_element_backward = "<E",
                 sexp_swap_element_forward = ">E",
 
-                -- sexp_emit_head_element = "><",
-                -- sexp_emit_tail_element = "<>",
-                -- sexp_capture_prev_element = "<<",
-                -- sexp_capture_next_element = ">>",
+                sexp_emit_head_element = ")(",
+                sexp_emit_tail_element = "()",
+                sexp_capture_prev_element = "((",
+                sexp_capture_next_element = "))",
             }
             -- vim.g.sexp_enable_insert_mode_mappings = 0
         end,
@@ -2770,12 +2768,13 @@ plugins = {
     },
     -- }}}
     -- >> Tools {{{
+    -- {
+    --     "dstein64/vim-startuptime", -- {{{
+    --     cmd = { "StartupTime" },
+    --     -- }}}
+    -- },
     {
-        "dstein64/vim-startuptime", -- {{{
-        cmd = { "StartupTime" },
-        -- }}}
-    },
-    {
+    -- NOTE: I am here
         "olimorris/persisted.nvim", -- {{{
         config = function()
             local persisted = require("persisted")
@@ -3841,9 +3840,6 @@ plugins = {
             require("neo-zoom").setup({
                 winopts = {
                     offset = {
-                        -- NOTE: you can omit `top` and/or `left` to center the floating window.
-                        -- top = 0,
-                        -- left = 0.17,
                         width = 0.9,
                         height = 0.85,
                     },
