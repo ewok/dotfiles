@@ -83,7 +83,13 @@
 (print-red-if-negative current-cash "Just money(end of month): %.2f USD\n\n")
 
 (print-red-if-negative planned-revenue "Planned income:           %.2f")
-(print-red-if-negative received-revenue "  Received income:          %.2f\n")
+(print-red-if-negative received-revenue "  Received income:          %.2f")
+(print-red-if-negative (-> received-revenue
+                           (/ planned-revenue)
+                           (* 100)) "(%.2f%%)\n")
 
 (print-red-if-negative planned-expenses "Planned expenses:         %.2f")
-(print-red-if-negative expenses "  Expenses:                 %.2f\n\n")
+(print-red-if-negative expenses "  Expenses:                 %.2f")
+(print-red-if-negative (-> expenses
+                           (/ planned-expenses)
+                           (* 100)) "(%.2f%%)\n\n")
