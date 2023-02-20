@@ -10,6 +10,9 @@ dotfiles:
   f_cryptomator_config:
     src: settings.json
     dst: ~/.config/Cryptomator/settings.json
+  f_cryptomator_i3:
+    src: i3_autostart
+    dst: ~/.config/i3/autostart.d/cryptomator.conf
 actions:
   pre:
     install_cryptomator: "{{@@ pm @@}} cryptomator-bin"
@@ -18,3 +21,4 @@ profiles:
     dotfiles:
       - f_cryptomator_lock
       - f_cryptomator_config
+      - f_cryptomator_i3

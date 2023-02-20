@@ -5,6 +5,9 @@ dotfiles:
     dst: ~/.local/bluetooth.lock
     actions:
       - install_bluetooth
+  f_bluetooth_i3:
+    src: i3_autostart
+    dst: ~/.config/i3/autostart.d/bluetooth.conf
 actions:
   pre:
     install_bluetooth: "{{@@ pm @@}} blueberry blueman bluez bluez-libs bluez-utils"
@@ -12,3 +15,4 @@ profiles:
   bluetooth:
     dotfiles:
       - f_bluetooth_lock
+      - f_bluetooth_i3

@@ -372,13 +372,5 @@ exec_always --no-startup-id xss-lock -- {{@@ bin @@}}/i3exit lock
 exec_always --no-startup-id xautolock -time 10 -locker "{{@@ bin @@}}/i3exit lock"
 exec_always --no-startup-id systemctl --user start dunst
 exec_always --no-startup-id pgrep parcellite || parcellite
-# exec_always --no-startup-id sparkleshare &
-# exec_always --no-startup-id pgrep cryptomator || cryptomator
-# exec_always --no-startup-id pgrep -f davmail || davmail
-# exec_always --no-startup-id pgrep -f element-desktop || element-desktop
-# exec_always --no-startup-id pgrep goldendict || goldendict
-# exec_always --no-startup-id pgrep insync || insync start
-# exec_always --no-startup-id pgrep telegram-deskto || telegram-desktop
-# exec_always --no-startup-id pgrep zeal || zeal
 
 include ~/.config/i3/autostart.d/*.conf
