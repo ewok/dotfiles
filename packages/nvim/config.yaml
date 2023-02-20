@@ -34,7 +34,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    cleanup_nvim: "rm -f ~/.config/nvim/init.lua ; rm -rf ~/.config/nvim/lua"
+    cleanup_nvim: "rm -f ~/.config/nvim/init.lua ; rm -rf ~/.config/nvim/lua ; rm -rf ~/.config/nvim/fnl"
     install_nvim_nvim: "{{@@ pm @@}} neovim lazygit"
     install_nvim_tools_arch: "if which yay;then {{@@ pm @@}} the_silver_searcher ripgrep python-pynvim tree-sitter npm gnu-netcat jq yq fzf;fi"
     install_nvim_tools_apt: "if which apt;then {{@@ pm @@}} silversearcher-ag python3-pynvim libtree-sitter-dev luarocks  ripgrep jq yq fzf;fi"
