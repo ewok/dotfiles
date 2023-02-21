@@ -15,6 +15,7 @@ dotfiles:
   d_laptop_etc:
     src: etc
     dst: /etc
+    ignore_missing_in_dotdrop: true
     actions:
       - enable_laptop_tlp
       - start_laptop_tlp

@@ -9,6 +9,12 @@ dotfiles:
   d_vifm:
     src: vifm
     dst: ~/.config/vifm
+    cmpignore:
+      - "vifm-help.txt"
+      - "vifminfo.json"
+    upignore:
+      - "vifm-help.txt"
+      - "vifminfo.json"
   f_vifm:
     src: vifm.fish
     dst: ~/.config/fish/functions/vifm.fish

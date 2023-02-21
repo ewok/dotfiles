@@ -15,7 +15,6 @@
                           :--ignore-file
                           "~/.config/git/gitexcludes"])
 
-;; FIXME: Colors in preview do not work
 (fn config []
   (let [telescope (require :telescope)
         actions (require :telescope.actions)

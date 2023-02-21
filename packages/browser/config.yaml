@@ -2,7 +2,7 @@ config:
   import_variables:
     - "local_vars.yaml"
 dotfiles:
-  d_browser_start:
+  f_browser_start:
     src: browser.lock
     dst: ~/.local/browser.lock
     actions:
@@ -23,7 +23,7 @@ actions:
 profiles:
   browser:
     dotfiles:
-      - d_browser_start
+      - f_browser_start
       - f_browser_choose
       - f_browser_fish
       - f_browser_mime

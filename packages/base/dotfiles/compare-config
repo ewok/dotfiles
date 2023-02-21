@@ -1,5 +1,0 @@
-#!/bin/env bash
-
-dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-1.yaml compare $1
-dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-2.yaml compare $1
-sudo dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-root.yaml compare $1

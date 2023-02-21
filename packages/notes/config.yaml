@@ -5,6 +5,7 @@ dotfiles:
   d_notes_config:
     src: user
     dst: ~/.config/systemd/user
+    ignore_missing_in_dotdrop: true
     actions:
       - reload_notes
       - enable_notes_timer

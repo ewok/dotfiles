@@ -39,6 +39,7 @@ dotfiles:
     src: bin
     dst: "{{@@ bin @@}}"
     chmod: 0755
+    ignore_missing_in_dotdrop: true
   f_i3_bin_xdo:
     src: bin/xdotool-mod
     dst: "{{@@ bin @@}}/xdotool-mod"

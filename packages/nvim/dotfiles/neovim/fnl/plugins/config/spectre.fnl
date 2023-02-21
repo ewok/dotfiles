@@ -1,13 +1,11 @@
-(local {: map!} (require :lib))
+(local {: map! } (require :lib))
 
 ;; TODO: Provide this function (Stab)
 (fn toggle_sidebar [])
 
 (fn config []
        (let [spectre (require :spectre)]
-         (spectre.setup {; color_devicons = true,
-                         ; open_cmd = "vnew",
-                         ; live_update = true, -- auto excute search again when you write any file in vim
+         (spectre.setup {
                          :color_devicons true
                          :open_cmd :vnew
                          :live_update true

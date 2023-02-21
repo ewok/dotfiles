@@ -15,13 +15,16 @@ dotfiles:
   d_yubikey:
     src: gnupg
     dst: ~/.gnupg
+    ignore_missing_in_dotdrop: true
   d_yubikey_bin:
     src: bin
     dst: "{{@@ bin @@}}"
     chmod: 0755
+    ignore_missing_in_dotdrop: true
   d_yubikey_fish:
     src: fish
     dst: ~/.config/fish/conf.d
+    ignore_missing_in_dotdrop: true
   f_yubikey_keyring_service:
     src: gnome-keyring-daemon.service
     dst: ~/.config/systemd/user/gnome-keyring-daemon.service
