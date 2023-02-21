@@ -61,7 +61,8 @@
                                                           :rounded
                                                           :none)}}) md
           "Jump to next diagnostic[LSP]")
-    ;; TODO: Not finished yet ;     map("i", "<c-b>", scroll_to_up, _md, "Scroll up floating window[LSP]")
+    ;; TODO: Not finished yet
+    ;     map("i", "<c-b>", scroll_to_up, _md, "Scroll up floating window[LSP]")
     ;     map("i", "<c-f>", scroll_to_down, _md, "Scroll down floating window[LSP]")
     ;     map("i", "<c-]>", focus_float_window(), _md, "Focus floating window[LSP]")
     ;     -- if client.resolved_capabilities.signature_help then ;     map("i", "<c-j>", sigature_help, _md, "Toggle signature help[LSP]")

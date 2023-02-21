@@ -79,15 +79,12 @@
                                                                                                                diagnostics_dict.hint)
                                                                           _ "")]
                                                             message))
-                                 ;; FIXME: Does not work
-                                 :custom_areas {:right (fn []
-                                                         (let [cwd (vim.fn.getcwd)
-                                                               home (vim.loop.os_homedir)]
-                                                           {:text (string.gsub cwd
-                                                                               home
-                                                                               "~")
-                                                            :guifg conf.colors.color_4
-                                                            :guibg conf.colors.color_0}))}
+                                 :custom_areas {:right #[{:text (string.gsub (vim.fn.getcwd)
+                                                                             conf.home-dir
+                                                                             "~"
+                                                                             1)
+                                                          :guifg conf.colors.color_4
+                                                          :guibg conf.colors.color_0}]}
                                  :offsets [{:filetype :NvimTree
                                             :text "File Explorer"
                                             :highlight :Directory

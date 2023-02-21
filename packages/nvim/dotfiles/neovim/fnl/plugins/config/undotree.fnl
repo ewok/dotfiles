@@ -1,13 +1,9 @@
-(local {: path-join : map!} (require :lib))
-
-;; TODO: Provide that function
-(fn toggle_sidebar [])
+(local {: path-join : map! : toggle_sidebar} (require :lib))
 
 (fn config []
   (let [undotree-dir (path-join conf.cache-dir :undotree)
         target_path (vim.fn.expand undotree-dir)
-        notify (require :notify)
-        ]
+        notify (require :notify)]
     (set vim.g.undotree_CustomUndotreeCmd "topleft vertical 30 new")
     (set vim.g.undotree_CustomDiffpanelCmd "belowright 10 new")
     (set vim.g.undotree_SetFocusWhenToggle 1)
@@ -25,4 +21,4 @@
                    (notify "Can't open undotree" :ERROR :Undotree))))
           {:silent true} "Open Undo Explorer")))
 
-{: config}
+{: config :event [:BufRead :BufNewFile]}

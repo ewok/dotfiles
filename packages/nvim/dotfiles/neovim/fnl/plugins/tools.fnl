@@ -15,9 +15,7 @@
  (pack :windwp/nvim-spectre (require :plugins.config.spectre))
  (pack :gabrielpoca/replacer.nvim {:config false})
  ;; Undo tree
- (pack :mbbill/undotree
-       (let [{: config} (require :plugins.config.undotree)]
-         {: config :event [:BufRead :BufNewFile]}))
+ (pack :mbbill/undotree (require :plugins.config.undotree))
  ;; Nvim-Tree
  (pack :kyazdani42/nvim-tree.lua (require :plugins.config.nvim-tree))
  ; (let [m (require :plugins.config.nvim-tree)] m))

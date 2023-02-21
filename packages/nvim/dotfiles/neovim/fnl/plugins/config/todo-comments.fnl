@@ -1,7 +1,6 @@
 (local {: map!} (require :lib))
 
 (fn init []
-  ;; TODO: Check on this after Telescope is installed
   (map! [:n] :<leader>fd #((. (require :telescope) :extensions :todo-comments
                               :todo)) {:silent true}
         "Find todo tag in the current workspace"))

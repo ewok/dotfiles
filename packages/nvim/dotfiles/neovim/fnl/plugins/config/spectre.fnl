@@ -1,7 +1,4 @@
-(local {: map! } (require :lib))
-
-;; TODO: Provide this function (Stab)
-(fn toggle_sidebar [])
+(local {: map! : toggle_sidebar } (require :lib))
 
 (fn config []
        (let [spectre (require :spectre)]
@@ -53,7 +50,6 @@
                                                         :desc "resume last search before close"}}})
          (map! [:n] :<leader>rp
                #(do
-                  ;; TODO: Provide this function
                   (toggle_sidebar :spectre_panel)
                   (spectre.open)) {:silent true}
                "Replace characters in all fs in the current workspace")

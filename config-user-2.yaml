@@ -5,7 +5,7 @@ config:
   ignoreempty: false
   keepdot: false
   longkey: false
-  showdiff: true
+  showdiff: false
   workdir: ~/.config/dotdrop
   dotpath: packages
   import_variables:

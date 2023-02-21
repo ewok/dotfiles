@@ -1,7 +1,4 @@
-(local {: map!} (require :lib))
-
-;; TODO: Provide this
-(fn toggle_sidebar [])
+(local {: map! : toggle_sidebar } (require :lib))
 
 (fn config []
   ;; TODO: Find this. Seems empty ; (set vim.g.dbs conf.options.database_connect)

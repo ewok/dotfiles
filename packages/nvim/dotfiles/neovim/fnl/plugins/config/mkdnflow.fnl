@@ -3,19 +3,6 @@
                :conceal true
                :cursor true
                :folds true
-               ;; TODO: Check that it works
-               ;             links = {
-               ;                      style = "markdown",
-               ;                      name_is_source = false,
-               ;                      conceal = false,
-               ;                      implicit_extension = nil,
-               ;                      transform_implicit = false,
-               ;                      transform_explicit = function(text)
-               ;                      text = text:gsub(" ", "-")
-               ;                      text = text:lower()
-               ;                      text = os.date("%Y-%m-%d_") .. text
-               ;                      return text
-               ;                      end,}
                :links {:style :markdown
                        :name_is_source false
                        :conceal false

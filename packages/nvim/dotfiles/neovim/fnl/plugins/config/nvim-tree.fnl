@@ -1,7 +1,4 @@
-(local {: map!} (require :lib))
-
-;; TODO: Provide this function
-(fn toggle_sidebar [])
+(local {: map! : toggle_sidebar} (require :lib))
 
 (fn config []
   (let [nvim-tree (require :nvim-tree)]

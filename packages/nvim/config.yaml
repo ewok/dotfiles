@@ -13,13 +13,9 @@ dotfiles:
   f_nvim_config_init:
     src: neovim/init.lua
     dst: ~/.config/nvim/init.lua
-    actions:
-      - cleanup_nvim_lua
   d_nvim_config_fnl:
     src: neovim/fnl
     dst: ~/.config/nvim/fnl
-    actions:
-      - cleanup_nvim_lua
   f_nvim_fish:
     src: 20_nvim-vars.fish
     dst: ~/.config/fish/conf.d/20_nvim-vars.fish
