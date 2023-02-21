@@ -6,8 +6,6 @@
            (set vim.opt_local.expandtab true)
            (set vim.opt_local.shiftwidth 2)
            (set vim.opt_local.tabstop 2)
-           (map! [:n] :<leader>cf ":!fnlfmt --fix %<cr><cr>"
-                 {:silent true :buffer 0} "Formatting[fnlfmt]")
            (when wk-ok?
              (wk.register {:ec {:name "Eval Comment[conjure]"}
                            :e {:name "Eval[conjure]"}

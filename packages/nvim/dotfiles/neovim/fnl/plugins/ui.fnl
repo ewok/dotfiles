@@ -1,6 +1,8 @@
 (local {: pack} (require :lib))
 
-[;; Winbar
+[;; Nice UI
+ (pack :stevearc/dressing.nvim {:config false})
+ ;; Winbar
  (pack :SmiteshP/nvim-navic {:config false})
  (pack :utilyre/barbecue.nvim (require :plugins.config.barbecue))
  ;; Notify

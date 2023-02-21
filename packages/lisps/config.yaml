@@ -7,7 +7,7 @@ dotfiles:
       - install_lisps
 actions:
   pre:
-    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel"
+    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel aur/clj-kondo-bin"
 profiles:
   lisps:
     dotfiles:

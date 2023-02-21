@@ -10,15 +10,25 @@
                                   :terraform-ls
                                   :vim-language-server
                                   :zk]
-                            :dap [:debugpy]
-                            :linter [:pylint
+                            :linter [:alex
+                                     :yamllint
+                                     :sqlfluff
+                                     :markdownlint
+                                     :jsonlint
+                                     :ansible-lint
+                                     :pylint
                                      :codespell
                                      :hadolint
                                      :mypy
+                                     :write-good
                                      :tflint]
-                            :formatter [:shfmt
+                            :formatter [:joker
+                                        :black
+                                        :yamlfmt
+                                        :markdownlint
+                                        :shfmt
+                                        :jq
                                         :autopep8
-                                        :prettier
                                         :sql-formatter
                                         :stylua]})
 

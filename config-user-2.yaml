@@ -1,3 +1,4 @@
+---
 config:
   backup: true
   banner: false
@@ -13,7 +14,7 @@ config:
   import_configs:
     - packages/redshift/config.yaml
     - packages/rofi/config.yaml
-      #- packages/rslsync/config.yaml
+    #- packages/rslsync/config.yaml
     - packages/ssh/config.yaml
     - packages/starship/config.yaml
     - packages/svn/config.yaml
