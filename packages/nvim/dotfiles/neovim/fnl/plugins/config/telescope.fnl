@@ -26,10 +26,11 @@
                                  :multi_icon " "
                                  :color_devicons true
                                  :file_ignore_patterns [:node_modules]
-                                 :layout_strategy :bottom_pane
+                                 :layout_strategy :flex
                                  :set_env {:COLORTERM :truecolor}
-                                 :layout_config {:bottom_pane {:height 0.95
-                                                               :preview_cutoff 100
+                                 :layout_config {:flex {:height 0.95
+                                                               :width 0.95
+                                                               :flip_columns 130
                                                                :prompt_position :bottom}}
                                  :mappings {:i {:<c-j> actions.move_selection_next
                                                 :<c-k> actions.move_selection_previous

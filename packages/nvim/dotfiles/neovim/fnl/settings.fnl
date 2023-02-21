@@ -24,7 +24,7 @@
         :linespace 0
         :mouse ""
         :ruler true
-        :scrolloff 5
+        :scrolloff 3
         :secure true
         :shortmess :aOtTsI
         :showmode true
@@ -46,9 +46,6 @@
         :updatetime 300
         :visualbell true
         :writebackup false
-        :guicursor (.. "n-v-c:block,i-ci-ve:block,r-cr:hor20,"
-                       "o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,"
-                       "sm:block-blinkwait175-blinkoff150-blinkon175")
         :shada (.. "'50,<1000,s100,\"10,:10,f0,n" conf.data-dir
                    :/shada/main.shada)
         :inccommand :nosplit

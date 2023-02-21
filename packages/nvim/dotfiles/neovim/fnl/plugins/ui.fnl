@@ -1,6 +1,9 @@
-(local {: pack } (require :lib))
+(local {: pack} (require :lib))
 
-[;; Notify
+[;; Winbar
+ (pack :SmiteshP/nvim-navic {:config false})
+ (pack :utilyre/barbecue.nvim (require :plugins.config.barbecue))
+ ;; Notify
  (pack :rcarriga/nvim-notify (require :plugins.config.notify))
  ;; Lualine
  (pack :nvim-lualine/lualine.nvim (require :plugins.config.lualine))

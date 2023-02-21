@@ -1,10 +1,14 @@
 (local {: map! : umap!} (require :lib))
 
 (fn open_callback [term]
-  (map! :t :<C-J> "<c-\\><c-n><cmd>TmuxNavigateDown<cr>" {:silent true :buffer term.bufnr} :Down)
-  (map! :t :<C-H> "<c-\\><c-n><cmd>TmuxNavigateLeft<cr>" {:silent true :buffer term.bufnr} :Left)
-  (map! :t :<C-K> "<c-\\><c-n><cmd>TmuxNavigateUp<cr>" {:silent true :buffer term.bufnr} :Up)
-  (map! :t :<C-L> "<c-\\><c-n><cmd>TmuxNavigateRight<cr>" {:silent true :buffer term.bufnr} :Right)
+  (map! :t :<C-J> "<c-\\><c-n><cmd>TmuxNavigateDown<cr>"
+        {:silent true :buffer term.bufnr} :Down)
+  (map! :t :<C-H> "<c-\\><c-n><cmd>TmuxNavigateLeft<cr>"
+        {:silent true :buffer term.bufnr} :Left)
+  (map! :t :<C-K> "<c-\\><c-n><cmd>TmuxNavigateUp<cr>"
+        {:silent true :buffer term.bufnr} :Up)
+  (map! :t :<C-L> "<c-\\><c-n><cmd>TmuxNavigateRight<cr>"
+        {:silent true :buffer term.bufnr} :Right)
   (map! :n :<C-N> :i<C-N> {:silent true :buffer term.bufnr} :Next)
   (map! :n :<C-P> :i<C-P> {:silent true :buffer term.bufnr} :Previous)
   (map! :n :<C-C> :i<C-C> {:silent true :buffer term.bufnr} :Break)
@@ -31,7 +35,7 @@
   (vim.cmd :startinsert))
 
 (fn close_callback []
-  (map! :t :<esc> "<c-\\><c-n>" {:silent true } "Escape terminal insert mode"))
+  (map! :t :<esc> "<c-\\><c-n>" {:silent true} "Escape terminal insert mode"))
 
 (fn config []
   (let [toggleterm (require :toggleterm)
@@ -54,6 +58,7 @@
       (map! :n :<leader>tt
             #(let [horizontal (: terms :new
                                  {:direction :horizontal
+                                 :count 110
                                   :on_open open_callback
                                   :on_close close_callback})]
                (: horizontal :toggle)) {:silent true}
@@ -89,10 +94,10 @@
                                (: lazygit :toggle))
             {:silent true} "Git file history")
       ;; Lazygit
-      (each [key info (pairs {:<leader>gg {:cmd "lazygit branch"
-                                           :desc "Git branch"}
+      (each [key info (pairs {:<leader>gs {:cmd "lazygit status"
+                                           :desc "Git status"}
                               :<leader>gll {:cmd "lazygit log" :desc "Git log"}
-                              :<leader>gs {:cmd :lazygit :desc "Git status"}})]
+                              :<leader>gg {:cmd :lazygit :desc "Git overall"}})]
         (map! :n key #(let [lazygit (: terms :new
                                        {:cmd info.cmd
                                         :hidden true

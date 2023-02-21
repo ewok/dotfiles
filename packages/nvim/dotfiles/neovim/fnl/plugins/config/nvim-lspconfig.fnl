@@ -61,8 +61,7 @@
                                                           :rounded
                                                           :none)}}) md
           "Jump to next diagnostic[LSP]")
-    ;; TODO: Not finished yet
-    ;     map("i", "<c-b>", scroll_to_up, _md, "Scroll up floating window[LSP]")
+    ;; TODO: Not finished yet ;     map("i", "<c-b>", scroll_to_up, _md, "Scroll up floating window[LSP]")
     ;     map("i", "<c-f>", scroll_to_down, _md, "Scroll down floating window[LSP]")
     ;     map("i", "<c-]>", focus_float_window(), _md, "Focus floating window[LSP]")
     ;     -- if client.resolved_capabilities.signature_help then ;     map("i", "<c-j>", sigature_help, _md, "Toggle signature help[LSP]")
@@ -77,7 +76,8 @@
 
 (fn config []
   (let [lspconfig (require :lspconfig)
-        mason_lspconfig (require :mason-lspconfig)]
+        mason_lspconfig (require :mason-lspconfig)
+        navic (require :nvim-navic)]
     (vim.diagnostic.config {:signs true
                             :underline true
                             :severity_sort true
@@ -87,14 +87,16 @@
                            (each [_ server_name (ipairs (mason_lspconfig.get_installed_servers))]
                              (let [(ok settings) (pcall require
                                                         (.. :plugins.config.servers.
-                                                             server_name))]
+                                                            server_name))]
                                (let [settings (if ok settings {})]
                                  (tset settings :capabilities capabilities)
                                  (tset settings :handlers
                                        (or settings.handlers {}))
                                  (tset settings :on_attach
                                        (fn [client bufnr]
-                                         (register-key client bufnr)))
+                                         (register-key client bufnr)
+                                         (when client.server_capabilities.documentSymbolProvider
+                                           (navic.attach client bufnr))))
                                  ((. (. lspconfig server_name) :setup) settings)))))))
 
 ;; TODO: Not finished yet
