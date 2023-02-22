@@ -63,8 +63,8 @@ vmap <expr>  MR  ':s/\\(' . @/ . '\\)/\\1/g<LEFT><LEFT>'")
 (map! [:n] :Y :y$ md "Yank to end of line")
 
 ;; Don't cancel visual select when shifting
-(map! [:x] "<" :<gv md "Shift left")
-(map! [:x] ">" :>gv md "Shift right")
+(map! [:v] "<" :<gv md "Shift left")
+(map! [:v] ">" :>gv md "Shift right")
 
 ;; Keep the cursor in place while joining lines
 (map! [:n] :J "mzJ`z" md "Join lines")

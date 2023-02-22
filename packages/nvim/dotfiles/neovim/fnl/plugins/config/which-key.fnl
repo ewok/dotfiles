@@ -6,7 +6,6 @@
                :window {:border :single}})
     (wk.register {:b {:name :Buffers}
                   :c {:name :Code}
-                  :d {:name :Debug}
                   :f {:name :Find}
                   :fs {:name :Settings}
                   :g {:name :Git}

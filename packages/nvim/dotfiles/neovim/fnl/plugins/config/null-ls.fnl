@@ -14,7 +14,7 @@
                               null-ls.builtins.diagnostics.fish
                               null-ls.builtins.diagnostics.hadolint
                               null-ls.builtins.diagnostics.jsonlint
-                              null-ls.builtins.diagnostics.markdownlint
+                              (null-ls.builtins.diagnostics.markdownlint.with {:extra_args ["--disable" :MD013]})
                               null-ls.builtins.diagnostics.mypy
                               null-ls.builtins.diagnostics.terraform_validate
                               null-ls.builtins.diagnostics.yamllint
@@ -27,7 +27,7 @@
                               null-ls.builtins.formatting.joker
                               ;; clojure
                               null-ls.builtins.formatting.jq
-                              null-ls.builtins.formatting.markdownlint
+                              (null-ls.builtins.formatting.markdownlint.with {:extra_args ["--disable" :MD013]})
                               null-ls.builtins.formatting.shfmt
                               null-ls.builtins.formatting.sql_formatter
                               null-ls.builtins.formatting.terraform_fmt

@@ -16,7 +16,9 @@
                 :auto_remove_new_lines_comment true
                 :auto_toggle_rnu true
                 :auto_hide_cursorline true
-                :rainbow_parents false})
+                :rainbow_parents false
+                :motion_plugin :leap ;; :leap or :hop
+                })
 
 (local colors {:color_0 "#282c34"
                :color_1 "#e06c75"
