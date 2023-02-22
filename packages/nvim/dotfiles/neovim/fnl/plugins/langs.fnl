@@ -1,8 +1,6 @@
 (local {: pack} (require :lib))
 
-[;; Lua
- (pack :folke/neodev.nvim {:config false})
- ;; Markdown
+[;; Markdown
  (pack :gpanders/vim-medieval
        {:ft :markdown
         :config #(set vim.g.medieval_langs

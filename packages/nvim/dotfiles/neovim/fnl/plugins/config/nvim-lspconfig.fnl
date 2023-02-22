@@ -1,5 +1,14 @@
 (local {: map!} (require :lib))
 
+(local handlers
+       {:textDocument/hover (vim.lsp.with vim.lsp.handlers.hover
+                              {:border (if conf.options.float_border :rounded
+                                           :none)})
+        :textDocument/signatureHelp (vim.lsp.with vim.lsp.handlers.signature_help
+                                      {:border (if conf.options.float_border
+                                                   :rounded
+                                                   :none)})})
+
 (local capabilities (let [c (vim.lsp.protocol.make_client_capabilities)]
                       (set c.textDocument.completion.completionItem
                            {:documentationFormat [:markdown :plaintext]
@@ -15,7 +24,7 @@
                                                           :additionalTextEdits]}})
                       c))
 
-(fn register-key [client bufnr]
+(fn register-key [client bufnr telescope]
   (let [md {:silent false :buffer bufnr}]
     (when client.server_capabilities.codeActionProvider
       (map! [:n] :<leader>ca #(vim.lsp.buf.code_action) md
@@ -25,16 +34,16 @@
     (when client.server_capabilities.documentFormattingProvider
       (map! [:n] :<leader>cf #(vim.lsp.buf.format) md "Format buffer[LSP]"))
     (when client.server_capabilities.hoverProvider
-      (map! [:n] :K #(vim.lsp.buf.hover) md "Show help information[LSP]"))
+      (do
+        (map! [:n] :K #(vim.lsp.buf.hover) md "Show help information[LSP]")
+        (map! [:n] :gh #(vim.lsp.buf.hover) md "Show help information[LSP]")))
     (when client.server_capabilities.referencesProvider
-      (map! [:n] :gr #(. (require :telescope.builtin) :lsp_references) md
-            "Go to references[LSP]"))
+      (map! [:n] :gr #(telescope.lsp_references) md "Go to references[LSP]"))
     (when client.server_capabilities.implementationProvider
-      (map! [:n] :gI #(. (require :telescope.builtin) :lsp_implementations) md
+      (map! [:n] :gI #(telescope.lsp_implementations) md
             "Go to implementations[LSP]"))
     (when client.server_capabilities.definitionProvider
-      (map! [:n] :gd #(. (require :telescope.builtin) :lsp_definitions) md
-            "Go to definitions[LSP]"))
+      (map! [:n] :gd #(telescope.lsp_definitions) md "Go to definitions[LSP]"))
     ;; TODO: fix
     ;; -- if client.resolved_capabilities.type_definition then
     ;; map("n", "gD", function()
@@ -42,30 +51,25 @@
     ;; end, _md, "Go to type definitions[LSP]")
     ;; -- end
     (when client.server_capabilities.declarationProvider
-      (map! [:n] :gD #(. (require :telescope.builtin) :lsp_declaration) md
+      (map! [:n] :gD #(telescope.lsp_declaration) md
             "Go to type definitions[LSP]"))
-    (map! [:n] :gO #(. (require :telescope.builtin) :diagnostics) md
+    (map! [:n] :gE #(telescope.diagnostics) md
           "Show Workspace Diagnostics[LSP]")
-    (map! [:n] :go
+    (map! [:n] :ge
           #(vim.diagnostic.open_float {:border (if conf.options.float_border
                                                    :rounded
                                                    :none)}) md
           "Show Current Diagnostics[LSP]")
-    (map! [:n] "[d"
+    (map! [:n] "[e"
           #(vim.diagnostic.goto_prev {:float {:border (if conf.options.float_border
                                                           :rounded
                                                           :none)}}) md
           "Jump to prev diagnostic[LSP]")
-    (map! [:n] "]d"
+    (map! [:n] "]e"
           #(vim.diagnostic.goto_next {:float {:border (if conf.options.float_border
                                                           :rounded
                                                           :none)}}) md
-          "Jump to next diagnostic[LSP]")
-    ;; TODO: Not finished yet ;     map("i", "<c-b>", scroll_to_up, _md, "Scroll up floating window[LSP]")
-    ;     map("i", "<c-f>", scroll_to_down, _md, "Scroll down floating window[LSP]")
-    ;     map("i", "<c-]>", focus_float_window(), _md, "Focus floating window[LSP]")
-    ;     -- if client.resolved_capabilities.signature_help then ;     map("i", "<c-j>", sigature_help, _md, "Toggle signature help[LSP]")
-    ))
+          "Jump to next diagnostic[LSP]")))
 
 (fn init []
   (map! [:n] :<leader>li :<cmd>LspInfo<CR> {:noremap true} :Info)
@@ -77,38 +81,32 @@
 (fn config []
   (let [lspconfig (require :lspconfig)
         mason_lspconfig (require :mason-lspconfig)
-        navic (require :nvim-navic)]
+        navic (require :nvim-navic)
+        telescope (require :telescope.builtin)]
+    ;; Diagnostic config
     (vim.diagnostic.config {:signs true
                             :underline true
                             :severity_sort true
                             :update_in_insert false
-                            :float {:source :always}
-                            :virtual_text {:prefix "●" :source :always}}
-                           (each [_ server_name (ipairs (mason_lspconfig.get_installed_servers))]
-                             (let [(ok settings) (pcall require
-                                                        (.. :plugins.config.servers.
-                                                            server_name))]
-                               (let [settings (if ok settings {})]
-                                 (tset settings :capabilities capabilities)
-                                 (tset settings :handlers
-                                       (or settings.handlers {}))
-                                 (tset settings :on_attach
-                                       (fn [client bufnr]
-                                         (register-key client bufnr)
-                                         (when client.server_capabilities.documentSymbolProvider
-                                           (navic.attach client bufnr))))
-                                 ((. (. lspconfig server_name) :setup) settings)))))))
-
-;; TODO: Not finished yet
-;; -- lspconfig float window set border
-;; local win = require("lspconfig.ui.windows")
-;; local _default_opts = win.default_opts
-;; ---@diagnostic disable-next-line: redefined-local
-;; win.default_opts = function(opts)
-;;     local default_opts1 = _default_opts(opts)
-;;     default_opts1.border = options.float_border and "double" or "none"
-;;     return default_opts1
-;; end
-;; -- }}}
+                            :float {:border (if conf.options.float_border
+                                                :rounded
+                                                :none)
+                                    :source :always}
+                            :virtual_text {:prefix "●" :source :always}})
+    ;; Enrisching capabilities
+    (each [_ server_name (ipairs (mason_lspconfig.get_installed_servers))]
+      (let [(ok got-settings) (pcall require
+                                     (.. :plugins.config.servers. server_name))]
+        (let [settings (if ok got-settings {})]
+          (tset settings :capabilities capabilities)
+          (tset settings :handlers
+                (vim.tbl_deep_extend :force handlers
+                                     (or got-settings.handlers {})))
+          (tset settings :on_attach
+                (fn [client bufnr]
+                  (register-key client bufnr telescope)
+                  (when client.server_capabilities.documentSymbolProvider
+                    (navic.attach client bufnr))))
+          ((. (. lspconfig server_name) :setup) settings))))))
 
 {: config : init}

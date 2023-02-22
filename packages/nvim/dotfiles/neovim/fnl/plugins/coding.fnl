@@ -11,8 +11,8 @@
         (pack :windwp/nvim-autopairs (require :plugins.config.nvim-autopairs))
         ;; Comments
         (pack :numToStr/Comment.nvim (require :plugins.config.comment))
-        ;; Heuristically set buffer options
-        (pack :tpope/vim-sleuth {:config false})
+        ; ;; Heuristically set buffer options
+        ; (pack :tpope/vim-sleuth {:config false})
         ;; Allignment
         (pack :junegunn/vim-easy-align
               {:config (fn []
@@ -22,15 +22,15 @@
                                "Align Block"))})
         ;; Fix trailing whitespace
         (pack :ntpeters/vim-better-whitespace
-              {:config (fn []
+              {:init (fn []
                          (set vim.g.better_whitespace_filetypes_blacklist
                               conf.ui-ft)
+                         (set vim.g.better_whitespace_operator :<localleader>S)
                          (map! [:n] :<leader>cw :<cmd>StripWhitespace<cr> {}
                                "Strip Whitespaces"))})
         ;; Split/Join
         (pack :Wansmer/treesj (require :plugins.config.treesj))
         ;; Treesitter related
-        (pack :JoosepAlviste/nvim-ts-context-commentstring {:config false})
         (pack :nvim-treesitter/nvim-treesitter
               (require :plugins.config.treesitter))])
 

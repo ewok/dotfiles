@@ -1,7 +1,7 @@
 (local {: pack : map!} (require :lib))
 
 [;;; Pretty fold
- (pack :anuvyklack/pretty-fold.nvim {:config false})
+ (pack :anuvyklack/pretty-fold.nvim {:config true})
  ;;; Indent blankline
  (pack :lukas-reineke/indent-blankline.nvim
        (require :plugins.config.indent-blankline))

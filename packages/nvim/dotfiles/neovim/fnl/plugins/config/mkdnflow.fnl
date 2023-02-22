@@ -1,4 +1,4 @@
-(local config {:modules {:bib false}
+(local opts {:modules {:bib false}
                :buffers true
                :conceal true
                :cursor true
@@ -65,4 +65,4 @@
                           :MkdnFoldSection [:n :zf]
                           :MkdnUnfoldSection [:n :zF]}})
 
-{: config}
+{: opts}

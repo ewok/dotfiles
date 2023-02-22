@@ -1,8 +1,7 @@
 (local {: pack} (require :lib))
 
 [;; Nice UI
- (pack :stevearc/dressing.nvim
-       {:config {:input {:win_options {:winhighlight "FloatTitle:TelescopeBorder,NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder"}}}})
+ (pack :stevearc/dressing.nvim {:config false})
  ;; Winbar
  (pack :SmiteshP/nvim-navic {:config false})
  (pack :utilyre/barbecue.nvim (require :plugins.config.barbecue))

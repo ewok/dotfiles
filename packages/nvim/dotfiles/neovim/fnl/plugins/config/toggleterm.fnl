@@ -77,7 +77,7 @@
                              :count 110
                              :direction :float
                              :float_opts {:border (if conf.options.float_border
-                                                      :double
+                                                      :rounded
                                                       :none)}
                              :on_open open_callback_float
                              :on_close close_callback})]
@@ -91,7 +91,7 @@
                                                :count 130
                                                :direction :float
                                                :float_opts {:border (if conf.options.float_border
-                                                                        :double
+                                                                        :rounded
                                                                         :none)
                                                             :height (- vim.o.lines
                                                                        6)
@@ -112,7 +112,7 @@
                                         :count 130
                                         :direction :float
                                         :float_opts {:border (if conf.options.float_border
-                                                                 :double
+                                                                 :rounded
                                                                  :none)
                                                      :height (- vim.o.lines 6)
                                                      :width (- vim.o.columns 6)}

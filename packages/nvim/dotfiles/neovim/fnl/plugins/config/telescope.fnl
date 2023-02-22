@@ -34,14 +34,15 @@
                                                                :prompt_position :bottom}}
                                  :mappings {:i {:<c-j> actions.move_selection_next
                                                 :<c-k> actions.move_selection_previous
-                                                :<C-s> actions.select_horizontal
-                                                :<C-v> actions.select_vertical
-                                                :<C-t> actions.select_tab
-                                                :<C-q> (+ actions.smart_send_to_qflist
+                                                :<c-s> actions.select_horizontal
+                                                :<c-v> actions.select_vertical
+                                                :<c-t> actions.select_tab
+                                                :<c-q> (+ actions.smart_send_to_qflist
                                                           actions.open_qflist)
-                                                :<C-Space> (+ actions.toggle_selection
-                                                              actions.move_selection_next)
-                                                :<esc> actions.close}
+                                                :<c-i> (+ actions.toggle_selection
+                                                              actions.move_selection_previous)
+                                                :<esc> actions.close
+                                                }
                                             :n {:<esc> actions.close}}
                                  :pickers {:buffers {:mappings {:i {:<c-d> :delete_buffer}
                                                                 :n {:dd :delete_buffer}}}}

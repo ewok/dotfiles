@@ -13,7 +13,6 @@
  (pack :folke/todo-comments.nvim (require :plugins.config.todo-comments))
  ;; Search and Replace
  (pack :windwp/nvim-spectre (require :plugins.config.spectre))
- (pack :gabrielpoca/replacer.nvim {:config false})
  ;; Undo tree
  (pack :mbbill/undotree (require :plugins.config.undotree))
  ;; Nvim-Tree

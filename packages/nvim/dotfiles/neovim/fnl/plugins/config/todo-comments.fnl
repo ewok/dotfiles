@@ -7,7 +7,7 @@
 
 (local event [:BufRead :BufNewFile])
 
-(local config
+(local opts
        {:keywords {:NOTE {:icon conf.icons.Note :color "#96CDFB"}
                    :TODO {:icon conf.icons.Todo :color "#B5E8E0"}
                    :PERF {:icon conf.icons.Pref :color "#F8BD96"}
@@ -17,4 +17,4 @@
                          :color "#DDB6F2"
                          :alt [:FIXME :BUG :FIXIT :ISSUE]}}})
 
-{: init : event : config}
+{: init : event : opts}

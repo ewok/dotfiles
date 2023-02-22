@@ -38,9 +38,9 @@
           :sexp_swap_list_forward :>F
           :sexp_swap_element_backward :<E
           :sexp_swap_element_forward :>E
-          :sexp_emit_head_element "("
-          :sexp_emit_tail_element "()"
-          :sexp_capture_prev_element "(("
-          :sexp_capture_next_element "))"})))
+          :sexp_emit_head_element "-("
+          :sexp_emit_tail_element "-)"
+          :sexp_capture_prev_element "+("
+          :sexp_capture_next_element "+)"})))
 
 {: init}
