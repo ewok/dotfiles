@@ -1,0 +1,7 @@
+[Desktop Entry]
+Categories=Audio
+Comment=TUI volume control for PulseAudio
+Exec=pulsemixer %U
+Name=PulseMixer Volume Control
+Terminal=true
+Type=Application
