@@ -1,5 +1,12 @@
 config:
+dynvariables:
+  hash_fish: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
+  f_fish_start:
+    src: fish.lock
+    dst: ~/.local/fish.lock
+    actions:
+      - install_fish
   f_fish:
     src: config.fish
     dst: ~/.config/fish/config.fish
@@ -31,6 +38,7 @@ actions:
 profiles:
   fish:
     dotfiles:
+      - f_fish_start
       - f_fish
       - f_fish_fisher
       - f_fish_plugins

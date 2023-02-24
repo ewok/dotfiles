@@ -1,4 +1,6 @@
 config:
+dynvariables:
+  hash_fonts: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_fonts:
     src: fonts.lock

@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_i3: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_i3_lock:
     src: i3.lock

@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_aws: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_aws_lock:
     src: aws.lock

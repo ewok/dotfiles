@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_cryptomator: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_cryptomator_lock:
     src: cryptomator.lock

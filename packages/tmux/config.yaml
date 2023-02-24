@@ -1,7 +1,14 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_tmux: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
+  f_tmux_start:
+    src: tmux.lock
+    dst: ~/.local/tmux.lock
+    actions:
+      - install_tmux
   f_tmux:
     src: tmux.conf
     dst: ~/.config/tmux/tmux.conf
@@ -21,6 +28,7 @@ actions:
 profiles:
   tmux:
     dotfiles:
+      - f_tmux_start
       - f_tmux
       - f_tmux_bin_tm
       - f_tmux_bin_tssh

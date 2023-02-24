@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_base: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_base_start:
     src: base.lock

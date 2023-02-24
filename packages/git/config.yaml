@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_git: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_git_lock:
     src: git.lock

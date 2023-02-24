@@ -1,4 +1,6 @@
 config:
+dynvariables:
+  hash_pipewire: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_pipewire_start:
     src: pipewire.lock
@@ -11,7 +13,7 @@ actions:
   pre:
     install_pipewire: "{{@@ pm @@}} pipewire pipewire-pulse pipewire-alsa pipewire-jack pipewire-zeroconf pavucontrol alsa-utils"
     install_pipewire1: "{{@@ pm @@}} alsa-plugins alsa-lib alsa-firmware gstreamer gst-plugins-good gst-plugins-bad gst-plugins-base"
-    install_pipewire2: "{{@@ pm @@}} gst-plugins-ugly volumeicon playerctl"
+    install_pipewire2: "{{@@ pm @@}} gst-plugins-ugly volumeicon playerctl pulsemixer"
 profiles:
   pipewire:
     dotfiles:

@@ -1,5 +1,12 @@
 config:
+dynvariables:
+  hash_starship: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
+  f_starship_lock:
+    src: starship.lock
+    dst: ~/.local/starship.lock
+    actions:
+      - install_starship
   f_starship_config:
     src: starship.toml
     dst: ~/.config/starship.toml
@@ -16,3 +23,4 @@ profiles:
     dotfiles:
       - f_starship_config
       - f_starship_fish
+      - f_starship_lock

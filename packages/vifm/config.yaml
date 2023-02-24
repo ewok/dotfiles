@@ -1,5 +1,8 @@
 config:
   dotpath: config
+dynvariables:
+  hash_vifm: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1
+    -d' '"
 dotfiles:
   f_vifm_lock:
     src: vifm.lock
@@ -20,7 +23,8 @@ dotfiles:
     dst: ~/.config/fish/functions/vifm.fish
 actions:
   pre:
-    install_vifm: "{{@@ pm @@}} exta/zip community/vifm extra/unzip extra/p7zip community/sshfs community/curlftpfs community/trash-cli aur/archivemount-git aur/epr-git"
+    install_vifm: "{{@@ pm @@}} extra/zip community/vifm extra/unzip extra/p7zip community/sshfs
+      community/curlftpfs community/trash-cli aur/archivemount-git aur/epr-git"
 profiles:
   vifm:
     dotfiles:

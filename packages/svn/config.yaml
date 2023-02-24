@@ -1,7 +1,14 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_subversion: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
+  f_subversion_start:
+    src: subversion.lock
+    dst: ~/.local/subversion.lock
+    actions:
+      - install_svn
   f_subversion:
     src: config
     dst: ~/.subversion/config
@@ -21,6 +28,7 @@ actions:
 profiles:
   svn:
     dotfiles:
+      - f_subversion_start
       - f_subversion
       - f_subversion_bin_rm
       - f_subversion_bin_add

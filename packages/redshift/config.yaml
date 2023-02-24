@@ -1,4 +1,6 @@
 config:
+dynvariables:
+  hash_redshift: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_redshift_lock:
     src: redshift.lock

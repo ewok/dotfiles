@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [ -z "$1" ] ; then
   echo "Usage: $0 [normal|inverted|left|right]"
   echo " "
@@ -39,7 +40,7 @@ function do_rotate
             right)
               [ ! -z "$POINTER" ]    && xinput set-prop "$POINTER" "$TRANSFORM" 0 1 0 -1 0 1 0 0 1
               ;;
-        esac      
+        esac
     fi
     iIndex=$[$iIndex+1]
   done

@@ -1,6 +1,8 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_nvim: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
   f_nvim_lock:
     src: nvim.lock
@@ -38,8 +40,10 @@ actions:
     cleanup_nvim_lua: "rm -rf ~/.config/nvim/lua"
     cleanup_nvim_fnl: "rm -rf ~/.config/nvim/fnl"
     install_nvim_nvim: "{{@@ pm @@}} neovim lazygit"
-    install_nvim_tools_arch: "if which yay;then {{@@ pm @@}} the_silver_searcher ripgrep python-pynvim tree-sitter npm gnu-netcat jq yq fzf ;fi"
-    install_nvim_tools_apt: "if which apt;then {{@@ pm @@}} silversearcher-ag python3-pynvim libtree-sitter-dev luarocks  ripgrep jq yq fzf;fi"
+    install_nvim_tools_arch: "if which yay;then {{@@ pm @@}} the_silver_searcher ripgrep
+      python-pynvim tree-sitter npm gnu-netcat jq yq fzf ;fi"
+    install_nvim_tools_apt: "if which apt;then {{@@ pm @@}} silversearcher-ag python3-pynvim
+      libtree-sitter-dev luarocks  ripgrep jq yq fzf;fi"
     install_nvim_coursier: "curl -o {{@@ bin @@}}/coursier https://git.io/coursier-cli"
 profiles:
   nvim:
