@@ -3,7 +3,7 @@
     (npairs.setup {:disable_filetype [:TelescopePrompt]
                    :disable_in_macro true
                    :disable_in_visualblock true
-                   ; :disable_in_replace_mode true
+                   :disable_in_replace_mode true
                    :enable_moveright true
                    :enable_check_bracket_line false
                    ; :enable_abbr false

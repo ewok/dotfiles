@@ -16,7 +16,7 @@
                      (set vim.wo.foldlevel 2)
                      (set vim.wo.conceallevel 2)
                      (let [md {:noremap true :silent true :buffer true}]
-                       (map! [:n] :<leader>cb :<cmd>EvalBlock<CR> md
+                       (map! [:n] :<leader>ce :<cmd>EvalBlock<CR> md
                              "Run Block")
                        (map! [:n] :<CR> "<Cmd>lua vim.lsp.buf.definition()<CR>"
                              md "Open Link")

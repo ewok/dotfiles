@@ -1,6 +1,6 @@
 (local opts {:modules {:bib false
                        :buffers true
-                       :conceal true
+                       :conceal false
                        :cursor true
                        :folds false
                        :links true
@@ -29,11 +29,11 @@
                                                (str/replace " " "-")
                                                (str/lower-case)
                                                (str/join (str (time/now) "_"))))}
-             :to_do {:symbols [" " :p :X]
+             :to_do {:symbols [" " "+" :x]
                      :update_parents true
                      :not_started " "
-                     :in_progress :p
-                     :complete :X}
+                     :in_progress "+"
+                     :complete :x}
              :tables {:trim_whitespace true
                       :format_on_move true
                       :auto_extend_rows false
@@ -71,4 +71,52 @@
                         :MkdnFoldSection [:n :zf]
                         :MkdnUnfoldSection [:n :zF]}})
 
-{: opts}
+(local md-rule "
+   (atx_heading (inline) @text.title)
+   (setext_heading (paragraph) @text.title)
+   [
+     (atx_h1_marker)
+     (atx_h2_marker)
+     (atx_h3_marker)
+     (atx_h4_marker)
+     (atx_h5_marker)
+     (atx_h6_marker)
+     (setext_h1_underline)
+     (setext_h2_underline)
+   ] @punctuation.special
+   [
+     (link_title)
+     (indented_code_block)
+     (fenced_code_block)
+   ] @text.literal
+   [
+     (fenced_code_block_delimiter)
+   ] @punctuation.delimiter
+   (code_fence_content) @none
+   [
+     (link_destination)
+   ] @text.uri
+   [
+     (link_label)
+   ] @text.reference
+   [
+     (list_marker_plus)
+     (list_marker_minus)
+     (list_marker_star)
+     (list_marker_dot)
+     (list_marker_parenthesis)
+     (thematic_break)
+   ] @punctuation.special
+   [
+     (block_continuation)
+     (block_quote_marker)
+   ] @punctuation.special
+   [
+     (backslash_escape)
+   ] @string.escape ")
+
+(fn config []
+  (let [query (require :vim.treesitter.query)]
+    (query.set_query :markdown :highlights md-rule)))
+
+{: opts : config}

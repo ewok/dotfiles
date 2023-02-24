@@ -114,9 +114,10 @@
     (cmp.setup.cmdline ":"
                        {:sources (cmp.config.sources [{:name :path}
                                                       {:name :cmdline}])})
-    (let [(ok resource) (pcall require :nvim-autopairs)]
-      (if ok
-          (let [cmp_autopairs (require :nvim-autopairs.completion.cmp)]
-            (: cmp.event :on :confirm_done (cmp_autopairs.on_confirm_done)))))))
+    ;; (let [(ok _) (pcall require :nvim-autopairs)]
+    ;;   (if ok
+    ;;       (let [cmp_autopairs (require :nvim-autopairs.completion.cmp)]
+    ;;         (: cmp.event :on :confirm_done (cmp_autopairs.on_confirm_done)))))
+    ))
 
 {: config}
