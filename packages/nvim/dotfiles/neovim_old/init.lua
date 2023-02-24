@@ -1483,7 +1483,8 @@ plugins = {
                 virtual_text = { prefix = "●", source = "always" },
             })
 
-            -- FIXME: Something wrong here
+            -- DONE: Something wrong here
+            -- fixed in fnl
             -- for _type, _icon in pairs(icons) do
             --     local hl = "DiagnosticSign" .. _type
             --     vim.fn.sign_define(hl, { text = _icon, texthl = hl, numhl = hl })

@@ -1,68 +1,74 @@
-(local opts {:modules {:bib false}
-               :buffers true
-               :conceal true
-               :cursor true
-               :folds true
-               :links {:style :markdown
-                       :name_is_source false
-                       :conceal false
-                       :implicit_extension nil
-                       :transform_implicit false
-                       :transform_explicit (fn [text]
-                                             (-> text
-                                                 (str/replace " " "-")
-                                                 (str/lower-case)
-                                                 (str/join (str (time/now) "_"))))}
-               :lists true
-               :maps true
-               :paths true
-               :tables {:trim_whitespace true
-                        :format_on_move true
-                        :auto_extend_rows false
-                        :auto_extend_cols false}
-               :filetypes {:md true :rmd true :markdown true}
-               :create_dirs true
-               :perspective {:priority :first
-                             :fallback :current
-                             :root_tell false
-                             :nvim_wd_heel true}
-               :wrap false
-               :silent false
-               :to_do {:symbols [" " "-" :x]
-                       :update_parents true
-                       :not_started " "
-                       :in_progress "-"
-                       :complete :x}
-               :mappings {:MkdnEnter [[:n :v] :<M-CR>]
-                          :MkdnTab false
-                          :MkdnSTab false
-                          :MkdnNextLink [:n "]l"]
-                          :MkdnPrevLink [:n "[l"]
-                          :MkdnNextHeading [:n "]]"]
-                          :MkdnPrevHeading [:n "[["]
-                          :MkdnGoBack [:n :<BS>]
-                          :MkdnGoForward [:n :<Del>]
-                          :MkdnFollowLink false
-                          :MkdnMoveSource [:n :<F2>]
-                          :MkdnYankAnchorLink [:n :ya]
-                          :MkdnYankFileAnchorLink [:n :yfa]
-                          :MkdnIncreaseHeading [:n "+"]
-                          :MkdnDecreaseHeading [:n "-"]
-                          :MkdnToggleToDo [[:n :v] :<C-Space>]
-                          :MkdnNewListItem false
-                          :MkdnNewListItemBelowInsert [:n :o]
-                          :MkdnNewListItemAboveInsert [:n :O]
-                          :MkdnExtendList false
-                          :MkdnUpdateNumbering [:n :<leader>wN]
-                          :MkdnTableNextCell [:i :<Tab>]
-                          :MkdnTablePrevCell [:i :<S-Tab>]
-                          :MkdnTableNextRow false
-                          :MkdnTablePrevRow [:i :<M-CR>]
-                          :MkdnTableNewRowBelow [:n :<leader>ir]
-                          :MkdnTableNewRowAbove [:n :<leader>iR]
-                          :MkdnTableNewColAfter [:n :<leader>ic]
-                          :MkdnTableNewColBefore [:n :<leader>iC]
-                          :MkdnFoldSection [:n :zf]
-                          :MkdnUnfoldSection [:n :zF]}})
+(local opts {:modules {:bib false
+                       :buffers true
+                       :conceal true
+                       :cursor true
+                       :folds false
+                       :links true
+                       :lists true
+                       :maps true
+                       :paths true
+                       :tables true
+                       :yaml false}
+             :filetypes {:md true :rmd true :markdown true}
+             :create_dirs true
+             :perspective {:priority :first
+                           :fallback :current
+                           :root_tell false
+                           :nvim_wd_heel true}
+             :wrap false
+             :silent false
+             :links {:style :markdown
+                     :name_is_source false
+                     :conceal true
+                     :context 1
+                     ;0
+                     :implicit_extension nil
+                     :transform_implicit false
+                     :transform_explicit (fn [text]
+                                           (-> text
+                                               (str/replace " " "-")
+                                               (str/lower-case)
+                                               (str/join (str (time/now) "_"))))}
+             :to_do {:symbols [" " :p :X]
+                     :update_parents true
+                     :not_started " "
+                     :in_progress :p
+                     :complete :X}
+             :tables {:trim_whitespace true
+                      :format_on_move true
+                      :auto_extend_rows false
+                      :auto_extend_cols false}
+             :mappings {:MkdnEnter [[:n :v] :<M-CR>]
+                        :MkdnTab false
+                        :MkdnSTab false
+                        :MkdnNextLink [:n "]l"]
+                        :MkdnPrevLink [:n "[l"]
+                        :MkdnNextHeading [:n "]]"]
+                        :MkdnPrevHeading [:n "[["]
+                        :MkdnGoBack [:n :<BS>]
+                        :MkdnGoForward [:n :<Del>]
+                        :MkdnFollowLink false
+                        :MkdnMoveSource [:n :<leader>wr]
+                        :MkdnYankAnchorLink [:n :ya]
+                        :MkdnYankFileAnchorLink [:n :yfa]
+                        :MkdnIncreaseHeading [:n "+"]
+                        :MkdnDecreaseHeading [:n "-"]
+                        :MkdnToggleToDo [[:n :v] :<C-Space>]
+                        :MkdnNewListItem [:i :<CR>]
+                        :MkdnNewListItemBelowInsert [:n :o]
+                        :MkdnNewListItemAboveInsert [:n :O]
+                        :MkdnExtendList false
+                        :MkdnUpdateNumbering [:n :<leader>wN]
+                        :MkdnTableFormat [:n :tf]
+                        :MkdnTableNewColAfter [:n :ta]
+                        :MkdnTableNewColBefore [:n :ti]
+                        :MkdnTableNewRowAbove [:n :tO]
+                        :MkdnTableNewRowBelow [:n :to]
+                        :MkdnTableNextCell [:i :<Tab>]
+                        :MkdnTableNextRow [:i :<C-Down>]
+                        :MkdnTablePrevCell [:i :<S-Tab>]
+                        :MkdnTablePrevRow [:i :<C-Up>]
+                        :MkdnFoldSection [:n :zf]
+                        :MkdnUnfoldSection [:n :zF]}})
 
 {: opts}

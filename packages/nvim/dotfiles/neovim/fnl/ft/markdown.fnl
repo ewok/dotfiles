@@ -23,8 +23,8 @@
                        (map! [:v] :<CR>
                              ":'<,'>ZkNewFromTitleSelection { dir = vim.fn.expand('%:p:h') }<CR>"
                              md "Create Link")
-                       (map! [:n] :<leader>wb :<Cmd>ZkBacklinks<CR>
-                             {:silent true} :Backlinks)
-                       (map! [:n] :<leader>wl :<Cmd>ZkLinks<CR> {:silent true}
-                             :Links))
+                       (map! [:n] :<leader>wb :<Cmd>ZkBacklinks<CR> md
+                             :Backlinks)
+                       (map! [:n] :<leader>wl :<Cmd>ZkLinks<CR> md :Links)
+                       (map! :n :tn "<cmd>MkdnTable 1 1<cr>" md "New Table"))
                      (set-abbr)))

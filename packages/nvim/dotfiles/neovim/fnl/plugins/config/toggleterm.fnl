@@ -55,33 +55,40 @@
                                     :FloatBorder {:link :FloatBorder}}
                        : shell})
     (let [terminal (require :toggleterm.terminal)
-          terms terminal.Terminal]
+          terms terminal.Terminal
+          horizontal-terminal #(let [horizontal (: terms :new
+                                                   {:direction :horizontal
+                                                    :count 110
+                                                    :size (fn [term]
+                                                            (if (= :horizontal
+                                                                   (. term
+                                                                      :direction))
+                                                                (* vim.o.lines
+                                                                   0.25)
+                                                                (* vim.o.columns
+                                                                   0.25)))
+                                                    :on_open open_callback
+                                                    :on_close close_callback})]
+                                 (: horizontal :toggle nil :horizontal))
+          float-terminal #(let [float (: terms :new
+                                         {:hidden true
+                                          :count 110
+                                          :direction :float
+                                          :float_opts {:border (if conf.options.float_border
+                                                                   :rounded
+                                                                   :none)}
+                                          :on_open open_callback_float
+                                          :on_close close_callback})]
+                            (: float :toggle nil :float))]
       ;; Horizontal terminal at the bottom
-      (map! [:n :t] :<c-space>
-            #(let [horizontal (: terms :new
-                                 {:direction :horizontal
-                                  :count 110
-                                  :size (fn [term]
-                                          (if (= :horizontal
-                                                 (. term :direction))
-                                              (* vim.o.lines 0.25)
-                                              (* vim.o.columns 0.25)))
-                                  :on_open open_callback
-                                  :on_close close_callback})]
-               (: horizontal :toggle nil :horizontal))
-            {:silent true} "Toggle bottom or vertical terminal")
+      (map! :n :<leader>tt horizontal-terminal {:silent true}
+            "Toggle bottom or vertical terminal")
+      (map! [:n :t] :<c-space> horizontal-terminal {:silent true}
+            "Toggle bottom or vertical terminal")
       ;; Float terminal
-      (map! [:n :t] :<c-cr>
-            #(let [float (: terms :new
-                            {:hidden true
-                             :count 110
-                             :direction :float
-                             :float_opts {:border (if conf.options.float_border
-                                                      :rounded
-                                                      :none)}
-                             :on_open open_callback_float
-                             :on_close close_callback})]
-               (: float :toggle nil :float)) {:silent true}
+      (map! :n :<leader>tf float-terminal {:silent true}
+            "Toggle floating terminal")
+      (map! [:n :t] :<c-cr> float-terminal {:silent true}
             "Toggle floating terminal")
       ;; Lazygit file history
       (map! :n :<leader>glf #(let [lazygit (: terms :new

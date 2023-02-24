@@ -93,6 +93,10 @@
                                                 :none)
                                     :source :always}
                             :virtual_text {:prefix "●" :source :always}})
+    ;; Signs
+    (each [_type _icon (pairs conf.icons.diagnostic)]
+      (let [hl (.. :DiagnosticSign _type)]
+        (vim.fn.sign_define hl {:text _icon :texthl hl :numhl hl})))
     ;; Enrisching capabilities
     (each [_ server_name (ipairs (mason_lspconfig.get_installed_servers))]
       (let [(ok got-settings) (pcall require

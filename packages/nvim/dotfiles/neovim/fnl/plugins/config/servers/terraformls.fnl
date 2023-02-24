@@ -1,0 +1,5 @@
+(local util (require :lspconfig/util))
+
+{:cmd [:terraform-ls :serve]
+ :filetypes [:terraform :terraform-vars :hcl]
+ :root_dir (util.root_pattern :.git :.root)}

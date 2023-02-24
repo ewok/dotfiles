@@ -1,6 +1,6 @@
 (fn config []
   (let [configs (require :nvim-treesitter.configs)]
-    (configs.setup {:ensure_installed {}
+    (configs.setup {:ensure_installed [:markdown_inline]
                     :ignore_install {}
                     :sync_install false
                     :auto_install true

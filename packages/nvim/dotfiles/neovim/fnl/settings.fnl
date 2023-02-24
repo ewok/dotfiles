@@ -22,7 +22,7 @@
         :incsearch true
         :laststatus 2
         :linespace 0
-        :mouse ""
+        :mouse :a
         :ruler true
         :scrolloff 3
         :secure true
