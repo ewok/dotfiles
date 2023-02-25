@@ -1,5 +1,3 @@
-h bal -M --real -e 2023-03 not:tag:clopen --budget
-
 #!/usr/bin/env bash
 
 h \
