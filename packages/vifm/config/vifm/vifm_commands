@@ -24,13 +24,10 @@ command! vgrep vim "+grep %a"
 
 command! reload :write | restart
 
-command! j :execute 'cd' system('fasd -d1 %a')
+command! z :execute 'cd' system('zoxide query %a')
 
 command! vim nvim %a
 command! nvim nvim %a
-command! em em %a
-
-command! code code %a
 
 command! zip bash -c 'for f in %f; do zip -r "$f.zip" "$f"; done'
 command! zipto zip -r %a.zip %f
