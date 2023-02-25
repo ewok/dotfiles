@@ -57,6 +57,10 @@ dotfiles:
     src: hledger/add.sh
     dst: "{{@@ bin @@}}/h-add"
     chmod: 0755
+  f_scripts_h-budget-2:
+    src: hledger/h-budget-2
+    dst: "{{@@ bin @@}}/h-budget-2"
+    chmod: 0755
   f_scripts_check-colors:
     src: check-colors
     dst: "{{@@ bin @@}}/check-colors"
@@ -80,4 +84,5 @@ profiles:
       - f_scripts_h-exp
       - f_scripts_h-edit
       - f_scripts_h-add
+      - f_scripts_h-budget-2
       - f_scripts_check-colors
