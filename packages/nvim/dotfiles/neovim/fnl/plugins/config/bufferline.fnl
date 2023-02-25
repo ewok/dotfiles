@@ -83,8 +83,8 @@
                                                                              conf.home-dir
                                                                              "~"
                                                                              1)
-                                                          :guifg conf.colors.color_4
-                                                          :guibg conf.colors.color_0}]}
+                                                          :guifg conf.colors.base0D
+                                                          :guibg conf.colors.base00}]}
                                  :offsets [{:filetype :NvimTree
                                             :text "File Explorer"
                                             :highlight :Directory

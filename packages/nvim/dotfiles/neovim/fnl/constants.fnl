@@ -18,7 +18,9 @@
                 :auto_hide_cursorline true
                 :rainbow_parents false
                 ; :leap or :hop
-                :motion_plugin :leap})
+                :motion_plugin :leap
+                :theme "{{@@ theme @@}}"
+                })
 
 ; :color_0 "#282c34"
 ; :color_1 "#e06c75"
@@ -36,22 +38,22 @@
 ; :color_13 "#b6bdca"
 ; :color_14 "#be5046"
 ; :color_15 "#c8ccd4"
-(local colors {:color_0 "#{{@@ colors.color0 @@}}"
-               :color_1 "#{{@@ colors.color1 @@}}"
-               :color_2 "#{{@@ colors.color2 @@}}"
-               :color_3 "#{{@@ colors.color3 @@}}"
-               :color_4 "#{{@@ colors.color4 @@}}"
-               :color_5 "#{{@@ colors.color5 @@}}"
-               :color_6 "#{{@@ colors.color6 @@}}"
-               :color_7 "#{{@@ colors.color7 @@}}"
-               :color_8 "#{{@@ colors.color8 @@}}"
-               :color_9 "#{{@@ colors.color9 @@}}"
-               :color_10 "#{{@@ colors.color10 @@}}"
-               :color_11 "#{{@@ colors.color11 @@}}"
-               :color_12 "#{{@@ colors.color12 @@}}"
-               :color_13 "#{{@@ colors.color13 @@}}"
-               :color_14 "#{{@@ colors.color14 @@}}"
-               :color_15 "#{{@@ colors.color15 @@}}"})
+(local colors {:base00 "#{{@@ colors.base00 @@}}"
+               :base01 "#{{@@ colors.base01 @@}}"
+               :base02 "#{{@@ colors.base02 @@}}"
+               :base03 "#{{@@ colors.base03 @@}}"
+               :base04 "#{{@@ colors.base04 @@}}"
+               :base05 "#{{@@ colors.base05 @@}}"
+               :base06 "#{{@@ colors.base06 @@}}"
+               :base07 "#{{@@ colors.base07 @@}}"
+               :base08 "#{{@@ colors.base08 @@}}"
+               :base09 "#{{@@ colors.base09 @@}}"
+               :base0A "#{{@@ colors.base0A @@}}"
+               :base0B "#{{@@ colors.base0B @@}}"
+               :base0C "#{{@@ colors.base0C @@}}"
+               :base0D "#{{@@ colors.base0D @@}}"
+               :base0E "#{{@@ colors.base0E @@}}"
+               :base0F "#{{@@ colors.base0F @@}}"})
 
 (local icons {})
 

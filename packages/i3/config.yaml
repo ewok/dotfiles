@@ -46,13 +46,19 @@ dotfiles:
     src: bin/xdotool-mod
     dst: "{{@@ bin @@}}/xdotool-mod"
     chmod: 0755
+  f_i3_gtk2:
+    src: gtk2.ini
+    dst: ~/.gtkrc-2.0
+  f_i3_gtk3:
+    src: gtk3.ini
+    dst: ~/.config/gtk-3.0/settings.ini
 actions:
   pre:
     install_i3: "{{@@ pm @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
     install_i3_1: "{{@@ pm @@}} i3status-rust i3-wm light nitrogen papirus-icon-theme xcape"
     install_i3_2: "{{@@ pm @@}} xdotool xkb-switch-i3 xorg-server xorg-apps xorg-xinit"
     install_i3_3: "{{@@ pm @@}} solaar xautolock xss-lock betterlockscreen autorandr"
-    install_i3_4: "{{@@ pm @@}} pcmanfm viewnior xclip"
+    install_i3_4: "{{@@ pm @@}} pcmanfm viewnior xclip aur/dracula-gtk-theme"
     install_i3_5: "{{@@ pm @@}} zathura zathura-pdf-mupdf zathura-djvu zathura-cb"
     install_i3_fm: "{{@@ pm @@}} gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb mtpfs udiskie"
     install_i3_fm1: "{{@@ pm @@}} udisks2 xdg-user-dirs parcellite"
@@ -71,3 +77,5 @@ profiles:
       - f_i3_pcmanfm
       - f_i3_xcape
       - f_i3_parcellite
+      - f_i3_gtk2
+      - f_i3_gtk3

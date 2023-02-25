@@ -307,22 +307,22 @@ mode "resize" {
 # set $base0E #c678dd
 # set $base0F #be5046
 
-set $base00 #{{@@ colors.color0 @@}}
-set $base01 #{{@@ colors.color10 @@}}
-set $base02 #{{@@ colors.color11 @@}}
-set $base03 #{{@@ colors.color8 @@}}
-set $base04 #{{@@ colors.color12 @@}}
-set $base05 #{{@@ colors.color7 @@}}
-set $base06 #{{@@ colors.color13 @@}}
-set $base07 #{{@@ colors.color15 @@}}
-set $base08 #{{@@ colors.color1 @@}}
-set $base09 #{{@@ colors.color9 @@}}
-set $base0A #{{@@ colors.color3 @@}}
-set $base0B #{{@@ colors.color2 @@}}
-set $base0C #{{@@ colors.color6 @@}}
-set $base0D #{{@@ colors.color4 @@}}
-set $base0E #{{@@ colors.color5 @@}}
-set $base0F #{{@@ colors.color14 @@}}
+set $base00 #{{@@ colors.base00 @@}}
+set $base01 #{{@@ colors.base01 @@}}
+set $base02 #{{@@ colors.base02 @@}}
+set $base03 #{{@@ colors.base03 @@}}
+set $base04 #{{@@ colors.base04 @@}}
+set $base05 #{{@@ colors.base05 @@}}
+set $base06 #{{@@ colors.base06 @@}}
+set $base07 #{{@@ colors.base07 @@}}
+set $base08 #{{@@ colors.base08 @@}}
+set $base09 #{{@@ colors.base09 @@}}
+set $base0A #{{@@ colors.base0A @@}}
+set $base0B #{{@@ colors.base0B @@}}
+set $base0C #{{@@ colors.base0C @@}}
+set $base0D #{{@@ colors.base0D @@}}
+set $base0E #{{@@ colors.base0E @@}}
+set $base0F #{{@@ colors.base0F @@}}
 
 # Basic bar configuration using the Base16 variables.
 bar {

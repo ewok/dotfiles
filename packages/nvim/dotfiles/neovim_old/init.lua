@@ -324,22 +324,22 @@ options.auto_hide_cursorline = true
 -- }
 
 options.colors = {
-    color_0 = "#{{@@ colors.color0 @@}}",
-    color_1 = "#{{@@ colors.color1 @@}}",
-    color_2 = "#{{@@ colors.color2 @@}}",
-    color_3 = "#{{@@ colors.color3 @@}}",
-    color_4 = "#{{@@ colors.color4 @@}}",
-    color_5 = "#{{@@ colors.color5 @@}}",
-    color_6 = "#{{@@ colors.color6 @@}}",
-    color_7 = "#{{@@ colors.color7 @@}}",
-    color_8 = "#{{@@ colors.color8 @@}}",
-    color_9 = "#{{@@ colors.color9 @@}}",
-    color_10 = "#{{@@ colors.color10 @@}}",
-    color_11 = "#{{@@ colors.color11 @@}}",
-    color_12 = "#{{@@ colors.color12 @@}}",
-    color_13 = "#{{@@ colors.color13 @@}}",
-    color_14 = "#{{@@ colors.color14 @@}}",
-    color_15 = "#{{@@ colors.color15 @@}}",
+    color_0 = "#{{@@ colors.base00 @@}}",
+    color_1 = "#{{@@ colors.base08 @@}}",
+    color_2 = "#{{@@ colors.base0B @@}}",
+    color_3 = "#{{@@ colors.base0A @@}}",
+    color_4 = "#{{@@ colors.base0D @@}}",
+    color_5 = "#{{@@ colors.base0E @@}}",
+    color_6 = "#{{@@ colors.base0C @@}}",
+    color_7 = "#{{@@ colors.base05 @@}}",
+    color_8 = "#{{@@ colors.base03 @@}}",
+    color_9 = "#{{@@ colors.base09 @@}}",
+    color_10 = "#{{@@ colors.base01 @@}}",
+    color_11 = "#{{@@ colors.base02 @@}}",
+    color_12 = "#{{@@ colors.base04 @@}}",
+    color_13 = "#{{@@ colors.base06 @@}}",
+    color_14 = "#{{@@ colors.base0F @@}}",
+    color_15 = "#{{@@ colors.base07 @@}}",
     -- color_0 = "#282c34",
     -- color_1 = "#e06c75",
     -- color_2 = "#98c379",
@@ -3426,7 +3426,7 @@ plugins = {
                             local home = vim.loop.os_homedir()
                             cwd = string.gsub(cwd, home, "~")
                             return {
-                                { text = cwd, guifg = options.colors.color_4, guibg = options.colors.color_0 },
+                                { text = cwd, guifg = options.colors.base0D, guibg = options.colors.base00 },
                             }
                         end,
                     },
