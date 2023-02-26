@@ -17,3 +17,31 @@ if string match --regex -q 'nix' (mount)
   end
 end
 
+function nixify
+  if not test -e ./.envrc
+    echo "use nix" > .envrc
+    direnv allow
+  end
+  if not test -e shell.nix; and not test -e default.nix
+    echo "\
+with import <nixpkgs> {};
+mkShell {
+  nativeBuildInputs = [
+    bashInteractive
+  ];
+}" > default.nix
+  else
+    echo "shell.nix already exists"
+  end
+end
+
+function flakify
+  if not test -e flake.nix
+    nix flake new -t github:nix-community/nix-direnv .
+  else if not test -e .envrc
+    echo "use flake" > .envrc
+    direnv allow
+else
+    echo "flake already exists"
+  end
+end
