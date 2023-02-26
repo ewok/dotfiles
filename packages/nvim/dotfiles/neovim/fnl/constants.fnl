@@ -19,8 +19,14 @@
                 :rainbow_parents false
                 ; :leap or :hop
                 :motion_plugin :leap
-                :theme "{{@@ theme @@}}"
-                })
+                ;; bufferline or cokeline
+                :bufferline_plugin :cokeline
+                :theme "{{@@ theme @@}}"})
+
+(local separator {:left "{{@@ separator_left @@}}"
+                  :right "{{@@ separator_right @@}}"
+                  :alt_left "{{@@ alt_separator_left @@}}"
+                  :alt_right "{{@@ alt_separator_right @@}}"})
 
 ; :color_0 "#282c34"
 ; :color_1 "#e06c75"
@@ -142,4 +148,5 @@
                 : notes-dir
                 : in-tmux?
                 : lisp-langs
+                : separator
                 : ui-ft})

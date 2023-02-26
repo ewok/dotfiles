@@ -9,6 +9,7 @@
   (map! :n :<Tab> :<cmd>BufferLineCycleNext<cr> {:silent true}
         "Go to right buffer")
   (map! :n :<leader>bn :<cmd>enew<cr> {:silent true} "Create new buffer")
+
   (map! :n :<leader>bh :<cmd>BufferLineCloseLeft<cr> {:silent true}
         "Close all left buffers")
   (map! :n :<leader>bl :<cmd>BufferLineCloseRight<cr> {:silent true}
@@ -52,7 +53,7 @@
                                  :buffer_close_icon ""
                                  :modified_icon "●"
                                  :diagnostics :nvim_lsp
-                                 ; :separator_style :slant
+                                 :indicator {:style :none}
                                  :show_buffer_close_icons false
                                  :show_close_icon false
                                  :show_tab_indicators true
@@ -60,31 +61,32 @@
                                  :persist_buffer_sort true
                                  :always_show_bufferline true
                                  ;; TODO: Might not work either
-                                 :diagnostics_indicator (fn [count
-                                                             level
-                                                             diagnostics_dict
-                                                             context]
-                                                          (let [message (match true
-                                                                          diagnostics_dict.error (string.format "%s%s"
-                                                                                                                conf.icons.Error
-                                                                                                                diagnostics_dict.error)
-                                                                          diagnostics_dict.warning (string.format "%s%s"
-                                                                                                                  conf.icons.Warn
-                                                                                                                  diagnostics_dict.warning)
-                                                                          diagnostics_dict.info (string.format "%s%s"
-                                                                                                               conf.icons.Info
-                                                                                                               diagnostics_dict.info)
-                                                                          diagnostics_dict.hint (string.format "%s%s"
-                                                                                                               conf.icons.Hint
-                                                                                                               diagnostics_dict.hint)
-                                                                          _ "")]
-                                                            message))
-                                 :custom_areas {:right #[{:text (string.gsub (vim.fn.getcwd)
-                                                                             conf.home-dir
-                                                                             "~"
-                                                                             1)
-                                                          :guifg conf.colors.base0D
-                                                          :guibg conf.colors.base00}]}
+                                 ; :diagnostics_indicator (fn [count
+                                 ;                             level
+                                 ;                             diagnostics_dict
+                                 ;                             context]
+                                 ;                          (let [message (match true
+                                 ;                                          diagnostics_dict.error (string.format "%s%s"
+                                 ;                                                                                conf.icons.Error
+                                 ;                                                                                diagnostics_dict.error)
+                                 ;                                          diagnostics_dict.warning (string.format "%s%s"
+                                 ;                                                                                  conf.icons.Warn
+                                 ;                                                                                  diagnostics_dict.warning)
+                                 ;                                          diagnostics_dict.info (string.format "%s%s"
+                                 ;                                                                               conf.icons.Info
+                                 ;                                                                               diagnostics_dict.info)
+                                 ;                                          diagnostics_dict.hint (string.format "%s%s"
+                                 ;                                                                               conf.icons.Hint
+                                 ;                                                                               diagnostics_dict.hint)
+                                 ;                                          _ "")]
+                                 ;                            message))
+                                 :custom_areas {:right #[{:text (.. conf.separator.alt_right
+                                                                    (string.gsub (vim.fn.getcwd)
+                                                                                 conf.home-dir
+                                                                                 "~"
+                                                                                 1))
+                                                          :fg conf.colors.base0D
+                                                          :bg conf.colors.base00}]}
                                  :offsets [{:filetype :NvimTree
                                             :text "File Explorer"
                                             :highlight :Directory

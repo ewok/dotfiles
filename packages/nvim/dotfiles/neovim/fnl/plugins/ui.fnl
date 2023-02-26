@@ -10,10 +10,14 @@
  ;; Lualine
  (pack :nvim-lualine/lualine.nvim (require :plugins.config.lualine))
  ;; Buferline
- (pack :akinsho/bufferline.nvim (require :plugins.config.bufferline))
+ (case conf.options.bufferline_plugin
+   :bufferline
+   (pack :akinsho/bufferline.nvim (require :plugins.config.bufferline))
+   :cokeline
+   (pack :noib3/nvim-cokeline (require :plugins.config.cokeline)))
  ;; NeoZoom
  (pack :nyngwang/NeoZoom.lua (require :plugins.config.neozoom))
  ;; Better QF
- (pack :kevinhwang91/nvim-bqf (require :plugins.config.bqf))
+ ; (pack :kevinhwang91/nvim-bqf (require :plugins.config.bqf))
  ;; Which-Key
  (pack :folke/which-key.nvim (require :plugins.config.which-key))]

@@ -3,9 +3,9 @@
 (reg-ft :qf
         #(do
            (map! [:n] :q ":cclose<cr>" {:silent true :buffer true} :Close)
-           (map! [:n] "]c" ":cnext|wincmd p<cr>" {:silent true :buffer true}
+           (map! [:n] "n" ":cnext|wincmd p<cr>" {:silent true :buffer true}
                  "Next C item")
-           (map! [:n] "[c" ":cprevious|wincmd p<cr>"
+           (map! [:n] "p" ":cprevious|wincmd p<cr>"
                  {:silent true :buffer true} "Previous C item")
            (map! [:n] "]l" ":lnext|wincmd p<cr>" {:silent true :buffer true}
                  "Next L item")

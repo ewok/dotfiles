@@ -72,5 +72,18 @@
 (vim.api.nvim_create_user_command :BufferDelete buffer-delete
                                   {:desc "Delete the current Buffer while maintaining the window layout"})
 
+(fn buffer-delete-only []
+  (let [del-non-modifiable false
+        ; true if you want to delete non-modifiable buffers
+        cur (vim.api.nvim_get_current_buf)]
+    (each [_ n (ipairs (vim.api.nvim_list_bufs))]
+      (if (and (not= n cur) (or (vim.api.nvim_buf_get_option n :modifiable)
+                                del-non-modifiable))
+          (vim.api.nvim_buf_delete n {})))
+    (vim.cmd :redrawt)))
+
+(vim.api.nvim_create_user_command :BufOnly buffer-delete-only
+                                  {:desc "Delete all other buffers"})
+
 ;; load local vimrc
 (vim.api.nvim_exec "\n try\n source ~/.vimrc.local\n catch\n endtry" nil)

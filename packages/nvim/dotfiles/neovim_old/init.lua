@@ -3077,8 +3077,8 @@ plugins = {
             options = {
                 theme = "auto",
                 icons_enabled = true,
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
+                component_separators = { left = "{{@@ alternative_separator_left @@}}", right = "{{@@ alternative_separator_right @@}}" },
+                section_separators = { left = "{{@@ separator_left @@}}", right = "{{@@ separator_right @@}}" },
                 -- section_separators = { left = "", right = "" },
                 disabled_filetypes = {},
                 globalstatus = true,

@@ -12,8 +12,6 @@ dotfiles:
   f_tmux:
     src: tmux.conf
     dst: ~/.config/tmux/tmux.conf
-    actions:
-      - install_tmux
   f_tmux_bin_tm:
     src: tm
     dst: "{{@@ bin @@}}/tm"
