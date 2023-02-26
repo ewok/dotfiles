@@ -44,4 +44,4 @@ source $VIFM/vifm_keys
 source $VIFM/vifm_ext
 source $VIFM/vifm_custom
 source $VIFM/plugins/devicons.vifm
-source $VIFM/colors/onedark.vifm
+source $VIFM/colors/base16.vifm

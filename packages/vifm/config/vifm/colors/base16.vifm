@@ -1,4 +1,4 @@
-" onedark color scheme for vifm
+" base16 color scheme for vifm
 
 " Reset all styles first
 highlight clear
