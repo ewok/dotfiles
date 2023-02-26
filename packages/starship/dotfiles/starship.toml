@@ -1,6 +1,11 @@
 add_newline = false
 scan_timeout = 10
 
+[custom.direnv]
+format = "[\\[direnv\\]]($style) "
+style = "fg:bold red"
+when = "env | grep -E '^DIRENV_FILE='"
+
 [battery]
 [[battery.display]]
 style = "bold red"
