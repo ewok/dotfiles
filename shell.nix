@@ -16,6 +16,7 @@ pkgs.mkShell {
 
   shellHook = ''
     # PATH=${nix}/bin:$PATH
+    SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     echo *******************START*******************
     git-crypt-status
     curl -sL 'https://github.com/ewok/dotfiles/raw/main/local_vars.yaml' | md5sum -c local_vars.yaml.md5
