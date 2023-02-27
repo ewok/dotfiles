@@ -14,9 +14,9 @@ dotfiles:
       - enable_laptop_battery
       - start_laptop_ac
       - start_laptop_battery
-  d_laptop_etc:
-    src: etc
-    dst: /etc
+  d_laptop_etc_systemd:
+    src: etc/systemd
+    dst: /etc/systemd
     ignore_missing_in_dotdrop: true
     actions:
       - enable_laptop_tlp
@@ -25,6 +25,20 @@ dotfiles:
       - mask_laptop_rfkill_socket
       - enable_laptop_nm
       - start_laptop_nm
+  d_laptop_etc_udev:
+    src: etc/udev
+    dst: /etc/udev
+    ignore_missing_in_dotdrop: true
+    actions:
+      - enable_laptop_tlp
+      - start_laptop_tlp
+      - mask_laptop_rfkill_service
+      - mask_laptop_rfkill_socket
+      - enable_laptop_nm
+      - start_laptop_nm
+  d_laptop_etc_sudoers:
+    src: etc/sudoers.d
+    dst: /etc/sudoers.d
   f_laptop_usr:
     src: usr/local/bin/ac_bat_target
     dst: /usr/local/bin/ac_bat_target
@@ -48,5 +62,8 @@ profiles:
   laptop:
     dotfiles:
       - f_laptop_usr
-      - d_laptop_etc
+      - d_laptop_etc_sudoers
+      - d_laptop_etc_systemd
+      - d_laptop_etc_udev
       - f_laptop_lock
+
