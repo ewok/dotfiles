@@ -42,7 +42,7 @@
         shell (if (= 1 (vim.fn.executable :fish)) :fish :bash)]
     (toggleterm.setup {:start_in_insert false
                        :shade_terminals true
-                       :shading_factor 1
+                       :shading_factor -30
                        :persist_size false
                        :persist_mode false
                        :size (fn [term]
@@ -50,7 +50,7 @@
                                    (* vim.o.lines 0.25)
                                    (* vim.o.columns 0.25)))
                        :on_open (fn [] (vim.wo.spell false))
-                       :highlights {:Normal {:link :Normal}
+                       :highlights {:Normal {:guibg conf.colors.base00}
                                     :NormalFloat {:link :NormalFloat}
                                     :FloatBorder {:link :FloatBorder}}
                        : shell})
