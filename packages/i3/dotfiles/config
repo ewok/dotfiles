@@ -16,7 +16,7 @@ set $right l
 ################################################################################################
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
+default_border pixel 2
 default_floating_border pixel
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -33,8 +33,6 @@ focus_follows_mouse yes
 
 # Gaps
 gaps inner 6
-gaps outer 2
-smart_gaps on
 
 ################################################################################################
 # Window Settings
@@ -52,17 +50,17 @@ for_window [class="GParted"] floating enable border normal, move position center
 for_window [class="Insync"] floating enable, move position center
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 # for_window [class="(?i)virtualbox"] floating enable border normal, move position center
-for_window [class="Meld"] border pixel 1
+for_window [class="Meld"] border pixel 2
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Pavucontrol"] floating enable, move position center
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Seahorse"] border pixel 1
+for_window [class="Seahorse"] border pixel 2
 for_window [class="Simple-scan"] floating enable border normal
 for_window [class="Spotify"]  move container to workspace 8
 for_window [class="Cider"]  move container to workspace 8
 for_window [class="Syncthing GTK"] floating enable sticky enable move position center
-for_window [class="TelegramDesktop"] border pixel 1, move right,move right,move right, resize set 30 ppt
+for_window [class="TelegramDesktop"] border pixel 2, move right,move right,move right, resize set 30 ppt
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="trayer"] floating enable
 for_window [title="alsamixer"] floating enable border normal
@@ -211,6 +209,11 @@ bindsym $mod+b workspace prev
 
 # bindsym $mod+braceleft move workspace to output left
 # bindsym $mod+braceright move workspace to output right
+bindsym $mod_a+Shift+h move workspace to output left
+bindsym $mod_a+Shift+l move workspace to output right
+bindsym $mod_a+Shift+j move workspace to output down
+bindsym $mod_a+Shift+k move workspace to output up
+
 bindsym $mod+Shift+b move workspace to output left
 bindsym $mod+Shift+n move workspace to output right
 
@@ -229,26 +232,26 @@ set $ws8 8:
 set $ws9 9:
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
