@@ -31,6 +31,11 @@ popup_during_fullscreen leave_fullscreen
 
 focus_follows_mouse yes
 
+# Gaps
+gaps inner 6
+gaps outer 2
+smart_gaps on
+
 ################################################################################################
 # Window Settings
 ################################################################################################
@@ -213,15 +218,15 @@ bindsym $mod+Shift+n move workspace to output right
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
+set $ws1 1:
+set $ws2 2:
+set $ws3 3:
+set $ws4 4:
+set $ws5 5:
+set $ws6 6:
+set $ws7 7:
+set $ws8 8:
+set $ws9 9:
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -329,9 +334,10 @@ set $base0F #{{@@ colors.base0F @@}}
 bar {
     i3bar_command i3bar
     tray_output primary
-    tray_padding 5
+    tray_padding 2
+    height {{@@ monospace_font_size*2+1 @@}}
     # font pango:DejaVu Sans Mono, FontAwesome 11
-    font pango:{{@@ monospace_font @@}} {{@@ monospace_font_size-1 @@}}
+    font pango:{{@@ monospace_font @@}} {{@@ monospace_font_size @@}}
     position top
     status_command i3status-rs ~/.config/i3status-rust/config-default.toml
     colors {
