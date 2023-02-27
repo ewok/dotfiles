@@ -27,6 +27,7 @@ config:
     - packages/notes/config.yaml
     - packages/scripts/config.yaml
     - packages/syncthing/config.yaml
+    - packages/containers/config.yaml
 dotfiles:
 profiles:
   ewok-t14s:
@@ -45,6 +46,7 @@ profiles:
       - notes
       - scripts
       - syncthing
+      - containers
     dynvariables:
       hostname: echo ewok-t14s
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
