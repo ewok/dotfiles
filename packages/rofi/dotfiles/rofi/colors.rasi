@@ -1,8 +1,8 @@
 * {
   background: #{{@@ colors.base01 @@}}ff;
-  foreground: #{{@@ colors.foreground @@}}ff;
+  foreground: #{{@@ colors.base05 @@}}ff;
   lightbg:    #{{@@ colors.base02 @@}}ff;
-  lightfg:    #{{@@ colors.foreground @@}}ff;
+  lightfg:    #{{@@ colors.base05 @@}}ff;
   red:        #{{@@ colors.base08 @@}}ff;
   blue:       #{{@@ colors.base0D @@}}ff;
   font:       "{{@@ regular_font @@}} {{@@ regular_font_size @@}}";

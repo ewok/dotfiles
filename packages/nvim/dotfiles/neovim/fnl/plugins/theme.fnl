@@ -1,17 +1,24 @@
 (local {: pack : map!} (require :lib))
-;
+
 (map! :n :<leader>th (.. "<cmd>echo \"hi<\" . synIDattr(synID(line(\".\"),col(\".\"),1),\"name\")"
                          "'> trans<' . synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")"
                          "\"> lo<\" . synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),1)),\"name\")"
                          "\">\"<CR>") {:noremap true}
       "Toggle highlighting")
 
-; [(pack :folke/tokyonight.nvim {:name :tokyonight :config #(vim.cmd.colorscheme :tokyonight)})]
-
 (match conf.options.theme
+  :nord [(pack :shaunsingh/nord.nvim {:config #(vim.cmd.colorscheme :nord)})]
   :tokyonight [(pack :folke/tokyonight.nvim
                      {:name :tokyonight
-                      :config #(vim.cmd.colorscheme :tokyonight)})]
+                      :config #(do
+                                 (let [theme (require :tokyonight)
+                                       util (require :tokyonight.util)]
+                                   (theme.setup {:on_colors (fn [colors]
+                                                              (tset colors
+                                                                    :border
+                                                                    (util.darken colors.magenta
+                                                                                 0.4)))}))
+                                 (vim.cmd.colorscheme :tokyonight))})]
   :onedark [(pack :NTBBloodbath/doom-one.nvim
                   {:init #(do
                             (set vim.g.doom_one_cursor_coloring true)

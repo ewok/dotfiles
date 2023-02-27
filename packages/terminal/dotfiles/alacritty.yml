@@ -18,13 +18,13 @@ colors:
     white: "0x{{@@ colors.base05 @@}}"
     yellow: "0x{{@@ colors.base0A @@}}"
   primary:
-    background: "0x{{@@ colors.background @@}}"
-    foreground: "0x{{@@ colors.foreground @@}}"
+    background: "0x{{@@ colors.base00 @@}}"
+    foreground: "0x{{@@ colors.base05 @@}}"
 cursor:
   blinking: "Off"
-  cursor: "0x{{@@ colors.cursor @@}}"
+  cursor: "0x{{@@ colors.base05 @@}}"
   style: "Block"
-  text: "0x{{@@ colors.text @@}}"
+  text: "0x{{@@ colors.base00 @@}}"
 font:
   normal:
     family: "{{@@ monospace_font @@}}"
