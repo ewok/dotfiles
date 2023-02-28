@@ -1,6 +1,8 @@
 (local {: pack : map!} (require :lib))
 
-[;;; Pretty fold
+[;;; Deal with tabs size
+ (pack :tpope/vim-sleuth {:config false})
+ ;;; Pretty fold
  (pack :anuvyklack/pretty-fold.nvim {:config true})
  ;;; Indent blankline
  (pack :lukas-reineke/indent-blankline.nvim
