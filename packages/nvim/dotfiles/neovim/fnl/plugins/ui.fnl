@@ -14,7 +14,7 @@
    :bufferline
    (pack :akinsho/bufferline.nvim (require :plugins.config.bufferline))
    :cokeline
-   (pack :noib3/nvim-cokeline (require :plugins.config.cokeline)))
+   (pack :ewok/nvim-cokeline (require :plugins.config.cokeline)))
  ;; NeoZoom
  (pack :nyngwang/NeoZoom.lua (require :plugins.config.neozoom))
  ;; Better QF

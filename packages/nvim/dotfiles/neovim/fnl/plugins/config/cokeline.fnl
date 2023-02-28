@@ -30,7 +30,8 @@
                                                  (and (not= buffer.type
                                                             :terminal)
                                                       (not= buffer.type :help)
-                                                      (not= buffer.type :nofile)))}
+                                                      (not= buffer.type :nofile)))
+                               :new_buffers_position :directory}
                      ;; Only one supported for now
                      :sidebar {:filetype :NvimTree
                                :components [{:text "  File Explorer"
