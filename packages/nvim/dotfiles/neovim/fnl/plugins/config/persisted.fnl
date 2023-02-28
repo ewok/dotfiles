@@ -4,10 +4,15 @@
   (let [persisted (require :persisted)
         notify (require :notify)
         autgroup (vim.api.nvim_create_augroup :PersistedHooks {})]
-    (persisted.setup {:save_dir (path-join conf.cache-dir :sessions)
+    (persisted.setup {:save_dir (path-join conf.cache-dir :sessions/)
                       :use_git_branche true
-                      :command :VimLeavePre
-                      :autosave true})
+                      :autoload false
+                      :autosave false })
+    (vim.api.nvim_create_autocmd :User
+                                 {:pattern :VeryLazy
+                                  :callback (fn []
+                                              (if vim.g.auto_load_session
+                                                  (vim.cmd :SessionLoad)))})
     ;; Close unsaveable buffers before saving session
     (vim.api.nvim_create_autocmd :User
                                  {:pattern :PersistedSavePre
@@ -35,7 +40,9 @@
     (map! [:n] :<leader>sd
           #(let [(ok _) (pcall vim.cmd :SessionDelete)]
              (if ok
-                 (notify "Session deleted success" :INFO {:title :Session})
+                 (do
+                   (notify "Session deleted success" :INFO {:title :Session})
+                   (vim.cmd :qall))
                  (notify "Session deleted failure" :ERROR {:title :Session})))
           {:silent true} "Session Delete")))
 

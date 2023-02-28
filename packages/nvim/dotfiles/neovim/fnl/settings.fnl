@@ -72,7 +72,7 @@
         :smartindent true
         :iskeyword "@,48-57,_,192-255"
         :fillchars "eob: "
-        :sessionoptions "buffers,curdir,folds,help,tabpages,winsize,globals"})
+        :sessionoptions "buffers,curdir,folds,tabpages,winsize,globals,winpos"})
 
 (each [key value (pairs settings)]
   (let [key (tostring key)]
