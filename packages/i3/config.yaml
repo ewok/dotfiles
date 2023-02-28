@@ -52,6 +52,9 @@ dotfiles:
   f_i3_gtk3:
     src: gtk3.ini
     dst: ~/.config/gtk-3.0/settings.ini
+  f_i3_xresources:
+    src: xresources
+    dst: ~/.Xresources
 actions:
   pre:
     install_i3: "{{@@ pm @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
@@ -79,3 +82,4 @@ profiles:
       - f_i3_parcellite
       - f_i3_gtk2
       - f_i3_gtk3
+      - f_i3_xresources
