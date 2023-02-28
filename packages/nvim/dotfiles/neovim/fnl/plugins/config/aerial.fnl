@@ -15,7 +15,7 @@
 (fn config []
   (let [aerial (require :aerial)]
     (aerial.setup {:icons conf.icons
-                   :layout {:min_width 35}
+                   :layout {:min_width 40}
                    :show_guides true
                    :backends [:lsp :treesitter :markdown]
                    :update_events "TextChanged,InsertLeave"

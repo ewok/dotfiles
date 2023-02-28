@@ -11,7 +11,7 @@
                       :update_focused_file {:enable false :update_root false}
                       :system_open {:cmd nil :args []}
                       :view {:side :left
-                             :width 35
+                             :width 40
                              :hide_root_folder false
                              :signcolumn :yes
                              :mappings {:custom_only true

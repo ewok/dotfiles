@@ -2,7 +2,7 @@
 
 (fn config []
   ;; TODO: Find this. Seems empty ; (set vim.g.dbs conf.options.database_connect)
-  (set vim.g.db_ui_winwidth 30)
+  (set vim.g.db_ui_winwidth 40)
   (set vim.g.db_ui_auto_execute_table_helpers true)
   (set vim.g.db_ui_execute_on_save false)
   (map! :n :<leader>5 #(do
