@@ -68,10 +68,13 @@
                :buf_id buf_id
                :buf_ft (vim.api.nvim_buf_get_option buf_id "filetype")})))) result))
 
+(fn get_buf_ft [buf_id]
+    (vim.api.nvim_buf_get_option buf_id "filetype"))
+
 (fn toggle_sidebar [target_ft]
     (let [offset_ft ["NvimTree" "undotree" "dbui" "spectre_panel" "mind"]]
       (each [_ opts (ipairs (get_all_win_buf_ft))]
         (if (and (not (= opts.buf_ft target_ft)) (vim.tbl_contains offset_ft opts.buf_ft))
           (vim.api.nvim_win_close opts.win_id true)))))
 
-{: map! : umap! : reg-ft : path-join : set! : cmd! : exists? : pack : toggle_sidebar}
+{: map! : umap! : reg-ft : path-join : set! : cmd! : exists? : pack : toggle_sidebar : get_buf_ft}
