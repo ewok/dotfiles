@@ -42,7 +42,7 @@
         shell (if (= 1 (vim.fn.executable :fish)) :fish :bash)]
     (toggleterm.setup {:start_in_insert false
                        :shade_terminals true
-                       :shading_factor -30
+                       :shading_factor -10
                        :persist_size false
                        :persist_mode false
                        :size (fn [term]

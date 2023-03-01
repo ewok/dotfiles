@@ -18,14 +18,12 @@
 ;; TODO: Tabs and custom area
 (fn config []
   (let [cokeline (require :cokeline)
-        sep-fg (fn [buffer]
+        get-hex (. (require :cokeline.utils) :get_hex)
+        win-fg (fn [buffer]
                  (if buffer.is_focused
-                     conf.colors.base00
-                     conf.colors.base00))
-        sep-bg (fn [buffer]
-                 (if buffer.is_focused
-                     conf.colors.base0C
-                     conf.colors.base02))]
+                     (get-hex :Title :fg)
+                     (get-hex :StatusLine :bg)))
+        win-bg #(get-hex :StatusLineNC :bg)]
     (cokeline.setup {:buffers {:filter_visible (fn [buffer]
                                                  (and (not= buffer.type
                                                             :terminal)
@@ -35,27 +33,25 @@
                      ;; Only one supported for now
                      :sidebar {:filetype :NvimTree
                                :components [{:text "  File Explorer"
-                                             :fg conf.colors.base0C
-                                             :bg conf.colors.base00
+                                             :fg (get-hex :Title :fg)
+                                             :bg (get-hex :StatusLineNC :bg)
                                              :style :bold}]}
-                     :default_hl {:fg (fn [buffer]
-                                        (if buffer.is_focused
-                                            conf.colors.base00
-                                            conf.colors.base05))
-                                  :bg sep-bg}
-                     :components [{:text " " :bg conf.colors.base00}
+                     :components [{:text " " :bg win-bg}
                                   {:text conf.separator.right
-                                   :fg sep-bg
-                                   :bg sep-fg}
+                                   :fg win-fg
+                                   :bg win-bg}
                                   {:text (fn [buffer] buffer.devicon.icon)
                                    :fg (fn [buffer]
                                          (if buffer.is_focused
-                                             conf.colors.base02
-                                             conf.colors.base04))}
+                                             (get-hex :StatusLine :bg)
+                                             buffer.devicon.color))
+                                   :bg win-fg}
                                   {:text (fn [buffer] buffer.unique_prefix)
+                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer] buffer.filename)
+                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer]
@@ -70,19 +66,22 @@
                                                    "")))
                                    :fg (fn [buffer]
                                          (if (not= buffer.diagnostics.errors 0)
-                                             conf.colors.base0F
+                                             (get-hex :ErrorMsg :fg)
                                              (if (not= buffer.diagnostics.warnings
                                                        0)
-                                                 conf.colors.base09
+                                                 (get-hex :IncSearch :bg)
                                                  nil)))
+                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer]
-                                           (if buffer.is_readonly " 🔒" ""))}
+                                           (if buffer.is_readonly " 🔒" ""))
+                                   :bg win-fg}
                                   {:text (fn [buffer]
-                                           (if buffer.is_modified " ●" ""))}
+                                           (if buffer.is_modified " ●" ""))
+                                   :bg win-fg}
                                   {:text conf.separator.left
-                                   :fg sep-bg
-                                   :bg sep-fg}]})))
+                                   :fg win-fg
+                                   :bg win-bg}]})))
 
 {: config : init}

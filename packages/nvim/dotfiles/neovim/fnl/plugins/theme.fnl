@@ -29,7 +29,14 @@
   :onedark [(pack :navarasu/onedark.nvim
                   {:priority 1000
                    :config #(let [onedark (require :onedark)]
-                              (onedark.setup {:style :dark
+                              (onedark.setup {:highlights {:Visual {:bg :$yellow
+                                                                    :fg :$bg0
+                                                                    :fmt :bold}
+                                                           :FloatBorder {:fg :$cyan}
+                                                           :MatchParen {:fg :$red
+                                                                        :bg :$bg0
+                                                                        :fmt :bold}}
+                                              :style :dark
                                               :toggle_style_key :<leader>ts
                                               :toggle_style_list [:darker
                                                                   :light
