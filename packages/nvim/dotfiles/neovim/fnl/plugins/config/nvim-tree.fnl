@@ -8,12 +8,13 @@
                       :hijack_cursor true
                       :sync_root_with_cwd false
                       :reload_on_bufenter true
-                      :update_focused_file {:enable false :update_root false}
+                      :update_focused_file {:enable true}
                       :system_open {:cmd nil :args []}
                       :view {:side :left
                              :width 40
                              :hide_root_folder false
                              :signcolumn :yes
+                             ; :float {:enable true :quit_on_focus_loss false}
                              :mappings {:custom_only true
                                         :list [{:key [:<CR>] :action :edit}
                                                {:key [:o] :action :edit}
@@ -55,12 +56,13 @@
                                              :global true
                                              :restrict_above_cwd false}
                                 :open_file {:resize_window true
-                                            :quit_on_open true
+                                            :quit_on_open false
                                             :window_picker {:enable false}}}
                       :trash {:cmd :trash :require_confirm true}
                       :filters {:dotfiles false
                                 :custom [:node_modules "\\.cache" :__pycache__]
                                 :exclude []}
+                      :update_focused_file {:enable true}
                       :renderer {:add_trailing true
                                  :group_empty true
                                  :highlight_git true

@@ -119,8 +119,7 @@
                    :edn
                    :fennel])
 
-(local ui-ft [; ""
-              :aerial
+(local ui-ft [:aerial
               :gitcommit
               :dbui
               :help
@@ -128,6 +127,7 @@
               :lsp-intaller
               :notify
               :NvimTree
+              :NvimTree_*
               :packer
               :spectre_panel
               :startuptime
