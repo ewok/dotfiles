@@ -40,6 +40,7 @@
 (map! [:x] :<leader>yy ":'<,'>w! ~/.vbuf<CR>" md "Yank to ~/.vbuf")
 (map! [:n] :<leader>yfl ":let @+=expand(\"%\") . ':' . line(\".\")<CR>" md
       "Yank file name and line")
+
 (map! [:n] :<leader>yfn ":let @+=expand(\"%\")<CR>" md "Yank file name")
 (map! [:n] :<leader>yfp ":let @+=expand(\"%:p\")<CR>" md "Yank file path")
 
@@ -47,6 +48,7 @@
 (map! [:n] :<leader>pS
       "<cmd>profile start /tmp/profile_vim.log|profile func *|profile file *<CR>"
       md "Profiling | Start")
+
 (map! [:n] :<leader>pT
       "<cmd>profile stop|e /tmp/profile_vim.log|nmap <buffer> q :!rm /tmp/profile_vim.log<CR>"
       md "Profiling | Stop")
@@ -93,12 +95,24 @@ vmap <expr>  MR  ':s/\\(' . @/ . '\\)/\\1/g<LEFT><LEFT>'")
 (vim.cmd "tnoremap <Esc> <C-\\><C-n>")
 
 ;; Don't move cursor when searching via *
-(map! [:n] :* ":let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<CR>" md
-      "Search for word under cursor")
+(map! [:n] "*"
+      ":let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<CR>"
+      md "Search for word under cursor")
+
+;; Thanks to Wansmer
+;; https://github.com/Wansmer/nvim-config/blob/f7f63d3cf18a0e40ce5ae774944d53fdd9986321/lua/autocmd.lua#L38
+(local hl-ns (vim.api.nvim_create_namespace :hl_search))
+(fn manage_hlsearch [char]
+  (let [keys [:<CR> :n :N "*" "#" "?" "/" :v]
+        new_hlsearch (vim.tbl_contains keys (vim.fn.keytrans char))]
+    (if (not= (: vim.opt.hlsearch :get) new_hlsearch)
+        (set vim.opt.hlsearch new_hlsearch))))
+
+(vim.on_key manage_hlsearch hl-ns)
 
 ;; Keep search matches in the middle of the window.
-(map! [:n] :n "nzzzv" md "Next search match")
-(map! [:n] :N "Nzzzv" md "Previous search match")
+(map! [:n] :n :nzzzv md "Next search match")
+(map! [:n] :N :Nzzzv md "Previous search match")
 
 ;; Lazy mapping
 (map! [:n] :<leader>pu "<cmd>Lazy sync<CR>" md "Sync Packages")
