@@ -21,19 +21,27 @@
                                      (map! [:n] :<leader>cf
                                            #(vim.lsp.buf.format) {:buffer bufnr}
                                            "Format buffer[NULL-LS]"))))
-                    :sources [null-ls.builtins.completion.spell
-                              null-ls.builtins.diagnostics.alex
+                    :sources [;; Text
+                              null-ls.builtins.code_actions.proselint
+                              null-ls.builtins.diagnostics.proselint
+                              null-ls.builtins.completion.spell
+                              null-ls.builtins.diagnostics.write_good
+                              (null-ls.builtins.diagnostics.markdownlint.with {:extra_args [:--disable
+                                                                                            :MD013]})
+                              (null-ls.builtins.formatting.markdownlint.with {:extra_args [:--disable
+                                                                                           :MD013]})
+                              null-ls.builtins.formatting.cbfmt
+                              null-ls.builtins.hover.dictionary
+
                               null-ls.builtins.diagnostics.ansiblelint
                               null-ls.builtins.diagnostics.clj_kondo
                               null-ls.builtins.diagnostics.fish
                               null-ls.builtins.diagnostics.hadolint
                               null-ls.builtins.diagnostics.jsonlint
-                              (null-ls.builtins.diagnostics.markdownlint.with {:extra_args [:--disable
-                                                                                            :MD013]})
                               null-ls.builtins.diagnostics.mypy
                               null-ls.builtins.diagnostics.terraform_validate
                               null-ls.builtins.diagnostics.yamllint
-                              null-ls.builtins.diagnostics.write_good
+
                               null-ls.builtins.formatting.autopep8
                               null-ls.builtins.formatting.black
                               null-ls.builtins.formatting.fnlfmt
@@ -41,8 +49,6 @@
                               null-ls.builtins.formatting.joker
                               ;; clojure
                               null-ls.builtins.formatting.jq
-                              (null-ls.builtins.formatting.markdownlint.with {:extra_args [:--disable
-                                                                                           :MD013]})
                               null-ls.builtins.formatting.shfmt
                               null-ls.builtins.formatting.sql_formatter
                               null-ls.builtins.formatting.terraform_fmt

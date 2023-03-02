@@ -10,7 +10,7 @@
                                   :terraform-ls
                                   :vim-language-server
                                   :zk]
-                            :linter [:alex
+                            :linter [:proselint
                                      :yamllint
                                      :sqlfluff
                                      :markdownlint
@@ -22,7 +22,8 @@
                                      :mypy
                                      :write-good
                                      :tflint]
-                            :formatter [:joker
+                            :formatter [:cbfmt
+                                        :joker
                                         :black
                                         :yamlfmt
                                         :markdownlint
