@@ -16,6 +16,9 @@ dotfiles:
     src: bw-reset
     dst: "{{@@ bin @@}}/bw-reset"
     chmod: 0755
+  f_bitwarden_desktop:
+    src: bitwarden.desktop
+    dst: ~/.local/share/applications/favorites/bitwarden.desktop
 actions:
   pre:
     install_bitwarden: "{{@@ pm @@}} community/bitwarden community/bitwarden-cli"
@@ -25,3 +28,4 @@ profiles:
       - f_bitwarden_start
       - f_bitwarden_fish
       - f_bitwarden_bin
+      - f_bitwarden_desktop

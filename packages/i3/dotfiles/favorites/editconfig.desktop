@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Edit Dotfiles
+Exec={{@@ terminal @@}} -e nvim ~/dotfiles
+Icon=config
+Shortcut=e

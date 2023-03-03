@@ -3,7 +3,7 @@
 [[block]]
 block = "custom"
 interval = "once"
-cycle = ["echo 💰", "{{@@ bin @@}}/sal.clj"]
+cycle = ["echo 💰", "{{@@ bin @@}}/sal.clj", "{{@@ bin @@}}/b-status.clj"]
 
 [[block]]
 block = "custom"
@@ -12,7 +12,7 @@ interval = 60
 
 [[block]]
 block = "weather"
-format = " $icon $weather $temp $wind ms $direction   🖥️"
+format = "$icon $weather $temp $wind/$direction  🖥️"
 [block.service]
 name = "openweathermap"
 api_key = "{{@@ weather_api_token @@}}"
@@ -69,7 +69,7 @@ interval = 10
 
 [[block]]
 block = "music"
-format = "🎧 {$combo.str(max_w:10) $play $next |} "
+format = "🎧 {$combo.str(max_w:5,rot_interval:0.5) $play $next |}"
 # hide_when_empty = true
 # max_width = 5
 

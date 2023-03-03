@@ -58,6 +58,10 @@ dotfiles:
   f_i3_autorandr:
     src: autorandr
     dst: ~/.config/autorandr/settings.ini
+  d_i3_favorite:
+    src: favorites
+    dst: ~/.local/share/applications/favorites
+    ignore_missing_in_dotdrop: true
 actions:
   pre:
     install_i3: "{{@@ pm @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
@@ -87,3 +91,4 @@ profiles:
       - f_i3_gtk3
       - f_i3_xresources
       - f_i3_autorandr
+      - d_i3_favorite
