@@ -65,6 +65,10 @@ dotfiles:
     src: check-colors
     dst: "{{@@ bin @@}}/check-colors"
     chmod: 0755
+  f_scripts_run_cached:
+    src: run-cached
+    dst: "{{@@ bin @@}}/run-cached"
+    chmod: 0755
 actions:
   pre:
     install_scripts: "{{@@ pm @@}} aur/ntfy"
@@ -86,3 +90,4 @@ profiles:
       - f_scripts_h-add
       - f_scripts_h-budget-2
       - f_scripts_check-colors
+      - f_scripts_run_cached

@@ -35,6 +35,10 @@ dotfiles:
     src: lazygit
     dst: "{{@@ bin @@}}/gg"
     chmod: 0755
+  f_nvim_clean_cache:
+    src: nvim-clean-cache
+    dst: "{{@@ bin @@}}/nvim-clean-cache"
+    chmod: 0755
 actions:
   pre:
     cleanup_nvim_lua: "rm -rf ~/.config/nvim/lua"
@@ -56,3 +60,4 @@ profiles:
       - f_nvim_vale
       - f_nvim_bin
       - f_nvim_bin_lazygit
+      - f_nvim_clean_cache

@@ -125,3 +125,7 @@ endif
                          "*.swf,*.fla," "*.mp3,*.mp4,*.avi,*.mkv,"
                          "*.git*,*.hg*,*.svn*," "*sass-cache*," "*.DS_Store,"
                          "log/**," :tmp/**) :append)
+
+;; Turn off lsp logs
+(vim.lsp.set_log_level :off)
+
