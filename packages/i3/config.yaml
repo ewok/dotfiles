@@ -55,6 +55,9 @@ dotfiles:
   f_i3_xresources:
     src: xresources
     dst: ~/.Xresources
+  f_i3_autorandr:
+    src: autorandr
+    dst: ~/.config/autorandr/settings.ini
 actions:
   pre:
     install_i3: "{{@@ pm @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
@@ -83,3 +86,4 @@ profiles:
       - f_i3_gtk2
       - f_i3_gtk3
       - f_i3_xresources
+      - f_i3_autorandr

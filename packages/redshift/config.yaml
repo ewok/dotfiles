@@ -1,4 +1,6 @@
 config:
+  import_variables:
+    - "local_vars.yaml"
 dynvariables:
   hash_redshift: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
@@ -12,6 +14,10 @@ dotfiles:
   f_redshift_i3:
     src: i3_autostart
     dst: ~/.config/i3/autostart.d/redshift.conf
+  f_redshift_reset_gamma:
+    src: reset-gamma
+    dst: "{{@@ bin @@}}/reset-gamma"
+    chmod: 0755
 actions:
   pre:
     install_redshift: "{{@@ pm @@}} geoclue redshift"
@@ -22,3 +28,4 @@ profiles:
     dotfiles:
       - f_redshift_lock
       - f_redshift_i3
+      - f_redshift_reset_gamma

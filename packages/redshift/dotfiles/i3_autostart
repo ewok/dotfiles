@@ -1,1 +1,4 @@
 exec_always --no-startup-id pgrep '^agent$' || /usr/lib/geoclue-2.0/demos/agent
+exec_always --no-startup-id systemctl --user stop redshift-gtk
+exec_always --no-startup-id {{@@ bin @@}}/reset-gamma
+exec_always --no-startup-id systemctl --user start redshift-gtk

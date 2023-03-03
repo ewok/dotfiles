@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get list of connected outputs
+outputs=$(xrandr | grep -w connected | awk '{print $1}')
+
+# Loop through each connected output and set gamma to 1:1:1
+for output in $outputs
+do
+    xrandr --output $output --gamma 1:1:1
+    echo "Gamma set to 1:1:1 for output $output"
+done
