@@ -36,9 +36,6 @@ dotfiles:
       - mask_laptop_rfkill_socket
       - enable_laptop_nm
       - start_laptop_nm
-  d_laptop_etc_sudoers:
-    src: etc/sudoers.d
-    dst: /etc/sudoers.d
   f_laptop_usr:
     src: usr/local/bin/ac_bat_target
     dst: /usr/local/bin/ac_bat_target
@@ -62,7 +59,6 @@ profiles:
   laptop:
     dotfiles:
       - f_laptop_usr
-      - d_laptop_etc_sudoers
       - d_laptop_etc_systemd
       - d_laptop_etc_udev
       - f_laptop_lock

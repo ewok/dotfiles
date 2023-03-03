@@ -14,6 +14,7 @@ config:
     - packages/root_laptop/config.yaml
     - packages/root_vpn/config.yaml
     - packages/root_backup/config.yaml
+    - packages/root_sudoers/config.yaml
 dotfiles:
 profiles:
   ewok-t14s:
@@ -21,6 +22,7 @@ profiles:
       - laptop
       - vpn
       - backup
+      - sudoers
     dynvariables:
       hostname: echo ewok-t14s
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
@@ -30,6 +32,7 @@ profiles:
   ewok-rpi:
     include:
       - backup
+      - sudoers
     dynvariables:
       hostname: echo ewok-rpi
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
