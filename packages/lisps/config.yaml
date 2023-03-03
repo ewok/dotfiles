@@ -7,9 +7,11 @@ dotfiles:
     dst: ~/.local/lisps.lock
     actions:
       - install_lisps
+      - install_lisps_n
 actions:
   pre:
-    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel aur/clj-kondo-bin"
+    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel"
+    install_lisps_n: "if [[ \"{{@@ distro_id @@}}\" != \"manjaro-arm\" ]];then {{@@ pm @@}} aur/clj-kondo-bin; fi"
 profiles:
   lisps:
     dotfiles:
