@@ -72,7 +72,7 @@ nnoremap iv :!if [ -n "$TMUX" ]; tmux split-window -h -p 80 vim %f;end<CR>
 
 " Autojump
 nnoremap gj :z<Space>
-nnoremap z :z
+nnoremap z<space> :z<space>
 nnoremap cd :z
 
 " Tabs
