@@ -36,6 +36,10 @@ dotfiles:
       - mask_laptop_rfkill_socket
       - enable_laptop_nm
       - start_laptop_nm
+  d_laptop_etc_pacman:
+    src: etc/pacman.d
+    dst: /etc/pacman.d
+    ignore_missing_in_dotdrop: true
   f_laptop_usr:
     src: usr/local/bin/ac_bat_target
     dst: /usr/local/bin/ac_bat_target
@@ -62,4 +66,4 @@ profiles:
       - d_laptop_etc_systemd
       - d_laptop_etc_udev
       - f_laptop_lock
-
+      - d_laptop_etc_pacman

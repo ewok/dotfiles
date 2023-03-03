@@ -107,6 +107,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r exec "i3-msg restart;autorandr -c"
 bindsym $mod+$mod_a+Shift+r exec "xrandr --auto"
+bindsym $mod+o exec --no-startup-id {{@@ bin @@}}/rofi_run -modi "Apps":"{{@@ bin @@}}/rofi-fav" -show "Apps" -filter ">" -auto-select
 
 # bindsym $mod+space exec --no-startup-id "xkb-switch -n; pkill -SIGRTMIN+4 i3status-rs"
 

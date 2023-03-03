@@ -12,6 +12,9 @@ dotfiles:
   f_pipewire_mixer:
     src: pulsemixer.desktop
     dst: ~/.local/share/applications/pulsemixer.desktop
+  f_pipewire_mixer_fav:
+    src: pulsemixer-fav.desktop
+    dst: ~/.local/share/applications/favorites/pulsemixer.desktop
 actions:
   pre:
     install_pipewire: "{{@@ pm @@}} pipewire pipewire-pulse pipewire-alsa pipewire-jack pipewire-zeroconf alsa-utils"
@@ -22,3 +25,4 @@ profiles:
     dotfiles:
       - f_pipewire_start
       - f_pipewire_mixer
+      - f_pipewire_mixer_fav

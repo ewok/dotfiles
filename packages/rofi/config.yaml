@@ -24,6 +24,13 @@ dotfiles:
     src: bin/rofi_run
     dst: "{{@@ bin @@}}/rofi_run"
     chmod: 0755
+  f_rofi_bin_fav:
+    src: bin/rofi-fav
+    dst: "{{@@ bin @@}}/rofi-fav"
+    chmod: 0755
+  f_rofi_rcalc:
+    src: rcalc.desktop
+    dst: ~/.local/share/applications/favorites/rcalc.desktop
 actions:
   pre:
     install_rofi: "{{@@ pm @@}} rofi rofi-calc"
@@ -35,3 +42,5 @@ profiles:
       - f_rofi_bin_myip
       - f_rofi_bin_calc
       - f_rofi_bin_run
+      - f_rofi_bin_fav
+      - f_rofi_rcalc

@@ -1,0 +1,4 @@
+[Desktop Entry]
+Exec=alacritty -e pulsemixer
+Name=PulseMixer Volume Control
+Shortcut=p

@@ -1,0 +1,32 @@
+#! /bin/bash
+
+DESKTOP_FILES_PATH="$HOME/.local/share/applications/favorites"
+
+for desktop_file in $(ls ${DESKTOP_FILES_PATH}/*.desktop); do
+
+    favorite_file=${desktop_file##*/}
+    favorite=${favorite_file%.desktop}
+
+    if [ -f "$desktop_file" ]; then
+        name=$(cat $desktop_file | awk -F "=" '/Name=/ {print $2}' | head -1)
+        command=$(cat $desktop_file | awk -F "=" '/Exec=/ {print $2}' | head -1)
+        icon=$(cat $desktop_file | awk -F "=" '/Icon=/ {print $2}' | head -1)
+        shortcut=$(cat $desktop_file | awk -F "=" '/Shortcut=/ {print $2}' | head -1)
+    else
+        continue
+    fi
+
+    if [ $# -eq 0 ]; then
+      echo -en ">$shortcut ${name}\0icon\x1f${icon}\n"
+    fi
+
+    if [ $# -eq 1 ]; then
+        chosen="$1"
+        if [ "$chosen" == ">$shortcut $name" ]; then
+               coproc ${command}
+            exit
+        fi
+    fi
+
+done
+

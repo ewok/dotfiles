@@ -9,6 +9,9 @@ dotfiles:
     dst: ~/.local/telegram.lock
     actions:
       - install_telegram
+  f_telegram_desktop:
+    src: telegram.desktop
+    dst: ~/.local/share/applications/favorites/telegram.desktop
 actions:
   pre:
     install_telegram: "{{@@ pm @@}} telegram-desktop"
@@ -16,3 +19,4 @@ profiles:
   telegram:
     dotfiles:
       - f_telegram_lock
+      - f_telegram_desktop

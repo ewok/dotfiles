@@ -13,6 +13,9 @@ dotfiles:
     src: add-todo
     dst: "{{@@ bin @@}}/add-todo"
     chmod: 0755
+  f_obsidian_desktop:
+    src: obsidian.desktop
+    dst: ~/.local/share/applications/favorites/obsidian.desktop
 actions:
   pre:
     install_obsidian: "{{@@ pm @@}} obsidian"
@@ -21,3 +24,4 @@ profiles:
     dotfiles:
       - f_obsidian_lock
       - f_obsidian_bin
+      - f_obsidian_desktop
