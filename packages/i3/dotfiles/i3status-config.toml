@@ -1,7 +1,9 @@
+# https://greshake.github.io/i3status-rust/i3status_rs/blocks/index.html
+
 [[block]]
 block = "custom"
 interval = "once"
-cycle = ["echo ___", "{{@@ bin @@}}/sal.clj"]
+cycle = ["echo 💰", "{{@@ bin @@}}/sal.clj"]
 
 [[block]]
 block = "custom"
@@ -9,10 +11,20 @@ command = "{{@@ bin @@}}/show-date.sh"
 interval = 60
 
 [[block]]
+block = "weather"
+format = " $icon $weather $temp $wind ms $direction   🖥️"
+[block.service]
+name = "openweathermap"
+api_key = "{{@@ weather_api_token @@}}"
+place = "{{@@ weather_city @@}}"
+city_id = "{{@@ weather_city_id @@}}"
+units = "metric"
+
+[[block]]
 block = "temperature"
 chip = "*-isa-*"
-collapsed = false
-format = "{max}"
+format = " $icon $max "
+format_alt = "$icon $min min, $max max, $average avg "
 good = 50
 idle = 70
 info = 85
@@ -28,77 +40,103 @@ json = true
 [[block]]
 alert = 10
 block = "disk_space"
-format = " / {available}"
+format = "  / $available "
 info_type = "available"
 interval = 60
 path = "/"
-unit = "GB"
+alert_unit = "GB"
 warning = 20
 
 [[block]]
 block = "cpu"
-format = "{barchart}"
+format = "$icon $barchart "
 interval = 5
 
 [[block]]
 block = "memory"
-clickable = true
 critical_mem = 95
 critical_swap = 95
-display_type = "memory"
-format_mem = "{mem_used_percents:1}"
-format_swap = "{swap_used_percents:1}"
-icons = true
+format = "$icon $mem_used_percents.eng(w:1) "
+format_alt = "$icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
 interval = 20
 warning_mem = 80
 warning_swap = 80
 
 [[block]]
 block = "net"
-format = "{speed_down;K*b}{speed_up;K*b}"
-hide_inactive = true
-hide_missing = true
+format = "^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) "
 interval = 10
+
+[[block]]
+block = "music"
+format = "🎧 {$combo.str(max_w:10) $play $next |} "
+# hide_when_empty = true
+# max_width = 5
 
 [[block]]
 block = "sound"
 step_width = 5
 
 [[block]]
-block = "music"
-buttons = ["play", "next"]
-format = "{combo}"
-hide_when_empty = true
-max_width = 5
-
-[[block]]
 block = "backlight"
-invert_icons = true
+# invert_icons = true
 
 [[block]]
 block = "battery"
 interval = 60
-format = "{percentage} {time}"
-full_format = "{percentage}"
+format = " $icon $percentage $time "
+full_format = "$icon $percentage "
+empty_format = "$icon $percentage "
+not_charging_format = "$icon $percentage "
+missing_format = "$icon ❎ "
+
+[[block]]
+block = "pacman"
+interval = 600
+error_interval = 300
+signal = 1
+format = "📦$both "
+format_singular = "📦$both "
+format_up_to_date = ""
+critical_updates_regex = "(linux|linux-lts|linux-zen)"
+aur_command = "yay -Qua"
+[[block.click]]
+button = "left"
+cmd = "/usr/bin/{{@@ terminal @@}} -e yay"
+[[block.click]]
+button = "right"
+update = true
+
 
 [[block]]
 block = "custom"
 command = "xkb-switch"
-interval = "once"
+interval = 15
 signal = 4
 
+# https://github.com/greshake/i3status-rust/blob/master/doc/themes.md
+# https://github.com/greshake/i3status-rust/blob/master/files/icons/material-nf.toml
 [icons]
-name = "awesome"
+icons = "material-nf"
 
 [icons.overrides]
-time = ""
-volume_empty = "🔈"
-volume_full = "🔊"
-volume_half = "🔉"
+weather_sun = "😎"
+weather_rain = "☔"
+weather_clouds = "☁️"
+weather_thunder = "⛈️"
+weather_snow = "🌨️"
+weather_default = "🌆"
+backlight = [
+    "🌑",
+    "🌘",
+    "🌗",
+    "🌖",
+    "🌕",
+]
 volume_muted = "🔇"
 
 [theme]
-name = "solarized-dark"
+theme = "solarized-dark"
 
 [theme.overrides]
 idle_bg = "#{{@@ colors.base02 @@}}"

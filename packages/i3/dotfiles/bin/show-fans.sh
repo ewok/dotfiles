@@ -4,5 +4,5 @@ if [ $FAN_SPEED -gt 0 ]
 then
     echo '{"state":"Warning", "text": " '$FAN_SPEED'"}'
 else
-    echo '{"state":"Good", "text": "ﴛ"}'
+    echo '{"state":"Info", "text": "ﴛ"}'
 fi
