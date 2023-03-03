@@ -6,6 +6,7 @@
  (pack :hrsh7th/cmp-path {:config false})
  (pack :hrsh7th/cmp-cmdline {:config false})
  (pack :hrsh7th/cmp-calc {:config false})
+ (pack :hrsh7th/cmp-emoji {:config false})
  (pack :PaterJason/cmp-conjure {:config false})
  (pack :kristijanhusak/vim-dadbod-completion {:config false})
  (pack :rafamadriz/friendly-snippets {:event [:InsertEnter :CmdlineEnter]})

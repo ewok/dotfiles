@@ -21,13 +21,15 @@
                        :snippet {:expand (fn [args]
                                            (vim.call "vsnip#anonymous"
                                                      args.body))}
-                       :sources (cmp.config.sources [{:name :calc}
-                                                     {:name :vsnip}
-                                                     {:name :nvim_lsp}
-                                                     {:name :conjure}
-                                                     {:name :path}
-                                                     {:name :buffer}
-                                                     {:name :vim-dadbod-completion}])
+                       :sources (cmp.config.sources [{:name :calc :group_index 1}
+                                                     ; {:name :copilot :group_index 2}
+                                                     {:name :vsnip :group_index 2}
+                                                     {:name :nvim_lsp :group_index 2}
+                                                     {:name :conjure :group_index 2}
+                                                     {:name :path :group_index 3}
+                                                     {:name :buffer :group_index 3}
+                                                     {:name :vim-dadbod-completion :group_index 3}
+                                                     {:name :emoji :group_index 3}])
                        :mapping {:<cr> (cmp.mapping (cmp.mapping.confirm)
                                                     [:i :s :c])
                                  :<c-p> (cmp.mapping (cmp.mapping.select_prev_item)
@@ -56,7 +58,9 @@
                                                            (cmp.complete)))
                                                      [:i :s :c])}
                        :sorting {:priority_weight 2
-                                 :comparators [cmp.config.compare.offset
+                                 :comparators [
+                                               ; (. (require :copilot_cmp.comparators) :prioritize)
+                                               cmp.config.compare.offset
                                                cmp.config.compare.exact
                                                cmp.config.compare.score
                                                under_compare
