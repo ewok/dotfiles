@@ -23,18 +23,6 @@
                                     :hint_offset 1
                                     :keys :12345})
             {:remap true} :T)
-      (map! "" :ss #(hop.hint_words) {:remap true} :ss)
-      (map! "" :sl
-            #(hop.hint_words {:direction direction.AFTER_CURSOR
-                              :current_line_only false})
-            {:remap true} :sl)
-      (map! "" :sh
-            #(hop.hint_words {:direction direction.BEFORE_CURSOR
-                              :current_line_only false})
-            {:remap true} :sh)
-      (map! "" :sj #(hop.hint_vertical {:direction direction.AFTER_CURSOR})
-            {:remap true} :sj)
-      (map! "" :sk #(hop.hint_vertical {:direction direction.BEFORE_CURSOR})
-            {:remap true} :sk))))
+      (map! "" :s #(hop.hint_patterns {:multi_windows true}) {:remap true} :s))))
 
 {: config :branch :fix-some-bugs}
