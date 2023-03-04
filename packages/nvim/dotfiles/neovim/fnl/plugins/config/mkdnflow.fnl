@@ -29,7 +29,7 @@
                                                (str/replace " " "-")
                                                (str/lower-case)
                                                (str/join (str (time/now) "_"))))}
-             :to_do {:symbols [" " "+" :x]
+             :to_do {:symbols [" " "+" :x "-"]
                      :update_parents true
                      :not_started " "
                      :in_progress "+"
@@ -71,4 +71,4 @@
                         :MkdnFoldSection [:n :zf]
                         :MkdnUnfoldSection [:n :zF]}})
 
-{: opts }
+{: opts}

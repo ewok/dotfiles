@@ -92,7 +92,7 @@ missing_format = "$icon ❎ "
 
 [[block]]
 block = "pacman"
-interval = 600
+interval = 86400
 error_interval = 300
 signal = 1
 format = "📦$both "
