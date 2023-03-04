@@ -86,13 +86,14 @@
                                 :2html_plugin
                                 :getscript
                                 :getscriptPlugin
-                                :gzip
+                                ; :gzip
                                 :logipat
                                 :matchit
                                 :rrhelper
                                 :spellfile_plugin
-                                :vimball
-                                :vimballPlugin])
+                                ; :vimball
+                                ; :vimballPlugin
+                                ])
 
 (each [_ builtin_plugin (ipairs disable_builtin_plugins)]
   (tset vim.g (.. :loaded_ builtin_plugin) 1))
@@ -128,4 +129,3 @@ endif
 
 ;; Turn off lsp logs
 (vim.lsp.set_log_level :off)
-
