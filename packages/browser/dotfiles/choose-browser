@@ -1,3 +1,2 @@
 #!/bin/env bash
-$(echo "google-chrome-stable|firefox" | {{@@ bin @@}}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|") "$1"
-
+$(echo "qutebrowser --target tab-bg-silent|google-chrome-stable|firefox" | {{@@ bin @@}}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|") "$1"

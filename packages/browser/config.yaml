@@ -19,9 +19,12 @@ dotfiles:
   f_browser_mime:
     src: org.custom.choose.browser.desktop
     dst: ~/.local/share/applications/org.custom.choose.browser.desktop
+  f_browser_qute:
+    src: qutebrowser.py
+    dst: "~/.config/qutebrowser/config.py"
 actions:
   pre:
-    install_browser: "{{@@ pm @@}} google-chrome"
+    install_browser: "{{@@ pm @@}} google-chrome qutebrowser"
 profiles:
   browser:
     dotfiles:
@@ -29,3 +32,4 @@ profiles:
       - f_browser_choose
       - f_browser_fish
       - f_browser_mime
+      - f_browser_qute
