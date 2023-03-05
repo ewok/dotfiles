@@ -26,6 +26,10 @@ dotfiles:
     src: qutebrowser.sh
     dst: "{{@@ bin @@}}/qutebrowser"
     chmod: 0755
+  f_browser_qute_choose:
+    src: choose-qute
+    dst: "{{@@ bin @@}}/choose-qute"
+    chmod: 0755
 actions:
   pre:
     install_browser: "{{@@ pm @@}} google-chrome qutebrowser python-adblock"
@@ -38,3 +42,4 @@ profiles:
       - f_browser_mime
       - f_browser_qute
       - f_browser_qute_wrapper
+      - f_browser_qute_choose
