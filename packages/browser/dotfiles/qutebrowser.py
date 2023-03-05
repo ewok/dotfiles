@@ -149,7 +149,7 @@ c.downloads.location.prompt = False
 c.downloads.location.remember = True
 c.downloads.location.suggestion = "both"
 
-c.hints.chars = "sdfhjkrvb"
+c.hints.chars = "sdhjkrlba"
 c.history_gap_interval = 30
 
 c.input.insert_mode.auto_leave = True
