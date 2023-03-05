@@ -1,2 +1,18 @@
 #!/bin/env bash
-$(echo "qutebrowser --target tab-bg-silent|google-chrome-stable|firefox" | {{@@ bin @@}}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|") "$1"
+
+CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox" | {{@@ bin @@}}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
+
+case $CMD in
+    qutebrowser-default)
+        {{@@ bin @@}}/qutebrowser --target tab-bg-silent "$1"
+        ;;
+    qutebrowser-work)
+        {{@@ bin @@}}/qutebrowser -r work --target tab-bg-silent "$1"
+        ;;
+    google-chrome-stable)
+        google-chrome-stable "$1"
+        ;;
+    firefox)
+        firefox "$1"
+        ;;
+esac

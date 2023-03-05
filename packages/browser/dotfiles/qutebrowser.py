@@ -91,8 +91,6 @@ c.editor.command = ["{{@@ terminal @@}}", "-e", "nvim", "{}"]
 c.editor.encoding = "utf-8"
 
 c.aliases = {
-    "jsd": "set content.javascript.enabled false",
-    "jse": "set content.javascript.enabled true",
     "proxym": "set content.proxy http://127.0.0.1:8080/",
     "noproxym": "set content.proxy system",
 }
@@ -130,6 +128,7 @@ c.completion.use_best_match = False
 c.confirm_quit = ["downloads"]
 
 c.content.autoplay = False
+c.content.blocking.method = "both"
 c.content.cache.appcache = True
 c.content.cache.size = 5242880
 c.content.canvas_reading = True
@@ -150,6 +149,7 @@ c.downloads.location.prompt = False
 c.downloads.location.remember = True
 c.downloads.location.suggestion = "both"
 
+c.hints.chars = "sdfhjkrvb"
 c.history_gap_interval = 30
 
 c.input.insert_mode.auto_leave = True
@@ -206,10 +206,16 @@ c.window.title_format = (
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "d": "https://duckduckgo.com/?q={}",
-    "n": "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&query={}",
     "y": "https://www.youtube.com/results?search_query={}",
-    "w": "https://www.merriam-webster.com/dictionary/{}",
     "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
+    "l": "https://www.ldoceonline.com/dictionary/{}",
+    "w": "https://www.merriam-webster.com/dictionary/{}",
+    "spell": "https://www.ldoceonline.com/spellcheck/english/?q={}",
+    "t": "https://www.reverso.net/text-translation#sl=eng&tl=rus&text={}",
+    "tr": "https://www.reverso.net/text-translation#tl=eng&sl=rus&text={}",
+    "c": "https://context.reverso.net/translation/english-russian/{}",
+    "cr": "https://context.reverso.net/translation/russian-english/{}",
+    "j": "https://{{@@ jira_company @@}}.atlassian.net/browse/{}",
 }
 
 c.bindings.default = {}
@@ -218,26 +224,24 @@ c.bindings.commands = {
     "normal": {
         # Extra
         "<space>c": "clear-messages",
-        "<space>gm": "open https://mail.google.com",
-        "<space>gc": "open https://calendar.google.com",
-        "<space>gy": "open https://youtube.com",
-        "<space>gg": "open https://google.com",
+        "<space>y": "open https://www.youtube.com/feed/subscriptions",
+        "<space>g": "open https://github.com",
         "<space>pr": "proxym",
         "<space>ps": "noproxym",
-
         # Sessions
         "ss": "session-save -c",
         "sc": "set-cmd-text -s :session-save",
         "so": "session-save -c ;; set-cmd-text -s :session-load -c",
         "sd": "session-save -c ;; set-cmd-text -s :session-delete",
         "sq": "quit --save",
-
         # Default
         "<Escape>": "clear-keychain ;; search ;; fullscreen --leave",
+        "<Ctrl-[>": "fake-key <Escape>",
         "/": "set-cmd-text /",
         "?": "set-cmd-text ?",
         ":": "set-cmd-text :",
         "i": "mode-enter insert",
+        "<Ctrl-m>": "mode-enter insert",
         "v": "mode-enter caret",
         "V": "mode-enter caret ;; selection-toggle --line",
         "`": "mode-enter set_mark",
@@ -246,41 +250,28 @@ c.bindings.commands = {
         # "<Ctrl-Q>": "quit",
         "ZQ": "quit",
         "ZZ": "quit --save",
-        "<Ctrl-h>": "home",
-        "<Ctrl-s>": "stop",
+        "<Ctrl-c>": "stop",
         "<Return>": "selection-follow",
         "<Ctrl-Return>": "selection-follow -t",
         ".": "repeat-command",
         "q": "macro-record",
         "@": "macro-run",
-
         # GoTo
         "gs": "view-source",
-        "gh": "history",
-
+        "<space>oh": "history",
+        "<space>ob": "bookmark-list -t",
+        # Goto-Tab
+        "gt": "set-cmd-text -s :tab-select",
         # Opening
-        "oo": "set-cmd-text -s :open",
-        "oO": "set-cmd-text :open {url:pretty}",
-        "ot": "set-cmd-text -s :open -t",
-        "oT": "set-cmd-text :open -t -r {url:pretty}",
-        "ob": "set-cmd-text -s :open -b",
-        "oB": "set-cmd-text :open -b -r {url:pretty}",
-        "ow": "set-cmd-text -s :open -w",
-        "oW": "set-cmd-text :open -w {url:pretty}",
-
+        # Open here
+        "o": "set-cmd-text -s :open",
+        "go": "set-cmd-text :open {url:pretty}",
+        # Open in a new tab
+        "O": "set-cmd-text -s :open -t",
+        "gO": "set-cmd-text :open -t {url:pretty}",
         # Tabs
-        "tt": "config-cycle tabs.show multiple never",
-        "tn": "open -t",
-        "to": "tab-only",
-        "tk": "tab-move -",
-        "tj": "tab-move +",
         "J": "tab-next",
         "K": "tab-prev",
-        "tC": "tab-clone",
-        ## Navigation
-        "th": "back -t",
-        "tl": "forward -t",
-        "tf": "set-cmd-text -s :tab-select",
         "t1": "tab-focus 1",
         "t2": "tab-focus 2",
         "t3": "tab-focus 3",
@@ -290,31 +281,39 @@ c.bindings.commands = {
         "t7": "tab-focus 7",
         "t8": "tab-focus 8",
         "t9": "tab-focus -1",
-        "tp": "tab-pin",
-        "tm": "tab-mute",
-
         "tB": "tab-give",
+        "tC": "tab-clone",
         "tT": "set-cmd-text -s :tab-take",
-
+        "tc": "tab-close",
+        "th": "back -t",
+        "tj": "tab-move +",
+        "tk": "tab-move -",
+        "tl": "forward -t",
+        "tm": "tab-mute",
+        "tn": "open -t",
+        "to": "tab-only",
+        "tp": "tab-pin",
+        "tt": "config-cycle tabs.show multiple never",
+        # Tabs-From
+        "tf": "hint --rapid links tab-bg",
         # Deleting
         # "dd": "tab-close",
         "x": "tab-close",
-
         # Windows
-        "wn": "open -w",
-        "wP": "open -p",
-        ## Navigation
+        "wC": "open -w {url:pretty}",
+        "wc": "close",
         "wh": "back -w",
         "wl": "forward -w",
-        "wc": "close",
-        "wq": "close",
-        "<Ctrl-W>c": "close",
-        "<Ctrl-W>q": "close",
-
+        "wn": "open -w",
+        "wo": "window-only",
+        "wP": "open -p",
+        "wb": "set-cmd-text -s :quickmark-load -w",
+        "wp": "open -w -- {clipboard}",
+        # Window-from
+        "wf": "hint all window",
         # Reload
         "r": "reload",
         "R": "reload -f",
-
         # Navigation
         "H": "back",
         "<Ctrl-O>": "back",
@@ -349,25 +348,12 @@ c.bindings.commands = {
         "<Ctrl-U>": "scroll-page 0 -0.5",
         "<Ctrl-e>": "scroll-px 0 20",
         "<Ctrl-y>": "scroll-px 0 -20",
-
         # Hinting
-        "ff": "hint",
-        "fF": "hint links fill :open {hint-url}",
-        "ft": "hint all tab",
-        "fT": "hint links fill :open -t -r {hint-url}",
-        "fw": "hint all window",
-        "fW": "hint links fill :open -w -r {hint-url}",
-
-        "fh": "hint all hover",
-        "fI": "hint images",
-        "fy": "hint links yank",
-        "fr": "hint --rapid links tab-bg",
-
-        "fd": "hint links download",
-
-        "fi": "hint inputs",
+        "f": "hint",
+        "F": "hint all tab",
+        "gh": "hint all hover",
         "gi": "hint inputs --first",
-
+        "gI": "hint inputs",
         # Yanking
         "yy": "yank",
         "yt": "yank title",
@@ -375,48 +361,41 @@ c.bindings.commands = {
         "yp": "yank pretty-url",
         "ym": "yank inline [{title}]({url})",
         "yd": "yank inline {url:host}",
-
-        "pp": "open -- {clipboard}",
-        "pt": "open -t -- {clipboard}",
-        "pw": "open -w -- {clipboard}",
+        # Yank-from
+        "yf": "hint links yank",
+        "p": "open -- {clipboard}",
+        "P": "open -t -- {clipboard}",
         # "pw": "spawn --userscript qute_1pass --cache-session fill_credentials",
-
         # Bookmarks
-        "bs": "quickmark-save",
-        "bl": "bookmark-list -t",
-        "bb": "set-cmd-text -s :quickmark-load",
-        "bt": "set-cmd-text -s :quickmark-load -t",
-        "bw": "set-cmd-text -s :quickmark-load -w",
-        "BS": "bookmark-add",
-        "BL": "bookmark-list -t",
-        "BB": "set-cmd-text -s :bookmark-load",
-        "BT": "set-cmd-text -s :bookmark-load -t",
-        "BW": "set-cmd-text -s :bookmark-load -w",
-
-
+        "m": "quickmark-save",
+        "M": "bookmark-add",
+        "b": "set-cmd-text -s :quickmark-load",
+        "gb": "set-cmd-text -s :bookmark-load",
+        "B": "set-cmd-text -s :quickmark-load -t",
+        "gB": "set-cmd-text -s :bookmark-load -t",
+        "bd": "set-cmd-text -s :quickmark-del",
         # Devtools
-        "II": "devtools",
-        "IH": "devtools left",
-        "IJ": "devtools bottom",
-        "IK": "devtools top",
-        "IL": "devtools right",
-        "IW": "devtools window",
-        "IF": "devtools-focus",
-
+        "<space>ii": "devtools",
+        "<space>ih": "devtools left",
+        "<space>ij": "devtools bottom",
+        "<space>ik": "devtools top",
+        "<space>il": "devtools right",
+        "<space>iw": "devtools window",
+        "<space>if": "devtools-focus",
         # Downloads
-        "dd": "hint links download",
-        "dD": "set-cmd-text :download {url:pretty}",
+        # Download-from
+        "df": "hint links download",
+        "dd": "set-cmd-text :download {url:pretty}",
         "do": "download-open",
         "dc": "download-cancel",
         "dC": "download-clear",
         "dr": "download-retry",
-
         # Toggler
-        "Ts": "config-cycle -p -t -u {url} content.javascript.enabled ;; reload",
-        "Tp": "config-cycle -p -t -u {url} content.plugins ;; reload",
-        "Ti": "config-cycle -p -t -u {url} content.images ;; reload",
-        "Tc": "config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload",
-        "TI": "config-cycle -p -t -u *://{url:host}/* content.tls.certificate_errors load-insecurely block ;; reload",
+        "<space>ts": "config-cycle -p -t -u {url} content.javascript.enabled ;; reload",
+        "<space>tp": "config-cycle -p -t -u {url} content.plugins ;; reload",
+        "<space>ti": "config-cycle -p -t -u {url} content.images ;; reload",
+        "<space>tc": "config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload",
+        "<space>tI": "config-cycle -p -t -u *://{url:host}/* content.tls.certificate_errors load-insecurely block ;; reload",
     },
     "insert": {
         "<Ctrl-E>": "edit-text",
@@ -424,6 +403,17 @@ c.bindings.commands = {
         "<Escape>": "mode-leave",
         "<Shift-Escape>": "fake-key <Escape>",
         "<Ctrl-y>": "insert-text -- {clipboard}",
+        "<Ctrl-W>": "fake-key <Ctrl-Backspace>",
+        "<Ctrl-H>": "fake-key <Backspace>",
+        "<Ctrl-A>": "fake-key <Home>",
+        "<Ctrl-E>": "fake-key <End>",
+        "<Alt-B>": "fake-key <Ctrl-Left>",
+        "<Alt-F>": "fake-key <Ctrl-Right>",
+        "<Ctrl-B>": "fake-key <Left>",
+        "<Ctrl-F>": "fake-key <Right>",
+        "<Ctrl-M>": "fake-key <Return>",
+        "<Ctrl-J>": "fake-key <Down>",
+        "<Ctrl-K>": "fake-key <Up>",
         # "<Alt-Shift-u>": "spawn --userscript qute_1pass --cache-session fill_username",
         # "<Alt-Shift-p>": "spawn --userscript qute_1pass --cache-session fill_password",
         "<Alt-Shift-t>": "spawn ykman-otp",
@@ -587,12 +577,6 @@ c.colors.webpage.preferred_color_scheme = "dark"
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.policy.images = "never"
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
-
-c.colors.tabs.even.bg = base04
-c.colors.tabs.even.fg = base0D
-c.colors.tabs.odd.bg = base01
-c.colors.tabs.odd.fg = c.colors.tabs.even.fg
-c.colors.tabs.bar.bg = base02
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
@@ -830,40 +814,40 @@ c.colors.tabs.even.fg = base05
 c.colors.tabs.even.bg = base00
 
 # Background color of pinned unselected even tabs.
-c.colors.tabs.pinned.even.bg = base0C
+c.colors.tabs.pinned.even.bg = base03
 
 # Foreground color of pinned unselected even tabs.
-c.colors.tabs.pinned.even.fg = base07
+c.colors.tabs.pinned.even.fg = base00
 
 # Background color of pinned unselected odd tabs.
-c.colors.tabs.pinned.odd.bg = base0B
+c.colors.tabs.pinned.odd.bg = base03
 
 # Foreground color of pinned unselected odd tabs.
-c.colors.tabs.pinned.odd.fg = base07
+c.colors.tabs.pinned.odd.fg = base00
 
 # Background color of pinned selected even tabs.
-c.colors.tabs.pinned.selected.even.bg = base02
+c.colors.tabs.pinned.selected.even.bg = base0E
 
 # Foreground color of pinned selected even tabs.
-c.colors.tabs.pinned.selected.even.fg = base05
+c.colors.tabs.pinned.selected.even.fg = base00
 
 # Background color of pinned selected odd tabs.
-c.colors.tabs.pinned.selected.odd.bg = base02
+c.colors.tabs.pinned.selected.odd.bg = base0E
 
 # Foreground color of pinned selected odd tabs.
-c.colors.tabs.pinned.selected.odd.fg = base05
+c.colors.tabs.pinned.selected.odd.fg = base00
 
 # Foreground color of selected odd tabs.
-c.colors.tabs.selected.odd.fg = base05
+c.colors.tabs.selected.odd.fg = base00
 
 # Background color of selected odd tabs.
-c.colors.tabs.selected.odd.bg = base02
+c.colors.tabs.selected.odd.bg = base0E
 
 # Foreground color of selected even tabs.
-c.colors.tabs.selected.even.fg = base05
+c.colors.tabs.selected.even.fg = base00
 
 # Background color of selected even tabs.
-c.colors.tabs.selected.even.bg = base02
+c.colors.tabs.selected.even.bg = base0E
 
 # Background color for webpages if unset (or empty to use the theme's
 # color).

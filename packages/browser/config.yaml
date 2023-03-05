@@ -22,9 +22,13 @@ dotfiles:
   f_browser_qute:
     src: qutebrowser.py
     dst: "~/.config/qutebrowser/config.py"
+  f_browser_qute_wrapper:
+    src: qutebrowser.sh
+    dst: "{{@@ bin @@}}/qutebrowser"
+    chmod: 0755
 actions:
   pre:
-    install_browser: "{{@@ pm @@}} google-chrome qutebrowser"
+    install_browser: "{{@@ pm @@}} google-chrome qutebrowser python-adblock"
 profiles:
   browser:
     dotfiles:
@@ -33,3 +37,4 @@ profiles:
       - f_browser_fish
       - f_browser_mime
       - f_browser_qute
+      - f_browser_qute_wrapper
