@@ -12,7 +12,7 @@ config:
   import_variables:
     - "local_vars.yaml"
   import_configs:
-    - packages/redshift/config.yaml
+    - packages/gammastep/config.yaml
     - packages/rofi/config.yaml
     #- packages/rslsync/config.yaml
     - packages/ssh/config.yaml
@@ -32,7 +32,7 @@ dotfiles:
 profiles:
   ewok-t14s:
     include:
-      - redshift
+      - gammastep
       - rofi
       - ssh
       - starship
