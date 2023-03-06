@@ -31,7 +31,8 @@
                                         :jq
                                         :autopep8
                                         :sql-formatter
-                                        :stylua]})
+                                        :stylua
+                                        :prettier]})
 
 (local installed-resources [])
 

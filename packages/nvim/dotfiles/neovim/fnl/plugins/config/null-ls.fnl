@@ -27,10 +27,11 @@
                               null-ls.builtins.completion.spell
                               null-ls.builtins.diagnostics.write_good
                               (null-ls.builtins.diagnostics.markdownlint.with {:extra_args [:--disable
-                                                                                            :MD013]})
-                              (null-ls.builtins.formatting.markdownlint.with {:extra_args [:--disable
-                                                                                           :MD013]})
+                                                                                            :MD013 :MD024]})
+                              ; (null-ls.builtins.formatting.markdownlint.with {:extra_args [:--disable
+                              ;                                                              :MD013]})
                               null-ls.builtins.formatting.cbfmt
+                              (null-ls.builtins.formatting.prettier.with {:filetypes [:markdown "markdown.mdx"]})
                               null-ls.builtins.hover.dictionary
 
                               null-ls.builtins.diagnostics.ansiblelint
