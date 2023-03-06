@@ -7,7 +7,7 @@ case $CMD in
         {{@@ bin @@}}/qutebrowser --target tab-bg-silent "$1"
         ;;
     qutebrowser-work)
-        {{@@ bin @@}}/qutebrowser -r work --target tab-bg-silent "$1"
+        SESSION_NAME=work {{@@ bin @@}}/qutebrowser -r work --target tab-bg-silent "$1"
         ;;
     google-chrome-stable)
         google-chrome-stable "$1"

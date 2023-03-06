@@ -4,9 +4,17 @@ CMD=$(echo "Default|Work" | {{@@ bin @@}}/rofi_run -dmenu -i -l 20 -p "Qutebrows
 
 case $CMD in
     Default)
-        {{@@ bin @@}}/qutebrowser --target tab-bg-silent "$1"
+        if [[ -z "$1" ]]; then
+            {{@@ bin @@}}/qutebrowser
+        else
+            {{@@ bin @@}}/qutebrowser --target tab-bg-silent "$1"
+        fi
         ;;
     Work)
-        {{@@ bin @@}}/qutebrowser -r work --target tab-bg-silent "$1"
+        if [[ -z "$1" ]]; then
+            SESSION_NAME=work {{@@ bin @@}}/qutebrowser -r work
+        else
+            SESSION_NAME=work {{@@ bin @@}}/qutebrowser -r work --target tab-bg-silent "$1"
+        fi
         ;;
 esac
