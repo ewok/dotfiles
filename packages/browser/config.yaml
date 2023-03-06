@@ -30,9 +30,17 @@ dotfiles:
     src: choose-qute
     dst: "{{@@ bin @@}}/choose-qute"
     chmod: 0755
+  f_browser_qute_bitwarden:
+    src: qute-bitwarden.py
+    dst: "{{@@ bin @@}}/qute-bitwarden"
+    chmod: 0755
+  f_browser_qute_bw:
+    src: qute-bw-login.sh
+    dst: "{{@@ bin @@}}/qute-bw"
+    chmod: 0755
 actions:
   pre:
-    install_browser: "{{@@ pm @@}} google-chrome qutebrowser python-adblock"
+    install_browser: "{{@@ pm @@}} google-chrome qutebrowser python-adblock python-tldextract"
 profiles:
   browser:
     dotfiles:
@@ -43,3 +51,5 @@ profiles:
       - f_browser_qute
       - f_browser_qute_wrapper
       - f_browser_qute_choose
+      - f_browser_qute_bitwarden
+      - f_browser_qute_bw

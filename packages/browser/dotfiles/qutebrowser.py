@@ -375,6 +375,11 @@ c.bindings.commands = {
         "yf": "hint links yank",
         "p": "open -- {clipboard}",
         "P": "open -t -- {clipboard}",
+        "<space>pi": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' --auto-lock 28800",
+        "<space>pu": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -e --auto-lock 28800",
+        "<space>pp": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -w --auto-lock 28800",
+        "<space>pt": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -T --auto-lock 28800",
+        "<space>pU": "spawn {{@@ bin @@}}/qute-bw sync",
         # "pw": "spawn --userscript qute_1pass --cache-session fill_credentials",
         # Bookmarks
         "m": "quickmark-save",
@@ -425,10 +430,9 @@ c.bindings.commands = {
         "<Ctrl-M>": "fake-key <Return>",
         "<Ctrl-J>": "fake-key <Down>",
         "<Ctrl-K>": "fake-key <Up>",
-        # "<Alt-Shift-u>": "spawn --userscript qute_1pass --cache-session fill_username",
-        # "<Alt-Shift-p>": "spawn --userscript qute_1pass --cache-session fill_password",
-        "<Alt-Shift-t>": "spawn ykman-otp",
-        # "<Alt-Shift-t>" = "spawn --userscript qute_1pass --cache-session fill_totp";
+        "<Alt-Shift-u>": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -e --auto-lock 28800",
+        "<Alt-Shift-p>": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -w --auto-lock 28800",
+        "<Alt-Shift-t>": "spawn --userscript {{@@ bin @@}}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -T --auto-lock 28800",
     },
     "hint": {
         "<Return>": "hint-follow",
