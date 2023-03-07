@@ -56,7 +56,7 @@
                                              :global true
                                              :restrict_above_cwd false}
                                 :open_file {:resize_window true
-                                            :quit_on_open true
+                                            :quit_on_open false
                                             :window_picker {:enable false}}}
                       :trash {:cmd :trash :require_confirm true}
                       :filters {:dotfiles false
