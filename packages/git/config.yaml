@@ -4,9 +4,9 @@ config:
 dynvariables:
   hash_git: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_git_lock:
-    src: git.lock
-    dst: ~/.local/git.lock
+  f_git_setup:
+    src: git.sh
+    dst: ~/.cache/setup/git.sh
     actions:
       - install_git
   d_git:
@@ -20,12 +20,11 @@ dotfiles:
     dst: "{{@@ bin @@}}/sign"
     chmod: 0755
 actions:
-  pre:
-    install_git: "{{@@ yay @@}} git-crypt git-trim pass-git-helper git-extras git-filter-repo"
+  install_git: "bash ~/.cache/setup/git.sh"
 profiles:
   git:
     dotfiles:
-      - f_git_lock
+      - f_git_setup
       - d_git
       - f_git_fish
       - f_git_bin

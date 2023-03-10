@@ -2,9 +2,9 @@ config:
 dynvariables:
   hash_fish: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_fish_start:
-    src: fish.lock
-    dst: ~/.local/fish.lock
+  f_fish_setup:
+    src: fish.sh
+    dst: ~/.cache/setup/fish.sh
     actions:
       - install_fish
   f_fish:
@@ -34,14 +34,14 @@ dotfiles:
     dst: ~/.config/fish/conf.d/99_zoxide.fish
 actions:
   pre:
-    install_fish: "{{@@ yay @@}} community/fish community/zoxide community/exa community/bat community/dfc community/fd community/global aur/viddy"
-    install_fish_fisher: "curl -o {{@@ _dotdrop_dotpath @@}}/fish/dotfiles/fisher.fish https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish"
+    install_fish_fisher: "curl -o {{@@ _dotdrop_dotpath @@}}/fish/dotfiles/fisher.fish https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish || true"
   post:
+    install_fish: "bash ~/.cache/setup/fish.sh"
     create_dirs: "mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d"
 profiles:
   fish:
     dotfiles:
-      - f_fish_start
+      - f_fish_setup
       - f_fish
       - f_fish_fisher
       - f_fish_plugins

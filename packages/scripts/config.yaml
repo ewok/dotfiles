@@ -4,9 +4,9 @@ config:
 dynvariables:
   hash_scripts: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_scripts_lock:
-    src: scripts.lock
-    dst: ~/.local/scripts.lock
+  f_scripts_setup:
+    src: scripts.sh
+    dst: ~/.cache/setup/scripts.sh
     actions:
       - install_scripts
   f_scripts_bin1:
@@ -70,12 +70,11 @@ dotfiles:
     dst: "{{@@ bin @@}}/run-cached"
     chmod: 0755
 actions:
-  pre:
-    install_scripts: "{{@@ yay @@}} aur/ntfy"
+  install_scripts: "bash ~/.cache/setup/scripts.sh"
 profiles:
   scripts:
     dotfiles:
-      - f_scripts_lock
+      - f_scripts_setup
       - f_scripts_bin1
       - f_scripts_h
       - f_scripts_h-bs

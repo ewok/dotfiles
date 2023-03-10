@@ -4,19 +4,18 @@ config:
 dynvariables:
   hash_direnv: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_direnv_lock:
-    src: direnv.lock
-    dst: ~/.local/direnv.lock
+  f_direnv_setup:
+    src: direnv.sh
+    dst: ~/.cache/setup/direnv.sh
     actions:
       - install_direnv
   f_direnv_fish:
     src: 90_direnv_init.fish
     dst: ~/.config/fish/conf.d/90_direnv_init.fish
 actions:
-  pre:
-    install_direnv: "{{@@ yay @@}} community/direnv"
+  install_direnv: "bash ~/.cache/setup/direnv.sh"
 profiles:
   direnv:
     dotfiles:
-      - f_direnv_lock
+      - f_direnv_setup
       - f_direnv_fish

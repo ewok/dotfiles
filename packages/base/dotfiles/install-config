@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-1.yaml compare
 dotdrop -c {{@@ _dotdrop_rootpath @@}}/config-user-1.yaml install $1

@@ -4,19 +4,18 @@ config:
 dynvariables:
   hash_kube: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_kube_lock:
-    src: kube.lock
-    dst: ~/.local/kube.lock
+  f_kube_setup:
+    src: kube.sh
+    dst: ~/.cache/setup/kube.sh
     actions:
       - install_kube
   f_kube_fish:
     src: 90-kube.fish
     dst: ~/.config/fish/conf.d/90-kube.fish
 actions:
-  pre:
-    install_kube: "{{@@ yay @@}} kubectl kubectx minikube"
+  install_kube: "bash ~/.cache/setup/kube.sh"
 profiles:
   kube:
     dotfiles:
-      - f_kube_lock
+      - f_kube_setup
       - f_kube_fish

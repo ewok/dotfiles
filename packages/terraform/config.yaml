@@ -4,12 +4,11 @@ config:
 dynvariables:
   hash_terraform: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_terraform_lock:
-    src: terraform.lock
-    dst: ~/.local/terraform.lock
+  f_terraform_setup:
+    src: terraform.sh
+    dst: ~/.cache/setup/terraform.sh
     actions:
       - install_terraform
-      - usermod_terraform
   f_terraform_fish:
     src: 90_tfenv_init.fish
     dst: ~/.config/fish/conf.d/90_tfenv_init.fish
@@ -18,12 +17,10 @@ dotfiles:
   #   dst: "{{@@ bin @@}}/tfenv"
   #   chmod: 0755
 actions:
-  pre:
-    install_terraform: "{{@@ yay @@}} aur/tfenv aur/helmenv-bin aur/tgenv"
-    usermod_terraform: "sudo usermod -aG tfenv $USER"
+  install_terraform: "bash ~/.cache/setup/terraform.sh"
 profiles:
   terraform:
     dotfiles:
-      - f_terraform_lock
+      - f_terraform_setup
       # - f_terraform_bin
       - f_terraform_fish

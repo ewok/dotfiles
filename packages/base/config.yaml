@@ -4,12 +4,11 @@ config:
 dynvariables:
   hash_base: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_base_start:
-    src: base.lock
-    dst: ~/.local/base.lock
+  f_base_setup:
+    src: base.sh
+    dst: ~/.cache/setup/base.sh
     actions:
       - install_base
-      - install_base_devel
   f_base_update:
     src: update-config
     dst: "{{@@ bin @@}}/update-config"
@@ -23,12 +22,11 @@ dotfiles:
     dst: "{{@@ bin @@}}/open"
     chmod: 0755
 actions:
-  install_base: "mkdir -p ~/.cache/rpms ~/Pictures/Screenshots ~/mnt ~/share {{@@ bin @@}}"
-  install_base_devel: "{{@@ yay @@}} base-devel community/btop"
+  install_base: "bash ~/.cache/setup/base.sh"
 profiles:
   base:
     dotfiles:
-      - f_base_start
+      - f_base_setup
       - f_base_update
       - f_base_install
       - f_base_open

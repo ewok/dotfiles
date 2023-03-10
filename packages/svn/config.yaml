@@ -4,9 +4,9 @@ config:
 dynvariables:
   hash_subversion: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_subversion_start:
-    src: subversion.lock
-    dst: ~/.local/subversion.lock
+  f_subversion_setup:
+    src: subversion.sh
+    dst: ~/.cache/setup/subversion.sh
     actions:
       - install_svn
   f_subversion:
@@ -23,12 +23,11 @@ dotfiles:
     dst: "{{@@ bin @@}}/svn-add-add"
     chmod: 0755
 actions:
-  pre:
-    install_svn: "{{@@ yay @@}} extra/subversion"
+  install_svn: "bash ~/.cache/setup/subversion.sh"
 profiles:
   svn:
     dotfiles:
-      - f_subversion_start
+      - f_subversion_setup
       - f_subversion
       - f_subversion_bin_rm
       - f_subversion_bin_add

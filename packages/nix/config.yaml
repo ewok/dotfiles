@@ -1,7 +1,14 @@
 config:
   import_variables:
     - "local_vars.yaml"
+dynvariables:
+  hash_nix: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
+  f_nix_setup:
+    src: nix.sh
+    dst: ~/.cache/setup/nix.sh
+    actions:
+      - install_nix
   f_nix_fish:
     src: .config/fish/conf.d/10_nix-init.fish
     dst: ~/.config/fish/conf.d/10_nix-init.fish
@@ -12,9 +19,12 @@ dotfiles:
     src: nix-init
     dst: "{{@@ bin @@}}/nix-init"
     chmod: 0755
+actions:
+  install_nix: "bash ~/.cache/setup/nix.sh"
 profiles:
   nix:
     dotfiles:
+      - f_nix_setup
       - f_nix_fish
       - d_nix_nix
       - f_nix

@@ -2,17 +2,14 @@ config:
 dynvariables:
   hash_lisps: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_lisps_lock:
-    src: lisps.lock
-    dst: ~/.local/lisps.lock
+  f_lisps_setup:
+    src: lisps.sh
+    dst: ~/.cache/setup/lisps.sh
     actions:
       - install_lisps
-      - install_lisps_n
 actions:
-  pre:
-    install_lisps: "{{@@ yay @@}} aur/babashka-bin community/clojure community/fennel"
-    install_lisps_n: "if [[ \"{{@@ distro_id @@}}\" != \"manjaro-arm\" ]];then {{@@ yay @@}} aur/clj-kondo-bin; fi"
+  install_lisps: "bash ~/.cache/setup/lisps.sh"
 profiles:
   lisps:
     dotfiles:
-      - f_lisps_lock
+      - f_lisps_setup

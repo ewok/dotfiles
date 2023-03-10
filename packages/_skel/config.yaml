@@ -4,9 +4,9 @@ config:
 dynvariables:
   hash_PACKAGE: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_PACKAGE_lock:
-    src: PACKAGE.lock
-    dst: ~/.local/PACKAGE.lock
+  f_PACKAGE_setup:
+    src: PACKAGE.sh
+    dst: ~/.cache/setup/PACKAGE.sh
     actions:
       - install_PACKAGE
   d_PACKAGE:
@@ -24,12 +24,11 @@ dotfiles:
     src: source.file
     dst: ~/.config/fish/conf.d/00-PACKAGE.fish
 actions:
-  pre:
-    install_PACKAGE: "{{@@ yay @@}} PACKAGE"
+  install_PACKAGE: "bash ~/.cache/PACKAGE.sh"
 profiles:
   PACKAGE:
     dotfiles:
-      - f_PACKAGE_lock
+      - f_PACKAGE_setup
       - d_PACKAGE
       - f_PACKAGE
       - f_PACKAGE_bin

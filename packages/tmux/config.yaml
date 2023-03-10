@@ -4,9 +4,9 @@ config:
 dynvariables:
   hash_tmux: "sha1sum $(dirname {{@@ _dotdrop_dotpath @@}})/config.yaml | cut -f1 -d' '"
 dotfiles:
-  f_tmux_start:
-    src: tmux.lock
-    dst: ~/.local/tmux.lock
+  f_tmux_setup:
+    src: tmux.sh
+    dst: ~/.cache/setup/tmux.sh
     actions:
       - install_tmux
   f_tmux:
@@ -21,12 +21,11 @@ dotfiles:
     dst: "{{@@ bin @@}}/tssh"
     chmod: 0755
 actions:
-  pre:
-    install_tmux: "{{@@ yay @@}} community/tmux"
+  install_tmux: "bash ~/.cache/setup/tmux.sh"
 profiles:
   tmux:
     dotfiles:
-      - f_tmux_start
+      - f_tmux_setup
       - f_tmux
       - f_tmux_bin_tm
       - f_tmux_bin_tssh
