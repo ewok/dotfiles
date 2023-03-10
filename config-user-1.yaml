@@ -52,6 +52,20 @@ profiles:
   void:
     include:
       - base
+      - direnv
+      - fish
+      - git
+      - kube
+      - lisps
+      - nix
+      - nvim
+      - scripts
+      - ssh
+      - starship
+      - svn
+      - terraform
+      - tmux
+      - vifm
     dynvariables:
       hostname: echo void
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}

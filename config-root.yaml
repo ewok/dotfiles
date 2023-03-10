@@ -29,6 +29,18 @@ profiles:
     variables:
       yay: 'yes | pacman -S --needed --noconfirm'
       suspend_type: suspend
+  void:
+    include:
+      - backup
+      # - laptop
+      # - sudoers
+      # - vpn
+    dynvariables:
+      hostname: echo void
+      _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
+    variables:
+      xi: 'sudo xbps-install -Sy'
+      suspend_type: suspend
   ewok-rpi:
     include:
       - backup
