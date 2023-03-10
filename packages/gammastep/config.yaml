@@ -19,7 +19,7 @@ dotfiles:
     dst: ~/.config/i3/autostart.d/gammastep.conf
 actions:
   pre:
-    install_gammastep: "{{@@ pm @@}} gammastep geoclue"
+    install_gammastep: "{{@@ yay @@}} gammastep geoclue"
     restart_gammastep: "systemctl --user restart gammastep-indicator"
 profiles:
   gammastep:

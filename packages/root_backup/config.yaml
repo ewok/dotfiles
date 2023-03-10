@@ -27,7 +27,7 @@ dotfiles:
      - start_backup_restic_timer
 actions:
   pre:
-    install_backup: "{{@@ pm @@}} rclone restic"
+    install_backup: "{{@@ yay @@}} rclone restic"
   post:
     enable_backup_restic_timer: "systemctl enable restic-backup.timer"
     start_backup_restic_timer: "systemctl start restic-backup.timer"

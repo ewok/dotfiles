@@ -12,7 +12,7 @@ dotfiles:
       - install_containers_sub
 actions:
   pre:
-    install_containers: "{{@@ pm @@}} podman"
+    install_containers: "{{@@ yay @@}} podman"
     install_containers_sub: "sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 {{@@ user @@}}"
 profiles:
   containers:

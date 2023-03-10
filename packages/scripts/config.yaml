@@ -71,7 +71,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_scripts: "{{@@ pm @@}} aur/ntfy"
+    install_scripts: "{{@@ yay @@}} aur/ntfy"
 profiles:
   scripts:
     dotfiles:

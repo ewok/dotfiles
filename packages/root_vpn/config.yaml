@@ -21,7 +21,7 @@ dotfiles:
       - reload_vpn
 actions:
   pre:
-    install_vpn: "{{@@ pm @@}} openvpn"
+    install_vpn: "{{@@ yay @@}} openvpn"
     reload_vpn: "systemctl daemon-reload"
 profiles:
   vpn:

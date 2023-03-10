@@ -46,7 +46,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_laptop: "{{@@ pm @@}} tlp powertop tlp-rdw"
+    install_laptop: "{{@@ yay @@}} tlp powertop tlp-rdw"
   post:
     reload_udev_laptop: "udevadm control --reload-rules"
     enable_laptop_ac: "systemctl enable ac_init"

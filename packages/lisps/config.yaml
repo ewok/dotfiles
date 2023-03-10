@@ -10,8 +10,8 @@ dotfiles:
       - install_lisps_n
 actions:
   pre:
-    install_lisps: "{{@@ pm @@}} aur/babashka-bin community/clojure community/fennel"
-    install_lisps_n: "if [[ \"{{@@ distro_id @@}}\" != \"manjaro-arm\" ]];then {{@@ pm @@}} aur/clj-kondo-bin; fi"
+    install_lisps: "{{@@ yay @@}} aur/babashka-bin community/clojure community/fennel"
+    install_lisps_n: "if [[ \"{{@@ distro_id @@}}\" != \"manjaro-arm\" ]];then {{@@ yay @@}} aur/clj-kondo-bin; fi"
 profiles:
   lisps:
     dotfiles:

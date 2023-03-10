@@ -17,7 +17,7 @@ dotfiles:
     dst: ~/.config/i3/autostart.d/syncthing-gtk.conf
 actions:
   pre:
-    install_syncthing: "{{@@ pm @@}} syncthing syncthing-gtk"
+    install_syncthing: "{{@@ yay @@}} syncthing syncthing-gtk"
 profiles:
   syncthing:
     dotfiles:

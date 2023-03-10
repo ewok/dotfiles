@@ -24,7 +24,7 @@ dotfiles:
     chmod: 0755
 actions:
   install_base: "mkdir -p ~/.cache/rpms ~/Pictures/Screenshots ~/mnt ~/share {{@@ bin @@}}"
-  install_base_devel: "{{@@ pm @@}} base-devel community/btop"
+  install_base_devel: "{{@@ yay @@}} base-devel community/btop"
 profiles:
   base:
     dotfiles:

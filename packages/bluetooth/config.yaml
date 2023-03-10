@@ -12,7 +12,7 @@ dotfiles:
     dst: ~/.config/i3/autostart.d/bluetooth.conf
 actions:
   pre:
-    install_bluetooth: "{{@@ pm @@}} blueberry blueman bluez bluez-libs bluez-utils"
+    install_bluetooth: "{{@@ yay @@}} blueberry blueman bluez bluez-libs bluez-utils"
 profiles:
   bluetooth:
     dotfiles:

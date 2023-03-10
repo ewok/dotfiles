@@ -147,6 +147,18 @@ def get_session_key(auto_lock, password_prompt_invocation):
 
 def pass_(domain, encoding, auto_lock, password_prompt_invocation):
 
+    # Check if file exitsts
+    if not os.path.isfile(os.path.expanduser('~/.config/Bitwarden_CLI_qute/data.json')):
+        process = subprocess.run(
+            shlex.split(password_prompt_invocation),
+            text=True,
+            stdout=subprocess.PIPE,
+        )
+        if process.returncode > 0:
+            raise Exception('Could not unlock vault')
+        master_pass = process.stdout.strip()
+        subprocess.call(['bw', 'login', '--raw', "{{@@ bw_email @@}}" , master_pass])
+
     session_key = get_session_key(auto_lock, password_prompt_invocation)
     process = subprocess.run(
         ['bw', 'list', 'items', '--session', session_key, '--url', domain],

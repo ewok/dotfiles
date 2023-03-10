@@ -24,7 +24,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_svn: "{{@@ pm @@}} extra/subversion"
+    install_svn: "{{@@ yay @@}} extra/subversion"
 profiles:
   svn:
     dotfiles:

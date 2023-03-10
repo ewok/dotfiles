@@ -14,7 +14,7 @@ dotfiles:
     dst: ~/.config/fish/conf.d/90-kube.fish
 actions:
   pre:
-    install_kube: "{{@@ pm @@}} kubectl kubectx minikube"
+    install_kube: "{{@@ yay @@}} kubectl kubectx minikube"
 profiles:
   kube:
     dotfiles:

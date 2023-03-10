@@ -17,7 +17,7 @@ dotfiles:
     dst: ~/.config/fish/conf.d/99_starship.fish
 actions:
   pre:
-    install_starship: "{{@@ pm @@}} community/starship"
+    install_starship: "{{@@ yay @@}} community/starship"
 profiles:
   starship:
     dotfiles:

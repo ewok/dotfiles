@@ -14,7 +14,7 @@ dotfiles:
     dst: ~/.local/share/applications/favorites/telegram.desktop
 actions:
   pre:
-    install_telegram: "{{@@ pm @@}} telegram-desktop"
+    install_telegram: "{{@@ yay @@}} telegram-desktop"
 profiles:
   telegram:
     dotfiles:

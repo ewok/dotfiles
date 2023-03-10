@@ -19,7 +19,7 @@ dotfiles:
   #   chmod: 0755
 actions:
   pre:
-    install_terraform: "{{@@ pm @@}} aur/tfenv aur/helmenv-bin aur/tgenv"
+    install_terraform: "{{@@ yay @@}} aur/tfenv aur/helmenv-bin aur/tgenv"
     usermod_terraform: "sudo usermod -aG tfenv $USER"
 profiles:
   terraform:

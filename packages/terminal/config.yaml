@@ -14,7 +14,7 @@ dotfiles:
     dst: ~/.config/alacritty/alacritty.yml
 actions:
   pre:
-    install_terminal: "{{@@ pm @@}} alacritty"
+    install_terminal: "{{@@ yay @@}} alacritty"
 profiles:
   terminal:
     dotfiles:

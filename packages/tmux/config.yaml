@@ -22,7 +22,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_tmux: "{{@@ pm @@}} community/tmux"
+    install_tmux: "{{@@ yay @@}} community/tmux"
 profiles:
   tmux:
     dotfiles:

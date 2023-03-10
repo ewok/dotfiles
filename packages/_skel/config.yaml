@@ -25,7 +25,7 @@ dotfiles:
     dst: ~/.config/fish/conf.d/00-PACKAGE.fish
 actions:
   pre:
-    install_PACKAGE: "{{@@ pm @@}} PACKAGE"
+    install_PACKAGE: "{{@@ yay @@}} PACKAGE"
 profiles:
   PACKAGE:
     dotfiles:

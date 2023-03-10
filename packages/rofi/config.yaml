@@ -33,7 +33,7 @@ dotfiles:
     dst: ~/.local/share/applications/favorites/rcalc.desktop
 actions:
   pre:
-    install_rofi: "{{@@ pm @@}} rofi rofi-calc"
+    install_rofi: "{{@@ yay @@}} rofi rofi-calc"
 profiles:
   rofi:
     dotfiles:

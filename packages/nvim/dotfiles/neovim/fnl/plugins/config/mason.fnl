@@ -8,7 +8,7 @@
                                   :pyright
                                   :rnix-lsp
                                   :terraform-ls
-                                  :vim-language-server
+                                  :ltex-ls
                                   :zk]
                             :linter [:proselint
                                      :yamllint
@@ -20,7 +20,7 @@
                                      :codespell
                                      :hadolint
                                      :mypy
-                                     :write-good
+                                     ; :write-good
                                      :tflint]
                             :formatter [:cbfmt
                                         :joker

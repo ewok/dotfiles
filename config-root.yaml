@@ -11,23 +11,23 @@ config:
   import_variables:
     - "local_vars.yaml"
   import_configs:
-    - packages/root_laptop/config.yaml
-    - packages/root_vpn/config.yaml
     - packages/root_backup/config.yaml
+    - packages/root_laptop/config.yaml
     - packages/root_sudoers/config.yaml
+    - packages/root_vpn/config.yaml
 dotfiles:
 profiles:
   ewok-t14s:
     include:
-      - laptop
-      - vpn
       - backup
+      - laptop
       - sudoers
+      - vpn
     dynvariables:
       hostname: echo ewok-t14s
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
     variables:
-      pm: 'yes | pacman -S --needed --noconfirm'
+      yay: 'yes | pacman -S --needed --noconfirm'
       suspend_type: suspend
   ewok-rpi:
     include:
@@ -37,5 +37,5 @@ profiles:
       hostname: echo ewok-rpi
       _dotdrop_rootpath: dirname {{@@ _dotdrop_cfgpath @@}}
     variables:
-      pm: 'yes | pacman -S --needed --noconfirm'
+      yay: 'yes | pacman -S --needed --noconfirm'
       suspend_type: suspend

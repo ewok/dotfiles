@@ -34,7 +34,7 @@ dotfiles:
     dst: ~/.config/fish/conf.d/99_zoxide.fish
 actions:
   pre:
-    install_fish: "{{@@ pm @@}} community/fish community/zoxide community/exa community/bat community/dfc community/fd community/global aur/viddy"
+    install_fish: "{{@@ yay @@}} community/fish community/zoxide community/exa community/bat community/dfc community/fd community/global aur/viddy"
     install_fish_fisher: "curl -o {{@@ _dotdrop_dotpath @@}}/fish/dotfiles/fisher.fish https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish"
   post:
     create_dirs: "mkdir -p ~/.config/fish/functions ~/.config/fish/conf.d"

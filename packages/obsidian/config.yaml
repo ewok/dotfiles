@@ -18,7 +18,7 @@ dotfiles:
     dst: ~/.local/share/applications/favorites/obsidian.desktop
 actions:
   pre:
-    install_obsidian: "{{@@ pm @@}} obsidian"
+    install_obsidian: "{{@@ yay @@}} obsidian"
 profiles:
   obsidian:
     dotfiles:

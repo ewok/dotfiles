@@ -39,14 +39,17 @@ dotfiles:
     src: nvim-clean-cache
     dst: "{{@@ bin @@}}/nvim-clean-cache"
     chmod: 0755
+  f_nvim_cbfmt:
+    src: cbfmt.toml
+    dst: ~/.config/cbfmt.toml
 actions:
   pre:
     cleanup_nvim_lua: "rm -rf ~/.config/nvim/lua"
     cleanup_nvim_fnl: "rm -rf ~/.config/nvim/fnl"
-    install_nvim_nvim: "{{@@ pm @@}} neovim lazygit"
-    install_nvim_tools_arch: "if which yay;then {{@@ pm @@}} the_silver_searcher ripgrep
+    install_nvim_nvim: "{{@@ yay @@}} neovim lazygit"
+    install_nvim_tools_arch: "if which yay;then {{@@ yay @@}} the_silver_searcher ripgrep
       python-pynvim tree-sitter npm gnu-netcat jq yq fzf ;fi"
-    install_nvim_tools_apt: "if which apt;then {{@@ pm @@}} silversearcher-ag python3-pynvim
+    install_nvim_tools_apt: "if which apt;then {{@@ yay @@}} silversearcher-ag python3-pynvim
       libtree-sitter-dev luarocks  ripgrep jq yq fzf;fi"
     install_nvim_coursier: "curl -o {{@@ bin @@}}/coursier https://git.io/coursier-cli"
 profiles:
@@ -61,3 +64,4 @@ profiles:
       - f_nvim_bin
       - f_nvim_bin_lazygit
       - f_nvim_clean_cache
+      - f_nvim_cbfmt

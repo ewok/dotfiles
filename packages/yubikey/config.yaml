@@ -34,7 +34,7 @@ dotfiles:
       - reload_yubikey_keyring
 actions:
   pre:
-    install_yubikey: "{{@@ pm @@}} gnome-keyring libgnome-keyring pcsclite pcsc-tools pinentry yubikey-manager seahorse"
+    install_yubikey: "{{@@ yay @@}} gnome-keyring libgnome-keyring pcsclite pcsc-tools pinentry yubikey-manager seahorse"
   post:
     enable_yubikey_pcscd: "sudo systemctl enable pcscd"
     start_yubikey_pcscd: "sudo systemctl start pcscd"

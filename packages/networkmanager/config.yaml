@@ -10,8 +10,8 @@ dotfiles:
       - install_networkmanager_1
 actions:
   pre:
-    install_networkmanager: "{{@@ pm @@}} mobile-broadband-provider-info modemmanager networkmanager network-manager-applet networkmanager-openconnect"
-    install_networkmanager_1: "{{@@ pm @@}} networkmanager-openvpn networkmanager-pptp networkmanager-vpnc openresolv whois net-tools"
+    install_networkmanager: "{{@@ yay @@}} mobile-broadband-provider-info modemmanager networkmanager network-manager-applet networkmanager-openconnect"
+    install_networkmanager_1: "{{@@ yay @@}} networkmanager-openvpn networkmanager-pptp networkmanager-vpnc openresolv whois net-tools"
 profiles:
   networkmanager:
     dotfiles:

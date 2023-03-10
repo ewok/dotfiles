@@ -21,7 +21,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_git: "{{@@ pm @@}} git-crypt git-trim pass-git-helper git-extras git-filter-repo"
+    install_git: "{{@@ yay @@}} git-crypt git-trim pass-git-helper git-extras git-filter-repo"
 profiles:
   git:
     dotfiles:

@@ -64,7 +64,7 @@ for_window [class="TelegramDesktop"] border pixel 2, move right,move right,move 
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="trayer"] floating enable
 for_window [title="alsamixer"] floating enable border normal
-for_window [title="pulsemixer"] floating enable border normal
+for_window [title="pulsemixer" class="Alacritty"] floating enable border normal
 for_window [title="Cryptomator"] floating enable
 for_window [title="DavMail Gateway Settings"] floating enable
 for_window [title="Enpass Assistant"] floating enable, move position mouse

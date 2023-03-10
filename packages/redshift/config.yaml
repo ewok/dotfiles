@@ -20,7 +20,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_redshift: "{{@@ pm @@}} geoclue redshift"
+    install_redshift: "{{@@ yay @@}} geoclue redshift"
     enable_redshift: "systemctl --user enable  redshift-gtk"
     start_redshift: "systemctl --user start redshift-gtk"
 profiles:

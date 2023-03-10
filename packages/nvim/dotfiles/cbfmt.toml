@@ -1,0 +1,6 @@
+[languages]
+rust = ["rustfmt"]
+lua = ["stylua -s -"]
+python = ["black --fast -"]
+bash = ["shfmt -i 2 -ci -s -bn -sr -kp -fn -"]
+clojure = ["joker --format"]

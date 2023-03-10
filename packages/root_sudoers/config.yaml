@@ -14,7 +14,7 @@ dotfiles:
     dst: /etc/sudoers.d
 actions:
   pre:
-    install_sudoers: "{{@@ pm @@}} sudo"
+    install_sudoers: "{{@@ yay @@}} sudo"
 profiles:
   sudoers:
     dotfiles:

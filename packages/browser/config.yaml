@@ -40,7 +40,7 @@ dotfiles:
     chmod: 0755
 actions:
   pre:
-    install_browser: "{{@@ pm @@}} google-chrome qutebrowser python-adblock python-tldextract"
+    install_browser: "{{@@ yay @@}} google-chrome qutebrowser python-adblock python-tldextract"
 profiles:
   browser:
     dotfiles:

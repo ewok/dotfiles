@@ -18,7 +18,7 @@ dotfiles:
       - start_rslsync
 actions:
   pre:
-    install_rslsync: "{{@@ pm @@}} rslsync"
+    install_rslsync: "{{@@ yay @@}} rslsync"
   post:
     enable_rslsync: "systemctl --user enable rslsync"
     start_rslsync: "systemctl --user start rslsync"

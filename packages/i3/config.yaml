@@ -64,14 +64,14 @@ dotfiles:
     ignore_missing_in_dotdrop: true
 actions:
   pre:
-    install_i3: "{{@@ pm @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
-    install_i3_1: "{{@@ pm @@}} i3status-rust i3-wm light nitrogen papirus-icon-theme xcape"
-    install_i3_2: "{{@@ pm @@}} xdotool xkb-switch-i3 xorg-server xorg-apps xorg-xinit"
-    install_i3_3: "{{@@ pm @@}} solaar xautolock xss-lock betterlockscreen autorandr"
-    install_i3_4: "{{@@ pm @@}} pcmanfm viewnior xclip aur/dracula-gtk-theme"
-    install_i3_5: "{{@@ pm @@}} zathura zathura-pdf-mupdf zathura-djvu zathura-cb"
-    install_i3_fm: "{{@@ pm @@}} gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb mtpfs udiskie"
-    install_i3_fm1: "{{@@ pm @@}} udisks2 xdg-user-dirs parcellite"
+    install_i3: "{{@@ yay @@}} adapta-gtk-theme autotiling caffeine-ng flameshot i3blocks dunst"
+    install_i3_1: "{{@@ yay @@}} i3status-rust i3-wm light nitrogen papirus-icon-theme xcape"
+    install_i3_2: "{{@@ yay @@}} xdotool xkb-switch-i3 xorg-server xorg-apps xorg-xinit"
+    install_i3_3: "{{@@ yay @@}} solaar xautolock xss-lock betterlockscreen autorandr"
+    install_i3_4: "{{@@ yay @@}} pcmanfm viewnior xclip aur/dracula-gtk-theme"
+    install_i3_5: "{{@@ yay @@}} zathura zathura-pdf-mupdf zathura-djvu zathura-cb"
+    install_i3_fm: "{{@@ yay @@}} gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb mtpfs udiskie"
+    install_i3_fm1: "{{@@ yay @@}} udisks2 xdg-user-dirs parcellite"
   post:
     enable_i3_xcape: "systemctl --user enable xcape"
     start_i3_xcape: "systemctl --user start xcape"

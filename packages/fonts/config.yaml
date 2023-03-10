@@ -19,7 +19,7 @@ actions:
     download_fonts_code: "curl -L -o ~/.local/FiraCode.zip -C - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraMono.zip"
     unpack_fonts_mono: "unzip -o -d ~/.fonts ~/.local/FiraMono.zip"
     unpack_fonts_code: "unzip -o -d ~/.fonts ~/.local/FiraCode.zip"
-    install_fonts: "{{@@ pm @@}} ttf-font-awesome ttf-font-icons"
+    install_fonts: "{{@@ yay @@}} ttf-font-awesome ttf-font-icons"
 profiles:
   fonts:
     dotfiles:

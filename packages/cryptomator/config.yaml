@@ -17,7 +17,7 @@ dotfiles:
     dst: ~/.config/i3/autostart.d/cryptomator.conf
 actions:
   pre:
-    install_cryptomator: "{{@@ pm @@}} cryptomator-bin"
+    install_cryptomator: "{{@@ yay @@}} cryptomator-bin"
 profiles:
   cryptomator:
     dotfiles:

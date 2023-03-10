@@ -14,7 +14,7 @@ dotfiles:
     dst: ~/.config/fish/conf.d/90_direnv_init.fish
 actions:
   pre:
-    install_direnv: "{{@@ pm @@}} community/direnv"
+    install_direnv: "{{@@ yay @@}} community/direnv"
 profiles:
   direnv:
     dotfiles:
