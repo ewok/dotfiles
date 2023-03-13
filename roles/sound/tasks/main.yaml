@@ -42,8 +42,8 @@
     - name: "Autostart pipewire via i3"
       ansible.builtin.copy:
         content: |
-          exec_always --no-startup-id pipewire
-          exec_always --no-startup-id pipewire-pulse
+          exec_always --no-startup-id pkill pipewire; pipewire
+          exec_always --no-startup-id pkill pipewire-pulse; pipewire-pulse
         dest: "~/.config/i3/autostart.d/autostart-pipewire.conf"
         mode: "0644"
 

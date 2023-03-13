@@ -20,3 +20,17 @@
     mode: "0644"
   loop:
     - {src: "90-kube.fish", dest: "~/.config/fish/conf.d/90-kube.fish"}
+
+- name: "If Void"
+  when: ansible_distribution == "Void"
+  block:
+
+    - name: "Download kubectx and kubens"
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/{{ item.name }}"
+        dest: "{{ folders.bin }}/{{ item }}"
+        mode: "0755"
+        checksum: "{{ item.checksum }}"
+      loop:
+        - {name: "kubectx", checksum: "sha256: e887e4e2b3dd4c94d0ecdb84270fb4fac2e65c4d5b0ee461e688fb8089fd4900"}
+        - {name: "kubens", checksum: "sha256: 509c97c0882e688ae8fad8aa13524cc7c003e4883db447a905bdb47d64c13bdc"}

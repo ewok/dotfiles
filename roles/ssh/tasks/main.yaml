@@ -48,3 +48,11 @@
         AddKeysToAgent yes
     dest: "~/.ssh/config"
     mode: "0600"
+
+- name: Enable sshd
+  community.general.runit:
+    name: sshd
+    state: started
+    enabled: true
+  become: true
+  when: ansible_distribution == "Void"

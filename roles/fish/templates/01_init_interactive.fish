@@ -21,7 +21,7 @@ set -gx LC_TIME ru_RU.UTF-8
 set -gx FZF_LEGACY_KEYBINDINGS 0
 set -gx OPEN_CMD open
 
-set -gx GTK_THEME Adapta
+set -gx GTK_THEME Adapta-Dark
 # set -gx XDG_CURRENT_DESKTOP sway
 
 fish_add_path -ga  ~/.local/bin ~/bin ~/.bin

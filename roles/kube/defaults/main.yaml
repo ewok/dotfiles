@@ -7,5 +7,3 @@ packages_debian: []
 
 packages_void:
   - kubectl
-  # TODO: from src
-  # - kubectx
