@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=Slack
-Exec=/usr/bin/slack -s
-Icon=slack
-Shortcut=sl

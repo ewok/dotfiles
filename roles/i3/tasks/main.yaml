@@ -13,6 +13,7 @@
   loop:
     - {dir: "{{ folders.bin }}"}
     - {dir: "~/.config/i3"}
+    - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.config/pcmanfm/default"}
     - {dir: "~/.config/i3status-rust"}
     - {dir: "~/.config/nitrogen"}
@@ -37,6 +38,8 @@
     - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
     - {src: "config/xresources", dest: "~/.Xresources"}
     - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
+    - {src: "config/xinitrc", dest: "~/.xinitrc"}
+    - {src: "config/99_startx.fish", dest: "~/.config/fish/conf.d/99_startx.fish"}
 
 - name: "Provide scripts"
   ansible.builtin.template:
@@ -54,26 +57,40 @@
   with_community.general.filetree: '{{ role_path }}/templates/favorites'
   when: item.state == 'file'
 
-- name: "Enable dbus"
-  community.general.runit:
-    name: dbus
-    state: started
-    enabled: true
+- name: "If Void"
   when: ansible_distribution == "Void"
-  become: true
+  block:
 
-- name: "Enable elogind"
-  community.general.runit:
-    name: elogind
-    state: started
-    enabled: false
-  when: ansible_distribution == "Void"
-  become: true
+    - name: "Enable dbus"
+      community.general.runit:
+        name: dbus
+        state: started
+        enabled: true
+      when: ansible_distribution == "Void"
+      become: true
 
-- name: "Enable lightdm"
-  community.general.runit:
-    name: lightdm
-    state: started
-    enabled: true
-  when: ansible_distribution == "Void"
-  become: true
+    - name: "Enable elogind"
+      community.general.runit:
+        name: elogind
+        state: started
+        enabled: false
+      when: ansible_distribution == "Void"
+      become: true
+
+    # - name: "Enable lightdm"
+    #   community.general.runit:
+    #     name: lightdm
+    #     state: started
+    #     enabled: true
+    #   when: ansible_distribution == "Void"
+    #   become: true
+
+    # - name: "Add dbus to i3.desktop"
+    #   ansible.builtin.lineinfile:
+    #     path: "/usr/share/xsessions/i3.desktop"
+    #     regexp: "^Exec="
+    #     line: "Exec=dbus-run-session i3"
+    #     state: present
+    #     mode: "0644"
+    #     backrefs: true
+    #   become: true

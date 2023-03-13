@@ -87,11 +87,14 @@ packages_void:
   - zathura-cb
   - zathura-djvu
   - zathura-pdf-mupdf
-  - lightdm
-  - lightdm-gtk3-greeter
+  - xinit
+  # - lightdm
+  # - lightdm-gtk3-greeter
   - elogind
   - seahorse
   - xdg-utils
+  - xdg-desktop-portal
+  - xdg-desktop-portal-gtk
   - qsudo
   # Fonts
   - font-awesome6
