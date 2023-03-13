@@ -6,9 +6,16 @@ cd $(dirname "$0")
 
 if [[ "$1" == "-r" ]]; then
     shift
-    role="$1"
+
+    # roles are comma separated
+    roles="$1"
+
     shift
-    ansible-playbook -D {{playbook_dir}}/main.yaml -e "roles=['${role}']" "$@"
+    # roles are comma separated
+    for role in $(echo "$roles" | tr ',' ' '); do
+        ansible-playbook -D {{playbook_dir}}/main.yaml -e "roles=['${role}']" "$@"
+    done
+    # ansible-playbook -D {{playbook_dir}}/main.yaml -e "roles=['${role}']" "$@"
     exit 0
 fi
 
