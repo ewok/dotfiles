@@ -46,6 +46,8 @@
   loop:
     - "~/.config/nvim/lua"
     - "~/.config/nvim/fnl"
+    - "~/.cache/nvim/hotpot"
+    - "~/.cache/nvim/lazy/"
   tags:
     - never
     - nvim-config-reset

@@ -96,7 +96,7 @@
         {:silent true} "Open File Explorer")
   (map! :n :<leader>fp #(do
                           (toggle_sidebar :NvimTree)
-                          (vim.cmd :NvimTreeFindFile))
-        {:silent true} "Find the current file and open it in file explorer"))
+                          (vim.cmd :NvimTreeFocus))
+        {:silent false} "Find the current file and open it in file explorer"))
 
-{:cmd [:NvimTreeToggle :NvimTreeFindFile] : init : config}
+{:cmd [:NvimTreeToggle :NvimTreeFindFile :NvimTreeFocus] : init : config}

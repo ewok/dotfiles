@@ -41,7 +41,7 @@
         :title true
         :ttimeoutlen -1
         :ttyfast true
-        :undodir (path-join conf.home-dir :.vim_undo)
+        :undodir (path-join conf.cache-dir :.vim_undo)
         :undolevels 100
         :updatetime 300
         :visualbell true
