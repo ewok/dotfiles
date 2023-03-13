@@ -1,5 +1,9 @@
 [Desktop Entry]
+{% if ansible_distribution == "Void" %}
 Exec=obsidian-desktop
+{% else %}
+Exec=obsidian
+{% endif %}
 Name=Obsidian
 Icon=obsidian
 Shortcut=o

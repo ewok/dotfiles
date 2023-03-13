@@ -39,6 +39,7 @@ machine:
       - powermanagement
       - browser
       - yubikey
+      - devtools
   ewok-rpi:
     roles:
       - base

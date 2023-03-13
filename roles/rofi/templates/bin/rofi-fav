@@ -9,7 +9,7 @@ for desktop_file in $(ls ${DESKTOP_FILES_PATH}/*.desktop); do
 
     if [ -f "$desktop_file" ]; then
         name=$(cat $desktop_file | awk -F "=" '/Name=/ {print $2}' | head -1)
-        command=$(cat $desktop_file | awk -F "=" '/Exec=/ {print $2}' | head -1)
+        command=$(cat $desktop_file | awk -F "Exec=" '/Exec=/ {print $2}' | head -1)
         icon=$(cat $desktop_file | awk -F "=" '/Icon=/ {print $2}' | head -1)
         shortcut=$(cat $desktop_file | awk -F "=" '/Shortcut=/ {print $2}' | head -1)
     else
