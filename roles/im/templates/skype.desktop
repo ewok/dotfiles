@@ -1,0 +1,9 @@
+[Desktop Entry]
+{% if ansible_distribution == "Void" %}
+Exec=flatpak run com.skype.Client
+{% else %}
+Exec=/usr/bin/skypeforlinux
+{% endif %}
+Name=Skype
+Icon=skypeforlinux
+Shortcut=sk

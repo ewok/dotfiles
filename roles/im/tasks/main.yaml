@@ -20,3 +20,14 @@
     mode: "0644"
   loop:
     - {src: "telegram.desktop", dest: "~/.local/share/applications/favorites/telegram.desktop"}
+    - {src: "skype.desktop", dest: "~/.local/share/applications/favorites/skype.desktop"}
+
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Install via flatpak"
+      community.general.flatpak:
+        name: "{{ item }}"
+      loop:
+        - "com.skype.Client"
