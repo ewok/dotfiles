@@ -1,0 +1,15 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "99_starship.fish", dest: "~/.config/fish/conf.d/99_starship.fish"}
+    - {src: "starship.toml", dest: "~/.config/starship.toml"}

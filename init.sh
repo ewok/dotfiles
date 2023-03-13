@@ -1,23 +1,39 @@
 #!/bin/env bash
 
-set -e
+set -xe
 
-# detect if linux is arch:
-if [ -f /etc/arch-release ]; then
-    echo "Arch Linux detected"
-    sudo pacman -Syu --needed
-    sudo pacman -S --needed yay
-    yay -S --needed dotdrop
-    sudo pacman -Syu --needed
-    sudo pacman -S --needed yay
-    yay -S --needed dotdrop
-    # VoidLinux
-elif [ $(uname -a | grep -c void) -eq 1 ]; then
-    echo "Not Arch Linux, installing dotdrop from pip"
-    sudo xbps-install -y python3-pip
-    sudo python3 -m pip install dotdrop
-fi
+ID=$(cat /etc/os-release | grep '^ID=' | cut -f2 -d=|sed 's/"//gi')
+echo $ID
 
-dotdrop -c config-user-1.yaml install
-dotdrop -c config-user-2.yaml install
-sudo dotdrop -c config-root.yaml install
+case "$ID" in
+    "pop"|"ubuntu"|"debian")
+        yes | sudo apt install ansible fish
+        ansible-galaxy collection install community.general
+        sudo usermod -s /usr/bin/fish $USER
+    ;;
+    "manjaro"|"manjaro-arm")
+        sudo pacman -Syu --needed
+        sudo pacman -S --needed yay
+        yay -S --needed ansible fish python-packaging
+        ansible-galaxy collection install community.general
+        ansible-galaxy collection install kewlfft.aur
+        sudo usermod -s /bin/fish $USER
+    ;;
+    "arcolinux")
+        sudo pacman -Syu --needed
+        yay -S --needed ansible fish python-packaging
+        ansible-galaxy collection install community.general
+        ansible-galaxy collection install kewlfft.aur
+        sudo usermod -s /bin/fish $USER
+    ;;
+    "void")
+        sudo xbps-install -Syu
+        sudo xbps-install -Sy ansible fish-shell
+        sudo xbps-reconfigure -f glibc-locales
+        ansible-galaxy collection install community.general
+        ansible-galaxy collection install kewlfft.aur
+        sudo usermod -s /bin/fish $USER
+    ;;
+    *) echo No init.
+    ;;
+esac

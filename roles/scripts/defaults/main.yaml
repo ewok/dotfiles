@@ -1,0 +1,6 @@
+---
+packages_archlinux: [ntfy]
+
+packages_debian: []
+
+packages_void: [ntfy]

@@ -1,0 +1,54 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "~/.config/i3/autostart.d/"}
+
+- name: "Provide configs"
+  ansible.builtin.copy:
+    content: "exec_always --no-startup-id pgrep blueberry-tray || /usr/bin/blueberry-tray"
+    dest: "~/.config/i3/autostart.d/bluetooth.conf"
+    mode: "0644"
+  when: ansible_distribution == "Archlinux"
+#
+- name: "If Void"
+  when: ansible_distribution == "Void"
+  block:
+
+    - name: "Enable dbus"
+      community.general.runit:
+        name: dbus
+        state: started
+        enabled: true
+      become: true
+
+    - name: "Enable bluetoothd"
+      community.general.runit:
+        name: bluetoothd
+        state: started
+        enabled: true
+      become: true
+
+    - name: "Provide configs"
+      ansible.builtin.copy:
+        content: "exec_always --no-startup-id blueman-applet"
+        dest: "~/.config/i3/autostart.d/bluetooth.conf"
+        mode: "0644"
+
+    - name: "Add user to groups"
+      ansible.builtin.user:
+        name: "{{ conf.username }}"
+        groups: "{{ item }}"
+        append: true
+      become: true
+      loop:
+        - "bluetooth"

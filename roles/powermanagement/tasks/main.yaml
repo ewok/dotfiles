@@ -1,0 +1,23 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  become: true
+  loop:
+    - {src: "tlp.conf", dest: "/etc/tlp.conf"}
+
+- name: "Enable tlp"
+  community.general.runit:
+    name: tlp
+    state: started
+    enabled: true
+  when: ansible_distribution == "Void"
+  become: true

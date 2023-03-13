@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ "$1" = "reset" ]];then
+  ansible-playbook {{playbook_dir}}/main.yaml -e 'roles=["nvim"]' -t nvim-config-reset
+else
+  ansible-playbook {{playbook_dir}}/main.yaml -e 'roles=["nvim"]' -t nvim-config
+fi

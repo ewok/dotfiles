@@ -1,0 +1,10 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Add subuids and subgids"
+  ansible.builtin.command: "usermod --add-subuids 100000-165535 --add-subgids 100000-165535 {{ conf.username }}"
+  become: true

@@ -1,0 +1,8 @@
+---
+packages_archlinux:
+  - community/aws-cli-v2
+  - community/eksctl
+
+packages_debian: []
+
+packages_void: []

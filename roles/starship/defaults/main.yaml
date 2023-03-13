@@ -1,0 +1,6 @@
+---
+packages_archlinux: [starship]
+
+packages_debian: []
+
+packages_void: [starship]

@@ -1,0 +1,9 @@
+---
+packages_archlinux: [aur/tfenv, aur/helmenv-bin, aur/tgenv]
+
+packages_debian: []
+
+packages_void: []
+    # TODO: inst from src
+    # {{@@ xi @@}} tfenv helmenv-bin tgenv
+# sudo usermod -aG tfenv $USER

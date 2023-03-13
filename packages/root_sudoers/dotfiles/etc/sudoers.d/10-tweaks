@@ -1,4 +1,0 @@
-Defaults                    !tty_tickets
-Defaults                    timestamp_timeout=360
-
-{{@@ user @@}} ALL=(ALL) NOPASSWD: /usr/bin/pacman

@@ -1,0 +1,79 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/i3"}
+    - {dir: "~/.config/pcmanfm/default"}
+    - {dir: "~/.config/i3status-rust"}
+    - {dir: "~/.config/nitrogen"}
+    - {dir: "~/.config/parcellite"}
+    - {dir: "~/.config/gtk-3.0"}
+    - {dir: "~/.config/gtk-2.0/"}
+    - {dir: "~/.config/autorandr"}
+    - {dir: "~/.local/share/applications/favorites"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "config/config", dest: "~/.config/i3/config"}
+    - {src: "config/pcmanfm.conf", dest: "~/.config/pcmanfm/default/pcmanfm.conf"}
+    - {src: "config/i3status-config.toml", dest: "~/.config/i3status-rust/config-default.toml"}
+    - {src: "config/nitrogen.cfg", dest: "~/.config/nitrogen/nitrogen.cfg"}
+    - {src: "config/parcelliterc", dest: "~/.config/parcellite/parcelliterc"}
+    - {src: "config/gtk2.ini", dest: "~/.gtkrc-2.0"}
+    - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
+    - {src: "config/xresources", dest: "~/.Xresources"}
+    - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin'
+  when: item.state == 'file'
+
+- name: "Favorites"
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.local/share/applications/favorites/{{ item.path }}'
+    mode: "0644"
+  with_community.general.filetree: '{{ role_path }}/templates/favorites'
+  when: item.state == 'file'
+
+- name: "Enable dbus"
+  community.general.runit:
+    name: dbus
+    state: started
+    enabled: true
+  when: ansible_distribution == "Void"
+  become: true
+
+- name: "Enable elogind"
+  community.general.runit:
+    name: elogind
+    state: started
+    enabled: false
+  when: ansible_distribution == "Void"
+  become: true
+
+- name: "Enable lightdm"
+  community.general.runit:
+    name: lightdm
+    state: started
+    enabled: true
+  when: ansible_distribution == "Void"
+  become: true

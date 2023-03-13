@@ -1,0 +1,49 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+# Archlinux
+- name: "Install"
+  ansible.builtin.include_tasks: "arch.yaml"
+  when: ansible_distribution == "Archlinux"
+
+# Debian
+- name: "Install"
+  ansible.builtin.include_tasks: "debian.yaml"
+  when: ansible_distribution == "Debian"
+
+# VoidLinux
+- name: "Install"
+  ansible.builtin.include_tasks: "void.yaml"
+  when: ansible_distribution == "Void"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/mnt"}
+    - {dir: "~/share"}
+    - {dir: "~/Documents"}
+    - {dir: "~/Downloads"}
+    - {dir: "~/tmp"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  loop:
+    - {src: "install-config", dest: "{{ folders.bin }}/install-config"}
+    - {src: "open", dest: "{{ folders.bin }}/open"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  become: true
+  loop:
+    - {src: "10-sudoers", dest: "/etc/sudoers.d/10-sudoers"}

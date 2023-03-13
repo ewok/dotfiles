@@ -1,0 +1,6 @@
+---
+packages_archlinux: [rofi, rofi-calc]
+
+packages_debian: []
+
+packages_void: [rofi, rofi-calc]

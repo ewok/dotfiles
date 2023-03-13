@@ -1,0 +1,79 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/fish/conf.d"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "20_nvim-vars.fish", dest: "~/.config/fish/conf.d/20_nvim-vars.fish"}
+    - {src: "ctags", dest: "~/.ctags"}
+    - {src: "vale.ini", dest: "~/.vale.ini"}
+    - {src: "cbfmt.toml", dest: "~/.config/cbfmt.toml"}
+
+- name: "Install nvim config"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  loop:
+    - {src: "update-nvim", dest: "{{ folders.bin }}/update-nvim"}
+    - {src: "nvim", dest: "{{ folders.bin }}/nvim"}
+    - {src: "lazygit", dest: "{{ folders.bin }}/gg"}
+    - {src: "nvim-clean-cache", dest: "{{ folders.bin }}/nvim-clean-cache"}
+  tags:
+    - nvim-config
+    - nvim-config-reset
+
+- name: "Cleanup before install"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "~/.config/nvim/lua"
+    - "~/.config/nvim/fnl"
+  tags:
+    - never
+    - nvim-config-reset
+
+- name: Ensure directory structure exists
+  ansible.builtin.file:
+    path: '~/.config/nvim/{{ item.path }}'
+    state: directory
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/neovim'
+  when: item.state == 'directory'
+  tags:
+    - nvim-config
+    - nvim-config-reset
+
+- name: Ensure files are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.config/nvim/{{ item.path }}'
+    mode: "0644"
+  with_community.general.filetree: '{{ role_path }}/templates/neovim'
+  when: item.state == 'file'
+  tags:
+    - nvim-config
+    - nvim-config-reset
+
+- name: "Download coursier"
+  ansible.builtin.get_url:
+    url: "https://git.io/coursier-cli"
+    dest: "{{ folders.bin }}/coursier"
+    mode: "0755"

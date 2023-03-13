@@ -1,0 +1,44 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.local/share/applications/"}
+    - {dir: "~/.config/qutebrowser"}
+    - {dir: "~/Downloads"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "config/50_browser.fish", dest: "~/.config/fish/conf.d/50_browser.fish"}
+    - {src: "config/org.custom.choose.browser.desktop", dest: "~/.local/share/applications/org.custom.choose.browser.desktop"}
+    - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
+
+- name: Ensure bin directory structure exists
+  ansible.builtin.file:
+    path: "{{ folders.bin }}/{{ item.path }}"
+    state: directory
+    mode: "0755"
+  with_community.general.filetree: "{{ role_path }}/templates/bin"
+  when: item.state == 'directory'
+
+- name: Ensure scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin'
+  when: item.state == 'file'

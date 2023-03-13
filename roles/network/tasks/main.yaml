@@ -1,0 +1,51 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.config/i3/autostart.d"}
+
+- name: "If Void"
+  when: ansible_distribution == "Void"
+  block:
+    - name: "Enable dbus"
+      community.general.runit:
+        name: dbus
+        state: started
+        enabled: true
+      become: true
+
+    - name: "Disable other network managers"
+      community.general.runit:
+        name: "{{ item }}"
+        state: stopped
+        enabled: false
+      become: true
+      loop:
+        - dhcpcd
+        - wpa_supplicant
+        - wicd
+
+    - name: "Enable NetworkManager"
+      community.general.runit:
+        name: NetworkManager
+        state: started
+        enabled: true
+      when: ansible_distribution == "Void"
+      become: true
+
+- name: "Autostart nm-applet"
+  ansible.builtin.copy:
+    dest: "~/.config/i3/autostart.d/nm-applet.conf"
+    content: "exec_always --no-startup-id nm-applet --indicator"
+    mode: "0644"

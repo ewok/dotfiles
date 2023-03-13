@@ -1,0 +1,36 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "~/.config/fish/functions"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "vifm.fish", dest: "~/.config/fish/functions/vifm.fish"}
+
+- name: Ensure directory structure exists
+  ansible.builtin.file:
+    path: '~/.config/vifm/{{ item.path }}'
+    state: directory
+  with_community.general.filetree: '{{ role_path }}/templates/vifm'
+  when: item.state == 'directory'
+
+- name: Ensure files are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.config/vifm/{{ item.path }}'
+  with_community.general.filetree: '{{ role_path }}/templates/vifm'
+  when: item.state == 'file'

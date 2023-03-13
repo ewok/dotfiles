@@ -1,0 +1,103 @@
+" vim: filetype=vim :
+" ------------------------------------------------------------------------------
+"
+nnoremap g. :set dotfiles<cr>
+
+" Start shell in current directory
+nnoremap s :!tmux-sp-s<cr>
+nnoremap v :!tmux-sp-v<cr>
+nnoremap t :!tmux-sp-t<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" View marks, bookmarks, regs, tasks
+nnoremap gJ :jobs<cr>
+nnoremap Wm :marks<cr>
+nnoremap Wb :bmarks<cr>
+nnoremap Wr :reg<cr>
+nnoremap Wt :trashes<cr>
+
+" Open file
+nnoremap o :file<cr>
+nnoremap O :!$OPEN_CMD %f<cr>
+
+" Yank current directory path into the clipboard
+nnoremap yd :!echo %d | xclip %i<cr>
+
+" Yank current file path into the clipboard
+nnoremap yf :!echo %c:p | xclip %i<cr>
+
+" Put
+nnoremap pp :put<cr>
+nnoremap PP :put!<cr>
+
+nnoremap pb :put &<cr>
+nnoremap Pb :put! &<cr>
+nnoremap PB :put! &<cr>
+
+" Mappings for faster renaming
+nnoremap I cw<c-a>
+nnoremap cc cw<c-u>
+nnoremap A cw<c-w>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+nnoremap <c-w>= :sync<cr>
+nnoremap <c-w>f :sync %c<cr><down>
+
+" Selecting like in MC
+nnoremap J av<c-g><c-g><c-m>j
+nnoremap K av<c-g><c-g><c-m>k
+
+" Tmux plugin navigator
+nnoremap <BS> :!if [ -n "$TMUX" ]; tmux select-pane -L;end<cr>
+nnoremap <c-h> :!if [ -n "$TMUX" ]; tmux select-pane -L;end<cr>
+nnoremap <c-j> :!if [ -n "$TMUX" ]; tmux select-pane -D;end<cr>
+nnoremap <c-k> :!if [ -n "$TMUX" ]; tmux select-pane -U;end<cr>
+nnoremap <c-l> :!if [ -n "$TMUX" ]; tmux select-pane -R;end<cr>
+
+" nnoremap io :code .<cr>
+nnoremap io :vim<cr>
+" nnoremap io :vim +'let g:auto_load_session = v:true'<cr>
+nnoremap ii :vim %f<cr>
+nnoremap it :!if [ -n "$TMUX" ]; tmux new-window vim %f;end<CR>
+nnoremap is :!if [ -n "$TMUX" ]; tmux split-window -v -p 80 vim %f;end<CR>
+nnoremap iv :!if [ -n "$TMUX" ]; tmux split-window -h -p 80 vim %f;end<CR>
+
+" Autojump
+nnoremap gj :z<Space>
+nnoremap z<space> :z<space>
+nnoremap cd :z
+
+" Tabs
+nnoremap <c-w>t :tabnew<CR>
+nnoremap <c-w>q :tabclose<CR>
+nnoremap gt :tabnext<CR>
+nnoremap gr :tabprevious<CR>
+
+" GoTo
+nnoremap bb :cd {{ folders.bin }}<cr>
+nnoremap bd :cd ~/Documents<cr>
+nnoremap bD :cd ~/Downloads<cr>
+nnoremap bh :cd ~<cr>
+nnoremap bM :cd ~/media<cr>
+nnoremap bm :cd ~/mnt<cr>
+nnoremap bp :cd ~/projects<cr>
+nnoremap bt :cd ~/tmp<cr>
+nnoremap bw :cd ~/work<cr>
+nnoremap b. :cd ~/dotfiles<cr>
+
+" Registers
+nnoremap " :reg<cr>
+
+" Filter
+nnoremap f =
+
+" Quit
+nnoremap q :q<cr>

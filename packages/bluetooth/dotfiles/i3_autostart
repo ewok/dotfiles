@@ -1,2 +1,0 @@
-exec_always --no-startup-id pgrep blueberry-tray || /usr/bin/blueberry-tray
-

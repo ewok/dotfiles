@@ -1,0 +1,79 @@
+---
+machine:
+  ewok-t14s:
+    roles:
+      - base
+      - aws
+      - containers
+      - direnv
+      - fish
+      - fonts
+      - git
+      - hledger
+      - kube
+      - lisps
+      - nix
+      - nvim
+      - notes
+      - scripts
+      - ssh
+      - starship
+      - svn
+      - terraform
+      - tmux
+      - i3
+      - terminal
+      - display
+      - bluetooth
+      - network
+      - vifm
+      - vifm
+      - rofi
+      - browser
+      - bitwarden
+      - im
+      - sound
+      - syncthing
+      - obsidian
+      - mimeapps
+      - powermanagement
+      - browser
+  ewok-rpi:
+    roles:
+      - base
+      - direnv
+      - fish
+      - git
+      - kube
+      - lisps
+      - nix
+      - nvim
+      - hledger
+      - scripts
+      - ssh
+      - starship
+      - terraform
+      - tmux
+      - vifm
+      - i3
+      - rofi
+      - network
+    gui: false
+  vmi839551.contaboserver.net:
+    roles:
+      - base
+      - direnv
+      - fish
+      - git
+      - kube
+      - lisps
+      - nix
+      - nvim
+      - hledger
+      - scripts
+      - ssh
+      - starship
+      - terraform
+      - tmux
+      - vifm
+    gui: false

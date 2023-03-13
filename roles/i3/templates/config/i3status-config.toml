@@ -1,0 +1,242 @@
+# https://greshake.github.io/i3status-rust/i3status_rs/blocks/index.html
+
+[[block]]
+block = "custom"
+interval = "once"
+cycle = ["echo 💰", "{{ folders.bin }}/sal.clj", "{{ folders.bin }}/b-status.clj"]
+
+[[block]]
+block = "custom"
+command = "{{ folders.bin }}/show-date.sh"
+interval = 60
+
+{% if ansible_distribution == "Void" %}
+{% else %}
+[[block]]
+block = "weather"
+format = "$icon $weather $temp $wind/$direction  🖥️"
+[block.service]
+name = "openweathermap"
+api_key = "{{ conf.weather.api_token }}"
+place = "{{ conf.weather.city }}"
+city_id = "{{ conf.weather.city_id }}"
+units = "metric"
+{% endif %}
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "temperature"
+chip = "*-isa-*"
+collapsed = false
+format = "{max}"
+good = 50
+idle = 70
+info = 85
+interval = 10
+warning = 90
+{% else %}
+[[block]]
+block = "temperature"
+chip = "*-isa-*"
+format = " $icon $max "
+format_alt = "$icon $min min, $max max, $average avg "
+good = 50
+idle = 70
+info = 85
+interval = 10
+warning = 90
+{% endif %}
+
+[[block]]
+block = "custom"
+command = "{{ folders.bin }}/show-fans.sh"
+interval = 10
+json = true
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+alert = 10
+block = "disk_space"
+format = "  / {available}"
+info_type = "available"
+interval = 60
+path = "/"
+unit = "GB"
+warning = 20
+{% else %}
+[[block]]
+alert = 10
+block = "disk_space"
+format = "  / $available "
+info_type = "available"
+interval = 60
+path = "/"
+alert_unit = "GB"
+warning = 20
+{% endif %}
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "cpu"
+format = "{barchart}"
+interval = 5
+{% else %}
+[[block]]
+block = "cpu"
+format = "$icon $barchart "
+interval = 5
+{% endif %}
+
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "memory"
+clickable = true
+critical_mem = 95
+critical_swap = 95
+display_type = "memory"
+format_mem = "{mem_used_percents:1}"
+format_swap = "{swap_used_percents:1}"
+icons = true
+interval = 20
+warning_mem = 80
+warning_swap = 80
+{% else %}
+[[block]]
+block = "memory"
+critical_mem = 95
+critical_swap = 95
+format = "$icon $mem_used_percents.eng(w:1) "
+format_alt = "$icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
+interval = 20
+warning_mem = 80
+warning_swap = 80
+{% endif %}
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "net"
+format = "{speed_down;K*b}{speed_up;K*b}"
+hide_inactive = true
+hide_missing = true
+interval = 10
+{% else %}
+[[block]]
+block = "net"
+format = "^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) "
+interval = 10
+{% endif %}
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "music"
+buttons = [ "play", "next" ]
+format = "{combo}"
+hide_when_empty = true
+max_width = 5
+{% else %}
+[[block]]
+block = "music"
+format = "🎧 {$combo.str(max_w:5,rot_interval:0.5) $play $next |}"
+# hide_when_empty = true
+# max_width = 5
+{% endif %}
+
+[[block]]
+block = "sound"
+step_width = 5
+
+[[block]]
+block = "backlight"
+# invert_icons = true
+
+{% if ansible_distribution == "Void" %}
+[[block]]
+block = "battery"
+interval = 60
+format = "{percentage} {time}"
+full_format = "{percentage}"
+{% else %}
+[[block]]
+block = "battery"
+interval = 60
+format = " $icon $percentage $time "
+full_format = "$icon $percentage "
+empty_format = "$icon $percentage "
+not_charging_format = "$icon $percentage "
+missing_format = "$icon ❎ "
+{% endif %}
+
+{% if ansible_distribution == "Void" %}
+{% else %}
+[[block]]
+block = "pacman"
+interval = 86400
+error_interval = 300
+signal = 1
+format = "📦$both "
+format_singular = "📦$both "
+format_up_to_date = ""
+critical_updates_regex = "(linux|linux-lts|linux-zen)"
+aur_command = "yay -Qua"
+[[block.click]]
+button = "left"
+cmd = "/usr/bin/{{ conf.terminal }} -e yay"
+[[block.click]]
+button = "right"
+update = true
+{% endif %}
+
+[[block]]
+block = "custom"
+command = "xkb-switch"
+interval = 15
+signal = 4
+
+# https://github.com/greshake/i3status-rust/blob/master/doc/themes.md
+# https://github.com/greshake/i3status-rust/blob/master/files/icons/material-nf.toml
+[icons]
+{% if ansible_distribution == "Void" %}
+name = "material-nf"
+{% else %}
+icons = "material-nf"
+{% endif %}
+
+[icons.overrides]
+weather_sun = "😎"
+weather_rain = "☔"
+weather_clouds = "☁️"
+weather_thunder = "⛈️"
+weather_snow = "🌨️"
+weather_default = "🌆"
+{% if ansible_distribution == "Void" %}
+{% else %}
+backlight = [
+    "🌑",
+    "🌘",
+    "🌗",
+    "🌖",
+    "🌕",
+]
+{% endif %}
+volume_muted = "🔇"
+
+[theme]
+{% if ansible_distribution == "Void" %}
+name = "solarized-dark"
+{% else %}
+theme = "solarized-dark"
+{% endif %}
+
+[theme.overrides]
+idle_bg = "#{{ colors.base02 }}"
+idle_fg = "#{{ colors.base05 }}"
+info_bg = "#{{ colors.base04 }}"
+info_fg = "#{{ colors.base00 }}"
+good_bg = "#{{ colors.base0C }}"
+good_fg = "#{{ colors.base00 }}"
+warning_bg = "#{{ colors.base0A }}"
+warning_fg = "#{{ colors.base00 }}"
+critical_bg = "#{{ colors.base0F }}"
+critical_fg = "#{{ colors.base00 }}"
+separator = "{{ theme.separator_right }}"

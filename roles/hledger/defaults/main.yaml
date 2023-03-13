@@ -1,0 +1,6 @@
+---
+packages_archlinux: [hledger]
+
+packages_debian: []
+
+packages_void: [hledger]

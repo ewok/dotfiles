@@ -1,0 +1,22 @@
+---
+packages_archlinux:
+  - mobile-broadband-provider-info
+  - modemmanager
+  - networkmanager
+  - network-manager-applet
+  - networkmanager-openconnect
+  - networkmanager-openvpn
+  - networkmanager-pptp
+  - networkmanager-vpnc
+  - openresolv
+  - whois
+  - net-tools
+
+packages_debian: []
+
+packages_void:
+  - NetworkManager
+  - NetworkManager-openvpn
+  - network-manager-applet
+  - whois
+  - net-tools

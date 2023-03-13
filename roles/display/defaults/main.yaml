@@ -1,0 +1,15 @@
+---
+packages_archlinux:
+  - gammastep
+  - geoclue
+  - autorandr
+  - arandr
+
+packages_debian: []
+
+packages_void:
+  - gammastep
+  - gammastep-indicator
+  - geoclue2
+  - autorandr
+  - arandr

@@ -1,0 +1,13 @@
+Defaults                    !tty_tickets
+Defaults                    timestamp_timeout=360
+
+{% if ansible_distribution == 'Archlinux' %}
+{{ conf.username }} ALL=(ALL) NOPASSWD: /usr/bin/pacman
+{% elif ansible_distribution == 'Void' %}
+{{ conf.username }} ALL=(ALL) NOPASSWD: /usr/bin/xbps-install
+{{ conf.username }} ALL=(ALL) NOPASSWD: /usr/bin/xbps-remove
+{{ conf.username }} ALL=(ALL) NOPASSWD: /usr/bin/xbps-reconfigure
+{{ conf.username }} ALL=(ALL) NOPASSWD: /usr/bin/sv
+{% endif %}
+
+%wheel ALL=(ALL:ALL) ALL

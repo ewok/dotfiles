@@ -1,0 +1,39 @@
+---
+packages_archlinux:
+  - neovim
+  - lazygit
+  - the_silver_searcher
+  - ripgrep
+  - python-pynvim
+  - tree-sitter
+  - npm
+  - gnu-netcat
+  - jq
+  - yq
+  - fzf
+
+packages_debian:
+  - silversearcher-ag
+  - ripgrep
+  - python3-pynvim
+  - luarocks
+  - jq
+  - yq
+  - fzf
+
+packages_void:
+  - neovim
+  - lazygit
+  - the_silver_searcher
+  - ripgrep
+  - tree-sitter
+  - tree-sitter-devel
+  - netcat
+  - jq
+  - yq
+  - fzf
+  - nodejs
+  - gcc
+  - cargo
+# TODO: via src
+# fennel npm

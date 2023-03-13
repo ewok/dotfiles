@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+NOTE="$HOME/Notes/inbox/$(date +%Y%m%d-%H%M).md"
+dmenucmd="{{ folders.bin }}/rofi_run -dmenu -p Todo: "
+result=$($dmenucmd | xargs echo)
+if [[ $result ]]; then
+  echo >> "$NOTE"
+  echo "- [ ] $result" >> "$NOTE"
+fi

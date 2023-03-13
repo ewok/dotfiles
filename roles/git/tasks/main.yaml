@@ -1,0 +1,32 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.config/git"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  loop:
+    - {src: "90_git-aliases.fish", dest: "~/.config/fish/conf.d/90_git-aliases.fish"}
+    - {src: "sign", dest: "{{ folders.bin }}/sign"}
+
+- name: Ensure files are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.config/git/{{ item.path }}'
+  with_community.general.filetree: '{{ role_path }}/templates/git'
+  when: item.state == 'file'

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ $(command -v xkb-switch) ];then xkb-switch -s us; fi
+
+BLURLOCK="betterlockscreen -l"
+# BLURLOCK="i3lock -c 121212"
+
+case "$1" in
+  lock)
+      $BLURLOCK
+      ;;
+  logout)
+      i3-msg exit
+      ;;
+  switch_user)
+      dm-tool switch-to-greeter
+      ;;
+  suspend)
+      $BLURLOCK && loginctl suspend
+      ;;
+  # hibernate)
+  #     $BLURLOCK && qsudo ZZZ
+  #     ;;
+  reboot)
+      loginctl reboot
+      ;;
+  shutdown)
+      loginctl poweroff
+      ;;
+  *)
+      echo "== ! i3exit: missing or invalid argument ! =="
+      echo "Try again with: lock | logout | switch_user | suspend | hibernate | reboot | shutdown"
+      exit 2
+esac
+

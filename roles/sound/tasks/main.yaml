@@ -1,0 +1,73 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.local/share/applications/favorites"}
+    - {dir: "~/.local/src/pulsemixer"}
+    - {dir: "~/.config/pipewire"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "pulsemixer.desktop", dest: "~/.local/share/applications/pulsemixer.desktop"}
+    - {src: "pulsemixer-fav.desktop", dest: "~/.local/share/applications/favorites/pulsemixer.desktop"}
+    - {src: "pulsemixer.PKGBUILD", dest: "~/.local/src/pulsemixer/PKGBUILD"}
+    - {src: "pulsemixer.config", dest: "~/.config/pulsemixer.cfg"}
+  notify: "Install pulsemixer"
+
+- name: "If Void"
+  when: ansible_distribution == "Void"
+  block:
+
+    - name: "Download"
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/ewok/pulsemixer/master/pulsemixer"
+        dest: "{{ folders.bin }}/pulsemixer"
+        mode: "0755"
+        checksum: "sha256: 95d22a972cd7c0cce3519503c819d3a0137ea159395af64f95687ae0ce32f2aa"
+
+    - name: "Autostart pipewire via i3"
+      ansible.builtin.copy:
+        content: |
+          exec_always --no-startup-id pipewire
+          exec_always --no-startup-id pipewire-pulse
+        dest: "~/.config/i3/autostart.d/autostart-pipewire.conf"
+        mode: "0644"
+
+    - name: "Config for pipewire"
+      ansible.builtin.copy:
+        src: "/usr/share/pipewire/pipewire.conf"
+        dest: "~/.config/pipewire/pipewire.conf"
+        mode: "0644"
+
+    - name: "Patch pipewire.conf"
+      ansible.builtin.lineinfile:
+        path: "~/.config/pipewire/pipewire.conf"
+        regexp: "(^.*path.*=.*pipewire-media-session.*)"
+        line: '#\1'
+        state: present
+        mode: "0644"
+        backrefs: true
+
+    - name: "Patch pipewire.conf"
+      ansible.builtin.lineinfile:
+        path: "~/.config/pipewire/pipewire.conf"
+        insertafter: "context.exec"
+        search_string: '/usr/bin/wireplumber'
+        line: |
+          { path = "/usr/bin/wireplumber" args = "" }
+        state: present
+        mode: "0644"

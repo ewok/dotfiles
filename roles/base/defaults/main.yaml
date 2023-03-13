@@ -1,0 +1,26 @@
+---
+packages_archlinux:
+  - base-devel
+  - community/btop
+
+packages_debian: []
+
+packages_void:
+  - btop
+  - git
+  - curl
+  - xtools
+  - socklog-void
+  - cronie
+  - zip
+  - unzip
+  - tar
+  - xz
+  - ncurses-base
+  - ncurses-term
+  - ntp
+
+packages_remove_void:
+  - python-pip
+  - python-setuptools
+  - python

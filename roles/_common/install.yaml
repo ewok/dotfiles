@@ -1,0 +1,24 @@
+---
+- name: "Install packages Arch"
+  kewlfft.aur.aur:
+    name: "{{ packages_archlinux }}"
+    use: yay
+  become: true
+  become_user: aur_builder
+  when: packages_archlinux|length > 0 and ansible_distribution == "Archlinux"
+
+- name: "Install packages Debian"
+  ansible.builtin.apt:
+    name: "{{ packages_debian }}"
+    state: present
+    update_cache: false
+  become: true
+  when: packages_debian|length > 0 and ansible_distribution == "Debian"
+
+- name: "Install packages Void"
+  community.general.xbps:
+    name: "{{ packages_void }}"
+    state: present
+    update_cache: false
+  become: true
+  when: packages_void|length > 0 and ansible_distribution == "Void"

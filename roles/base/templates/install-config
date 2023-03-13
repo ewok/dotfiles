@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd $(dirname "$0")
+
+if [[ "$1" == "-r" ]]; then
+    shift
+    role="$1"
+    shift
+    ansible-playbook -D {{playbook_dir}}/main.yaml -e "roles=['${role}']" "$@"
+    exit 0
+fi
+
+ansible-playbook -D {{playbook_dir}}/main.yaml "$@"
+

@@ -1,0 +1,63 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.local/share/appimages"}
+    - {dir: "~/.local/share/applications/favorites"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "99_bw.fish", dest: "~/.config/fish/conf.d/99_bw.fish"}
+    - {src: "bitwarden.desktop", dest: "~/.local/share/applications/favorites/bitwarden.desktop"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    mode: "0755"
+  loop:
+    - {src: "bw-reset", dest: ""}
+
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Provide scripts"
+      ansible.builtin.copy:
+        content: "~/.local/share/appimages/bitwarden.AppImage"
+        dest: "{{ folders.bin }}/bitwarden-desktop"
+        mode: "0755"
+
+    - name: "Download"
+      ansible.builtin.get_url:
+        url: "https://vault.bitwarden.com/download/?app=desktop&platform=linux"
+        dest: "~/.local/share/appimages/bitwarden.AppImage"
+        mode: "0755"
+        checksum: "sha256: 693c2499fd01b66a963222368d3537c6d09441e826437512e1c89fb9b9714005"
+
+    - name: "Download cli"
+      ansible.builtin.get_url:
+        url: "https://vault.bitwarden.com/download/?app=cli&platform=linux"
+        dest: "~/.local/share/bw.zip"
+        mode: "0644"
+        checksum: "sha256: ada7c8a08cb5dfa93748f7a266cf1a2485851dbbc4f3de33ee99c050f2f93183"
+
+    - name: "Unpack bw.zip"
+      ansible.builtin.unarchive:
+        src: "~/.local/share/bw.zip"
+        dest: "{{ folders.bin }}"
+        mode: "0755"

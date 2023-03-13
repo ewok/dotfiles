@@ -1,0 +1,14 @@
+---
+packages_archlinux:
+  - tlp
+  - tlpui
+  - tlp-rdw
+  - powertop
+
+packages_debian: []
+
+packages_void:
+  - tlp
+  - tlpui
+  - tlp-rdw
+  - powertop

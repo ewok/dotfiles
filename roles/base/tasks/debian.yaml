@@ -1,0 +1,7 @@
+---
+- name: "Install packages"
+  ansible.builtin.apt:
+    name: "{{ packages_debian }}"
+    state: present
+    update_cache: true
+  become: true

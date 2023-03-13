@@ -1,0 +1,27 @@
+---
+packages_archlinux:
+  - pipewire
+  - pipewire-pulse
+  - pipewire-alsa
+  - pipewire-jack
+  - pipewire-zeroconf
+  - alsa-utils
+  - alsa-plugins
+  - alsa-lib
+  - alsa-firmware
+  - gstreamer
+  - gst-plugins-good
+  - gst-plugins-bad
+  - gst-plugins-base
+  - gst-plugins-ugly
+  - playerctl
+
+packages_debian: []
+
+packages_void:
+  - pipewire
+  - alsa-pipewire
+  - alsa-utils
+  - playerctl
+  - wireplumber
+  - sof-firmware

@@ -1,0 +1,34 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "~/.config/fish/functions"}
+    - {dir: "~/.config/fish/conf.d"}
+
+- name: "Fisher"
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish"
+    dest: "~/.config/fish/functions/fisher.fish"
+    mode: "0644"
+    # checksum: "sha256: cc9531f5aa6fe3a034e3d76d6520e1613695c19448a7a003fc216bc9dbb4ec02"
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "fish_plugins", dest: "~/.config/fish/fish_plugins"}
+    - {src: "00_pre_init.fish", dest: "~/.config/fish/conf.d/00_pre_init.fish"}
+    - {src: "01_init_interactive.fish", dest: "~/.config/fish/conf.d/01_init_interactive.fish"}
+    - {src: "95_greeting.fish", dest: "~/.config/fish/conf.d/95_greeting.fish"}
+    - {src: "99_zoxide.fish", dest: "~/.config/fish/conf.d/99_zoxide.fish"}

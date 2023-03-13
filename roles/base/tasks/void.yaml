@@ -1,0 +1,50 @@
+---
+- name: "Install packages"
+  community.general.xbps:
+    name: "{{ packages_void }}"
+    state: present
+    update_cache: true
+  become: true
+
+- name: "Remove packages"
+  community.general.xbps:
+    name: "{{ packages_remove_void }}"
+    state: absent
+    update_cache: true
+  become: true
+
+- name: "Configure locales"
+  ansible.builtin.copy:
+    dest: /etc/default/libc-locales
+    content: |
+      en_US.UTF-8 UTF-8
+      ru_RU.UTF-8 UTF-8
+    mode: "0644"
+  notify: "Reconfigure locales"
+  become: true
+
+- name: "Enable services"
+  community.general.runit:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  become: true
+  loop:
+    - "socklog-unix"
+    - "nanoklogd"
+    - "cronie"
+    - "isc-ntpd"
+
+- name: "Add user to socklog group"
+  ansible.builtin.user:
+    name: "{{ conf.username }}"
+    groups: socklog
+    append: true
+  become: true
+
+- name: "Provide timezon"
+  ansible.builtin.file:
+    src: "/usr/share/zoneinfo/{{ conf.timezone }}"
+    dest: "/etc/localtime"
+    state: link
+  become: true

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+if [ ! -d ~/Notes ]; then
+    echo "Notes directory not found"
+    exit 1
+fi
+
+NOTE="$HOME/Notes/diary/$(date +%Y-%m-%d).md"
+dmenucmd="rofi_run -dmenu -p [$(date +%H:%M)] "
+result=$($dmenucmd | xargs echo)
+if [[ $result ]]; then
+  echo >> "$NOTE"
+  echo "[$(date +%H:%M)] $result" >> "$NOTE"
+fi

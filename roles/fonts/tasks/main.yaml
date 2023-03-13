@@ -1,0 +1,42 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "~/.cache"}
+
+- name: "Download FiraCode"
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraCode.zip"
+    dest: "~/.cache/FiraCode.zip"
+    mode: "0644"
+
+- name: "Download FiraMono"
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraMono.zip"
+    dest: "~/.cache/FiraMono.zip"
+    mode: "0644"
+
+- name: "Ensure .fonts exists"
+  ansible.builtin.file:
+    dest: "~/.fonts"
+    state: directory
+    mode: "0755"
+
+- name: "Unpack fonts"
+  ansible.builtin.unarchive:
+    src: "{{ item }}"
+    dest: "~/.fonts"
+    remote_src: true
+    mode: "0755"
+  loop:
+    - "~/.cache/FiraMono.zip"
+    - "~/.cache/FiraCode.zip"

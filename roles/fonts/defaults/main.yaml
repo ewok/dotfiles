@@ -1,0 +1,8 @@
+---
+packages_archlinux:
+  - ttf-ancient-fonts
+  - noto-fonts-emoji
+
+packages_debian: []
+
+packages_void: []

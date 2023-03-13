@@ -1,0 +1,49 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.local/share/appimages"}
+    - {dir: "~/.local/share/applications/favorites"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "obsidian.desktop", dest: "~/.local/share/applications/favorites/obsidian.desktop"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    mode: "0755"
+  loop:
+    - {src: "add-todo", dest: ""}
+
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Provide scripts"
+      ansible.builtin.copy:
+        content: "~/.local/share/appimages/obsidian.AppImage"
+        dest: "{{ folders.bin }}/obsidian-desktop"
+        mode: "0755"
+
+    - name: "Download"
+      ansible.builtin.get_url:
+        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.1.16/Obsidian-1.1.16.AppImage"
+        dest: "~/.local/share/appimages/obsidian.AppImage"
+        mode: "0755"
+        checksum: "sha256: f215c1d30545ee9a9803a170df920bf8fa2d5e0a8fa87a21620bca11ae20b9dc"

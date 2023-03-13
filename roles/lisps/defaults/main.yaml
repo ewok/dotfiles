@@ -1,0 +1,14 @@
+---
+packages_archlinux:
+  - aur/babashka-bin
+  - community/clojure
+  - community/fennel
+  - clj-kondo-bin
+
+packages_debian: []
+
+packages_void:
+  - babashka
+  - clojure
+# TODO: via src
+# fennel clj-kondo-bin

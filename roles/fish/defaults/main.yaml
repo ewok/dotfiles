@@ -1,0 +1,24 @@
+---
+packages_archlinux:
+  - community/fish
+  - community/zoxide
+  - community/exa
+  - community/bat
+  - community/dfc
+  - community/fd
+  - community/global
+  - aur/viddy
+
+packages_debian: []
+
+packages_void:
+  - fish-shell
+  - zoxide
+  - exa
+  - bat
+  - dfc
+  - fd
+  - global
+
+# TODO: Install it from src
+# viddy

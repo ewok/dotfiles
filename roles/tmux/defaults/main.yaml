@@ -1,0 +1,6 @@
+---
+packages_archlinux: [tmux]
+
+packages_debian: [tmux]
+
+packages_void: [tmux]

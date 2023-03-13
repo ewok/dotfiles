@@ -1,0 +1,9 @@
+---
+packages_archlinux:
+  - telegram-desktop
+
+packages_debian: []
+
+packages_void:
+  - telegram-desktop
+  - telegram-tg

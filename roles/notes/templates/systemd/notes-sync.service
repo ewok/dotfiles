@@ -1,0 +1,10 @@
+[Service]
+CPUSchedulingPolicy=idle
+Environment=SSH_AUTH_SOCK={{ lookup('env', 'XDG_RUNTIME_DIR') }}/keyring/ssh
+Environment=SSH_ASKPASS=/usr/lib/seahorse/ssh-askpass
+Environment=SSH_ASKPASS_REQUIRE=prefer
+ExecStart={{ folders.bin }}/notes-sync
+IOSchedulingClass=idle
+[Unit]
+Description=Sync notes
+Wants=network-online.target

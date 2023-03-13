@@ -1,0 +1,4 @@
+#!/bin/env fish
+/usr/bin/rofi \
+    -icon-theme "Papirus" -show-icons -terminal {{ conf.terminal }} -theme default $argv
+

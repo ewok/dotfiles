@@ -1,0 +1,15 @@
+---
+packages_archlinux:
+  - blueberry
+  - blueman
+  - bluez
+  - bluez-libs
+  - bluez-utils
+
+packages_debian: []
+
+packages_void:
+  - bluez
+  - libspa-bluetooth
+  - blueman
+  - bluez-alsa

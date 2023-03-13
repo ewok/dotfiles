@@ -1,0 +1,17 @@
+---
+packages_archlinux:
+  - google-chrome
+  - qutebrowser
+  - python-adblock
+  - python-tldextract
+
+packages_debian: []
+
+packages_void:
+  # TODO: via src or sth
+  # - google-chrome
+  - qutebrowser
+  - python3-adblock
+  - python3-tldextract
+  - keyutils
+  - nyxt

@@ -1,0 +1,10 @@
+---
+packages_archlinux:
+  - syncthing
+  - syncthing-gtk
+
+packages_debian: []
+
+packages_void:
+  - syncthing
+  - syncthing-gtk

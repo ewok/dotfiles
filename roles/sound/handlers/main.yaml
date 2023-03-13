@@ -1,0 +1,4 @@
+- name: "Install pulsemixer"
+  ansible.builtin.command: "cd ~/.local/src/pulsemixer && makepkg -si --noconfirm"
+  when: ansible_distribution == "Archlinux"
+

@@ -1,0 +1,6 @@
+---
+packages_archlinux: [alacritty]
+
+packages_debian: [alacritty]
+
+packages_void: [alacritty]

@@ -1,0 +1,32 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.subversion"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "config", dest: "~/.subversion/config"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    mode: "0755"
+  loop:
+    - {src: "svn-add-add", dest: ""}
+    - {src: "svn-rm-rm", dest: ""}
