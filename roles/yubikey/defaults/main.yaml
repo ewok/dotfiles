@@ -22,3 +22,4 @@ packages_void:
   - yubikey-manager
   - seahorse
   - u2f-hidraw-policy
+  - gnupg2-scdaemon

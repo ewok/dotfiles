@@ -13,6 +13,13 @@
   loop:
     - {dir: "{{ folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0700"
+  loop:
     - {dir: "~/.gnupg/"}
 
 - name: Ensure scripts are populated from templates
