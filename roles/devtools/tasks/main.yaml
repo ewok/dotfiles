@@ -1,0 +1,49 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.local/share/applications/favorites"}
+
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: Ensure configs are populated from templates
+      ansible.builtin.template:
+        src: '{{ item.src }}'
+        dest: '~/.local/share/applications/favorites/{{ item.path }}'
+        mode: "0644"
+      with_community.general.filetree: '{{ role_path }}/templates/favorites'
+      when: item.state == 'file'
+
+    - name: "Install via flatpak"
+      community.general.flatpak:
+        name: "{{ item }}"
+      loop:
+        - "com.github.mdh34.quickdocs"
+        - "io.dbeaver.DBeaverCommunity"
+
+    - name: "Download Slack"
+      ansible.builtin.get_url:
+        url: "https://ftp.gwdg.de/pub/opensuse/repositories/home%3A/zilti%3A/appimages/AppImage/Slack-latest-x86_64.AppImage"
+        dest: "~/.local/share/appimages/slack.AppImage"
+        mode: "0755"
+        # checksum: "sha256: f215c1d30545ee9a9803a170df920bf8fa2d5e0a8fa87a21620bca11ae20b9dc"
+
+    - name: "Provide scripts"
+      ansible.builtin.copy:
+        content: |
+          #!/usr/bin/env bash
+          ~/.local/share/appimages/slack.AppImage $@
+        dest: "{{ folders.bin }}/slack-desktop"
+        mode: "0755"

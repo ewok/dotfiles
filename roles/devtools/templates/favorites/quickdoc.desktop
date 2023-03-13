@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=DBeaver CE
+Exec=flatpak run com.github.mdh34.quickdocs
+Icon=com.github.mdh34.quickdocs
+Shortcut=dq

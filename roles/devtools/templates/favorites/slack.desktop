@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Slack
+{% if ansible_distribution == "Void" %}
+Exec=slack-desktop
+{% else %}
+Exec=/usr/bin/slack -s
+{% endif %}
+Icon=slack
+Shortcut=sl

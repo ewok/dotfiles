@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=DBeaver CE
+Icon=io.dbeaver.DBeaverCommunity
+Exec=flatpak run io.dbeaver.DBeaverCommunity
+Shortcut=dd
