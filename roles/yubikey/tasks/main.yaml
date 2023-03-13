@@ -1,0 +1,48 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ folders.bin }}"}
+    - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.gnupg/"}
+
+- name: Ensure scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin'
+  when: item.state == 'file'
+
+- name: Ensure fish scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.config/fish/conf.d/{{ item.path }}'
+    mode: "0644"
+  with_community.general.filetree: '{{ role_path }}/templates/fish'
+  when: item.state == 'file'
+
+- name: Ensure configs are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '~/.gnupg/{{ item.path }}'
+    mode: "0644"
+  with_community.general.filetree: '{{ role_path }}/templates/gnupg'
+  when: item.state == 'file'
+
+- name: "Enable pcscd"
+  community.general.runit:
+    name: pcscd
+    state: started
+    enabled: true
+  when: ansible_distribution == "Void"
+  become: true

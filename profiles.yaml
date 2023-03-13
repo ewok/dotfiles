@@ -38,6 +38,7 @@ machine:
       - mimeapps
       - powermanagement
       - browser
+      - yubikey
   ewok-rpi:
     roles:
       - base

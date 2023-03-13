@@ -34,13 +34,20 @@
     - "nanoklogd"
     - "cronie"
     - "isc-ntpd"
+    - "udevd"
 
 - name: "Add user to socklog group"
   ansible.builtin.user:
     name: "{{ conf.username }}"
-    groups: socklog
+    groups: "{{ item }}"
     append: true
   become: true
+  loop:
+    - socklog
+    - users
+    - audio
+    - video
+    - input
 
 - name: "Provide timezon"
   ansible.builtin.file:

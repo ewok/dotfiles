@@ -1,0 +1,24 @@
+---
+packages_archlinux:
+  - gnome-keyring
+  - libgnome-keyring
+  - pcsclite
+  - pcsc-tools
+  - pinentry
+  - yubikey-manager
+  - seahorse
+
+packages_debian: []
+
+packages_void:
+  - gnome-keyring
+  - libgnome-keyring
+  - pcsclite
+  - pcsc-tools
+  - pcsc-ccid
+  - pinentry
+  - pinentry-gtk
+  - ykclient
+  - yubikey-manager
+  - seahorse
+  - u2f-hidraw-policy

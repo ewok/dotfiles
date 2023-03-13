@@ -19,6 +19,7 @@ packages_void:
   - ncurses-base
   - ncurses-term
   - ntp
+  - eudev
 
 packages_remove_void:
   - python-pip
