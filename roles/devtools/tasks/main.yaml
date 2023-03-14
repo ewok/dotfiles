@@ -26,6 +26,12 @@
       with_community.general.filetree: '{{ role_path }}/templates/favorites'
       when: item.state == 'file'
 
+    - name: "Provide slack.desktop"
+      ansible.builtin.template:
+        src: "slack.desktop"
+        dest: "~/.local/share/applications/slack.desktop"
+        mode: "0644"
+
     - name: "Install via flatpak"
       community.general.flatpak:
         name: "{{ item }}"
@@ -38,7 +44,7 @@
         url: "https://ftp.gwdg.de/pub/opensuse/repositories/home%3A/zilti%3A/appimages/AppImage/Slack-latest-x86_64.AppImage"
         dest: "~/.local/share/appimages/slack.AppImage"
         mode: "0755"
-        # checksum: "sha256: f215c1d30545ee9a9803a170df920bf8fa2d5e0a8fa87a21620bca11ae20b9dc"
+        checksum: "sha256: fe599af8fd472181e3e2d1284e8ff5a90e3bf4bef61838d8eb504c545bf6fcd5"
 
     - name: "Provide scripts"
       ansible.builtin.copy:
