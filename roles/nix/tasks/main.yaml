@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/nix"}
 
 - name: "Provide configs"
@@ -29,4 +29,4 @@
     dest: "{{ item.dest }}"
     mode: "0755"
   loop:
-    - {src: "nix-init", dest: "{{ folders.bin }}/nix-init"}
+    - {src: "nix-init", dest: "{{ conf.folders.bin }}/nix-init"}

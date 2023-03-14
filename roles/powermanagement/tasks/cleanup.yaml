@@ -11,4 +11,4 @@
 #         dest: "{{ item.dir }}"
 #         state: absent
 #       loop:
-#         - {dir: "{{ folders.bin }}"}
+#         - {dir: "{{ conf.folders.bin }}"}

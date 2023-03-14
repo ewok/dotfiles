@@ -82,7 +82,7 @@ nnoremap gt :tabnext<CR>
 nnoremap gr :tabprevious<CR>
 
 " GoTo
-nnoremap bb :cd {{ folders.bin }}<cr>
+nnoremap bb :cd {{ conf.folders.bin }}<cr>
 nnoremap bd :cd ~/Documents<cr>
 nnoremap bD :cd ~/Downloads<cr>
 nnoremap bh :cd ~<cr>

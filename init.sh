@@ -17,7 +17,7 @@ case "$ID" in
         ansible-galaxy collection install community.general
         ansible-galaxy collection install kewlfft.aur
     ;;
-    "arcolinux")
+    "arcolinux"|arch)
         sudo pacman -Syu --needed
         yay -S --needed ansible python-packaging
         ansible-galaxy collection install community.general

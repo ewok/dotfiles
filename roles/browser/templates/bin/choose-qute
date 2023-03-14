@@ -1,20 +1,20 @@
 #!/bin/env bash
 
-CMD=$(echo "Default|Work" | {{ folders.bin }}/rofi_run -dmenu -i -l 20 -p "Qutebrowser session:" -sep "|")
+CMD=$(echo "Default|Work" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Qutebrowser session:" -sep "|")
 
 case $CMD in
     Default)
         if [[ -z "$1" ]]; then
-            {{ folders.bin }}/qutebrowser
+            {{ conf.folders.bin }}/qutebrowser
         else
-            {{ folders.bin }}/qutebrowser --target tab-bg-silent "$1"
+            {{ conf.folders.bin }}/qutebrowser --target tab-bg-silent "$1"
         fi
         ;;
     Work)
         if [[ -z "$1" ]]; then
-            SESSION_NAME=work {{ folders.bin }}/qutebrowser -r work
+            SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work
         else
-            SESSION_NAME=work {{ folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
+            SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
         fi
         ;;
 esac

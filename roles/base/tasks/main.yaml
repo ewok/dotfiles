@@ -23,7 +23,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/mnt"}
     - {dir: "~/share"}
     - {dir: "~/Documents"}
@@ -36,8 +36,8 @@
     dest: "{{ item.dest }}"
     mode: "0755"
   loop:
-    - {src: "install-config", dest: "{{ folders.bin }}/install-config"}
-    - {src: "open", dest: "{{ folders.bin }}/open"}
+    - {src: "install-config", dest: "{{ conf.folders.bin }}/install-config"}
+    - {src: "open", dest: "{{ conf.folders.bin }}/open"}
 
 - name: "Provide configs"
   ansible.builtin.template:

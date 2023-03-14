@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.config/i3/autostart.d/"}
 
@@ -33,7 +33,7 @@
 - name: "Provide scripts"
   ansible.builtin.template:
     src: "{{ item.src }}"
-    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
     mode: "0755"
   loop:
     - {src: "", dest: ""}
@@ -45,7 +45,7 @@
 
 - name: Ensure bin directory structure exists
   ansible.builtin.file:
-    path: "{{ folders.bin }}/{{ item.path }}"
+    path: "{{ conf.folders.bin }}/{{ item.path }}"
     state: directory
     mode: "0755"
   with_community.general.filetree: "{{ role_path }}/templates/bin"
@@ -54,7 +54,7 @@
 - name: Ensure scripts are populated from templates
   ansible.builtin.template:
     src: '{{ item.src }}'
-    dest: '{{ folders.bin }}/{{ item.path }}'
+    dest: '{{ conf.folders.bin }}/{{ item.path }}'
     mode: "0755"
   with_community.general.filetree: '{{ role_path }}/templates/bin'
   when: item.state == 'file'

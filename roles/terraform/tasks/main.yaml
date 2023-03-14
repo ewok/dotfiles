@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
 
 - name: "Provide configs"
@@ -25,7 +25,7 @@
 # - name: "Provide scripts"
 #   ansible.builtin.template:
 #     src: "{{ item.src }}"
-#     dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+#     dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
 #     mode: "0755"
 #   loop:
 #     - {src: "tfenv", dest: ""}

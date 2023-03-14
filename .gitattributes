@@ -1,1 +1,2 @@
 local_vars.yaml filter=git-crypt diff=git-crypt
+profiles.yaml filter=git-crypt diff=git-crypt

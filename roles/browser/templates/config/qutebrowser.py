@@ -377,11 +377,11 @@ c.bindings.commands = {
         "yf": "hint links yank",
         "p": "open -- {clipboard}",
         "P": "open -t -- {clipboard}",
-        # "<space>pi": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' --auto-lock 28800",
-        # "<space>pu": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -e --auto-lock 28800",
-        # "<space>pp": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -w --auto-lock 28800",
-        # "<space>pt": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -T --auto-lock 28800",
-        "<space>pu": "spawn {{ folders.bin }}/qute-bw sync",
+        # "<space>pi": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' --auto-lock 28800",
+        # "<space>pu": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -e --auto-lock 28800",
+        # "<space>pp": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -w --auto-lock 28800",
+        # "<space>pt": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -T --auto-lock 28800",
+        "<space>pu": "spawn {{ conf.folders.bin }}/qute-bw sync",
         # "pw": "spawn --userscript qute_1pass --cache-session fill_credentials",
         # Bookmarks
         "m": "quickmark-save",
@@ -432,10 +432,10 @@ c.bindings.commands = {
         "<Ctrl-M>": "fake-key <Return>",
         "<Ctrl-J>": "fake-key <Down>",
         "<Ctrl-K>": "fake-key <Up>",
-        "<Alt-Shift-u>": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -e --auto-lock 28800",
-        "<Alt-Shift-p>": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -w --auto-lock 28800",
-        "<Alt-Shift-t>": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -T --auto-lock 28800",
-        "<Alt-Shift-i>": "spawn --userscript {{ folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n --auto-lock 28800",
+        "<Alt-Shift-u>": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -e --auto-lock 28800",
+        "<Alt-Shift-p>": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -w --auto-lock 28800",
+        "<Alt-Shift-t>": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n -T --auto-lock 28800",
+        "<Alt-Shift-i>": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -n --auto-lock 28800",
     },
     "hint": {
         "<Return>": "hint-follow",
@@ -557,37 +557,37 @@ c.bindings.commands = {
 
 # Fonts
 
-c.fonts.completion.entry = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.completion.category = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.debug_console = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.downloads = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.hints = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.keyhint = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.messages.info = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.messages.error = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.prompts = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
-c.fonts.statusbar = "{{ theme.monospace_font_size }}px {{ theme.monospace_font }}"
+c.fonts.completion.entry = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.completion.category = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.debug_console = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.downloads = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.hints = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.keyhint = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.messages.info = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.messages.error = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.prompts = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
+c.fonts.statusbar = "{{ conf.theme.monospace_font_size }}px {{ conf.theme.monospace_font }}"
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova
 # OneDark scheme by Lalit Magant (http://github.com/tilal6991)
 
-base00 = "#{{ colors.base00 }}"
-base01 = "#{{ colors.base01 }}"
-base02 = "#{{ colors.base02 }}"
-base03 = "#{{ colors.base03 }}"
-base04 = "#{{ colors.base04 }}"
-base05 = "#{{ colors.base05 }}"
-base06 = "#{{ colors.base06 }}"
-base07 = "#{{ colors.base07 }}"
-base08 = "#{{ colors.base08 }}"
-base09 = "#{{ colors.base09 }}"
-base0A = "#{{ colors.base0A }}"
-base0B = "#{{ colors.base0B }}"
-base0C = "#{{ colors.base0C }}"
-base0D = "#{{ colors.base0D }}"
-base0E = "#{{ colors.base0E }}"
-base0F = "#{{ colors.base0F }}"
+base00 = "#{{ conf.colors.base00 }}"
+base01 = "#{{ conf.colors.base01 }}"
+base02 = "#{{ conf.colors.base02 }}"
+base03 = "#{{ conf.colors.base03 }}"
+base04 = "#{{ conf.colors.base04 }}"
+base05 = "#{{ conf.colors.base05 }}"
+base06 = "#{{ conf.colors.base06 }}"
+base07 = "#{{ conf.colors.base07 }}"
+base08 = "#{{ conf.colors.base08 }}"
+base09 = "#{{ conf.colors.base09 }}"
+base0A = "#{{ conf.colors.base0A }}"
+base0B = "#{{ conf.colors.base0B }}"
+base0C = "#{{ conf.colors.base0C }}"
+base0D = "#{{ conf.colors.base0D }}"
+base0E = "#{{ conf.colors.base0E }}"
+base0F = "#{{ conf.colors.base0F }}"
 
 # set qutebrowser colors
 

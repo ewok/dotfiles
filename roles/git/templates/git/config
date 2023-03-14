@@ -23,9 +23,9 @@
   autoSquash = true
   autoStash = true
 
-[includeIf "gitdir:{{accounts.home.path}}"]
+[includeIf "gitdir:{{conf.accounts.home.path}}"]
   path = "~/.config/git/home.cfg"
 
-[includeIf "gitdir:{{accounts.work.path}}"]
+[includeIf "gitdir:{{conf.accounts.work.path}}"]
   path = "~/.config/git/work.cfg"
 

@@ -1,9 +1,9 @@
 * {
-  background: #{{ colors.base01 }}ff;
-  foreground: #{{ colors.base05 }}ff;
-  lightbg:    #{{ colors.base02 }}ff;
-  lightfg:    #{{ colors.base05 }}ff;
-  red:        #{{ colors.base08 }}ff;
-  blue:       #{{ colors.base0D }}ff;
-  font:       "{{ theme.regular_font }} {{ theme.regular_font_size }}";
+  background: #{{ conf.colors.base01 }}ff;
+  foreground: #{{ conf.colors.base05 }}ff;
+  lightbg:    #{{ conf.colors.base02 }}ff;
+  lightfg:    #{{ conf.colors.base05 }}ff;
+  red:        #{{ conf.colors.base08 }}ff;
+  blue:       #{{ conf.colors.base0D }}ff;
+  font:       "{{ conf.theme.regular_font }} {{ conf.theme.regular_font_size }}";
 }

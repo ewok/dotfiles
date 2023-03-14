@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.local/share/applications/favorites"}
 
 - name: "If Void"
@@ -51,5 +51,5 @@
         content: |
           #!/usr/bin/env bash
           ~/.local/share/appimages/slack.AppImage $@
-        dest: "{{ folders.bin }}/slack-desktop"
+        dest: "{{ conf.folders.bin }}/slack-desktop"
         mode: "0755"

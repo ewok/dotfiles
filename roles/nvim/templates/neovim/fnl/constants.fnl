@@ -21,12 +21,12 @@
                 :motion_plugin :leap
                 ;; bufferline or cokeline
                 :bufferline_plugin :cokeline
-                :theme "{{ theme.theme }}"})
+                :theme "{{ conf.theme.theme }}"})
 
-(local separator {:left "{{ theme.separator_left }}"
-                  :right "{{ theme.separator_right }}"
-                  :alt_left "{{ theme.alt_separator_left }}"
-                  :alt_right "{{ theme.alt_separator_right }}"})
+(local separator {:left "{{ conf.theme.separator_left }}"
+                  :right "{{ conf.theme.separator_right }}"
+                  :alt_left "{{ conf.theme.alt_separator_left }}"
+                  :alt_right "{{ conf.theme.alt_separator_right }}"})
 
 ; :color_0 "#282c34"
 ; :color_1 "#e06c75"
@@ -44,22 +44,22 @@
 ; :color_13 "#b6bdca"
 ; :color_14 "#be5046"
 ; :color_15 "#c8ccd4"
-(local colors {:base00 "#{{ colors.base00 }}"
-               :base01 "#{{ colors.base01 }}"
-               :base02 "#{{ colors.base02 }}"
-               :base03 "#{{ colors.base03 }}"
-               :base04 "#{{ colors.base04 }}"
-               :base05 "#{{ colors.base05 }}"
-               :base06 "#{{ colors.base06 }}"
-               :base07 "#{{ colors.base07 }}"
-               :base08 "#{{ colors.base08 }}"
-               :base09 "#{{ colors.base09 }}"
-               :base0A "#{{ colors.base0A }}"
-               :base0B "#{{ colors.base0B }}"
-               :base0C "#{{ colors.base0C }}"
-               :base0D "#{{ colors.base0D }}"
-               :base0E "#{{ colors.base0E }}"
-               :base0F "#{{ colors.base0F }}"})
+(local colors {:base00 "#{{ conf.colors.base00 }}"
+               :base01 "#{{ conf.colors.base01 }}"
+               :base02 "#{{ conf.colors.base02 }}"
+               :base03 "#{{ conf.colors.base03 }}"
+               :base04 "#{{ conf.colors.base04 }}"
+               :base05 "#{{ conf.colors.base05 }}"
+               :base06 "#{{ conf.colors.base06 }}"
+               :base07 "#{{ conf.colors.base07 }}"
+               :base08 "#{{ conf.colors.base08 }}"
+               :base09 "#{{ conf.colors.base09 }}"
+               :base0A "#{{ conf.colors.base0A }}"
+               :base0B "#{{ conf.colors.base0B }}"
+               :base0C "#{{ conf.colors.base0C }}"
+               :base0D "#{{ conf.colors.base0D }}"
+               :base0E "#{{ conf.colors.base0E }}"
+               :base0F "#{{ conf.colors.base0F }}"})
 
 (local icons {})
 

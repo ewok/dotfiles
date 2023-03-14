@@ -16,31 +16,31 @@
 - name: "Provide config"
   ansible.builtin.copy:
     content: |-
-      {% for record in ssh %}
-      Host {{record.name}}
+      {% for record in conf.ssh.config %}
+      Host {{ record.name }}
       {% if record.hostname is defined %}
-        HostName {{record.hostname}}
+        HostName {{ record.hostname }}
       {% endif %}
       {% if record.user is defined %}
-        User {{record.user|default(lookup('env', 'USER'))}}
+        User {{ record.user | default(lookup('env', 'USER')) }}
       {% endif %}
       {% if record.port is defined %}
-        Port {{record.port|default(22)}}
+        Port {{ record.port | default(22) }}
       {% endif %}
       {% if record.identity_file is defined %}
-        IdentityFile {{record.identity_file}}
+        IdentityFile {{ record.identity_file }}
       {% endif %}
       {% if record.proxy_command is defined %}
-        ProxyCommand {{record.proxy_command}}
+        ProxyCommand {{ record.proxy_command }}
       {% endif %}
       {% if record.control_path is defined %}
-        ControlPath {{record.control_path}}
+        ControlPath {{ record.control_path }}
       {% endif %}
       {% if record.control_master is defined %}
-        ControlMaster {{record.control_master}}
+        ControlMaster {{ record.control_master }}
       {% endif %}
       {% if record.extra is defined %}
-        {{record.extra|indent(2)}}
+        {{ record.extra | indent(2) }}
       {% endif %}
 
       {% endfor %}
@@ -56,3 +56,12 @@
     enabled: true
   become: true
   when: ansible_distribution == "Void"
+
+- name: Add ssh key to authorized_keys
+  ansible.builtin.copy:
+    content: |-
+      {% for record in conf.ssh.public_keys %}
+      {{ record }}
+      {% endfor %}
+    dest: "~/.ssh/authorized_keys"
+    mode: "0600"

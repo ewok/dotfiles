@@ -1,14 +1,7 @@
+---
 - hosts: localhost
 
   pre_tasks:
-
-    - name: "Include local vars"
-      tags:
-        - always
-      ignore_errors: True
-      changed_when: False
-      include_vars:
-        file: ~/.vars.local
 
     - name: "Include default vars"
       tags:
@@ -27,6 +20,8 @@
     - name: "Use role in loop"
       include_role:
         name: '{{ roleinputvar }}'
+      vars:
+        conf: "{{ defaults|combine(machine[ansible_hostname].conf|default({})) }}"
       loop_control:
         loop_var: roleinputvar
       loop: "{{ roles | default(machine[ansible_hostname].roles) }}"

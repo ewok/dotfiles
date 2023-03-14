@@ -1,35 +1,35 @@
 colors:
   bright:
-    black: "0x{{ colors.base03 }}"
-    blue: "0x{{ colors.base04 }}"
-    cyan: "0x{{ colors.base0F }}"
-    green: "0x{{ colors.base01 }}"
-    magenta: "0x{{ colors.base06 }}"
-    red: "0x{{ colors.base09 }}"
-    white: "0x{{ colors.base07 }}"
-    yellow: "0x{{ colors.base02 }}"
+    black: "0x{{ conf.colors.base03 }}"
+    blue: "0x{{ conf.colors.base04 }}"
+    cyan: "0x{{ conf.colors.base0F }}"
+    green: "0x{{ conf.colors.base01 }}"
+    magenta: "0x{{ conf.colors.base06 }}"
+    red: "0x{{ conf.colors.base09 }}"
+    white: "0x{{ conf.colors.base07 }}"
+    yellow: "0x{{ conf.colors.base02 }}"
   normal:
-    black: "0x{{ colors.base00 }}"
-    blue: "0x{{ colors.base0D }}"
-    cyan: "0x{{ colors.base0C }}"
-    green: "0x{{ colors.base0B }}"
-    magenta: "0x{{ colors.base0E }}"
-    red: "0x{{ colors.base08 }}"
-    white: "0x{{ colors.base05 }}"
-    yellow: "0x{{ colors.base0A }}"
+    black: "0x{{ conf.colors.base00 }}"
+    blue: "0x{{ conf.colors.base0D }}"
+    cyan: "0x{{ conf.colors.base0C }}"
+    green: "0x{{ conf.colors.base0B }}"
+    magenta: "0x{{ conf.colors.base0E }}"
+    red: "0x{{ conf.colors.base08 }}"
+    white: "0x{{ conf.colors.base05 }}"
+    yellow: "0x{{ conf.colors.base0A }}"
   primary:
-    background: "0x{{ colors.base00 }}"
-    foreground: "0x{{ colors.base05 }}"
+    background: "0x{{ conf.colors.base00 }}"
+    foreground: "0x{{ conf.colors.base05 }}"
 cursor:
   blinking: "Off"
-  cursor: "0x{{ colors.base05 }}"
+  cursor: "0x{{ conf.colors.base05 }}"
   style: "Block"
-  text: "0x{{ colors.base00 }}"
+  text: "0x{{ conf.colors.base00 }}"
 font:
   normal:
-    family: "{{ theme.monospace_font }}"
+    family: "{{ conf.theme.monospace_font }}"
     style: "Regular"
-  size: {{ theme.monospace_font_size }}.5
+  size: {{ conf.theme.monospace_font_size }}.5
 key_bindings:
   - chars: "\x1b[13;5u"
     key: "Return"

@@ -21,8 +21,8 @@ default_floating_border pixel
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:{{ theme.regular_font }} {{ theme.regular_font_size }}
-font pango:{{ theme.monospace_font }} {{ theme.monospace_font_size-1 }}
+# font pango:{{ conf.theme.regular_font }} {{ conf.theme.regular_font_size }}
+font pango:{{ conf.theme.monospace_font }} {{ conf.theme.monospace_font_size-1 }}
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -77,16 +77,16 @@ for_window [class="vlc"] floating enable
 # switch to workspace with urgent window automatically
 # for_window [urgent=latest] focus
 for_window [title="TODO"] floating enable
-for_window [class=.*] exec bash {{ folders.bin }}/center-mouse
+for_window [class=.*] exec bash {{ conf.folders.bin }}/center-mouse
 
 ################################################################################################
 # Keybindings
 ################################################################################################
 
 # Clipboard
-bindsym --release $mod+c exec --no-startup-id {{ folders.bin }}/xdotool-mod Ctrl+Insert
-bindsym --release $mod+x exec --no-startup-id {{ folders.bin }}/xdotool-mod Shift+Delete
-bindsym --release $mod+v exec --no-startup-id {{ folders.bin }}/xdotool-mod Shift+Insert
+bindsym --release $mod+c exec --no-startup-id {{ conf.folders.bin }}/xdotool-mod Ctrl+Insert
+bindsym --release $mod+x exec --no-startup-id {{ conf.folders.bin }}/xdotool-mod Shift+Delete
+bindsym --release $mod+v exec --no-startup-id {{ conf.folders.bin }}/xdotool-mod Shift+Insert
 
 # start a terminal
 bindsym $mod+Return exec {{ conf.terminal }}
@@ -97,10 +97,10 @@ bindsym $mod+Shift+q --release exec --no-startup-id xkill
 
 # start program launcher
 
-bindsym $mod+d exec --no-startup-id "xkb-switch -s us; {{ folders.bin }}/rofi_run -show combi -combi-modi drun,ssh,run"
+bindsym $mod+d exec --no-startup-id "xkb-switch -s us; {{ conf.folders.bin }}/rofi_run -show combi -combi-modi drun,ssh,run"
 
 # Lock screen
-bindsym $mod+Escape exec --no-startup-id "{{ folders.bin }}/i3exit lock"
+bindsym $mod+Escape exec --no-startup-id "{{ conf.folders.bin }}/i3exit lock"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -110,8 +110,6 @@ bindsym $mod+Shift+r exec "i3-msg restart;autorandr -c; sleep 2; nitrogen --rand
 bindsym $mod_a+Shift+r exec "xrandr --auto"
 
 bindsym $mod_a+space exec --no-startup-id "xkb-switch -n; pkill -SIGRTMIN+4 i3status-rs"
-
-bindsym $mod+o exec --no-startup-id {{ folders.bin }}/rofi_run -modi "Apps":"{{ folders.bin }}/rofi-fav" -show "Apps" -filter ">" -auto-select
 
 bindsym $mod_a+n exec --no-startup-id dunstctl history-pop
 
@@ -149,34 +147,34 @@ bindsym Ctrl+Mod1+Shift+S exec --no-startup-id flameshot gui
 bindsym $mod_c+Mod4+Shift+4 exec --no-startup-id flameshot gui
 
 # Todo
-bindsym Shift+space exec "{{ folders.bin }}/add-todo"
+bindsym Shift+space exec "{{ conf.folders.bin }}/add-todo"
 
 ################################################################################################
 # Windows control
 ################################################################################################
 # change focus
-bindsym $mod+h focus left, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+j focus down, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+k focus up, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+l focus right, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+Shift+h move left, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+Shift+j move down, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+Shift+k move up, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+Shift+l move right, exec bash {{ folders.bin }}/center-mouse
+bindsym $mod+h focus left, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+j focus down, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+k focus up, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+l focus right, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+Shift+h move left, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+Shift+j move down, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+Shift+k move up, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+Shift+l move right, exec bash {{ conf.folders.bin }}/center-mouse
 
 workspace_auto_back_and_forth no
 
 bindsym $mod+backslash split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen, exec bash {{ folders.bin }}/center-mouse
+bindsym $mod+f fullscreen, exec bash {{ conf.folders.bin }}/center-mouse
 
-bindsym $mod+e layout toggle split, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+s layout stacking, exec bash {{ folders.bin }}/center-mouse
-bindsym $mod+t layout tabbed, exec bash {{ folders.bin }}/center-mouse
+bindsym $mod+e layout toggle split, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+s layout stacking, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+t layout tabbed, exec bash {{ conf.folders.bin }}/center-mouse
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle, exec bash {{ folders.bin }}/center-mouse
+bindsym $mod+space focus mode_toggle, exec bash {{ conf.folders.bin }}/center-mouse
 
 # toggle sticky
 bindsym $mod+p sticky toggle,exec notify-send 'sticky'
@@ -203,10 +201,10 @@ bindsym $mod+minus scratchpad show
 ################################################################################################
 # Workspaces
 ################################################################################################
-bindsym $mod_a+Up  exec bash {{ folders.bin }}/rotate.sh inverted
-bindsym $mod_a+Down  exec bash {{ folders.bin }}/rotate.sh normal
-bindsym $mod_a+Left  exec bash {{ folders.bin }}/rotate.sh left
-bindsym $mod_a+Right  exec bash {{ folders.bin }}/rotate.sh right
+bindsym $mod_a+Up  exec bash {{ conf.folders.bin }}/rotate.sh inverted
+bindsym $mod_a+Down  exec bash {{ conf.folders.bin }}/rotate.sh normal
+bindsym $mod_a+Left  exec bash {{ conf.folders.bin }}/rotate.sh left
+bindsym $mod_a+Right  exec bash {{ conf.folders.bin }}/rotate.sh right
 
 #navigate workspaces next / previous
 bindsym $mod+n workspace next
@@ -263,20 +261,20 @@ bindsym $mod+0 mode "$mode_system"
 bindsym $mod_a+0 mode "$mode_system"
 set $mode_system (0)plain (1)caps_swap_alt_win (2)caps (l)ock (e)xit switch_(u)ser (s)uspend (h)ibernate (r)eboot (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym 0 exec {{ folders.bin }}/keyb, mode "default"
-    bindsym 1 exec {{ folders.bin }}/keyb 1, mode "default"
-    bindsym 2 exec {{ folders.bin }}/keyb 2, mode "default"
+    bindsym 0 exec {{ conf.folders.bin }}/keyb, mode "default"
+    bindsym 1 exec {{ conf.folders.bin }}/keyb 1, mode "default"
+    bindsym 2 exec {{ conf.folders.bin }}/keyb 2, mode "default"
 
-    bindsym l exec --no-startup-id "{{ folders.bin }}/i3exit lock", mode "default"
-    bindsym s exec --no-startup-id "{{ folders.bin }}/i3exit suspend", mode "default"
-    bindsym u exec --no-startup-id "{{ folders.bin }}/i3exit switch_user", mode "default"
-    bindsym e exec --no-startup-id "{{ folders.bin }}/i3exit logout", mode "default"
-    bindsym h exec --no-startup-id "{{ folders.bin }}/i3exit hibernate", mode "default"
-    bindsym r exec --no-startup-id "{{ folders.bin }}/i3exit reboot", mode "default"
-    bindsym Shift+s exec --no-startup-id "{{ folders.bin }}/i3exit shutdown", mode "default"
+    bindsym l exec --no-startup-id "{{ conf.folders.bin }}/i3exit lock", mode "default"
+    bindsym s exec --no-startup-id "{{ conf.folders.bin }}/i3exit suspend", mode "default"
+    bindsym u exec --no-startup-id "{{ conf.folders.bin }}/i3exit switch_user", mode "default"
+    bindsym e exec --no-startup-id "{{ conf.folders.bin }}/i3exit logout", mode "default"
+    bindsym h exec --no-startup-id "{{ conf.folders.bin }}/i3exit hibernate", mode "default"
+    bindsym r exec --no-startup-id "{{ conf.folders.bin }}/i3exit reboot", mode "default"
+    bindsym Shift+s exec --no-startup-id "{{ conf.folders.bin }}/i3exit shutdown", mode "default"
     bindsym t exec --no-startup-id "xterm", mode "default"
 
-    # exit system mode: "Enter" or "Escape{{ folders.bin }}/"
+    # exit system mode: "Enter" or "Escape{{ conf.folders.bin }}/"
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym Ctrl+m mode "default"
@@ -302,6 +300,12 @@ mode "resize" {
         bindsym Ctrl+m mode "default"
 }
 
+
+################################################################################################
+# App menu
+################################################################################################
+bindsym $mod+o exec --no-startup-id {{ conf.folders.bin }}/rofi_run -modi "Apps":"{{ conf.folders.bin }}/rofi-fav" -show "Apps" -filter ">" -auto-select
+
 ################################################################################################
 # Colors
 ################################################################################################
@@ -322,31 +326,31 @@ mode "resize" {
 # set $base0E #c678dd
 # set $base0F #be5046
 
-set $base00 #{{ colors.base00 }}
-set $base01 #{{ colors.base01 }}
-set $base02 #{{ colors.base02 }}
-set $base03 #{{ colors.base03 }}
-set $base04 #{{ colors.base04 }}
-set $base05 #{{ colors.base05 }}
-set $base06 #{{ colors.base06 }}
-set $base07 #{{ colors.base07 }}
-set $base08 #{{ colors.base08 }}
-set $base09 #{{ colors.base09 }}
-set $base0A #{{ colors.base0A }}
-set $base0B #{{ colors.base0B }}
-set $base0C #{{ colors.base0C }}
-set $base0D #{{ colors.base0D }}
-set $base0E #{{ colors.base0E }}
-set $base0F #{{ colors.base0F }}
+set $base00 #{{ conf.colors.base00 }}
+set $base01 #{{ conf.colors.base01 }}
+set $base02 #{{ conf.colors.base02 }}
+set $base03 #{{ conf.colors.base03 }}
+set $base04 #{{ conf.colors.base04 }}
+set $base05 #{{ conf.colors.base05 }}
+set $base06 #{{ conf.colors.base06 }}
+set $base07 #{{ conf.colors.base07 }}
+set $base08 #{{ conf.colors.base08 }}
+set $base09 #{{ conf.colors.base09 }}
+set $base0A #{{ conf.colors.base0A }}
+set $base0B #{{ conf.colors.base0B }}
+set $base0C #{{ conf.colors.base0C }}
+set $base0D #{{ conf.colors.base0D }}
+set $base0E #{{ conf.colors.base0E }}
+set $base0F #{{ conf.colors.base0F }}
 
 # Basic bar configuration using the Base16 variables.
 bar {
     i3bar_command i3bar
     tray_output primary
     tray_padding 2
-    height {{ theme.monospace_font_size*2+1 }}
+    height {{ conf.theme.monospace_font_size*2+1 }}
     # font pango:DejaVu Sans Mono, FontAwesome 11
-    font pango:{{ theme.monospace_font }} {{ theme.monospace_font_size }}
+    font pango:{{ conf.theme.monospace_font }} {{ conf.theme.monospace_font_size }}
     position top
     status_command i3status-rs ~/.config/i3status-rust/config-default.toml
     colors {
@@ -381,13 +385,13 @@ include ~/.config/i3/autostart.d/*.conf
 exec_always --no-startup-id caffeine start
 exec_always --no-startup-id pgrep xkb-switch || xkb-switch --i3
 exec_always --no-startup-id flameshot
-exec_always --no-startup-id {{ folders.bin }}/set-touchpad-natural
+exec_always --no-startup-id {{ conf.folders.bin }}/set-touchpad-natural
 exec_always --no-startup-id pgrep solaar || solaar -w hide
-exec_always --no-startup-id xss-lock -- {{ folders.bin }}/i3exit lock
-exec_always --no-startup-id xautolock -time 10 -locker "{{ folders.bin }}/i3exit lock"
+exec_always --no-startup-id xss-lock -- {{ conf.folders.bin }}/i3exit lock
+exec_always --no-startup-id xautolock -time 10 -locker "{{ conf.folders.bin }}/i3exit lock"
 exec_always --no-startup-id pkill dunst; dunst
 exec_always --no-startup-id pgrep parcellite || parcellite
 
 # exec_always --no-startup-id keyb 2
 # exec_always --no-startup-id nitrogen --random --set-zoom-fill
-exec_always --no-startup-id autorandr -c; sleep 2; nitrogen --random --set-zoom-fill; sleep 2; {{ folders.bin }}/keyb 2
+exec_always --no-startup-id autorandr -c; sleep 2; nitrogen --random --set-zoom-fill; sleep 2; {{ conf.folders.bin }}/keyb 2

@@ -1,13 +1,13 @@
 #!/bin/env bash
 
-CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox|log" | {{ folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
+CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox|log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
 
 case $CMD in
     qutebrowser-default)
-        {{ folders.bin }}/qutebrowser --target tab-bg-silent "$1"
+        {{ conf.folders.bin }}/qutebrowser --target tab-bg-silent "$1"
         ;;
     qutebrowser-work)
-        SESSION_NAME=work {{ folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
+        SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
         ;;
     google-chrome-stable)
         google-chrome-stable "$1"

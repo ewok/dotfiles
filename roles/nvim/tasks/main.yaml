@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
 
 - name: "Provide configs"
@@ -28,7 +28,7 @@
 - name: "Provide scripts"
   ansible.builtin.copy:
     src: "bin/{{ item.src }}"
-    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
     mode: "0755"
   loop:
     - {src: "fnlfmt", dest: ""}
@@ -39,10 +39,10 @@
     dest: "{{ item.dest }}"
     mode: "0755"
   loop:
-    - {src: "update-nvim", dest: "{{ folders.bin }}/update-nvim"}
-    - {src: "nvim", dest: "{{ folders.bin }}/nvim"}
-    - {src: "lazygit", dest: "{{ folders.bin }}/gg"}
-    - {src: "nvim-clean-cache", dest: "{{ folders.bin }}/nvim-clean-cache"}
+    - {src: "update-nvim", dest: "{{ conf.folders.bin }}/update-nvim"}
+    - {src: "nvim", dest: "{{ conf.folders.bin }}/nvim"}
+    - {src: "lazygit", dest: "{{ conf.folders.bin }}/gg"}
+    - {src: "nvim-clean-cache", dest: "{{ conf.folders.bin }}/nvim-clean-cache"}
   tags:
     - nvim-config
     - nvim-config-reset
@@ -85,5 +85,5 @@
 - name: "Download coursier"
   ansible.builtin.get_url:
     url: "https://git.io/coursier-cli"
-    dest: "{{ folders.bin }}/coursier"
+    dest: "{{ conf.folders.bin }}/coursier"
     mode: "0755"

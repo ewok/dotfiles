@@ -8,7 +8,7 @@
 - name: Ensure files are populated from templates
   ansible.builtin.template:
     src: '{{ item.src }}'
-    dest: '{{ folders.bin }}/{{ item.path }}'
+    dest: '{{ conf.folders.bin }}/{{ item.path }}'
     mode: "0755"
   with_community.general.filetree: '{{ role_path }}/templates/bin'
   when: item.state == 'file'

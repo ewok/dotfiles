@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.local/share/appimages"}
     - {dir: "~/.local/share/applications/favorites"}
 
@@ -27,7 +27,7 @@
 - name: "Provide scripts"
   ansible.builtin.template:
     src: "{{ item.src }}"
-    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
     mode: "0755"
   loop:
     - {src: "bw-reset", dest: ""}
@@ -39,7 +39,7 @@
     - name: "Provide scripts"
       ansible.builtin.copy:
         content: "~/.local/share/appimages/bitwarden.AppImage"
-        dest: "{{ folders.bin }}/bitwarden-desktop"
+        dest: "{{ conf.folders.bin }}/bitwarden-desktop"
         mode: "0755"
 
     - name: "Download"
@@ -59,5 +59,5 @@
     - name: "Unpack bw.zip"
       ansible.builtin.unarchive:
         src: "~/.local/share/bw.zip"
-        dest: "{{ folders.bin }}"
+        dest: "{{ conf.folders.bin }}"
         mode: "0755"

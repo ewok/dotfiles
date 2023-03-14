@@ -28,7 +28,7 @@
     - name: "Download kubectx and kubens"
       ansible.builtin.get_url:
         url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/{{ item.name }}"
-        dest: "{{ folders.bin }}/{{ item }}"
+        dest: "{{ conf.folders.bin }}/{{ item }}"
         mode: "0755"
         checksum: "{{ item.checksum }}"
       loop:

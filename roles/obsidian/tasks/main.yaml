@@ -11,7 +11,7 @@
     state: directory
     mode: "0755"
   loop:
-    - {dir: "{{ folders.bin }}"}
+    - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.local/share/appimages"}
     - {dir: "~/.local/share/applications/favorites"}
 
@@ -26,7 +26,7 @@
 - name: "Provide scripts"
   ansible.builtin.template:
     src: "{{ item.src }}"
-    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
     mode: "0755"
   loop:
     - {src: "add-todo", dest: ""}
@@ -38,7 +38,7 @@
     - name: "Provide scripts"
       ansible.builtin.copy:
         content: "~/.local/share/appimages/obsidian.AppImage"
-        dest: "{{ folders.bin }}/obsidian-desktop"
+        dest: "{{ conf.folders.bin }}/obsidian-desktop"
         mode: "0755"
 
     - name: "Download"

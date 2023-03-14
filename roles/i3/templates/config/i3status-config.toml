@@ -3,11 +3,11 @@
 [[block]]
 block = "custom"
 interval = "once"
-cycle = ["echo 💰", "{{ folders.bin }}/sal.clj", "{{ folders.bin }}/b-status.clj"]
+cycle = ["echo 💰", "{{ conf.folders.bin }}/sal.clj", "{{ conf.folders.bin }}/b-status.clj"]
 
 [[block]]
 block = "custom"
-command = "{{ folders.bin }}/show-date.sh"
+command = "{{ conf.folders.bin }}/show-date.sh"
 interval = 60
 
 {% if ansible_distribution == "Void" %}
@@ -49,7 +49,7 @@ warning = 90
 
 [[block]]
 block = "custom"
-command = "{{ folders.bin }}/show-fans.sh"
+command = "{{ conf.folders.bin }}/show-fans.sh"
 interval = 10
 json = true
 
@@ -229,14 +229,14 @@ theme = "solarized-dark"
 {% endif %}
 
 [theme.overrides]
-idle_bg = "#{{ colors.base02 }}"
-idle_fg = "#{{ colors.base05 }}"
-info_bg = "#{{ colors.base04 }}"
-info_fg = "#{{ colors.base00 }}"
-good_bg = "#{{ colors.base0C }}"
-good_fg = "#{{ colors.base00 }}"
-warning_bg = "#{{ colors.base0A }}"
-warning_fg = "#{{ colors.base00 }}"
-critical_bg = "#{{ colors.base0F }}"
-critical_fg = "#{{ colors.base00 }}"
-separator = "{{ theme.separator_right }}"
+idle_bg = "#{{ conf.colors.base02 }}"
+idle_fg = "#{{ conf.colors.base05 }}"
+info_bg = "#{{ conf.colors.base04 }}"
+info_fg = "#{{ conf.colors.base00 }}"
+good_bg = "#{{ conf.colors.base0C }}"
+good_fg = "#{{ conf.colors.base00 }}"
+warning_bg = "#{{ conf.colors.base0A }}"
+warning_fg = "#{{ conf.colors.base00 }}"
+critical_bg = "#{{ conf.colors.base0F }}"
+critical_fg = "#{{ conf.colors.base00 }}"
+separator = "{{ conf.theme.separator_right }}"
