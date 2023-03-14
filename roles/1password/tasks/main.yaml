@@ -1,0 +1,16 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Install via flatpak"
+      community.general.flatpak:
+        name: "{{ item }}"
+      loop:
+        - "https://downloads.1password.com/linux/flatpak/1Password.flatpakref"

@@ -1,0 +1,14 @@
+# ---
+# - name: "Cleanup"
+#   tags:
+#     - never
+#     - cleanup
+#   block:
+#     - name: "Cleanup dirs"
+#       tags:
+#         - cleanup-config
+#       file:
+#         dest: "{{ item.dir }}"
+#         state: absent
+#       loop:
+#         - {dir: "{{ conf.folders.bin }}"}
