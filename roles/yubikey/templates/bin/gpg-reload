@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -x
-{{ folders.bin }}/yubikey-reset
+# {{ folders.bin }}/yubikey-reset
 pkill scdaemon
 pkill gpg-agent
 gpg-connect-agent /bye >/dev/null 2>&1
