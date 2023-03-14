@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox" | {{ folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
+CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox|log" | {{ folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
 
 case $CMD in
     qutebrowser-default)
@@ -14,5 +14,8 @@ case $CMD in
         ;;
     firefox)
         firefox "$1"
+        ;;
+    log)
+        echo "$@" >> ~/tmp/.browser-log
         ;;
 esac
