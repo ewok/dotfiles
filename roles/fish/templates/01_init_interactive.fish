@@ -21,7 +21,7 @@ set -gx LC_TIME ru_RU.UTF-8
 set -gx FZF_LEGACY_KEYBINDINGS 0
 set -gx OPEN_CMD open
 
-set -gx GTK_THEME Adapta-Dark
+set -gx GTK_THEME Adapta-Nokto
 # set -gx XDG_CURRENT_DESKTOP sway
 
 fish_add_path -ga  ~/.local/bin ~/bin ~/.bin
@@ -61,12 +61,6 @@ if status is-interactive
   if command -vq -- bat
     alias cat "bat"
   end
-
-  # if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
-  #   if command -vq -- sway
-  #     exec sway
-  #   end
-  # end
 
 end
 

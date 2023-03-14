@@ -73,28 +73,23 @@ packages_void:
   - viewnior
   - xautolock
   - xclip
-  - xdg-user-dirs
   - xdotool
   - xkb-switch
-  - xorg-apps
-  - xorg-minimal
-  - xorg-fonts
-  - xf86-video-vmware
-  - xf86-video-intel
+  - xorg
   - xterm
   - xss-lock
   - zathura
   - zathura-cb
   - zathura-djvu
   - zathura-pdf-mupdf
-  - xinit
-  # - lightdm
-  # - lightdm-gtk3-greeter
+  - lightdm
+  - lightdm-gtk3-greeter
   - elogind
   - seahorse
   - xdg-utils
   - xdg-desktop-portal
   - xdg-desktop-portal-gtk
+  - xdg-user-dirs
   - qsudo
   # Fonts
   - font-awesome6

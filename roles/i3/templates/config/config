@@ -106,7 +106,7 @@ bindsym $mod+Escape exec --no-startup-id "{{ folders.bin }}/i3exit lock"
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r exec "i3-msg restart;autorandr -c; sleep 2; nitrogen --random --set-zoom-fill"
+bindsym $mod+Shift+r exec "i3-msg restart;autorandr -c; sleep 2; nitrogen --random --set-zoom-fill; keyb 2"
 bindsym $mod_a+Shift+r exec "xrandr --auto"
 
 bindsym $mod_a+space exec --no-startup-id "xkb-switch -n; pkill -SIGRTMIN+4 i3status-rs"
@@ -380,8 +380,7 @@ include ~/.config/i3/autostart.d/*.conf
 
 exec_always --no-startup-id caffeine start
 exec_always --no-startup-id pgrep xkb-switch || xkb-switch --i3
-exec_always --no-startup-id pgrep flameshot || flameshot
-exec_always --no-startup-id /usr/libexec/gsd-xsettings
+exec_always --no-startup-id flameshot
 exec_always --no-startup-id {{ folders.bin }}/set-touchpad-natural
 exec_always --no-startup-id pgrep solaar || solaar -w hide
 exec_always --no-startup-id xss-lock -- {{ folders.bin }}/i3exit lock
@@ -389,5 +388,6 @@ exec_always --no-startup-id xautolock -time 10 -locker "{{ folders.bin }}/i3exit
 exec_always --no-startup-id pkill dunst; dunst
 exec_always --no-startup-id pgrep parcellite || parcellite
 
-exec_always --no-startup-id keyb 2
-exec_always --no-startup-id nitrogen --random --set-zoom-fill
+# exec_always --no-startup-id keyb 2
+# exec_always --no-startup-id nitrogen --random --set-zoom-fill
+exec_always --no-startup-id autorandr -c; sleep 2; nitrogen --random --set-zoom-fill; sleep 2; {{ folders.bin }}/keyb 2

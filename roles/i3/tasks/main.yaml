@@ -38,8 +38,8 @@
     - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
     - {src: "config/xresources", dest: "~/.Xresources"}
     - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
-    - {src: "config/xinitrc", dest: "~/.xinitrc"}
-    - {src: "config/99_startx.fish", dest: "~/.config/fish/conf.d/99_startx.fish"}
+    # - {src: "config/xinitrc", dest: "~/.xinitrc"}
+    # - {src: "config/99_startx.fish", dest: "~/.config/fish/conf.d/99_startx.fish"}
 
 - name: "Provide scripts"
   ansible.builtin.template:
@@ -77,20 +77,20 @@
       when: ansible_distribution == "Void"
       become: true
 
-    # - name: "Enable lightdm"
-    #   community.general.runit:
-    #     name: lightdm
-    #     state: started
-    #     enabled: true
-    #   when: ansible_distribution == "Void"
-    #   become: true
+    - name: "Enable lightdm"
+      community.general.runit:
+        name: lightdm
+        state: started
+        enabled: true
+      when: ansible_distribution == "Void"
+      become: true
 
-    # - name: "Add dbus to i3.desktop"
-    #   ansible.builtin.lineinfile:
-    #     path: "/usr/share/xsessions/i3.desktop"
-    #     regexp: "^Exec="
-    #     line: "Exec=dbus-run-session i3"
-    #     state: present
-    #     mode: "0644"
-    #     backrefs: true
-    #   become: true
+    - name: "Add dbus to i3.desktop"
+      ansible.builtin.lineinfile:
+        path: "/usr/share/xsessions/i3.desktop"
+        regexp: "^Exec="
+        line: "Exec=dbus-launch --sh-syntax --exit-with-session i3"
+        state: present
+        mode: "0644"
+        backrefs: true
+      become: true
