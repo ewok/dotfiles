@@ -12,5 +12,7 @@
     - name: "Install via flatpak"
       community.general.flatpak:
         name: "{{ item }}"
+        method: system
+      become: true
       loop:
         - "https://downloads.1password.com/linux/flatpak/1Password.flatpakref"
