@@ -25,6 +25,14 @@
     - {src: "vale.ini", dest: "~/.vale.ini"}
     - {src: "cbfmt.toml", dest: "~/.config/cbfmt.toml"}
 
+- name: "Provide scripts"
+  ansible.builtin.copy:
+    src: "bin/{{ item.src }}"
+    dest: "{{ folders.bin }}/{{ item.dest | default(item.src) }}"
+    mode: "0755"
+  loop:
+    - {src: "fnlfmt", dest: ""}
+
 - name: "Install nvim config"
   ansible.builtin.template:
     src: "{{ item.src }}"

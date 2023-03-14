@@ -50,7 +50,8 @@
         (pack :Wansmer/treesj (require :plugins.config.treesj))
         ;; Treesitter related
         (pack :nvim-treesitter/nvim-treesitter
-              (require :plugins.config.treesitter))])
+              (require :plugins.config.treesitter))
+        (pack :direnv/direnv.vim {:config false})])
 
 (when conf.options.rainbow_parents
   (table.insert packages (pack :p00f/nvim-ts-rainbow {:config false})))
