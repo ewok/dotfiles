@@ -23,7 +23,7 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "config/50_browser.fish", dest: "~/.config/fish/conf.d/50_browser.fish"}
+    - {src: "config/50_browser.sh", dest: "~/.config/bash/50_browser.sh"}
     - {src: "config/org.custom.choose.browser.desktop", dest: "~/.local/share/applications/org.custom.choose.browser.desktop"}
     - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
 

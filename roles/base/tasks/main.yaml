@@ -29,8 +29,9 @@
     - {dir: "~/Documents"}
     - {dir: "~/Downloads"}
     - {dir: "~/tmp"}
+    - {dir: "~/.config/bash"}
 
-- name: "Provide configs"
+- name: "Provide scripts"
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -43,7 +44,17 @@
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    mode: "0755"
+    mode: "0644"
+  loop:
+    - {src: "bash_profile", dest: "~/.bash_profile"}
+    - {src: "bashrc", dest: "~/.bashrc"}
+    - {src: "10-base.sh", dest: "~/.config/bash/10-base.sh"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
   become: true
   loop:
     - {src: "10-sudoers", dest: "/etc/sudoers.d/10-sudoers"}

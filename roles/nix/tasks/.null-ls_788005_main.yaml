@@ -13,8 +13,7 @@
   loop:
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/nix"}
-    - {dir: "~/.config/bash"}
-    - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.config/nix"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -23,7 +22,6 @@
     mode: "0644"
   loop:
     - {src: "10_nix-init.fish", dest: "~/.config/fish/conf.d/10_nix-init.fish"}
-    - {src: "10_nix-init.sh", dest: "~/.config/bash/10_nix-init.sh"}
     - {src: "nix.conf", dest: "~/.config/nix/nix.conf"}
 
 - name: "Provide scripts"

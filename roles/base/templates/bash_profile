@@ -1,0 +1,12 @@
+# .bash_profile
+
+# Load profiles from /etc/profile.d
+if [ -d $HOME/.config/bash/ ]; then
+  for f in $HOME/.config/bash/*.sh; do
+    [ -r "$f" ] && . "$f"
+  done
+  unset f
+fi
+
+# Get the aliases and functions
+[ -f $HOME/.bashrc ] && . $HOME/.bashrc

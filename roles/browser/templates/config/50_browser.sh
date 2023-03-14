@@ -1,0 +1,2 @@
+export BROWSER="choose-browser"
+

@@ -23,7 +23,6 @@ function fish_greeting
     end
 
     if test -z "$TMUX" -a (tty) != "/dev/tty1"
-
       set -l SESS ($TMUX_CMD list-sessions | grep -v attached | cut -d: -f1 | head -n 1)
       echo $SESS
       if test -n "$SESS"
