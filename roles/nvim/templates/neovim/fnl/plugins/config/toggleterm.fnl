@@ -102,11 +102,7 @@
                                                :direction :float
                                                :float_opts {:border (if conf.options.float_border
                                                                         :rounded
-                                                                        :none)
-                                                            :height (- vim.o.lines
-                                                                       6)
-                                                            :width (- vim.o.columns
-                                                                      6)}
+                                                                        :none)}
                                                :on_open open_callback_lazygit
                                                :on_close close_callback})]
                                (: lazygit :toggle))
@@ -128,9 +124,7 @@
                                         :direction :float
                                         :float_opts {:border (if conf.options.float_border
                                                                  :rounded
-                                                                 :none)
-                                                     :height (- vim.o.lines 6)
-                                                     :width (- vim.o.columns 6)}
+                                                                 :none)}
                                         :on_open open_callback_lazygit
                                         :on_close close_callback})]
                         (: lazygit :toggle))
