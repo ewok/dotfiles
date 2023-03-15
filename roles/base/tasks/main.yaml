@@ -47,6 +47,7 @@
     mode: "0644"
   loop:
     - {src: "bash_profile", dest: "~/.bash_profile"}
+    - {src: "profile", dest: "~/.profile"}
     - {src: "bashrc", dest: "~/.bashrc"}
     - {src: "10-base.sh", dest: "~/.config/bash/10-base.sh"}
 
