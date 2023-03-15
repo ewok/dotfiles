@@ -30,7 +30,10 @@
 ; local function lazy_open_callback(term)
 (fn open_callback_lazygit [term]
   (umap! :t :<esc>)
-  (map! :i :q :<cmd>close<cr> {:silent true :buffer term.bufnr}
+  (each [_ key (ipairs [:<c-cr> :<c-space>])]
+    (map! [:t] key "<c-\\><c-n><cmd>close<cr>"
+          {:silent true :buffer term.bufnr} "Escape lazygit terminal"))
+  (map! [:i] :q :<cmd>close<cr> {:silent true :buffer term.bufnr}
         "Escape lazygit terminal")
   (vim.cmd :startinsert))
 
@@ -110,13 +113,18 @@
             {:silent true} "Git file history")
       ;; Lazygit
       (each [key info (pairs {:<leader>gs {:cmd "lazygit status"
-                                           :desc "Git status"}
-                              :<leader>gll {:cmd "lazygit log" :desc "Git log"}
-                              :<leader>gg {:cmd :lazygit :desc "Git overall"}})]
+                                           :desc "Git status"
+                                           :count 140}
+                              :<leader>gll {:cmd "lazygit log"
+                                            :desc "Git log"
+                                            :count 141}
+                              :<leader>gg {:cmd :lazygit
+                                           :desc "Git overall"
+                                           :count 142}})]
         (map! :n key #(let [lazygit (: terms :new
                                        {:cmd info.cmd
                                         :hidden true
-                                        :count 130
+                                        :count info.count
                                         :direction :float
                                         :float_opts {:border (if conf.options.float_border
                                                                  :rounded
