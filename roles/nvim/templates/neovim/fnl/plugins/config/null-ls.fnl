@@ -33,7 +33,6 @@
                                            {:buffer bufnr}
                                            "Show help information[NULL-LS]"))))
                     :sources [;; Text
-                              null-ls.builtins.completion.spell
                               (null-ls.builtins.diagnostics.markdownlint.with {:extra_args [:--disable
                                                                                             :MD013
                                                                                             :MD024]})
