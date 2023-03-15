@@ -5,6 +5,17 @@
 - name: "Install"
   ansible.builtin.include_tasks: "install.yaml"
 
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  become: true
+  loop:
+    - {dir: "/usr/local/bin"}
+    - {dir: "/etc/run_on.ac"}
+    - {dir: "/etc/run_on.bat"}
+
 - name: "Provide configs"
   ansible.builtin.template:
     src: "{{ item.src }}"
@@ -13,6 +24,16 @@
   become: true
   loop:
     - {src: "tlp.conf", dest: "/etc/tlp.conf"}
+    - {src: "elogin_logind.conf", dest: "/etc/elogind/logind.conf"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  become: true
+  loop:
+    - {src: "ac_bat_target", dest: "/usr/local/bin/ac_bat_target"}
 
 - name: "Enable tlp"
   community.general.runit:
@@ -21,3 +42,20 @@
     enabled: true
   when: ansible_distribution == "Void"
   become: true
+
+
+- name: "Udev rule"
+  copy:
+    content: |
+      SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target bat_start"
+      SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target ac_stop"
+      SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target ac_start"
+      SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target bat_stop"
+
+      SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target bat_start"
+      SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="/usr/local/bin/ac_bat_target ac_stop"
+      SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target ac_start"
+      SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="/usr/local/bin/ac_bat_target bat_stop"
+    dest: "/etc/udev/rules.d/99-powertargets.rules"
+  become: true
+  notify: Reload udev

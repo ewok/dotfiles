@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Structure:
+# /etc/run_on.ac/<service>.(start|stop)
+# /etc/run_on.bat/<service>.(start|stop)
+
+case "$1" in
+  ac_start)
+    if [ -d /etc/run_on.ac ]; then
+      for i in /etc/run_on.ac/*.start; do
+        if [ -x "$i" ]; then
+          "$i"
+        fi
+      done
+    fi
+    ;;
+  ac_stop)
+    if [ -d /etc/run_on.ac ]; then
+      for i in /etc/run_on.ac/*.stop; do
+        if [ -x "$i" ]; then
+          "$i"
+        fi
+      done
+    fi
+    ;;
+  bat_start)
+    if [ -d /etc/run_on.bat ]; then
+      for i in /etc/run_on.bat/*.start; do
+        if [ -x "$i" ]; then
+          "$i"
+        fi
+      done
+    fi
+    ;;
+  bat_stop)
+    if [ -d /etc/run_on.bat ]; then
+      for i in /etc/run_on.bat/*.stop; do
+        if [ -x "$i" ]; then
+          "$i"
+        fi
+      done
+    fi
+    ;;
+  *)
+    echo "No command"
+    exit 2
+esac

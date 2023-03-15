@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export USER="{{ conf.username }}"
+export HOME="/home/{{ conf.username }}"
+
+groups="$(id -Gn "$USER" | tr ' ' ':')"
+
+exec chpst -u "$USER:$groups" syncthing serve --no-browser --logfile=default
