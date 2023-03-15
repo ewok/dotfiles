@@ -1,0 +1,3 @@
+ACTION=="add", KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666"
+ACTION=="add", KERNEL=="input*", ATTRS{name}=="MX Keys*", RUN+="/bin/su - {{ conf.username }} -c 'export DISPLAY=:0;{{ conf.folders.bin }}/keyb 2'"
+ACTION=="remove", KERNEL=="input*", ATTRS{name}=="MX Keys*", RUN+="/bin/su - {{ conf.username }} -c 'export DISPLAY=:0;{{ conf.folders.bin }}/keyb 1'"

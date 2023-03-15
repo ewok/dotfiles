@@ -94,3 +94,10 @@
         mode: "0644"
         backrefs: true
       become: true
+
+    - name: "Udev rule"
+      ansible.builtin.template:
+        src: "config/80-keyb.rules"
+        dest: "/etc/udev/rules.d/80-keyb.rules"
+      become: true
+      notify: Reload udev
