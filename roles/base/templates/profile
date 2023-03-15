@@ -1,8 +1,8 @@
 # .profile
 
 # Load profiles from /etc/profile.d
-if [ -d $HOME/.config/bash/ ]; then
-  for f in $HOME/.config/bash/*.sh; do
+if [ -d $HOME/.config/bash/profile.d/ ]; then
+  for f in $HOME/.config/bash/profile.d/*.sh; do
     [ -r "$f" ] && . "$f"
   done
   unset f

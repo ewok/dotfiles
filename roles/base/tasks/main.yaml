@@ -29,7 +29,8 @@
     - {dir: "~/Documents"}
     - {dir: "~/Downloads"}
     - {dir: "~/tmp"}
-    - {dir: "~/.config/bash"}
+    - {dir: "~/.config/bash/profile.d"}
+    - {dir: "~/.config/bash/rc.d"}
 
 - name: "Provide scripts"
   ansible.builtin.template:
@@ -49,7 +50,7 @@
     - {src: "bash_profile", dest: "~/.bash_profile"}
     - {src: "profile", dest: "~/.profile"}
     - {src: "bashrc", dest: "~/.bashrc"}
-    - {src: "10-base.sh", dest: "~/.config/bash/10-base.sh"}
+    - {src: "10-base.sh", dest: "~/.config/bash/profile.d/10-base.sh"}
 
 - name: "Provide configs"
   ansible.builtin.template:

@@ -173,7 +173,7 @@ chmod 755 /
 
 #  Set up hostname
 echo $HOSTNAME > /etc/hostname
-cat <<EOF > /etc/rc.rc.conf
+cat <<EOF > /etc/rc.conf
 # /etc/rc.conf - system configuration for void
 
 HOSTNAME="$HOSTNAME"

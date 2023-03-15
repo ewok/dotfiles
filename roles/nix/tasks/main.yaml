@@ -13,7 +13,7 @@
   loop:
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/nix"}
-    - {dir: "~/.config/bash"}
+    - {dir: "~/.config/bash/rc.d"}
     - {dir: "~/.config/fish/conf.d"}
 
 - name: "Provide configs"
@@ -23,7 +23,7 @@
     mode: "0644"
   loop:
     - {src: "10_nix-init.fish", dest: "~/.config/fish/conf.d/10_nix-init.fish"}
-    - {src: "10_nix-init.sh", dest: "~/.config/bash/10_nix-init.sh"}
+    - {src: "10_nix-init.sh", dest: "~/.config/bash/rc.d/10_nix-init.sh"}
     - {src: "nix.conf", dest: "~/.config/nix/nix.conf"}
 
 - name: "Provide scripts"

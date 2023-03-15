@@ -12,7 +12,7 @@
     mode: "0755"
   loop:
     - {dir: "{{ conf.folders.bin }}"}
-    - {dir: "~/.config/bash"}
+    - {dir: "~/.config/bash/profile.d"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -20,7 +20,7 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "20_nvim-vars.sh", dest: "~/.config/bash/20_nvim-vars.sh"}
+    - {src: "20_nvim-vars.sh", dest: "~/.config/bash/profile.d/20_nvim-vars.sh"}
     - {src: "ctags", dest: "~/.ctags"}
     - {src: "vale.ini", dest: "~/.vale.ini"}
     - {src: "cbfmt.toml", dest: "~/.config/cbfmt.toml"}

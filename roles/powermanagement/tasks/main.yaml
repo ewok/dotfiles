@@ -25,6 +25,8 @@
   loop:
     - {src: "tlp.conf", dest: "/etc/tlp.conf"}
     - {src: "elogin_logind.conf", dest: "/etc/elogind/logind.conf"}
+      # TODO: Not sure yet
+    - {src: "init-triggers.sh", dest: "/etc/init-triggers.sh"}
 
 - name: "Provide scripts"
   ansible.builtin.template:

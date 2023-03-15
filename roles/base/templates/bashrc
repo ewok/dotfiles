@@ -6,6 +6,14 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+# Load configs from /etc/rc.d
+if [ -d $HOME/.config/bash/rc.d/ ]; then
+  for f in $HOME/.config/bash/rc.d/*.sh; do
+    [ -r "$f" ] && . "$f"
+  done
+  unset f
+fi
+
 if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
 then
   exec fish
