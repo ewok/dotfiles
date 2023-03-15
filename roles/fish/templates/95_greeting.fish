@@ -3,7 +3,7 @@ function fish_greeting
   if ! test -z "$TMUX"
     if test -t 2
       {% if ansible_distribution == "Void" %}
-        sudo sv s /var/service/* | grep down >&2
+        sudo sv s /var/service/* | grep -v 'run:' >&2
       {% else %}
         systemctl --state=failed --no-legend --no-pager >&2
         systemctl --user --state=failed --no-legend --no-pager >&2
