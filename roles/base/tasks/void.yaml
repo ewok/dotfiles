@@ -55,3 +55,9 @@
     dest: "/etc/localtime"
     state: link
   become: true
+
+- name: "Update xlocate database"
+  ansible.builtin.cron:
+    name: "xlocate_update"
+    hour: "*/2"
+    job: "xlocate -S"
