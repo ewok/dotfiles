@@ -45,53 +45,59 @@ packages_archlinux:
 packages_debian: []
 
 packages_void:
-  - Adapta
-  # - aur/dracula-gtk-theme
+  # WM and tools
+  - i3
+  - i3blocks
+  - i3status-rust
   - autorandr
   - autotiling
   - betterlockscreen
   - caffeine-ng
   - dunst
   - flameshot
-  - gvfs
-  - gvfs-afc
-  - gvfs-gphoto2
-  - gvfs-mtp
-  - gvfs-smb
-  - i3
-  - i3blocks
-  - i3status-rust
   - light
-  - mtpfs
   - nitrogen
-  - papirus-icon-theme
   - parcellite
-  - pcmanfm
   - Solaar
-  - udiskie
-  - udisks2
-  - viewnior
   - xautolock
   - xclip
   - xdotool
   - xkb-switch
-  - xorg
   - xterm
   - xss-lock
-  - zathura
-  - zathura-cb
-  - zathura-djvu
-  - zathura-pdf-mupdf
+    # Server
+  - xorg
   - lightdm
   - lightdm-gtk3-greeter
   - elogind
-  - seahorse
   - xdg-utils
   - xdg-desktop-portal
   - xdg-desktop-portal-gtk
   - xdg-user-dirs
+    # Themes
+  - Adapta
+  - papirus-icon-theme
+  # - aur/dracula-gtk-theme
+    # Filemanager
+  - pcmanfm
+  - mtpfs
+  - gvfs
+  - gvfs-afc
+  - gvfs-afp
+  - gvfs-gphoto2
+  - gvfs-mtp
+  - gvfs-smb
+  - udiskie
+  - udisks2
+  # Viewers
+  - viewnior
+  - zathura
+  - zathura-cb
+  - zathura-djvu
+  - zathura-pdf-mupdf
+    # Passwords
   - qsudo
+  - seahorse
   # Fonts
   - font-awesome6
   - noto-fonts-emoji
-  # - xkb-switch-i3

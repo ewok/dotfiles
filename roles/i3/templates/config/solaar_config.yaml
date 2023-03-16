@@ -1,0 +1,15 @@
+- 1.1.8
+- _NAME: MX Keys Mini for Mac
+  _absent: [hi-res-scroll, lowres-scroll-mode, hires-smooth-invert, hires-smooth-resolution, hires-scroll-mode, scroll-ratchet, smart-shift, thumb-scroll-invert,
+    thumb-scroll-mode, onboard_profiles, report_rate, pointer_speed, dpi, speed-change, backlight-timed, reprogrammable-keys, persistent-remappable-keys,
+    crown-smooth, divert-crown, divert-gkeys, m-key-leds, mr-key-led, gesture2-gestures, gesture2-divert, gesture2-params, sidetone, equalizer]
+  _battery: 4100
+  _modelId: B36A00000000
+  _sensitive: {disable-keyboard-keys: false, divert-keys: true, fn-swap: true}
+  _unitId: 34735FBA
+  backlight: false
+  change-host: null
+  disable-keyboard-keys: {1: false}
+  divert-keys: {226: 1, 227: 1, 229: 0, 231: 0, 232: 0, 233: 0, 259: 1, 264: 1, 266: 1, 284: 0, 285: 1}
+  fn-swap: true
+  multiplatform: 0

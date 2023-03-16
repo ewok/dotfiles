@@ -38,6 +38,8 @@
     - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
     - {src: "config/xresources", dest: "~/.Xresources"}
     - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
+    - {src: "config/solaar_config.yaml", dest: "~/.config/solaar/config.yaml"}
+    - {src: "config/solaar_rules.yaml", dest: "~/.config/solaar/rules.yaml"}
     # - {src: "config/xinitrc", dest: "~/.xinitrc"}
     # - {src: "config/99_startx.fish", dest: "~/.config/fish/conf.d/99_startx.fish"}
 
