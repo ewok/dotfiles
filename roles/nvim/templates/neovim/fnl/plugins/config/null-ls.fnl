@@ -1,6 +1,7 @@
 (local {: map! : get_buf_ft} (require :lib))
 
-(local fmt-white-list {:python true
+(local fmt-white-list {:yaml true
+                       :python true
                        :fennel true
                        :go true
                        :clojure true
@@ -36,16 +37,13 @@
                               (null-ls.builtins.diagnostics.markdownlint.with {:extra_args [:--disable
                                                                                             :MD013
                                                                                             :MD024]})
-                              (null-ls.builtins.formatting.cbfmt.with {:extra_args [:--config (vim.fn.expand "~/.config/cbfmt.toml")]})
-                              (null-ls.builtins.formatting.prettier.with {:filetypes [:markdown
+                              (null-ls.builtins.formatting.prettier.with {:filetypes [:yaml
+                                                                                      :markdown
                                                                                       :markdown.mdx]})
-                              null-ls.builtins.hover.dictionary
                               ;; Clojure
                               null-ls.builtins.diagnostics.clj_kondo
                               null-ls.builtins.formatting.joker
                               null-ls.builtins.formatting.fnlfmt
-                              ;; Ansible
-                              null-ls.builtins.diagnostics.ansiblelint
                               ;; Shell
                               null-ls.builtins.diagnostics.fish
                               null-ls.builtins.formatting.shfmt
@@ -62,8 +60,7 @@
                               null-ls.builtins.formatting.gofmt
                               ;; SQL
                               null-ls.builtins.formatting.sql_formatter
-                              ;; YAML
-                              null-ls.builtins.formatting.yamlfmt
+                              ; ;; YAML
                               null-ls.builtins.diagnostics.yamllint
                               ;; Lua
                               (null-ls.builtins.formatting.stylua.with {:extra_args [:--indent-type=Spaces

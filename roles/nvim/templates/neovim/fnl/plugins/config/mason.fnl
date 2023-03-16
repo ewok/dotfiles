@@ -10,22 +10,16 @@
                                   :terraform-ls
                                   :ltex-ls
                                   :zk]
-                            :linter [:proselint
-                                     :yamllint
-                                     :sqlfluff
+                            :linter [:yamllint
                                      :markdownlint
-                                     :jsonlint
                                      :ansible-lint
                                      :pylint
                                      :codespell
                                      :hadolint
                                      :mypy
-                                     ; :write-good
                                      :tflint]
-                            :formatter [:cbfmt
-                                        :joker
+                            :formatter [:joker
                                         :black
-                                        :yamlfmt
                                         :markdownlint
                                         :shfmt
                                         :jq
