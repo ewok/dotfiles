@@ -14,5 +14,6 @@
         name: "{{ item }}"
         method: system
       become: true
+      failed_when: false
       loop:
         - "https://downloads.1password.com/linux/flatpak/1Password.flatpakref"
