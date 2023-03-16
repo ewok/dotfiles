@@ -22,3 +22,6 @@ export GTK_THEME=Adapta-Nokto
 export FZF_LEGACY_KEYBINDINGS=0
 export OPEN_CMD=open
 
+{%- if ansible_distribution == 'Void' %}
+export XBPS_DISTDIR="{{ conf.void_distdir }}"
+{%- endif %}

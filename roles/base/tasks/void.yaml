@@ -59,5 +59,15 @@
 - name: "Update xlocate database"
   ansible.builtin.cron:
     name: "xlocate_update"
+    minute: "0"
     hour: "*/2"
     job: "xlocate -S"
+
+- name: "Clone void-packages if not exists"
+  ansible.builtin.git:
+    repo: >
+      {{ conf.void_packages_repo
+      | default('https://github.com/void-linux/void-packages.git') }}
+    dest: "{{ conf.void_distdir }}"
+    update: false
+    version: master
