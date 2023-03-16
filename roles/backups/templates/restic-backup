@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+PASS_FILE="/etc/restic_pass"
+
+RESTIC="restic -r {{ conf.backup.repo }}/$HOSTNAME -p $PASS_FILE"
+
+if [[ "$1" == "backup-home" ]]; then
+  # Forget
+  $RESTIC forget --keep-daily 7 --keep-weekly 5 --keep-monthly 12 --keep-yearly 5 --prune
+
+  # Backup
+  $RESTIC backup \
+    --exclude-caches \
+    --exclude-if-present .nobackup \
+    {% for path in conf.backup.paths %}{{ path }} {% endfor %}
+
+else
+  $RESTIC "$@"
+fi
+

@@ -1,0 +1,29 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  become: true
+  loop:
+    - {src: "restic-backup", dest: "/usr/bin/restic-backup"}
+
+- name: If Void
+  when: ansible_distribution == "Void"
+  become: true
+  block:
+
+    - name: Run backup every day in random time
+      ansible.builtin.cron:
+        name: "Run backup every day in random time"
+        minute: "0"
+        hour: "14"
+        job: "/usr/bin/restic-backup backup-home"
+        state: present
+        user: "root"
