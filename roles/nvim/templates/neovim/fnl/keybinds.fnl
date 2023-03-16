@@ -3,6 +3,10 @@
 
 (local md {:noremap true :silent true})
 
+;; Converters
+(map! "v" "<leader>6d" "c<c-r>=system('base64 --decode', @\")<cr><esc>" { :noremap true :silent true } "Decode Base64")
+(map! "v" "<leader>6e" "c<c-r>=system('base64', @\")<cr><esc>" { :noremap true :silent true } "Encode Base64")
+
 ;; Navigation
 (map! [:n] :<C-O><C-O> :<C-O> md "Go Back")
 (map! [:n] :<C-O><C-I> :<Tab> md "Go Forward")

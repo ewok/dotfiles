@@ -35,7 +35,8 @@
         {: setup} (require :mason)
         {: is_installed : get_package} (require :mason-registry)]
     (do
-      (setup {:max_concurrent_installers 10
+      (setup {:PATH :skip
+             :max_concurrent_installers 10
               :ui {:border (or (and conf.options.float_border :rounded) :none)}
               :icons {:package_installed ""
                       :package_pending ""

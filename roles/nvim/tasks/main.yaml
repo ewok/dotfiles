@@ -21,6 +21,7 @@
     mode: "0644"
   loop:
     - {src: "20_nvim-vars.sh", dest: "~/.config/bash/profile.d/20_nvim-vars.sh"}
+    - {src: "20_nvim-vars.fish", dest: "~/.config/fish/conf.d/20_nvim-vars.fish"}
     - {src: "ctags", dest: "~/.ctags"}
     - {src: "vale.ini", dest: "~/.vale.ini"}
     - {src: "cbfmt.toml", dest: "~/.config/cbfmt.toml"}

@@ -85,5 +85,15 @@
 (vim.api.nvim_create_user_command :BufOnly buffer-delete-only
                                   {:desc "Delete all other buffers"})
 
+;; Autoread
+(tset vim.opt :autoread true)
+(vim.api.nvim_create_autocmd [:BufEnter :CursorHold :CursorHoldI :FocusGained]
+                             {:command "if mode() != 'c' | checktime | endif"
+                              :pattern ["*"]})
+
+;; Autosize windows
+(vim.api.nvim_create_autocmd [:VimResized] {:command "wincmd ="
+                             :pattern ["*"]})
+
 ;; load local vimrc
 (vim.api.nvim_exec "\n try\n source ~/.vimrc.local\n catch\n endtry" nil)
