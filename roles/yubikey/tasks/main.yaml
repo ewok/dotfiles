@@ -53,3 +53,44 @@
     enabled: true
   when: ansible_distribution == "Void"
   become: true
+
+- name: Pam
+  become: true
+  block:
+
+    # gnome-keyring pam installation
+    - name: "Provide auth pam_gnome_keyring.so in lightdm"
+      community.general.pamd:
+        name: lightdm
+        type: auth
+        control: required
+        module_path: pam_unix.so
+        new_type: auth
+        new_control: optional
+        new_module_path: pam_gnome_keyring.so
+        state: after
+
+    # gnome-keyring pam installation
+    - name: "Provide session pam_gnome_keyring.so in lightdm"
+      community.general.pamd:
+        name: lightdm
+        type: session
+        control: required
+        module_path: pam_unix.so
+        new_type: session
+        new_control: optional
+        new_module_path: pam_gnome_keyring.so
+        module_arguments: ["auto_start"]
+        state: after
+
+    # gnome-keyring pam installation
+    - name: "Provide auth pam_gnome_keyring.so in passwd"
+      community.general.pamd:
+        name: passwd
+        type: password
+        control: required
+        module_path: pam_unix.so
+        new_type: password
+        new_control: optional
+        new_module_path: pam_gnome_keyring.so
+        state: after
