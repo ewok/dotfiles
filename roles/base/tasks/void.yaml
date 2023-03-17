@@ -71,3 +71,12 @@
     dest: "{{ conf.void_distdir }}"
     update: false
     version: master
+
+- name: Disable speakers
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/nobeep.conf
+    content: |
+      blacklist pcspkr
+      blacklist snd_pcsp
+    mode: "0644"
+  become: true
