@@ -158,10 +158,10 @@ bindsym $mod+h focus left, exec bash {{ conf.folders.bin }}/center-mouse
 bindsym $mod+j focus down, exec bash {{ conf.folders.bin }}/center-mouse
 bindsym $mod+k focus up, exec bash {{ conf.folders.bin }}/center-mouse
 bindsym $mod+l focus right, exec bash {{ conf.folders.bin }}/center-mouse
-bindsym $mod+Shift+h move left, exec bash {{ conf.folders.bin }}/center-mouse
-bindsym $mod+Shift+j move down, exec bash {{ conf.folders.bin }}/center-mouse
-bindsym $mod+Shift+k move up, exec bash {{ conf.folders.bin }}/center-mouse
-bindsym $mod+Shift+l move right, exec bash {{ conf.folders.bin }}/center-mouse
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 workspace_auto_back_and_forth no
 
