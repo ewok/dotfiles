@@ -23,6 +23,12 @@ export DBUS_SESSION_BUS_ADDRESS=/dev/null
 PID=~/.cache/vpn-$NAME.pid
 VPN_DIR=~/share/vpn
 
+cleanup()
+{
+  sudo rm -f $VPN_DIR/$NAME.pw
+}
+trap cleanup 1 2 3 6 15 EXIT
+
 set -e
 
 case "$CMD" in
@@ -67,6 +73,14 @@ case "$CMD" in
     done
     exit 0
     ;;
+  log)
+    {% if ansible_distribution == "Void" %}
+    svlogtail | grep openvpn@$NAME
+    {% else %}
+    echo "Not implemented" >&2
+    {% endif %}
+    exit 0
+    ;;
   *)
     echo "Unsupported command, use: run,stop,status,status-all" >&2
     exit 2
@@ -83,73 +97,76 @@ if [[ -f $PID ]];then
   fi
 fi
 
-cleanup()
-{
-  sudo rm -f $VPN_DIR/*.pw
-}
-trap 'cleanup' 1 2 3 6 15
-
 get()
 {
   prop_name=$1
   if [[ -x $VPN_DIR/$NAME.conf ]];then
-    config="$($VPN_DIR/$NAME.conf)"
+    $VPN_DIR/$NAME.conf | grep "$prop_name" | cut -f2 -d=
   elif [[ -f $VPN_DIR/$NAME.conf ]];then
-    config="$(cat $VPN_DIR/$NAME.conf)"
+    cat $VPN_DIR/$NAME.conf | grep "$prop_name" | cut -f2 -d=
   fi
-  echo config | grep "$prop_name" | cut -f2 -d=
 }
 
 PASSWORD_TOOL=$(get PwdTool)
 PASSWORD_ENTITY=$(get PwdEntity)
+OTP_TOOL=$(get OtpTool)
 OTP_ENTITY=$(get OtpEntity)
 
-if [[ -n "$PASSWORD_TOOL" ]]
-then
-    sudo rm -f $VPN_DIR/$NAME.pw
+if [[ -n "$PASSWORD_TOOL" ]]; then
+  sudo rm -f $VPN_DIR/$NAME.pw
 
-    set -e
-    case "$PASSWORD_TOOL" in
-      lpass)
-        lpass show $PASSWORD_ENTITY --username > $VPN_DIR/$NAME.pw
-        lpass show $PASSWORD_ENTITY --password >> $VPN_DIR/$NAME.pw
+  set -e
+  case "$PASSWORD_TOOL" in
+    lpass)
+      lpass show $PASSWORD_ENTITY --username > $VPN_DIR/$NAME.pw
+      lpass show $PASSWORD_ENTITY --password >> $VPN_DIR/$NAME.pw
       ;;
-      op)
-        op-session item get $PASSWORD_ENTITY --fields username > $VPN_DIR/$NAME.pw
-        op-session item get $PASSWORD_ENTITY --fields password >> $VPN_DIR/$NAME.pw
+    op)
+      op-session item get $PASSWORD_ENTITY --fields username > $VPN_DIR/$NAME.pw
+      op-session item get $PASSWORD_ENTITY --fields password >> $VPN_DIR/$NAME.pw
       ;;
-      # TODO: Add bw
-      *)
-        echo "Unsupported PW tool $PASSWORD_TOOL" >&2
-        exit 2
+    bw)
+      bw get username $PASSWORD_ENTITY > $VPN_DIR/$NAME.pw
+      echo >> $VPN_DIR/$NAME.pw
+      bw get password $PASSWORD_ENTITY >> $VPN_DIR/$NAME.pw
+      if [[ $OTP_TOOL == "bw" ]]; then
+        bw get totp $PASSWORD_ENTITY >> $VPN_DIR/$NAME.pw
+      fi
       ;;
-    esac
+    *)
+      echo "Unsupported PW tool $PASSWORD_TOOL" >&2
+      exit 2
+      ;;
+  esac
 
-    sudo chmod 0600 $VPN_DIR/$NAME.pw
-    #sudo chown openvpn ~/share/vpn/$NAME.pw
-    if [[ $SE -eq 0 ]]; then
-        sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.pw
-    fi
+  sudo chmod 0600 $VPN_DIR/$NAME.pw
+  #sudo chown openvpn ~/share/vpn/$NAME.pw
+  if [[ $SE -eq 0 ]]; then
+    sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.pw
+  fi
 
+  if [[ -n $OTP_TOOL ]]; then
     if [[ $YKMAN -eq 0 ]]; then
-        if [[ -n "$OTP_ENTITY" ]]; then
-          set +e
-          ykman oath accounts code openvpn_$NAME | awk '{print $2}' | xclip
-          set -e
-        fi
+      if [[ -n "$OTP_ENTITY" ]]; then
+        set +e
+        ykman oath accounts code openvpn_$NAME | awk '{print $2}' >> $VPN_DIR/$NAME.pw
+        set -e
+      fi
     fi
+  fi
 
-    else
-    echo "nobody" > $VPN_DIR/$NAME.pw
-    echo "nopassword" >> $VPN_DIR/$NAME.pw
+else
+  echo "nobody" > $VPN_DIR/$NAME.pw
+  echo "nopassword" >> $VPN_DIR/$NAME.pw
 
-    if [[ $SE -eq 0 ]]; then
-        sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.pw
-    fi
+  if [[ $SE -eq 0 ]]; then
+    sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.pw
+  fi
 fi
 
 if [[ $SE -eq 0 ]]; then
-    sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.ovpn
+  sudo setfattr -n security.selinux -v "system_u:object_r:etc_t:s0" $VPN_DIR/$NAME.ovpn
 fi
 
 sudo openvpn --config $VPN_DIR/$NAME.ovpn --status /run/openvpn-$NAME.status 10 --daemon openvpn@$NAME --cd $VPN_DIR/ --auth-user-pass $VPN_DIR/$NAME.pw --writepid $PID
+cleanup
