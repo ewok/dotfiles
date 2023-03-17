@@ -9,7 +9,6 @@
   (map! :n :<Tab> :<cmd>BufferLineCycleNext<cr> {:silent true}
         "Go to right buffer")
   (map! :n :<leader>bn :<cmd>enew<cr> {:silent true} "Create new buffer")
-
   (map! :n :<leader>bh :<cmd>BufferLineCloseLeft<cr> {:silent true}
         "Close all left buffers")
   (map! :n :<leader>bl :<cmd>BufferLineCloseRight<cr> {:silent true}
@@ -27,59 +26,29 @@
   (map! :n :<leader>bt :<cmd>BufferLinePick<cr> {:silent true} "Go to buffer *")
   (map! :n :<leader>bs :<cmd>BufferLineSortByDirectory<cr> {:silent true}
         "Buffers sort (by directory)")
-  (map! :n :<leader>b1 "<cmd>BufferLineGoToBuffer 1<cr>" {:silent true}
-        "Go to buffer 1")
-  (map! :n :<leader>b2 "<cmd>BufferLineGoToBuffer 2<cr>" {:silent true}
-        "Go to buffer 2")
-  (map! :n :<leader>b3 "<cmd>BufferLineGoToBuffer 3<cr>" {:silent true}
-        "Go to buffer 3")
-  (map! :n :<leader>b4 "<cmd>BufferLineGoToBuffer 4<cr>" {:silent true}
-        "Go to buffer 4")
-  (map! :n :<leader>b5 "<cmd>BufferLineGoToBuffer 5<cr>" {:silent true}
-        "Go to buffer 5")
-  (map! :n :<leader>b6 "<cmd>BufferLineGoToBuffer 6<cr>" {:silent true}
-        "Go to buffer 6")
-  (map! :n :<leader>b7 "<cmd>BufferLineGoToBuffer 7<cr>" {:silent true}
-        "Go to buffer 7")
-  (map! :n :<leader>b8 "<cmd>BufferLineGoToBuffer 8<cr>" {:silent true}
-        "Go to buffer 8")
-  (map! :n :<leader>b9 "<cmd>BufferLineGoToBuffer 9<cr>" {:silent true}
-        "Go to buffer 9"))
+  (map! :n :<leader>bp :<cmd>BufferLineTogglePin<cr> {:silent true}
+        "Pin/Unpin current buffer")
+  (for [i 1 9]
+    (map! :n (.. :<leader> :b i) (.. "<cmd>BufferLineGoToBuffer " i :<cr>)
+          {:silent true} (.. "Go to buffer " i))))
 
 (fn config []
-  (let [bufferline (require :bufferline)]
+  (let [bufferline (require :bufferline)
+        groups (require :bufferline.groups)]
     (bufferline.setup {:options {:themable true
                                  :numbers :none
                                  :buffer_close_icon ""
                                  :modified_icon "●"
                                  :diagnostics :nvim_lsp
+                                 :color_icons true
                                  :indicator {:style :none}
                                  :show_buffer_close_icons false
                                  :show_close_icon false
                                  :show_tab_indicators true
                                  :sort_by :directory
                                  :persist_buffer_sort true
+                                 :separator_style :slant
                                  :always_show_bufferline true
-                                 ;; TODO: Might not work either
-                                 ; :diagnostics_indicator (fn [count
-                                 ;                             level
-                                 ;                             diagnostics_dict
-                                 ;                             context]
-                                 ;                          (let [message (match true
-                                 ;                                          diagnostics_dict.error (string.format "%s%s"
-                                 ;                                                                                conf.icons.Error
-                                 ;                                                                                diagnostics_dict.error)
-                                 ;                                          diagnostics_dict.warning (string.format "%s%s"
-                                 ;                                                                                  conf.icons.Warn
-                                 ;                                                                                  diagnostics_dict.warning)
-                                 ;                                          diagnostics_dict.info (string.format "%s%s"
-                                 ;                                                                               conf.icons.Info
-                                 ;                                                                               diagnostics_dict.info)
-                                 ;                                          diagnostics_dict.hint (string.format "%s%s"
-                                 ;                                                                               conf.icons.Hint
-                                 ;                                                                               diagnostics_dict.hint)
-                                 ;                                          _ "")]
-                                 ;                            message))
                                  :custom_areas {:right #[{:text (.. conf.separator.alt_right
                                                                     (string.gsub (vim.fn.getcwd)
                                                                                  conf.home-dir
@@ -114,6 +83,9 @@
                                            {:filetype :mind
                                             :text "Mind Map"
                                             :highlight :Directory
-                                            :text_align :center}]}})))
+                                            :text_align :center}]
+                                 :groups {:items [(groups.builtin.pinned:with {:icon "車"
+                                                                               :name :pinned})
+                                                  (groups.builtin.ungrouped:with {:sort_by :directory})]}}})))
 
 {:event [:BufNewFile :BufRead :TabEnter] : config : init}

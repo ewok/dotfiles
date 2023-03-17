@@ -14,7 +14,10 @@
 (fn config [] ; local nvim_navic = require("nvim-navic")
   (let [barbecue (require :barbecue)
         ui (require :barbecue.ui)]
-    (barbecue.setup {:create_autocmd false :attach_navic false :theme conf.options.theme})
+    (barbecue.setup {:create_autocmd false
+                     :attach_navic false
+                     :theme conf.options.theme
+                     :symbols {:separator conf.separator.alt_left}})
     (vim.api.nvim_create_autocmd [:CursorHold
                                   :BufWinEnter
                                   :InsertLeave

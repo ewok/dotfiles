@@ -20,7 +20,7 @@
                 ; :leap or :hop
                 :motion_plugin :leap
                 ;; bufferline or cokeline
-                :bufferline_plugin :cokeline
+                :bufferline_plugin :bufferline
                 :theme "{{ conf.theme.theme }}"})
 
 (local separator {:left "{{ conf.theme.separator_left }}"
