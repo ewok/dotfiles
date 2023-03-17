@@ -1,0 +1,22 @@
+---
+- name: "Import cleanup tasks"
+  ansible.builtin.import_tasks: cleanup.yaml
+
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ conf.folders.bin }}"}
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ conf.folders.bin }}/{{ item.dest | default(item.src) }}"
+    mode: "0755"
+  loop:
+    - {src: "vpn", dest: ""}

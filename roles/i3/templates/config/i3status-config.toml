@@ -127,6 +127,11 @@ format = "^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(pr
 interval = 10
 {% endif %}
 
+[[block]]
+block = "custom"
+command = "{{ conf.folders.bin }}/vpn status-all"
+interval = 15
+
 {% if ansible_distribution == "Void" %}
 [[block]]
 block = "music"
