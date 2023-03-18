@@ -2,7 +2,7 @@
 
 set -e
 NOTE="$HOME/Notes/inbox/$(date +%Y%m%d-%H%M).md"
-dmenucmd="{{ conf.folders.bin }}/rofi_run -dmenu -p Todo: "
+dmenucmd="{{ conf.folders.bin }}/rofi_run -dmenu -l 0 -p Todo: "
 result=$($dmenucmd | xargs echo)
 if [[ $result ]]; then
   echo >> "$NOTE"

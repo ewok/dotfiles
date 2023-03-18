@@ -14,7 +14,7 @@ if [ $? -eq 0 ]; then
 elif echo $prompt | grep -q '^sudo:'; then
   echo "$(rofi_run -password -dmenu -p 'Sudo password' -l 0 -sidebar -width 20)" | sudo -S echo "Granted" >&2
 else
-  rofi_run -dmenu -mesg "You don't have sudo priveleges." -a "vpn"
+  rofi_run -dmenu -mesg "You don't have sudo priveleges." -l 0 -a "vpn"
   exit 2
 fi
 

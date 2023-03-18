@@ -1,9 +1,25 @@
 * {
-  background: #{{ conf.colors.base01 }}ff;
-  foreground: #{{ conf.colors.base05 }}ff;
-  lightbg:    #{{ conf.colors.base02 }}ff;
-  lightfg:    #{{ conf.colors.base05 }}ff;
-  red:        #{{ conf.colors.base08 }}ff;
-  blue:       #{{ conf.colors.base0D }}ff;
-  font:       "{{ conf.theme.regular_font }} {{ conf.theme.regular_font_size }}";
+    background: #{{ conf.colors.base01 }}ff;
+    foreground: #{{ conf.colors.base05 }}ff;
+    lightbg:    #{{ conf.colors.base02 }}ff;
+    lightfg:    #{{ conf.colors.base05 }}ff;
+    red:        #{{ conf.colors.base08 }}ff;
+    blue:       #{{ conf.colors.base0D }}ff;
+    font:       "{{ conf.theme.regular_font }} {{ conf.theme.regular_font_size }}";
+    base00:     #{{ conf.colors.base00 }};
+    base01:     #{{ conf.colors.base01 }};
+    base02:     #{{ conf.colors.base02 }};
+    base03:     #{{ conf.colors.base03 }};
+    base04:     #{{ conf.colors.base04 }};
+    base05:     #{{ conf.colors.base05 }};
+    base06:     #{{ conf.colors.base06 }};
+    base07:     #{{ conf.colors.base07 }};
+    base08:     #{{ conf.colors.base08 }};
+    base09:     #{{ conf.colors.base09 }};
+    base0A:     #{{ conf.colors.base0A }};
+    base0B:     #{{ conf.colors.base0B }};
+    base0C:     #{{ conf.colors.base0C }};
+    base0D:     #{{ conf.colors.base0D }};
+    base0E:     #{{ conf.colors.base0E }};
+    baseoF:     #{{ conf.colors.base0F }};
 }

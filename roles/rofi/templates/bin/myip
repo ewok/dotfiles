@@ -1,4 +1,4 @@
-dmenucmd="rofi_run -dmenu -p MyIP: $@"
+dmenucmd="rofi_run -dmenu -l 1 -p MyIP: $@"
 while : ; do
     result=$(curl ifconfig.me | $dmenucmd)
     if [[ $result ]]; then

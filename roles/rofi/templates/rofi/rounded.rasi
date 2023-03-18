@@ -1,0 +1,99 @@
+@import "colors.rasi"
+
+* {
+    bg0:    @base01;
+    bg1:    @base02;
+    bg2:    @base03;
+    bg3:    @base0C;
+    fg0:    @base05;
+    fg1:    @base06;
+    fg2:    @base07;
+    fg3:    @base04;
+
+    background-color:   transparent;
+    text-color:         @fg0;
+
+    margin:     0px;
+    padding:    0px;
+    spacing:    0px;
+}
+
+window {
+    location:       center;
+    width:          480;
+    border-color:       @bg3;
+    border:         1px;
+    /* border-radius:  4px; */
+
+    background-color:   @bg0;
+}
+
+mainbox {
+    padding:    10px;
+}
+
+inputbar {
+    background-color:   @bg1;
+    border-color:       @bg3;
+
+    border:         1px;
+    border-radius:  14px;
+
+    padding:    6px 10px;
+    spacing:    6px;
+    children:   [ prompt, entry ];
+}
+
+prompt {
+    text-color: @fg2;
+}
+
+entry {
+    placeholder:        "Search";
+    placeholder-color:  @fg3;
+}
+
+message {
+    margin:             14px 0 0;
+    border-radius:      14px;
+    border-color:       @bg2;
+    background-color:   @bg2;
+}
+
+textbox {
+    padding:    8px 24px;
+}
+
+listview {
+    background-color:   transparent;
+
+    margin:     12px 0 0;
+    lines:      10;
+    columns:    1;
+
+    fixed-height: false;
+}
+
+element {
+    padding:        6px 10px;
+    spacing:        6px;
+    border-radius:  14px;
+}
+
+element normal active {
+    text-color: @bg3;
+}
+
+element selected normal, element selected active {
+    text-color: @bg0;
+    background-color:   @bg3;
+}
+
+element-icon {
+    size:           1em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    text-color: inherit;
+}

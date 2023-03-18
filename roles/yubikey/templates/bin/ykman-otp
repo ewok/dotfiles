@@ -7,7 +7,7 @@ if [ ! $(command -v xclip) ];then notify-send -t 5000 "xclip is not installed";f
 PASS=""
 if [ ! "$(ykman info)" ]
 then
-    {{ conf.folders.bin }}/rofi_run -dmenu -mesg "Yubikey not detected." -a "{{ conf.folders.bin }}/rofi-ykman"
+    {{ conf.folders.bin }}/rofi_run -dmenu -l 0 -mesg "Yubikey not detected." -a "{{ conf.folders.bin }}/rofi-ykman"
     exit 1
 else
     PASS_ENABLED=$(ykman oath info | grep "Password protection" | awk '{print $3}')
