@@ -101,3 +101,5 @@ packages_void:
   # Fonts
   - font-awesome6
   - noto-fonts-emoji
+    # Other
+  - lm_sensors
