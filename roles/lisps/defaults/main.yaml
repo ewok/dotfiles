@@ -10,5 +10,4 @@ packages_debian: []
 packages_void:
   - babashka
   - clojure
-# TODO: via src
-# fennel clj-kondo-bin
+  - leiningen

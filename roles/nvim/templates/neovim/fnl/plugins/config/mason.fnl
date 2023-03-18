@@ -12,6 +12,7 @@
                                   :zk]
                             :linter [:yamllint
                                      :markdownlint
+                                     :clj-kondo
                                      :ansible-lint
                                      :pylint
                                      :codespell
@@ -36,7 +37,7 @@
         {: is_installed : get_package} (require :mason-registry)]
     (do
       (setup {:PATH :skip
-             :max_concurrent_installers 10
+              :max_concurrent_installers 10
               :ui {:border (or (and conf.options.float_border :rounded) :none)}
               :icons {:package_installed ""
                       :package_pending ""
