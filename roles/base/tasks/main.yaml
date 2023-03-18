@@ -1,7 +1,4 @@
 ---
-- name: "Import cleanup tasks"
-  ansible.builtin.import_tasks: cleanup.yaml
-
 # Archlinux
 - name: "Install"
   ansible.builtin.include_tasks: "arch.yaml"

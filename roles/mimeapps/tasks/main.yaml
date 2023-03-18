@@ -1,7 +1,4 @@
 ---
-- name: "Import cleanup tasks"
-  ansible.builtin.import_tasks: cleanup.yaml
-
 - name: "Provide configs"
   ansible.builtin.template:
     src: "{{ item.src }}"
