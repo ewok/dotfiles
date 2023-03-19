@@ -1,28 +1,24 @@
 (local {: pack : map!} (require :lib))
 
 (local packages ;; Helpers
-       [;; (pack :zbirenbaum/copilot-cmp
-        ;;       {:opts {:formatters {:insert_text (. (require :copilot_cmp.format) :remove_existing)}}
-        ;;        :dependencies [(pack :zbirenbaum/copilot.lua
-        ;;                             {:config #(let [copilot (require :copilot)]
-        ;;                                         (copilot.setup {:filetypes {:yaml true
-        ;;                                                                     :markdown true}
-        ;;                                                         :suggestion {:enabled false}
-        ;;                                                         :panel {:enabled false}}))})]})
-        (pack :zbirenbaum/copilot.lua
-              {:config #(let [copilot (require :copilot)]
+       [(pack :zbirenbaum/copilot.lua
+              {:config #(let [copilot (require :copilot)
+                              cmp (require :cmp)]
+                          (: cmp.event :on :menu_opened
+                             #(set vim.b.copilot_suggestion_hidden true))
+                          (: cmp.event :on :menu_closed
+                             #(set vim.b.copilot_suggestion_hidden false))
+                          (map! :n :<leader>cc "<cmd>Copilot toggle<cr>"
+                                {:silent true} "Toggle Copilot")
                           (copilot.setup {:filetypes {:yaml true
                                                       :markdown true}
-                                          :suggestion {:auto_trigger true
+                                          :suggestion {:enabled true
+                                                       :auto_trigger false
                                                        :keymap {:accept :<C-l>
                                                                 :next :<C-n>
                                                                 :prev :<C-p>
                                                                 :dismiss :<C-k>}}
                                           :panel {:enabled false}}))})
-        ; (pack :github/copilot.vim
-        ;       {:config (fn []
-        ;                  (set vim.g.copilot_filetypes
-        ;                       {:markdown true :yaml true}))})
         ;;; Surround
         (pack :tpope/vim-surround {:config false})
         ;;; Autopairs
