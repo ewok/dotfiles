@@ -3,12 +3,12 @@
 h-status
 
 h \
-  -s bs \
+  bs \
   --no-elide \
   --no-total \
   --pretty-tables \
   --real \
-  ^ass $@
+  ^assets:cash $@
 
 # to show tend
 # with total

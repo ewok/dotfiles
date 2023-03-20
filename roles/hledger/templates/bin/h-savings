@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
+echo "********************************************************************************"
+echo Goals:
 h \
-  -s bal \
+  bal \
   --pretty-tables \
   -e $(date +%Y-%m --date="next month") \
-  -X USD \
   ^assets:goals $@
+echo
+
+echo "********************************************************************************"
+echo Assets:
+h \
+  bal \
+  --pretty-tables \
+  -e $(date +%Y-%m --date="next month") \
+  ^assets:asset $@
+echo
