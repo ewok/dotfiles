@@ -9,11 +9,11 @@
   (map! :n :<Tab> "<Plug>(cokeline-focus-next)" {:silent true}
         "Go to right buffer")
   (map! :n :<leader>bn :<cmd>enew<cr> {:silent true} "Create new buffer")
+  (map! :n :<leader>bo :<cmd>BufOnly<cr> {:silent true}
+        "Close all buffers except current")
   (for [i 1 9]
     (map! :n (.. :<leader> :b i) (.. "<Plug>(cokeline-focus-" i ")")
-          {:silent true} (.. "Go to buffer " i)))
-  (map! :n :<leader>bo :<cmd>BufOnly<cr> {:silent true}
-        "Close all buffers except current"))
+          {:silent true} (.. "Go to buffer " i))))
 
 ;; TODO: Tabs and custom area
 (fn config []
