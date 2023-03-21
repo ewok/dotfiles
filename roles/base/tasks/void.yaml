@@ -80,3 +80,11 @@
       blacklist snd_pcsp
     mode: "0644"
   become: true
+
+- name: "Provide scripts"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0755"
+  loop:
+    - {src: "xr", dest: "{{ conf.folders.bin }}/xr"}

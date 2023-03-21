@@ -1,0 +1,40 @@
+#!/bin/sh
+# xr PKGS... - like xbps-remove, but take sudo/su into account
+
+which_sudo() {
+	if [ "$(id -u)" = "0" ]; then
+		return
+	elif command -v sudo >/dev/null && sudo -l | grep -q -e ' ALL$' -e xbps-remove; then
+		echo sudo
+	elif command -v doas >/dev/null && [ -f /etc/doas.conf ]; then
+		echo doas
+	else
+		echo su
+	fi
+}
+
+do_install() {
+	if [ "$SUDO" = su ]; then
+		su root -c 'xbps-install "$@"' -- sh "$@"
+	else
+		$SUDO xbps-install "$@"
+	fi
+}
+
+do_remove() {
+	if [ "$SUDO" = su ]; then
+		su root -c 'xbps-remove "$@"' -- sh "$@"
+	else
+		$SUDO xbps-remove "$@"
+	fi
+}
+
+SUDO=$(which_sudo)
+do_remove "$@"
+status=$?
+if [ $status -eq 16 ]; then
+	do_install -u xbps &&
+	do_remove "$@"
+else
+	exit $status
+fi
