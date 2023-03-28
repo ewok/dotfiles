@@ -29,21 +29,17 @@
 
 " ================================================================================
 " Not holded by 'open' script
-"
-filextype *.fb2,*.epub,*.awz,*.mobi,*.cbr,*.cbz
-        \ {View in Foliate}
-        \ $HOME/.local/bin/run host flatpak run --command=com.github.johnfactotum.Foliate --file-forwarding com.github.johnfactotum.Foliate @@u "file://%d/%f" %i &,
 
 " ================================================================================
 " Open in console
 filetype *.fb2,*.epub,*.awz,*.mobi
         \ {View in epr}
-        \ epr %f,
+        \ epr %c,
 
 " MD5
 filetype *.md5
        \ {Check MD5 hash sum}
-       \ md5sum -c %f,
+       \ md5sum -c %c,
 
 " GPG signature
 filetype *.asc
@@ -53,7 +49,7 @@ filetype *.asc
 " ================================================================================
 " Viewers
 "
-fileviewer .*/,*/ tree %f
+fileviewer .*/,*/ tree %c
 
 fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s dante --syntax c %c
 fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
@@ -97,41 +93,47 @@ filetype *.ftp
 
 " ================================================================================
 " Default
+filextype *.fb2,*.epub,*.awz,*.mobi,*.cbr,*.cbz
+        \ {Default}
+        \ open %c %i &,
+        " \ {View in Foliate}
+        " \ $HOME/.local/bin/run host flatpak run --command=com.github.johnfactotum.Foliate --file-forwarding com.github.johnfactotum.Foliate @@u "file://%d/%f" %i &,
+
 filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.pdf,*.djvu
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.html,*.htm
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.bmp,*.gif,*.ico,*.jpeg,*.jpg,*.png,*.svg,*.svgz,*.tga,*.tiff,*.xmb,*.xcf,*.xpm,*.xspf,*.xwd
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.heic
         \ {Default}
-        \ viewnior "%f" %i &,
+        \ viewnior %c %i &,
 
 filextype *.cr2,*.dng,*.3fr,*.ari,*.arw,*.bay,*.crw,*.cr3,*.cap,*.data,*.dcs,*.dcr,*drf,*.eip,*.erf,*.fff
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.gpr,*.iiq,*.k25,*.kdc,*.mdc,.*mef,*.mos,.*.mrw,.*.obm,*.orf,*.pef,*.ptx,*.pxn,*.r3d,*.raf,*.raw
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 filextype *.rwl,*.rw2,*.rwz,*.sr2,*.srf,*.srf,*.srw,*.tif,*.x3f
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
-filetype *.doc,*.docx,*.adoc,*.xls,*.xls,*.xlsmx,*.pptx,*.ppt
+filextype *.doc,*.docx,*.adoc,*.xls,*.xls,*.xlsmx,*.pptx,*.ppt
         \ {Default}
-        \ open "%f" %i &,
+        \ open %c %i &,
 
 " filetype * vim
 filetype *
