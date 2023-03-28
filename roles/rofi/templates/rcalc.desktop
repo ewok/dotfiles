@@ -1,4 +1,4 @@
 [Desktop Entry]
-Exec=rcalc
+Exec==
 Name=Calculator
 Shortcut=c
