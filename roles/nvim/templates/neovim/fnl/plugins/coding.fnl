@@ -13,7 +13,7 @@
                           (copilot.setup {:filetypes {:yaml true
                                                       :markdown true}
                                           :suggestion {:enabled true
-                                                       :auto_trigger false
+                                                       :auto_trigger true
                                                        :keymap {:accept :<C-l>
                                                                 :next :<C-n>
                                                                 :prev :<C-p>
