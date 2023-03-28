@@ -1,0 +1,6 @@
+---
+packages_archlinux: [keepassxc]
+
+packages_debian: []
+
+packages_void: [keepassxc]

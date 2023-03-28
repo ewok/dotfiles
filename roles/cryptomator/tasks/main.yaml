@@ -1,0 +1,37 @@
+---
+- name: "Install"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ conf.folders.bin }}"}
+    - {dir: "~/.config/Cryptomator/"}
+    - {dir: "~/.config/i3/autostart.d/"}
+
+- name: "Download"
+  ansible.builtin.get_url:
+    url: "https://github.com/cryptomator/cryptomator/releases/download/1.7.3/cryptomator-1.7.3-x86_64.AppImage"
+    dest: "~/.local/share/appimages/cryptomator.AppImage"
+    mode: "0755"
+    checksum: "sha256: 2e20bddb9f79f974faf2506d3b7bce7b8bd5d39e5c53ca55b93d293df80ef314"
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "settings.json", dest: "~/.config/Cryptomator/settings.json"}
+    - {src: "i3_autostart", dest: "~/.config/i3/autostart.d/cryptomator.conf"}
+
+- name: "Provide scripts"
+  ansible.builtin.copy:
+    content: |
+      #!/usr/bin/env bash
+      ~/.local/share/appimages/cryptomator.AppImage $@
+    dest: "{{ conf.folders.bin }}/cryptomator"
+    mode: "0755"
