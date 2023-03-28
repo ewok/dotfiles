@@ -3,6 +3,7 @@
 (require :ft.common)
 (require :ft.conf)
 (require :ft.fennel)
+(require :ft.git)
 (require :ft.go)
 (require :ft.helm)
 (require :ft.json)

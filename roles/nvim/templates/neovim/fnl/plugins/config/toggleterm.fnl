@@ -106,14 +106,14 @@
                                                :on_open open_callback_lazygit
                                                :on_close close_callback})]
                                (: lazygit :toggle))
-            {:silent true} "Git file history")
+            {:silent true} "File history")
       ;; Lazygit
-      (each [key info (pairs {:<leader>gs {:cmd "lazygit status"
-                                           :desc "Git status"
-                                           :count 140}
-                              :<leader>gll {:cmd "lazygit log"
-                                            :desc "Git log"
-                                            :count 141}
+      (each [key info (pairs {; :<leader>gg {:cmd "lazygit status"
+                              ;               :desc "Git status"
+                              ;               :count 140}
+                              ; :<leader>glL {:cmd "lazygit log"
+                              ;               :desc "Log"
+                              ;               :count 141}
                               :<leader>gg {:cmd :lazygit
                                            :desc "Git overall"
                                            :count 142}})]

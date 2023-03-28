@@ -2,7 +2,7 @@
 
 (reg-ft :qf
         #(do
-           (map! [:n] :q ":cclose<cr>" {:silent true :buffer true} :Close)
+           (map! [:n] :q "<cmd>bdelete<cr>" {:silent true :buffer true} :Close)
            (map! [:n] "n" ":cnext|wincmd p<cr>" {:silent true :buffer true}
                  "Next C item")
            (map! [:n] "p" ":cprevious|wincmd p<cr>"

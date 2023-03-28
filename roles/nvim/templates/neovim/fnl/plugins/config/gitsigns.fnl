@@ -1,37 +1,31 @@
 (local {: map!} (require :lib))
 
-(fn on_attach [bufnr] ; map( ;     "n", ;     "<leader>gtl", ;     "<cmd>Gitsigns toggle_current_line_blame<cr>", ;     { silent = true }, ;     "Toggle current line blame" ; )
+(fn on_attach [bufnr]
   (map! [:n] :<leader>gtl "<cmd>Gitsigns toggle_current_line_blame<cr>"
-        {:silent true} "Toggle current line blame") ; map( ;     "n", ;     "<leader>ghp", ;     "<cmd>lua require'gitsigns'.preview_hunk()<cr>", ;     { silent = true }, ;     "Preview current hunk" ; )
+        {:silent true :buffer bufnr} "Toggle current line blame")
   (map! [:n] :<leader>ghp "<cmd>lua require'gitsigns'.preview_hunk()<cr>"
-        {:silent true} "Preview current hunk") ; map( ;     "n", ;     "<leader>ghP", ;     "<cmd>lua require'gitsigns'.blame_line{full=true}<cr>", ;     { silent = true }, ;     "Show current block blame" ; )
+        {:silent true :buffer bufnr} "Preview current hunk")
   (map! [:n] :<leader>ghP
-        "<cmd>lua require'gitsigns'.blame_line{full=true}<cr>" {:silent true}
-        "Show current block blame") ; map("n", "<leader>ghd", "<cmd>Gitsigns diffthis<cr>", { silent = true }, "Open deff view")
-  (map! [:n] :<leader>ghd "<cmd>Gitsigns diffthis<cr>" {:silent true}
-        "Open deff view") ; map("n", "<leader>gtD", "<cmd>Gitsigns toggle_deleted<cr>", { silent = true }, "Show deleted lines")
-  (map! [:n] :<leader>gtD "<cmd>Gitsigns toggle_deleted<cr>" {:silent true}
-        "Show deleted lines") ; map("n", "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", { silent = true }, "Reset current hunk")
-  (map! [:n] :<leader>ghr "<cmd>Gitsigns reset_hunk<cr>" {:silent true}
-        "Reset current hunk") ; map("v", "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", { silent = true }, "Reset current hunk")
-  (map! [:v] :<leader>ghr "<cmd>Gitsigns reset_hunk<cr>" {:silent true}
-        "Reset current hunk") ; map("n", "<leader>ghR", "<cmd>Gitsigns reset_buffer<cr>", { silent = true }, "Reset current buffer")
-  (map! [:n] :<leader>ghR "<cmd>Gitsigns reset_buffer<cr>" {:silent true}
-        "Reset current buffer") ; map("n", "[g", function() ;     if vim.wo.diff then ;         return "[c" ;     end ;     vim.schedule(function() ;         gitsigns.prev_hunk() ;     end) ;     return "<Ignore>" ; end, { silent = true, expr = true }, "Jump to the prev hunk")
-  (map! [:n] "[g" (fn []
-                    (if (vim.wo.diff)
-                        "[c"
-                        (do
-                          (vim.schedule #(gitsigns.prev_hunk))
-                          :<Ignore>)))
-        {:silent true :expr true} "Jump to the prev hunk") ; map("n", "]g", function() ;     if vim.wo.diff then ;         return "]c" ;     end ;     vim.schedule(function() ;         gitsigns.next_hunk() ;     end) ;     return "<Ignore>" ; end, { silent = true, expr = true }, "Jump to the next hunk")
-  (map! [:n] "]g" (fn []
-                    (if (vim.wo.diff)
-                        "]c"
-                        (do
-                          (vim.schedule #(gitsigns.next_hunk))
-                          :<Ignore>)))
-        {:silent true :expr true} "Jump to the next hunk"))
+        "<cmd>lua require'gitsigns'.blame_line{full=true}<cr>"
+        {:silent true :buffer bufnr} "Show current block blame")
+  (map! [:n] :<leader>ghd "<cmd>Gitsigns diffthis<cr>"
+        {:silent true :buffer bufnr} "Open deff view")
+  (map! [:n] :<leader>gtD "<cmd>Gitsigns toggle_deleted<cr>"
+        {:silent true :buffer bufnr} "Show deleted lines")
+  (map! [:n] :<leader>ghr "<cmd>Gitsigns reset_hunk<cr>"
+        {:silent true :buffer bufnr} "Reset current hunk")
+  (map! [:v] :<leader>ghr "<cmd>Gitsigns reset_hunk<cr>"
+        {:silent true :buffer bufnr} "Reset current hunk")
+  (map! [:n] :<leader>ghR "<cmd>Gitsigns reset_buffer<cr>"
+        {:silent true :buffer bufnr} "Reset current buffer")
+  (map! [:n] "[g" (if vim.wo.diff
+                      "[c"
+                      "<cmd>lua vim.schedule(require'gitsigns'.prev_hunk)<cr>")
+        {:silent true :buffer bufnr} "Jump to the prev hunk")
+  (map! [:n] "]g" (if vim.wo.diff
+                      "]c"
+                      "<cmd>lua vim.schedule(require'gitsigns'.next_hunk)<cr>")
+        {:silent true :buffer bufnr} "Jump to the next hunk"))
 
 (fn config []
   (let [gitsigns (require :gitsigns)]

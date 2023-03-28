@@ -1,6 +1,7 @@
 (fn config []
   (let [wk (require :which-key)]
-    (wk.setup {:plugins {:spelling {:enabled true :suggestions 20}}
+    (wk.setup {:plugins {:presets {:operators false :motions true}
+                         :spelling {:enabled true :suggestions 20}}
                :icons {:breadcrumb " " :separator " " :group " "}
                :operators {:gc :Comments}
                :window {:border :single}})
@@ -11,6 +12,7 @@
                   :g {:name :Git}
                   :gf {:name "Git Fetch"}
                   :gl {:name "Git Log"}
+                  :gt {:name "Git Toggle"}
                   :gp {:name "Git Push"}
                   :i {:name :Insert}
                   :l {:name :Lsp}
