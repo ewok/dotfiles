@@ -3,14 +3,15 @@
 (fn config []
   (let [md {:noremap true :silent true}]
     (map! [:n] :<leader>gb "<cmd>Git blame<CR>" md "Git Blame")
-    (map! [:n] :<leader>ge "<cmd>Gedit<CR>" md "Git Edit")
+    (map! [:n] :<leader>ge :<cmd>Gedit<CR> md "Git Edit")
     (map! [:n] :<leader>gd :<cmd>Gvdiffsplit<CR> md "Git Diff")
     (map! [:n] :<leader>gx "<cmd>.GBrowse %<CR>" md "Git Browse")
     (map! [:n] :<leader>gl.
           #(vim.cmd "exe \":G log -U1 -L \" . string(getpos('.')[1]) . \",+1:%\"")
-          md "Line")
-    (map! [:n] :<leader>gll "<cmd>Flog<cr>" md "Commits")
-    (map! [:n] :<leader>gls "<cmd>Flogsplit<cr>" md "Commits Split")
+          md :Line)
+    (map! [:n] :<leader>glt :<cmd>Flog<cr> md "Commits in Tab")
+    (map! [:n] :<leader>gll :<cmd>Flogsplit<cr> md "History")
+    (map! [:n] :<leader>glf "<cmd>Flogsplit -path=%<cr>" md "File History")
     (map! [:n] :<leader>gfm "<cmd>Git pull<CR>" md "Git Merge")
     (map! [:n] :<leader>gfr "<cmd>Git pull --rebase<CR>" md "Git Rebase")
     (map! [:n] :<leader>gps "<cmd>Git push<CR>" md "Git Push")

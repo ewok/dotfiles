@@ -94,26 +94,26 @@
       (map! [:n :t] :<c-cr> float-terminal {:silent true}
             "Toggle floating terminal")
       ;; Lazygit file history
-      (map! :n :<leader>glf #(let [lazygit (: terms :new
-                                              {:cmd (.. "lazygit log -f "
-                                                        (vim.fn.expand "%"))
-                                               :hidden true
-                                               :count 130
-                                               :direction :float
-                                               :float_opts {:border (if conf.options.float_border
-                                                                        :rounded
-                                                                        :none)}
-                                               :on_open open_callback_lazygit
-                                               :on_close close_callback})]
-                               (: lazygit :toggle))
-            {:silent true} "File history")
+      ;; (map! :n :<leader>glf #(let [lazygit (: terms :new
+      ;;                                         {:cmd (.. "lazygit log -f "
+      ;;                                                   (vim.fn.expand "%"))
+      ;;                                          :hidden true
+      ;;                                          :count 130
+      ;;                                          :direction :float
+      ;;                                          :float_opts {:border (if conf.options.float_border
+      ;;                                                                   :rounded
+      ;;                                                                   :none)}
+      ;;                                          :on_open open_callback_lazygit
+      ;;                                          :on_close close_callback})]
+      ;;                          (: lazygit :toggle))
+      ;;       {:silent true} "File history")
       ;; Lazygit
-      (each [key info (pairs {; :<leader>gg {:cmd "lazygit status"
-                              ;               :desc "Git status"
-                              ;               :count 140}
-                              ; :<leader>glL {:cmd "lazygit log"
-                              ;               :desc "Log"
-                              ;               :count 141}
+      (each [key info (pairs {;; :<leader>gg {:cmd "lazygit status"
+                              ;;               :desc "Git status"
+                              ;;               :count 140}
+                              ;; :<leader>glL {:cmd "lazygit log"
+                              ;;               :desc "Log"
+                              ;;               :count 141}
                               :<leader>gg {:cmd :lazygit
                                            :desc "Git overall"
                                            :count 142}})]

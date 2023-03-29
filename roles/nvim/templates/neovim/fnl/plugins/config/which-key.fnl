@@ -11,6 +11,7 @@
                   :fs {:name :Settings}
                   :g {:name :Git}
                   :gf {:name "Git Fetch"}
+                  :gh {:name :Hunk}
                   :gl {:name "Git Log"}
                   :gt {:name "Git Toggle"}
                   :gp {:name "Git Push"}
@@ -24,6 +25,14 @@
                   :t {:name :Toggle}
                   :w {:name :Wiki}}
                  {:prefix :<leader> :mode :n})
+    (wk.register {:6 {:name :Base64}
+                  :c {:name :Code}
+                  :g {:name :Git}
+                  :gl {:name "Git Log"}
+                  :gh {:name :Hunk}
+                  :y {:name :Yank}
+                  :w {:name :Wiki}}
+                 {:prefix :<leader> :mode :x})
     (wk.register {:c {:name :Comment
                       :c "Toggle line comment"
                       :b "Toggle block comment"

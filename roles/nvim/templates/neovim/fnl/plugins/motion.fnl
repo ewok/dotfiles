@@ -1,6 +1,6 @@
 (local {: pack} (require :lib))
 
-[(pack :chaoren/vim-wordmotion {:config false})
+[(pack :chrisgrieser/nvim-spider (require :plugins.config.nvim-spider))
  (pack :tpope/vim-repeat {:config false})
  (pack :mg979/vim-visual-multi (require :plugins.config.vim-visual-multi))
  (case conf.options.motion_plugin
