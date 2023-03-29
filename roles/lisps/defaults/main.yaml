@@ -3,7 +3,7 @@ packages_archlinux:
   - aur/babashka-bin
   - community/clojure
   - community/fennel
-  - clj-kondo-bin
+    #  - clj-kondo-bin
 
 packages_debian: []
 

@@ -1,5 +1,5 @@
 ---
-packages_archlinux: [hledger]
+packages_archlinux: [hledger-bin]
 
 packages_debian: []
 
