@@ -11,6 +11,7 @@
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/Cryptomator/"}
     - {dir: "~/.config/i3/autostart.d/"}
+    - {dir: "~/.local/share/appimages/"}
 
 - name: "Download"
   ansible.builtin.get_url:
