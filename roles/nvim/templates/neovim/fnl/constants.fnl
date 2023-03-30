@@ -19,14 +19,16 @@
                 :rainbow_parents false
                 ; :leap or :hop
                 :motion_plugin :leap
-                ;; bufferline or cokeline
-                :bufferline_plugin :cokeline
-                :theme "{{ conf.theme.theme }}"})
+                ;; bufferline or cokeline or tabby or tabline
+                :bufferline_plugin :tabline
+                :theme "{{ conf.theme.theme }}"
+                :spelllang [:nospell :en_us :ru_ru]})
 
-(local separator {:left "{{ conf.theme.separator_left }}"
-                  :right "{{ conf.theme.separator_right }}"
-                  :alt_left "{{ conf.theme.alt_separator_left }}"
-                  :alt_right "{{ conf.theme.alt_separator_right }}"})
+(local separator
+       {:left "{{ conf.theme.separator_left }}"
+        :right "{{ conf.theme.separator_right }}"
+        :alt_left "{{ conf.theme.alt_separator_left }}"
+        :alt_right "{{ conf.theme.alt_separator_right }}"})
 
 ; :color_0 "#282c34"
 ; :color_1 "#e06c75"

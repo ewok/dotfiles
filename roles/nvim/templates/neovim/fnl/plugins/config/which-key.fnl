@@ -5,7 +5,8 @@
                :icons {:breadcrumb " " :separator " " :group " "}
                :operators {:gc :Comments}
                :window {:border :single}})
-    (wk.register {:b {:name :Buffers}
+    (wk.register {:8 "Dark/Light theme"
+                  :b {:name :Buffers}
                   :c {:name :Code}
                   :f {:name :Find}
                   :fs {:name :Settings}
@@ -17,12 +18,13 @@
                   :gp {:name "Git Push"}
                   :i {:name :Insert}
                   :l {:name :Lsp}
+                  :o {:name :Open}
                   :p {:name "Packer | Profiling"}
                   :r {:name :Replace :w "Replace Word To ..."}
                   :s {:name :Session}
                   :y {:name :Yank}
                   :yf {:name :File}
-                  :t {:name :Toggle}
+                  :t {:name :Tabs}
                   :w {:name :Wiki}}
                  {:prefix :<leader> :mode :n})
     (wk.register {:6 {:name :Base64}

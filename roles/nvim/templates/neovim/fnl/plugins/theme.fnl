@@ -1,11 +1,5 @@
 (local {: pack : map!} (require :lib))
 
-(map! :n :<leader>th (.. "<cmd>echo \"hi<\" . synIDattr(synID(line(\".\"),col(\".\"),1),\"name\")"
-                         "'> trans<' . synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")"
-                         "\"> lo<\" . synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),1)),\"name\")"
-                         "\">\"<CR>") {:noremap true}
-      "Toggle highlighting")
-
 (match conf.options.theme
   :dracula
   [(pack :Mofiqul/dracula.nvim {:config #(vim.cmd.colorscheme :dracula)})]
@@ -37,7 +31,7 @@
                                                                         :bg :$bg0
                                                                         :fmt :bold}}
                                               :style :dark
-                                              :toggle_style_key :<leader>ts
+                                              :toggle_style_key :<leader>8
                                               :toggle_style_list [:darker
                                                                   :light
                                                                   :dark]

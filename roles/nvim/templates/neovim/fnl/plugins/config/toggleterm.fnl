@@ -84,13 +84,13 @@
                                           :on_close close_callback})]
                             (: float :toggle nil :float))]
       ;; Horizontal terminal at the bottom
-      (map! :n :<leader>tt horizontal-terminal {:silent true}
-            "Toggle bottom or vertical terminal")
+      (map! :n :<leader>ot horizontal-terminal {:silent true}
+            "Open bottom or vertical terminal")
       (map! [:n :t] :<c-space> horizontal-terminal {:silent true}
             "Toggle bottom or vertical terminal")
       ;; Float terminal
-      (map! :n :<leader>tf float-terminal {:silent true}
-            "Toggle floating terminal")
+      (map! :n :<leader>of float-terminal {:silent true}
+            "Open floating terminal")
       (map! [:n :t] :<c-cr> float-terminal {:silent true}
             "Toggle floating terminal")
       ;; Lazygit file history
