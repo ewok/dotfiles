@@ -1,6 +1,28 @@
 #!/bin/env bash
 
-CMD=$(echo "qutebrowser-default|qutebrowser-work|google-chrome-stable|firefox|log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
+BROWSERS=""
+
+if [[ -x {{ conf.folders.bin }}/qutebrowser ]]; then
+    BROWSERS+="qutebrowser-default|qutebrowser-work|"
+fi
+
+if [[ -x {{ conf.folders.bin }}/vieb ]]; then
+    BROWSERS+="vieb|"
+fi
+
+if [[ -x {{ conf.folders.bin }}/google-chrome-stable ]]; then
+    BROWSERS+="google-chrome-stable|"
+fi
+
+if command -v chromium &>/dev/null; then
+    BROWSERS+="chromium|"
+fi
+
+if command -v firefox &>/dev/null; then
+    BROWSERS+="firefox|"
+fi
+
+CMD=$(echo "${BROWSERS}log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
 
 case $CMD in
     qutebrowser-default)
@@ -8,6 +30,12 @@ case $CMD in
         ;;
     qutebrowser-work)
         SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
+        ;;
+    vieb)
+        coproc vieb "$1"
+        ;;
+    chromium)
+        chromium "$1"
         ;;
     google-chrome-stable)
         google-chrome-stable "$1"

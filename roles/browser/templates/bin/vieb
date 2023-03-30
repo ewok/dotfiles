@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+~/.local/share/appimages/vieb.AppImage $@
