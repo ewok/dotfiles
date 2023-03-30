@@ -13,6 +13,9 @@ if [[ "$1" == "backup-home" ]]; then
   $RESTIC backup \
     --exclude-caches \
     --exclude-if-present .nobackup \
+    --exclude .terraform \
+    --exclude .terragrunt-cache \
+    --exclude .direnv \
     {% for path in conf.backup.paths %}{{ path }} {% endfor %}
 
 else
