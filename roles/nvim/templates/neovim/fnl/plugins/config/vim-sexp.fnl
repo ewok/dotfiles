@@ -1,3 +1,5 @@
+(local {: map! : reg-ft} (require :lib))
+
 (fn init []
   (do
     (set vim.g.sexp_filetypes (table.concat conf.lisp-langs ","))
@@ -43,4 +45,58 @@
           :sexp_capture_prev_element "+("
           :sexp_capture_next_element "+)"})))
 
-{: init}
+(fn config []
+  (let [hydra (require :hydra)]
+    (let [form (hydra {:name "Move Element"
+                       :config {:hint {:type :statusline}}
+                       :heads [[:h
+                                "<Plug>(sexp_swap_list_backward)"
+                                {:desc :left}]
+                               [:l
+                                "<Plug>(sexp_swap_list_forward)"
+                                {:desc :right}]
+                               [:r "<Plug>(sexp_raise_list)" {:desc :raise}]
+                               [:q nil {:exit true}]]})
+          element (hydra {:name "Move Element"
+                          :config {:hint {:type :statusline}}
+                          :heads [[:h
+                                   "<Plug>(sexp_swap_element_backward)"
+                                   {:desc :left}]
+                                  [:l
+                                   "<Plug>(sexp_swap_element_forward)"
+                                   {:desc :right}]
+                                  [:r
+                                   "<Plug>(sexp_raise_element)"
+                                   {:desc :raise}]
+                                  [:q nil {:exit true}]]})
+          head (hydra {:name "Move ("
+                       :config {:hint {:type :statusline}}
+                       :heads [[:h
+                                "<Plug>(sexp_capture_prev_element)"
+                                {:desc :left}]
+                               [:l
+                                "<Plug>(sexp_emit_head_element)"
+                                {:desc :right}]
+                               [:q nil {:exit true}]]})
+          tail (hydra {:name "Move )"
+                       :config {:hint {:type :statusline}}
+                       :heads [[:h
+                                "<Plug>(sexp_emit_tail_element)"
+                                {:desc :left}]
+                               [:l
+                                "<Plug>(sexp_capture_next_element)"
+                                {:desc :right}]
+                               [:q nil {:exit true}]]})]
+      (each [_ x (ipairs conf.lisp-langs)]
+        (reg-ft x #(do
+                     (map! :n :m "<cmd>WhichKey m<cr>" {:buffer true} :Menu)
+                     (map! :n :mh #(: head :activate) {:buffer true}
+                           "Move Head")
+                     (map! :n :ml #(: tail :activate) {:buffer true}
+                           "Move Tail")
+                     (map! :n :me #(: element :activate) {:buffer true}
+                           "Move Element")
+                     (map! :n :mf #(: form :activate) {:buffer true}
+                           "Move Form")))))))
+
+{: init : config}

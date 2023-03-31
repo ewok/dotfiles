@@ -10,7 +10,7 @@
  ;; Lualine
  (pack :nvim-lualine/lualine.nvim (require :plugins.config.lualine))
  ;; Buferline
-(pack :tiagovla/scope.nvim {:config true})
+ (pack :tiagovla/scope.nvim {:config true})
  (case conf.options.bufferline_plugin
    :tabline
    (pack :kdheepak/tabline.nvim (require :plugins.config.tabline))
@@ -25,4 +25,6 @@
  ;; Better QF
  ; (pack :kevinhwang91/nvim-bqf (require :plugins.config.bqf))
  ;; Which-Key
- (pack :folke/which-key.nvim (require :plugins.config.which-key))]
+ (pack :folke/which-key.nvim (require :plugins.config.which-key))
+ ;; Hydra
+ (pack :anuvyklack/hydra.nvim (require :plugins.config.hydra))]

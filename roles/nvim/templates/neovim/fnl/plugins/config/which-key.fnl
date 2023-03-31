@@ -6,7 +6,6 @@
                :operators {:gc :Comments}
                :window {:border :single}})
     (wk.register {:8 "Dark/Light theme"
-                  :b {:name :Buffers}
                   :c {:name :Code}
                   :f {:name :Find}
                   :fs {:name :Settings}
@@ -24,7 +23,7 @@
                   :s {:name :Session}
                   :y {:name :Yank}
                   :yf {:name :File}
-                  :t {:name :Tabs}
+                  :t {:name :Toggle}
                   :w {:name :Wiki}}
                  {:prefix :<leader> :mode :n})
     (wk.register {:6 {:name :Base64}

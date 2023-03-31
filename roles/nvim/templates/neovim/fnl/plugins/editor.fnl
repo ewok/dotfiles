@@ -11,6 +11,6 @@
  (pack :RRethy/vim-illuminate (require :plugins.config.vim-illuminate))
  ;; Colorizer
  (pack :norcalli/nvim-colorizer.lua
-       {:config #(map! [:n] :<leader>cC :<cmd>ColorizerToggle<cr>
+       {:config #(map! [:n] :<leader>tc :<cmd>ColorizerToggle<cr>
                        {:silent true} "Code Colorizer")})
  (pack :kosayoda/nvim-lightbulb (require :plugins.config.lightbulb))]

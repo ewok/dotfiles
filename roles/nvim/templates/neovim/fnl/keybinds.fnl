@@ -10,27 +10,6 @@
 (map! :v :<leader>6e "c<c-r>=system('base64', @\")<cr><esc>"
       {:noremap true :silent true} "Encode Base64")
 
-;; Spelling
-(map! :n :<leader>7
-      #(let [index (collect [key value (pairs conf.options.spelllang)]
-                     value
-                     key)]
-         (when (not vim.b.myLang)
-           (if vim.wo.spell
-               (set vim.b.myLang (. index vim.bo.spelllang))
-               (set vim.b.myLang 1)))
-         (set vim.b.myLang (+ vim.b.myLang 1))
-         (when (>= vim.b.myLang (+ 1 (vim.tbl_count conf.options.spelllang)))
-           (set vim.b.myLang 1))
-         (if (= vim.b.myLang 1)
-             (set vim.wo.spell false)
-             (do
-               (set vim.bo.spelllang (. conf.options.spelllang vim.b.myLang))
-               (set vim.wo.spell true)))
-         (print (.. "spell checking lang: "
-                    (. conf.options.spelllang vim.b.myLang))))
-      {:noremap true :silent true} "Toggle Spelling")
-
 ;; Navigation
 (map! [:n] :<C-O><C-O> :<C-O> md "Go Back")
 (map! [:n] :<C-O><C-I> :<Tab> md "Go Forward")

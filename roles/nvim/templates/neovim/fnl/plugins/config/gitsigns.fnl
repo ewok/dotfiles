@@ -18,13 +18,13 @@
         {:silent true :buffer bufnr} "Reset current hunk")
   (map! [:n] :<leader>ghR "<cmd>Gitsigns reset_buffer<cr>"
         {:silent true :buffer bufnr} "Reset current buffer")
-  (map! [:n] "[g" (if vim.wo.diff
-                      "[c"
-                      "<cmd>lua vim.schedule(require'gitsigns'.prev_hunk)<cr>")
+  (map! [:n] "[g"
+        (if vim.wo.diff "[c"
+            "<cmd>lua vim.schedule(require'gitsigns'.prev_hunk)<cr>")
         {:silent true :buffer bufnr} "Jump to the prev hunk")
-  (map! [:n] "]g" (if vim.wo.diff
-                      "]c"
-                      "<cmd>lua vim.schedule(require'gitsigns'.next_hunk)<cr>")
+  (map! [:n] "]g"
+        (if vim.wo.diff "]c"
+            "<cmd>lua vim.schedule(require'gitsigns'.next_hunk)<cr>")
         {:silent true :buffer bufnr} "Jump to the next hunk"))
 
 (fn config []
