@@ -23,7 +23,7 @@
                               :show_devicons true
                               :show_filename_only true
                               :modified_italic true}})
-    (let [buff_tabs (hydra {:name "Buffers/Tabs"
+    (let [buff_tabs (hydra {:name :Buffers/Tabs
                             :hint buff_hint
                             :config {:hint {:border :rounded}
                                      :on_key (fn []
@@ -62,6 +62,13 @@
                                     [:q nil {:exit true :desc false}]
                                     [:c nil {:exit true :desc false}]]})]
       (map! :n :<leader>b #(: buff_tabs :activate) {} :Buffers/Tabs)
-      )))
+      (map! :n :<S-Tab> #(do
+                           (vim.cmd :TablineBufferPrevious)
+                           (: buff_tabs :activate)) {}
+            :Buffers/Tabs)
+      (map! :n :<Tab> #(do
+                         (vim.cmd :TablineBufferNext)
+                         (: buff_tabs :activate)) {}
+            :Buffers/Tabs))))
 
 {: config : init}
