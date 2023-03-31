@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+BROW=${1:-choose-browser}
+BM=$(cat ~/.config/qutebrowser/quickmarks | LC_ALL=C sort -h | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Bookmark:" | sed 's/^.* \(.*\)$/\1/gi')
+$BROW "$BM"

@@ -16,6 +16,7 @@
     - {dir: "~/.config/qutebrowser"}
     - {dir: "~/Downloads"}
     - {dir: "~/.local/share/appimages/"}
+    - {dir: "~/.vieb/"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -27,7 +28,8 @@
     - {src: "config/org.custom.choose.browser.desktop", dest: "~/.local/share/applications/org.custom.choose.browser.desktop"}
     - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
     - {src: "config/vieb.desktop", dest: "~/.local/share/applications/vieb.desktop"}
-    - {src: "config/viebrc", dest: "~/.config/Vieb/viebrc"}
+    - {src: "config/vieb-work.desktop", dest: "~/.local/share/applications/vieb-work.desktop"}
+    - {src: "config/viebrc", dest: "~/.vieb/viebrc"}
 
 - name: Ensure bin directory structure exists
   ansible.builtin.file:

@@ -5,4 +5,4 @@ packages_archlinux:
 
 packages_debian: []
 
-packages_void: []
+packages_void: [rofi-rbw]

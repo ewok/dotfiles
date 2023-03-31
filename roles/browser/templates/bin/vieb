@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-~/.local/share/appimages/vieb.AppImage $@
+SESSION=vieb ~/.local/share/appimages/vieb.AppImage --window-frame=true $@

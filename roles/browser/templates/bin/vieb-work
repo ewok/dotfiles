@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+SESSION=vieb-work ~/.local/share/appimages/vieb.AppImage --datafolder=~/.config/ViebWork --window-frame=true $@

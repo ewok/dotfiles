@@ -1,0 +1,295 @@
+" Options
+set useragent=%firefox
+set guifontsize=11
+
+set adblocker=update
+set devtoolsposition=window
+
+colorscheme verticaltabs
+set darkreader=true
+set darkreaderbg=#{{ conf.colors.base00 }}
+
+set downloadmethod=confirm
+set downloadpath=~/Downloads
+
+set externalcommand=open
+
+set favoritepages=google.com,youtube.com,github.com
+
+set followchars=custom:fjkdghvbru
+set followelement=url,onclick,inputs-insert,inputs-click,media,image,other
+set follownewtabswitch=false
+
+set mapsuggestposition=bottomleft
+set mousenewtabswitch=false
+
+set notificationposition=topright
+
+set permissioncamera=ask
+set permissiondisplaycapture=ask
+set permissionmediadevices=allow
+set permissionmicrophone=ask
+set permissionpersistentstorage=allow
+
+set restoretabs
+set redirecttohttp
+
+set search=https://www.google.com/search?q=%s
+set searchwords+=b~https://www.bing.com/search?q=%s
+set searchwords+=d~https://duckduckgo.com/?q=%s
+set searchwords+=y~https://www.youtube.com/results?search_query=%s
+set searchwords+=aur~https://aur.archlinux.org/packages/?O=0&K=%s
+set searchwords+=l~https://www.ldoceonline.com/dictionary/%s
+set searchwords+=w~https://www.merriam-webster.com/dictionary/%s
+set searchwords+=spell~https://www.ldoceonline.com/spellcheck/english/?q=%s
+set searchwords+=t~https://www.reverso.net/text-translation#sl=eng&tl=rus&text=%s
+set searchwords+=tr~https://www.reverso.net/text-translation#tl=eng&sl=rus&text=%s
+set searchwords+=c~https://context.reverso.net/translation/english-russian/%s
+set searchwords+=cr~https://context.reverso.net/translation/russian-english/%s
+set searchwords+=j~https://{{ conf.jira.company }}.atlassian.net/browse/%s
+
+set splitbelow
+set splitright
+
+set tabclosefocusright
+set tabreopenposition=right
+set tabopenmuted=always
+
+set vimcommand="{{ conf.terminal }} -e nvim"
+
+set useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.100.0"
+
+set windowtitle="%title - %app"
+
+" Mappings Default
+
+" Command
+cmap <C-q> <:quitall>
+cmap <C-m> <useEnteredData>
+cmap <C-j> <nextSuggestion>
+cmap <C-k> <prevSuggestion>
+cmap <C-a> <Home>
+cmap <C-e> <End>
+cmap <A-f> <C-Right>
+cmap <A-b> <C-Left>
+cmap <A-d> <C-S-Right><BS>
+cmap <A-BS> <C-S-Left><BS>
+cmap <C-?> <Del>
+cmap <C-h> <BS>
+cmap <C-b> <Left>
+cmap <C-f> <Right>
+cmap <C-u> <S-Home><BS>
+cmap <C-w> <C-S-Left><BS>
+cmap <C-i> <editWithVim>
+" cunmap <A-F4>
+cunmap <C-F4>
+cunmap <C-F5>
+cunmap <F1>
+cunmap <F2>
+cunmap <F3>
+cunmap <F4>
+cunmap <F5>
+cunmap <F6>
+cunmap <F7>
+cunmap <F10>
+cunmap <F11>
+cunmap <F12>
+
+" Pointer
+emap <C-e> <editWithVim>
+emap <C-Tab> <nextSuggestionSection>
+emap <C-S-Tab> <prevSuggestionSection>
+emap <C-j> <nextSuggestion>
+emap <C-k> <prevSuggestion>
+emap <C-d> <nextSuggestionSection>
+emap <C-u> <prevSuggestionSection>
+emap <C-m> <useEnteredData>
+" eunmap <A-F4>
+eunmap <C-F4>
+eunmap <C-F5>
+eunmap <C-kDown>
+eunmap <C-kUp>
+eunmap <F1>
+eunmap <F2>
+eunmap <F3>
+eunmap <F4>
+eunmap <F5>
+eunmap <F6>
+eunmap <F7>
+eunmap <F10>
+eunmap <F11>
+eunmap <F12>
+
+" Follow
+" funmap <A-F4>
+funmap <C-F4>
+funmap <C-F5>
+funmap <F1>
+funmap <F2>
+funmap <F3>
+funmap <F4>
+funmap <F5>
+funmap <F6>
+funmap <F7>
+funmap <F10>
+funmap <F11>
+funmap <F12>
+funmap <Tab>
+
+" Insert
+" iunmap <A-F4>
+iunmap <C-F4>
+iunmap <C-F5>
+iunmap <F1>
+iunmap <F2>
+iunmap <F3>
+iunmap <F4>
+iunmap <F5>
+iunmap <F6>
+iunmap <F7>
+iunmap <F8>
+iunmap <F9>
+iunmap <F10>
+iunmap <F11>
+iunmap <F12>
+
+" Menu
+mmap <C-j> <menuDown>
+mmap <C-k> <menuUp>
+mmap <C-m> <menuSelect>
+mmap <C-a> <menuTop>
+mmap <C-d> <menuSectionDown>
+mmap <C-u> <menuSectionUp>
+munmap <A-F4>
+munmap <C-F4>
+munmap <C-F5>
+munmap <F1>
+munmap <F2>
+munmap <F3>
+munmap <F4>
+munmap <F5>
+munmap <F6>
+munmap <F7>
+munmap <F10>
+munmap <F11>
+munmap <F12>
+
+" Normal
+" nunmap <A-F4>
+nunmap <C-F4>
+nunmap <C-F5>
+nunmap <C-S-End>
+nunmap <C-S-Home>
+nunmap <C-S-PageDown>
+nunmap <C-S-PageUp>
+nunmap <C-S-Tab>
+nunmap <C-S-kPageDown>
+nunmap <C-S-kPageUp>
+nunmap <C-T>
+nunmap <C-Tab>
+nunmap <C-k0>
+nunmap <C-kPageDown>
+nunmap <C-kPageUp>
+nunmap <F1>
+nunmap <F2>
+nunmap <F3>
+nunmap <F4>
+nunmap <F5>
+nunmap <F6>
+nunmap <F7>
+nunmap <F10>
+nunmap <F11>
+nunmap <F12>
+
+nmap b :!bm $SESSION<cr>
+
+nmap = <zoomReset>
+nmap gH <:history>
+nmap gD <:devtools>
+nmap <C-h> <toLeftSplitWindow>
+nmap <C-j> <toBottomSplitWindow>
+nmap <C-k> <toTopSplitWindow>
+nmap <C-l> <toRightSplitWindow>
+
+nmap <C-w><C-l> <increaseWidthSplitWindow>
+nmap <C-w><C-h> <decreaseWidthSplitWindow>
+nmap <C-w><C-j> <increaseHeightSplitWindow>
+nmap <C-w><C-k> <decreaseHeightSplitWindow>
+
+" nmap <C-w>s <:split><rotateSplitWindowBackward>
+" nmap <C-w>v <:vsplit><rotateSplitWindowBackward>
+
+nmap <C-w>c <:hide>
+nmap <C-w><C-c> <:hide>
+nmap <C-w>q <:hide>
+nmap <C-w><C-q> <:hide>
+
+nmap <C-m> <clickOnSearch>
+
+nmap O <openNewTab><toExploreMode>
+nmap o <toExploreMode>
+nmap F <startFollowNewTab>
+nmap f <startFollowCurrentTab>
+nmap P <openNewTab><openFromClipboard>
+
+nunmap d
+nmap x <:close>
+nunmap ZZ
+nunmap ZQ
+
+" nmap S <startFollowNewSplit><exchangeSplitWindow>
+" nmap V <startFollowNewVerSplit><exchangeSplitWindow>
+nmap gx <openLinkExternal>
+
+nunmap m<Any>
+
+nmap mc <p.toggleMediaControls>
+nmap md <p.mediaDown>
+nmap ml <p.toggleMediaLoop>
+nmap mm <p.toggleMediaMute>
+nmap mp <p.toggleMediaPlay>
+nmap mu <p.mediaUp>
+
+nmap ss <toCommandMode>set<Space>
+
+" Pointer
+pmap H <p.moveFastLeft>
+pmap J <p.moveFastDown>
+pmap K <p.moveFastUp>
+pmap L <p.moveFastRight>
+pmap <C-m> <p.leftClick>
+pmap <C-d> <scrollPageDown>
+pmap <C-u> <scrollPageUp>
+
+punmap <F1>
+punmap <F2>
+punmap <F3>
+punmap <F4>
+punmap <F5>
+punmap <F6>
+punmap <F7>
+punmap <F10>
+punmap <F11>
+punmap <F12>
+
+vmap H <p.moveFastLeft>
+vmap J <p.moveFastDown>
+vmap K <p.moveFastUp>
+vmap L <p.moveFastRight>
+vmap <C-d> <scrollPageDown>
+vmap <C-u> <scrollPageUp>
+
+vunmap <F1>
+vunmap <F2>
+vunmap <F3>
+vunmap <F4>
+vunmap <F5>
+vunmap <F6>
+vunmap <F7>
+vunmap <F10>
+vunmap <F11>
+vunmap <F12>
+
+" Custom mappings
+
+nmap <space>td :set darkreader!<cr>
