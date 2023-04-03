@@ -2,7 +2,6 @@
 - hosts: localhost
 
   pre_tasks:
-
     - name: "Include default vars"
       tags:
         - always
@@ -16,10 +15,9 @@
         file: "{{ playbook_dir }}/profiles.yaml"
 
   tasks:
-
     - name: "Use role in loop"
       include_role:
-        name: '{{ roleinputvar }}'
+        name: "{{ roleinputvar }}"
       vars:
         conf: "{{ defaults|combine(machine[ansible_hostname].conf|default({})) }}"
       loop_control:
