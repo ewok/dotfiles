@@ -5,16 +5,16 @@ CMD=$(echo "Default|Work" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "
 case $CMD in
     Default)
         if [[ -z "$1" ]]; then
-            {{ conf.folders.bin }}/qutebrowser
+            {{ conf.folders.bin }}/qb
         else
-            {{ conf.folders.bin }}/qutebrowser --target tab-bg-silent "$1"
+            {{ conf.folders.bin }}/qb --target tab-bg-silent "$1"
         fi
         ;;
     Work)
         if [[ -z "$1" ]]; then
-            SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work
+            qb-work
         else
-            SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
+            qb-work --target tab-bg-silent "$1"
         fi
         ;;
 esac

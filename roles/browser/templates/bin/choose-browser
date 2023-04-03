@@ -2,12 +2,20 @@
 
 BROWSERS=""
 
-if [[ -x {{ conf.folders.bin }}/qutebrowser ]]; then
-    BROWSERS+="qutebrowser-default|qutebrowser-work|"
+if [[ -x {{ conf.folders.bin }}/qb ]]; then
+    BROWSERS+="qutebrowser|"
+fi
+
+if [[ -x {{ conf.folders.bin }}/qb-work ]]; then
+    BROWSERS+="qutebrowser-work|"
 fi
 
 if [[ -x {{ conf.folders.bin }}/vieb ]]; then
-    BROWSERS+="vieb-home|vieb-work|"
+    BROWSERS+="vieb-home|"
+fi
+
+if [[ -x {{ conf.folders.bin }}/vieb-work ]]; then
+    BROWSERS+="vieb-work|"
 fi
 
 if [[ -x {{ conf.folders.bin }}/google-chrome-stable ]]; then
@@ -26,10 +34,10 @@ CMD=$(echo "${BROWSERS}log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p
 
 case $CMD in
     qutebrowser-default)
-        {{ conf.folders.bin }}/qutebrowser --target tab-bg-silent "$1"
+        {{ conf.folders.bin }}/qb --target tab-bg-silent "$1"
         ;;
     qutebrowser-work)
-        SESSION_NAME=work {{ conf.folders.bin }}/qutebrowser -r work --target tab-bg-silent "$1"
+        {{ conf.folders.bin }}/qb-work --target tab-bg-silent "$1"
         ;;
     vieb-home)
         coproc vieb "$1"
