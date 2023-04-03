@@ -1,0 +1,1 @@
+{"email":"{{ conf.bitwarden.email }}","base_url":null,"identity_url":null,"lock_timeout":3600,"pinentry":"pinentry-gnome3"}

@@ -20,6 +20,7 @@
   loop:
     - {src: "99_bw.fish", dest: "~/.config/fish/conf.d/99_bw.fish"}
     - {src: "bitwarden.desktop", dest: "~/.local/share/applications/favorites/bitwarden.desktop"}
+    - {src: "rbw-config", dest: "~/.config/rbw/config.json"}
 
 - name: "Provide scripts"
   ansible.builtin.template:
