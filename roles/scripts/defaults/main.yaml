@@ -3,4 +3,4 @@ packages_archlinux: [ntfy]
 
 packages_debian: []
 
-packages_void: [ntfy]
+packages_void: [ntfy, yt-dlp, ffmpeg]

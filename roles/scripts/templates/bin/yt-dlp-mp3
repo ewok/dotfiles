@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Script to download music from Youtube in mp3 format with chapter support using yt-dlp
+
+yt-dlp --audio-format mp3 --audio-quality 0 --output "%(title)s.%(ext)s" -k --split-chapters --extract-audio "$@"
