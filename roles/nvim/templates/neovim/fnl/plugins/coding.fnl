@@ -2,12 +2,12 @@
 
 (local packages ;; Helpers
        [(pack :zbirenbaum/copilot.lua
-              {:config #(let [copilot (require :copilot)
-                              cmp (require :cmp)]
-                          (: cmp.event :on :menu_opened
-                             #(set vim.b.copilot_suggestion_hidden true))
-                          (: cmp.event :on :menu_closed
-                             #(set vim.b.copilot_suggestion_hidden false))
+              {:config #(let [copilot (require :copilot) ; cmp (require :cmp)
+                              ]
+                          ;; (: cmp.event :on :menu_opened
+                          ;;    #(set vim.b.copilot_suggestion_hidden true))
+                          ;; (: cmp.event :on :menu_closed
+                          ;;    #(set vim.b.copilot_suggestion_hidden false))
                           (map! :n :<leader>cc "<cmd>Copilot toggle<cr>"
                                 {:silent true} "Toggle Copilot")
                           (copilot.setup {:filetypes {:yaml true
@@ -25,8 +25,6 @@
         (pack :windwp/nvim-autopairs (require :plugins.config.nvim-autopairs))
         ;; Comments
         (pack :numToStr/Comment.nvim (require :plugins.config.comment))
-        ; ;; Heuristically set buffer options
-        ; (pack :tpope/vim-sleuth {:config false})
         ;; Allignment
         (pack :junegunn/vim-easy-align
               {:config (fn []
