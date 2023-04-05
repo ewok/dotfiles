@@ -268,8 +268,8 @@ c.bindings.commands = {
         "@": "macro-run",
         # GoTo
         "gs": "view-source",
-        "<space>oh": "history",
-        "<space>ob": "bookmark-list -t",
+        "gH": "history",
+        "gB": "bookmark-list -t",
         # Goto-Tab
         "gt": "set-cmd-text -s :tab-select",
         # Opening
@@ -377,11 +377,11 @@ c.bindings.commands = {
         "yf": "hint links yank",
         "p": "open -- {clipboard}",
         "P": "open -t -- {clipboard}",
-        # "<space>pi": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' --auto-lock 28800",
-        # "<space>pu": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -e --auto-lock 28800",
-        # "<space>pp": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -w --auto-lock 28800",
-        # "<space>pt": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -T --auto-lock 28800",
-        "<space>pu": "spawn {{ conf.folders.bin }}/qute-bw sync",
+        "<space>pi": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' --auto-lock 28800",
+        "<space>pu": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -e --auto-lock 28800",
+        "<space>pp": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -w --auto-lock 28800",
+        "<space>pt": "spawn --userscript {{ conf.folders.bin }}/qute-bitwarden -d 'rofi_run -dmenu -i -p Bitwarden' -T --auto-lock 28800",
+        "<space>pu": "spawn {{ conf.folders.bin }}/qb-bw sync",
         # "pw": "spawn --userscript qute_1pass --cache-session fill_credentials",
         # Bookmarks
         "m": "quickmark-save",
@@ -408,12 +408,12 @@ c.bindings.commands = {
         "dC": "download-clear",
         "dr": "download-retry",
         # Toggler
-        "<space>ts": "config-cycle -p -t -u {url} content.javascript.enabled ;; reload",
+        "<space>tj": "config-cycle -p -t -u {url} content.javascript.enabled ;; reload",
         "<space>tp": "config-cycle -p -t -u {url} content.plugins ;; reload",
         "<space>ti": "config-cycle -p -t -u {url} content.images ;; reload",
         "<space>tc": "config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload",
         "<space>tI": "config-cycle -p -t -u *://{url:host}/* content.tls.certificate_errors load-insecurely block ;; reload",
-        "<space>tn": "config-cycle -p -t colors.webpage.darkmode.enabled ;; reload",
+        "<space>ts": "config-cycle -p -t colors.webpage.darkmode.enabled ;; reload",
     },
     "insert": {
         "<Ctrl-E>": "edit-text",
@@ -595,6 +595,7 @@ c.colors.webpage.preferred_color_scheme = "dark"
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.policy.images = "never"
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
+c.colors.webpage.darkmode.contrast = 0.2
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
