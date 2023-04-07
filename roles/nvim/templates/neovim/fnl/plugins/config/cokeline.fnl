@@ -19,11 +19,18 @@
 (fn config []
   (let [cokeline (require :cokeline)
         get-hex (. (require :cokeline.utils) :get_hex)
+        active-fg #(get-hex :lualine_a_normal :fg)
+        active-bg #(get-hex :lualine_a_normal :bg)
+        inactive-fg #(get-hex :lualine_b_normal :fg)
+        inactive-bg #(get-hex :lualine_b_normal :bg)
         win-fg (fn [buffer]
                  (if buffer.is_focused
-                     (get-hex :Title :fg)
-                     (get-hex :StatusLine :bg)))
-        win-bg #(get-hex :StatusLineNC :bg)]
+                     (active-fg)
+                     (inactive-fg)))
+        win-bg (fn [buffer]
+                 (if buffer.is_focused
+                     (active-bg)
+                     (inactive-bg)))]
     (cokeline.setup {:buffers {:filter_visible (fn [buffer]
                                                  (and (not= buffer.type
                                                             :terminal)
@@ -33,25 +40,24 @@
                      ;; Only one supported for now
                      :sidebar {:filetype :NvimTree
                                :components [{:text "  File Explorer"
-                                             :fg (get-hex :Title :fg)
-                                             :bg (get-hex :StatusLineNC :bg)
+                                             :fg win-fg
+                                             :bg win-bg
                                              :style :bold}]}
-                     :components [{:text " " :bg win-bg}
-                                  {:text conf.separator.right
-                                   :fg win-fg
-                                   :bg win-bg}
+                     :default_hl {:fg win-fg :bg win-bg}
+                     :components [
+                                  {:text " " }
+                                  ; {:text conf.separator.right
+                                  ;  :fg win-fg
+                                  ;  :bg win-bg}
                                   {:text (fn [buffer] buffer.devicon.icon)
                                    :fg (fn [buffer]
                                          (if buffer.is_focused
-                                             (get-hex :StatusLine :bg)
-                                             buffer.devicon.color))
-                                   :bg win-fg}
+                                             (active-fg)
+                                             buffer.devicon.color)) }
                                   {:text (fn [buffer] buffer.unique_prefix)
-                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer] buffer.filename)
-                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer]
@@ -71,17 +77,27 @@
                                                        0)
                                                  (get-hex :IncSearch :bg)
                                                  nil)))
-                                   :bg win-fg
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer]
-                                           (if buffer.is_readonly " 🔒" ""))
-                                   :bg win-fg}
+                                           (if buffer.is_readonly " 🔒" "")) }
                                   {:text (fn [buffer]
                                            (if buffer.is_modified " ●" ""))
-                                   :bg win-fg}
-                                  {:text conf.separator.left
-                                   :fg win-fg
-                                   :bg win-bg}]})))
-
+                                   }
+                                  {:text (fn [buffer]
+                                           (if buffer.is_focused
+                                               conf.separator.left
+                                               conf.separator.alt_left))
+                                   ; :fg win-fg
+                                   :bg (fn [buffer]
+                                         (if buffer.is_focused
+                                             (active-bg)
+                                             (inactive-bg)))
+                                   ; :fg (fn [buffer]
+                                   ;       (if buffer.is_focused
+                                   ;           (active-bg)
+                                   ;           (inactive-bg)))
+                                   ; :fg win-bg
+                                   :fg (inactive-bg)
+                                   }]})))
 {: config : init}
