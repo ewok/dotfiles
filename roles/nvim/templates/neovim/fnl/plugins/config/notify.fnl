@@ -12,6 +12,9 @@
                         :stages :fade
                         :timeout 3000
                         :fps 120
+                        :on_open (fn [win]
+                                   (vim.api.nvim_win_set_config win
+                                                                {:focusable false}))
                         :icons {:ERROR conf.icons.diagnostic.Error
                                 :WARN conf.icons.diagnostic.Warn
                                 :INFO conf.icons.diagnostic.Hint}}]

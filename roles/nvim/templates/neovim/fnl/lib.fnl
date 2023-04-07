@@ -77,4 +77,9 @@
         (if (and (not (= opts.buf_ft target_ft)) (vim.tbl_contains offset_ft opts.buf_ft))
           (vim.api.nvim_win_close opts.win_id true)))))
 
-{: map! : umap! : reg-ft : path-join : set! : cmd! : exists? : pack : toggle_sidebar : get_buf_ft}
+(fn close_sidebar [target_ft]
+    (each [_ opts (ipairs (get_all_win_buf_ft))]
+        (if (= opts.buf_ft target_ft)
+          (vim.api.nvim_win_close opts.win_id true))))
+
+{: map! : umap! : reg-ft : path-join : set! : cmd! : exists? : pack : toggle_sidebar : get_buf_ft : close_sidebar}

@@ -14,7 +14,44 @@
                              :width 40
                              :hide_root_folder false
                              :signcolumn :yes
-                             ; :float {:enable true :quit_on_focus_loss false}
+                             :float {:enable true
+                                     :quit_on_focus_loss false
+                                     :open_win_config #(let [min 30
+                                                             max 50
+                                                             width-ratio 0.3
+                                                             win-w (vim.api.nvim_win_get_width 0)
+                                                             screen-h (- (: vim.opt.lines
+                                                                            :get)
+                                                                         (: vim.opt.cmdheight
+                                                                            :get))
+                                                             window-w (let [_win-w (math.floor (* win-w
+                                                                                                  width-ratio))]
+                                                                        (match [_win-w
+                                                                                max
+                                                                                min]
+                                                                          (where [a
+                                                                                  b
+                                                                                  _]
+                                                                                 (> a
+                                                                                    b))
+                                                                          b
+                                                                          (where [a
+                                                                                  _
+                                                                                  c]
+                                                                                 (< a
+                                                                                    c))
+                                                                          c
+                                                                          _ _win-w))
+                                                             window-h (math.floor (* screen-h
+                                                                                     0.9))]
+                                                         {:border :rounded
+                                                          :relative :win
+                                                          :col win-w
+                                                          :row 1
+                                                          :width window-w
+                                                          :height window-h
+                                                          :focusable false
+                                                          :anchor :NE})}
                              :mappings {:custom_only true
                                         :list [{:key [:<CR>] :action :edit}
                                                {:key [:o] :action :edit}
@@ -99,4 +136,4 @@
                           (vim.cmd :NvimTreeFocus))
         {:silent false} "Find the current file and open it in file explorer"))
 
-{:cmd [:NvimTreeToggle :NvimTreeFindFile :NvimTreeFocus] : init : config}
+{: init : config}
