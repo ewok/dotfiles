@@ -22,7 +22,8 @@
                 ;; bufferline or cokeline or tabby or tabline
                 :bufferline_plugin :tabline
                 :theme "{{ conf.theme.theme }}"
-                :spelllang [:nospell :en_us :ru_ru]})
+                :spelllang [:nospell :en_us :ru_ru]
+                :large_file_size (* 1024 1024 20)})
 
 (local separator
        {:left "{{ conf.theme.separator_left }}"
