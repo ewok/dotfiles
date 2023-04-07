@@ -29,16 +29,16 @@
                                      :on_key (fn []
                                                (vim.wait 200
                                                          (fn []
-                                                           (vim.cmd :redraw))
+                                                           (vim.cmd :NvimTreeFindFile)
+                                                           (vim.cmd.wincmd :w))
                                                          30 false))}
                             ; :mode :n
                             ; :body :<leader>b
-                            :heads [[:l
-                                     #(vim.cmd :TablineBufferNext)
-                                     {:on_key false}]
-                                    [:h
-                                     #(vim.cmd :TablineBufferPrevious)
-                                     {:on_key false}]
+                            :heads [[:<Tab> #(vim.cmd :TablineBufferNext)]
+                                    [:<S-Tab>
+                                     #(vim.cmd :TablineBufferPrevious)]
+                                    [:l #(vim.cmd :TablineBufferNext)]
+                                    [:h #(vim.cmd :TablineBufferPrevious)]
                                     [:d
                                      #(vim.cmd :BufferDelete)
                                      {:desc :delete}]
@@ -48,10 +48,8 @@
                                     [:o
                                      #(vim.cmd :BufOnly)
                                      {:desc :only :exit true}]
-                                    [:L #(vim.cmd :tabnext) {:on_key false}]
-                                    [:H
-                                     #(vim.cmd :tabprevious)
-                                     {:on_key false}]
+                                    [:L #(vim.cmd :tabnext)]
+                                    [:H #(vim.cmd :tabprevious)]
                                     [:D #(vim.cmd :tabclose) {:desc :delete}]
                                     [:A
                                      #(vim.cmd :$tabnew)
