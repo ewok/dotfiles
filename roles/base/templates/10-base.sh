@@ -16,7 +16,7 @@ export LC_NUMERIC=ru_RU.UTF-8
 export LC_PAPER=ru_RU.UTF-8
 export LC_TIME=ru_RU.UTF-8
 
-export PATH=$PATH:~/.local/bin:~/bin:~/.bin
+export PATH=~/.local/bin:~/bin:~/.bin:$PATH
 
 export GTK_THEME=Adapta-Nokto
 export FZF_LEGACY_KEYBINDINGS=0
