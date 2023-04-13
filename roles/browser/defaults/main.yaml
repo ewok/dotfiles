@@ -4,6 +4,7 @@ packages_archlinux:
   - qutebrowser
   - python-adblock
   - python-tldextract
+  - firefox
 
 packages_debian: []
 
@@ -15,3 +16,4 @@ packages_void:
   - python3-tldextract
   - keyutils
   - nyxt
+  - firefox

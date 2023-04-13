@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+CMD=$(echo "Default|Work" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 2 -p "Firefox session:" -sep "|")
+
+case $CMD in
+    Default)
+        {{ conf.folders.bin }}/firefox "$1"
+        ;;
+    Work)
+        {{ conf.folders.bin }}/firefox-work "$1"
+        ;;
+esac

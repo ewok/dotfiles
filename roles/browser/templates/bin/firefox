@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+SESSION=default /usr/bin/firefox -P default $@
+

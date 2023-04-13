@@ -1,0 +1,63 @@
+" vim: set filetype=tridactyl
+
+set update.nag true
+set update.nagwait 10
+set newtab about:blank
+
+set searchurls.esa http://www.esa.int/esasearch?q=
+
+    "DEFAULT": "https://www.google.com/search?q={}",
+    "d": "https://duckduckgo.com/?q={}",
+    "y": "https://www.youtube.com/results?search_query={}",
+    "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
+    "l": "https://www.ldoceonline.com/dictionary/{}",
+    "w": "https://www.merriam-webster.com/dictionary/{}",
+    "spell": "https://www.ldoceonline.com/spellcheck/english/?q={}",
+    "t": "https://www.reverso.net/text-translation#sl=eng&tl=rus&text={}",
+    "tr": "https://www.reverso.net/text-translation#tl=eng&sl=rus&text={}",
+    "c": "https://context.reverso.net/translation/english-russian/{}",
+    "cr": "https://context.reverso.net/translation/russian-english/{}",
+    "j": "https://{{ conf.jira.company }}.atlassian.net/browse/{}",
+
+unbind <F1>
+
+" Delete
+bind --mode=normal x tabclose
+unbind --mode=normal d
+
+" Change tabswitching
+bind --mode=normal J tabnext
+bind --mode=normal K tabprev
+
+" Bookmarks
+bind --mode=normal b fillcmdline bmarks
+
+" Search
+bind / fillcmdline find
+bind ? fillcmdline find --reverse
+bind n findnext --search-from-view
+bind N findnext --search-from-view --reverse
+bind gn findselect
+bind gN composite findnext --search-from-view --reverse; findselect
+bind ,<Space> nohlsearch
+
+" Open tabs differently
+bind --mode=normal O fillcmdline tabopen
+
+bind --mode=normal go current_url open
+bind --mode=normal gO current_url tabopen
+
+unbind t
+bind --mode=normal tB tabdetach
+bind --mode=normal tC tabduplicate
+bind --mode=normal to tabonly
+bind --mode=normal tg fillcmdline tabgrab
+bind --mode=normal tp pin
+bind --mode=normal tm mute
+bind --mode=normal tM unmute
+
+unbind w
+bind --mode=normal wp clipboard winopen
+bind --mode=normal wc winclose
+bind --mode=normal wn fillcmdline winopen
+

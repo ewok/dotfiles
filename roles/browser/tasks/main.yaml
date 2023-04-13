@@ -2,6 +2,15 @@
 - name: "Install"
   ansible.builtin.include_tasks: "install.yaml"
 
+- name: "Install firefox"
+  ansible.builtin.include_tasks: "firefox.yaml"
+
+- name: "Install vieb"
+  ansible.builtin.include_tasks: "vieb.yaml"
+
+- name: "Install qutebrowser"
+  ansible.builtin.include_tasks: "qutebrowser.yaml"
+
 - name: "Create dirs"
   ansible.builtin.file:
     dest: "{{ item.dir }}"
@@ -12,8 +21,6 @@
     - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.config/bash/profile.d"}
     - {dir: "~/.local/share/applications/"}
-    - {dir: "~/.local/share/icons/hicolor"}
-    - {dir: "~/.config/qutebrowser"}
     - {dir: "~/Downloads"}
     - {dir: "~/.local/share/appimages/"}
     - {dir: "~/.vieb/"}
@@ -26,22 +33,6 @@
   loop:
     - {src: "config/50_browser.sh", dest: "~/.config/bash/profile.d/50_browser.sh"}
     - {src: "config/org.custom.choose.browser.desktop", dest: "~/.local/share/applications/org.custom.choose.browser.desktop"}
-    - {src: "config/vieb.desktop", dest: "~/.local/share/applications/vieb.desktop"}
-    - {src: "config/vieb-work.desktop", dest: "~/.local/share/applications/vieb-work.desktop"}
-    - {src: "config/viebrc", dest: "~/.vieb/viebrc"}
-    - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
-    - {src: "config/qb.desktop", dest: "~/.local/share/applications/qb.desktop"}
-    - {src: "config/qb-work.desktop", dest: "~/.local/share/applications/qb-work.desktop"}
-    - {src: "config/qutebrowser-fav.desktop", dest: "~/.local/share/applications/favorites/qutebrowser.desktop"}
-
-- name: "Cleanup configs"
-  become: true
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-    mode: "0644"
-  loop:
-    - "/usr/share/applications/org.qutebrowser.qutebrowser.desktop"
 
 - name: Ensure bin directory structure exists
   ansible.builtin.file:
@@ -57,27 +48,4 @@
     dest: '{{ conf.folders.bin }}/{{ item.path }}'
     mode: "0755"
   with_community.general.filetree: '{{ role_path }}/templates/bin'
-  when: item.state == 'file'
-
-- name: "Download VieB"
-  ansible.builtin.get_url:
-    url: "https://github.com/Jelmerro/Vieb/releases/download/9.7.0/Vieb-9.7.0.AppImage"
-    dest: "~/.local/share/appimages/vieb.AppImage"
-    mode: "0755"
-    checksum: "sha256: d784ae6b3779993bdd6e70b65bbd3ee3c6a7269786b188af91dd8afb9656e968"
-
-- name: Provide icons
-  ansible.builtin.file:
-    dest: "~/.local/share/icons/hicolor/{{ item.path }}"
-    state: directory
-    mode: "0755"
-  with_community.general.filetree: "{{ role_path }}/files/hicolor"
-  when: item.state == 'directory'
-
-- name: Provide icons
-  ansible.builtin.copy:
-    src: '{{ item.src }}'
-    dest: '~/.local/share/icons/hicolor/{{ item.path }}'
-    mode: "0644"
-  with_community.general.filetree: '{{ role_path }}/files/hicolor'
   when: item.state == 'file'

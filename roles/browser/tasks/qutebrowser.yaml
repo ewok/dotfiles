@@ -1,0 +1,28 @@
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "{{ conf.folders.bin }}"}
+    - {dir: "~/.config/qutebrowser"}
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
+    - {src: "config/qb.desktop", dest: "~/.local/share/applications/qb.desktop"}
+    - {src: "config/qb-work.desktop", dest: "~/.local/share/applications/qb-work.desktop"}
+    - {src: "config/qutebrowser-fav.desktop", dest: "~/.local/share/applications/favorites/qutebrowser.desktop"}
+
+- name: "Cleanup configs"
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+    mode: "0644"
+  loop:
+    - "/usr/share/applications/org.qutebrowser.qutebrowser.desktop"

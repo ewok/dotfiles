@@ -27,7 +27,7 @@ if command -v chromium &>/dev/null; then
 fi
 
 if command -v firefox &>/dev/null; then
-    BROWSERS+="firefox|"
+    BROWSERS+="firefox|firefox-work|"
 fi
 
 CMD=$(echo "${BROWSERS}log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")
@@ -52,7 +52,10 @@ case $CMD in
         google-chrome-stable "$1"
         ;;
     firefox)
-        firefox "$1"
+        {{ conf.folders.bin }}/firefox "$1"
+        ;;
+    firefox-work)
+        {{ conf.folders.bin }}/firefox-work "$1"
         ;;
     log)
         echo "$@" >> ~/tmp/.browser-log

@@ -1,0 +1,194 @@
+- name: "Create dirs"
+  ansible.builtin.file:
+    dest: "{{ item.dir }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - {dir: "~/.mozilla/firefox"}
+    - {dir: "~/.mozilla/firefox/profile.default/extensions"}
+    - {dir: "~/.mozilla/firefox/profile.default/chrome"}
+    - {dir: "~/.mozilla/firefox/profile.work/extensions"}
+    - {dir: "~/.mozilla/firefox/profile.work/chrome"}
+    - {dir: "~/.mozilla/native-messaging-hosts"}
+    - {dir: "~/.config/tridactyl"}
+
+- name: "Cleanup configs"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+    mode: "0644"
+  become: true
+  loop:
+    - "/usr/share/applications/firefox.desktop"
+    - "/usr/bin/firefox-wayland"
+
+- name: "Provide configs"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+  loop:
+    - {src: "config/firefox.desktop", dest: "~/.local/share/applications/firefox.desktop"}
+    - {src: "config/firefox-work.desktop", dest: "~/.local/share/applications/firefox-work.desktop"}
+    - {src: "config/tridactyl.json", dest: "~/.mozilla/native-messaging-hosts/tridactyl.json"}
+    - {src: "config/tridactylrc", dest: "~/.config/tridactyl/tridactylrc"}
+
+- name: "Configure Firefox overrides"
+  ansible.builtin.copy:
+    content: |
+      // IMPORTANT: Start your code on the 2nd line
+
+      // "DisableFirefoxAccounts": false;
+      // lockPref("identity.sync.tokenserver.uri", "https://token.services.mozilla.com/1.0/sync/1.5");
+
+      pref("browser.contentblocking.category", "custom"); // strict would force dFPI
+      defaultPref("privacy.firstparty.isolate", true); // enable FPI
+      defaultPref("network.cookie.cookieBehavior", 1); // block 3rd party cookies
+      defaultPref("network.cookie.lifetimePolicy", 0); // keep cookies untill they expire
+
+      defaultPref("media.peerconnection.enabled", true);
+      defaultPref("media.peerconnection.ice.no_host", false);
+
+      lockPref("browser.warnOnQuitShortcut", true);
+
+      lockPref("places.history.enabled", true);
+      lockPref("privacy.sanitize.pending", "[]");
+      lockPref("privacy.sanitize.sanitizeOnShutdown", false);
+
+      defaultPref("browser.newtabpage.enabled", false);
+      defaultPref("browser.startup.homepage", "about:blank");
+
+      lockPref("privacy.clearOnShutdown.history", false);
+
+      lockPref("font.name.serif.x-western", "{{ conf.theme.regular_font }}");
+      lockPref("font.size.variable.x-western", {{ conf.theme.regular_font_size }});
+
+      defaultPref("browser.policies.runOncePerModification.setDefaultSearchEngine", "Brave");
+
+      lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+      lockPref("dom.w3c_touch_events.enabled", 1);
+
+      lockPref("extensions.pocket.enabled", false);
+
+      lockPref("signon.rememberSignons", false);
+      lockPref("browser.startup.page", 3);
+
+      lockPref("app.shield.optoutstudies.enabled", false);
+      lockPref("browser.discovery.enabled", false);
+      lockPref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
+      lockPref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+      lockPref("browser.newtabpage.activity-stream.feeds.topsites", false);
+
+      lockPref("browser.newtabpage.activity-stream.showSearch", false);
+      lockPref("general.smoothScroll", false);
+
+      lockPref("browser.sessionstore.restore_tabs_lazily", false);
+
+    dest: "/usr/lib/firefox/firefox.cfg"
+    mode: "0644"
+  become: true
+
+- name: "Configure Firefox overrides"
+  ansible.builtin.copy:
+    content: |
+      pref("general.config.filename", "firefox.cfg");
+      pref("general.config.obscure_value", 0);
+
+    dest: "/usr/lib/firefox/defaults/pref/autoconfig.js"
+    mode: "0644"
+  become: true
+
+- name: "Configure LibreWolf profile"
+  ansible.builtin.copy:
+    content: |
+      [Install0000000000000000]
+      Default=profile.default
+      Locked=1
+
+      [Profile0]
+      Name=default
+      IsRelative=1
+      Path=profile.default
+      Default=1
+
+      [Profile1]
+      Name=work
+      IsRelative=1
+      Path=profile.work
+      Default=1
+
+      [General]
+      StartWithLastProfile=1
+      Version=2
+
+    dest: "~/.mozilla/firefox/profiles.ini"
+    mode: "0644"
+
+- name: "Configure LibreWolf profile 2"
+  ansible.builtin.copy:
+    content: |
+      [0000000000000000]
+      Default=profile.default
+      Locked=1
+
+    dest: "~/.mozilla/firefox/installs.ini"
+    mode: "0644"
+
+- name: "Configure Firefox NoTabs"
+  ansible.builtin.copy:
+    content: |
+      #TabsToolbar {visibility: collapse !important;}
+      #titlebar {
+        display: none !important;
+      }
+    dest: "~/.mozilla/firefox/profile.{{ item }}/chrome/userChrome.css"
+    mode: "0644"
+  loop:
+    - default
+    - work
+
+- name: "Install extenstions for default"
+  ignore_errors: true
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "~/.mozilla/firefox/profile.default/extensions/{{ item.name }}"
+    mode: "0644"
+  loop:
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4088468/tree_style_tab-3.9.15.xpi"
+      name: "treestyletab@piro.sakura.ne.jp.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4028552/simplelogin-2.9.2.xpi"
+      name: "addon@simplelogin.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4095037/darkreader-4.9.63.xpi"
+      name: "addon@darkreader.org.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/3546070/xbs-1.5.2.xpi"
+      name: "{019b606a-6f61-4d01-af2a-cea528f606da}.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5.xpi"
+      name: "tst-wheel_and_double@dontpokebadgers.com.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4093799/bitwarden_password_manager-2023.3.1.xpi"
+      name: "{446900e4-71c2-419f-a6a7-df9c091e268b}.xpi"
+    - url: "https://tridactyl.cmcaine.co.uk/betas/tridactyl-latest.xpi"
+      name: "tridactyl.vim.betas@cmcaine.co.uk.xpi"
+
+- name: "Install extenstions for work"
+  ignore_errors: true
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "~/.mozilla/firefox/profile.work/extensions/{{ item.name }}"
+    mode: "0644"
+  loop:
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4088468/tree_style_tab-3.9.15.xpi"
+      name: "treestyletab@piro.sakura.ne.jp.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5.xpi"
+      name: "tst-wheel_and_double@dontpokebadgers.com.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4091893/1password_x_password_manager-2.9.0.xpi"
+      name: "{d634138d-c276-4fc8-924b-40a0ea21d284}.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/4095037/darkreader-4.9.63.xpi"
+      name: "addon@darkreader.org.xpi"
+    - url: "https://tridactyl.cmcaine.co.uk/betas/tridactyl-latest.xpi"
+      name: "tridactyl.vim.betas@cmcaine.co.uk.xpi"
+
+- name: "Install native messenger"
+  ansible.builtin.get_url:
+    url: "https://github.com/tridactyl/native_messenger/releases/download/0.3.8/native_main-Linux"
+    dest: "{{ conf.folders.bin }}/native_main"
+    mode: "0755"
