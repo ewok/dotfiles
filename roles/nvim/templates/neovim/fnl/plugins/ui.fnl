@@ -10,7 +10,7 @@
  ;; Lualine
  (pack :nvim-lualine/lualine.nvim (require :plugins.config.lualine))
  ;; Buferline
- (pack :tiagovla/scope.nvim {:config true})
+ (pack :ewok/scope.nvim {:config true})
  (case conf.options.bufferline_plugin
    :tabline
    (pack :kdheepak/tabline.nvim (require :plugins.config.tabline))

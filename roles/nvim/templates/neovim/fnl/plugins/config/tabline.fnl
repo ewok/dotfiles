@@ -4,17 +4,17 @@
  ^^---------------        ^^---------------
  _l_, _h_: next/previous  ^^ _L_, _H_: next/previous
  _d_: delete              ^^ _D_: delete
- _c_, _q_: close          ^^ _A_: new
- _a_: new                 ^^ _O_: remain only
- _o_: remain only
+ _a_: new                 ^^ _A_: new
+ _o_: remain only         ^^ _O_: remain only
 
  any : quit
  ")
 
 (fn init []
-  (map! :n :<C-W>d :<cmd>BufferDelete<cr> {:silent true} "Close current buffer")
-  (map! :n :<C-W><C-D> :<cmd>BufferDelete<cr> {:silent true}
-        "Close current buffer"))
+  (map! :n :<C-W>d "<cmd>lua require('scope.core').delete_buffer()<cr>"
+        {:silent true} "Close current buffer")
+  (map! :n :<C-W><C-D> "<cmd>lua require('scope.core').delete_buffer()<cr>"
+        {:silent true} "Close current buffer"))
 
 (fn find-file [nvim-tree-api]
   (let [win (vim.api.nvim_get_current_win)]
@@ -23,7 +23,8 @@
 (fn config []
   (let [tabline (require :tabline)
         hydra (require :hydra)
-        nvim-tree-api (require :nvim-tree.api)]
+        nvim-tree-api (require :nvim-tree.api)
+        scope (require :scope.core)]
     (tabline.setup {:enable true
                     :options {:show_tabs_always true
                               :show_devicons true
@@ -44,12 +45,7 @@
                                      #(vim.cmd :TablineBufferPrevious)]
                                     [:l #(vim.cmd :TablineBufferNext)]
                                     [:h #(vim.cmd :TablineBufferPrevious)]
-                                    [:d
-                                     #(vim.cmd :BufferDelete)
-                                     {:desc :delete}]
-                                    ;; TODO: Add a way to "close" a buffer(remove it from scope)
-                                    [:c nil {:desc :close}]
-                                    [:q nil {:desc :close}]
+                                    [:d #(scope.delete_buffer) {:desc :delete}]
                                     [:a
                                      #(vim.cmd :enew)
                                      {:desc :new :exit true}]
