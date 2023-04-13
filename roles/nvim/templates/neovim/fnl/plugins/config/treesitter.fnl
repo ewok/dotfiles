@@ -93,6 +93,6 @@
                     :autotag {:enable true}
                     ; -- nvim-ts-context-commentstring
                     :context_commentstring {:enable true :enable_autocmd false}})
-    (query.set_query :markdown :highlights md-rule)))
+    (query.set :markdown :highlights md-rule)))
 
 {: config}
