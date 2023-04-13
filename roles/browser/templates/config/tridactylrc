@@ -5,19 +5,17 @@ set update.nagwait 10
 set newtab about:blank
 
 set searchurls.esa http://www.esa.int/esasearch?q=
-
-    "DEFAULT": "https://www.google.com/search?q={}",
-    "d": "https://duckduckgo.com/?q={}",
-    "y": "https://www.youtube.com/results?search_query={}",
-    "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
-    "l": "https://www.ldoceonline.com/dictionary/{}",
-    "w": "https://www.merriam-webster.com/dictionary/{}",
-    "spell": "https://www.ldoceonline.com/spellcheck/english/?q={}",
-    "t": "https://www.reverso.net/text-translation#sl=eng&tl=rus&text={}",
-    "tr": "https://www.reverso.net/text-translation#tl=eng&sl=rus&text={}",
-    "c": "https://context.reverso.net/translation/english-russian/{}",
-    "cr": "https://context.reverso.net/translation/russian-english/{}",
-    "j": "https://{{ conf.jira.company }}.atlassian.net/browse/{}",
+set searchurls.d https://duckduckgo.com/?q=
+set searchurls.y https://www.youtube.com/results?search_query=
+set searchurls.aur https://aur.archlinux.org/packages/?O=0&K=
+set searchurls.l https://www.ldoceonline.com/dictionary/
+set searchurls.w https://www.merriam-webster.com/dictionary/
+set searchurls.spell https://www.ldoceonline.com/spellcheck/english/?q=
+set searchurls.t https://www.reverso.net/text-translation#sl=eng&tl=rus&text=
+set searchurls.tr https://www.reverso.net/text-translation#tl=eng&sl=rus&text=
+set searchurls.c https://context.reverso.net/translation/english-russian/
+set searchurls.cr https://context.reverso.net/translation/russian-english/
+set searchurls.j https://{{ conf.jira.company }}.atlassian.net/browse/
 
 unbind <F1>
 
@@ -31,6 +29,7 @@ bind --mode=normal K tabprev
 
 " Bookmarks
 bind --mode=normal b fillcmdline bmarks
+bind --mode=normal B fillcmdline bmarks -t
 
 " Search
 bind / fillcmdline find
@@ -60,4 +59,3 @@ unbind w
 bind --mode=normal wp clipboard winopen
 bind --mode=normal wc winclose
 bind --mode=normal wn fillcmdline winopen
-

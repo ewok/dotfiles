@@ -60,8 +60,9 @@
 
       lockPref("privacy.clearOnShutdown.history", false);
 
-      lockPref("font.name.serif.x-western", "{{ conf.theme.regular_font }}");
-      lockPref("font.size.variable.x-western", {{ conf.theme.regular_font_size }});
+      defaultPref("font.name.serif.x-western", "{{ conf.theme.regular_font }}");
+      defaultPref("font.size.variable.x-western", {{ conf.theme.regular_font_size }});
+      defaultPref("browser.display.use_document_fonts", 0);
 
       defaultPref("browser.policies.runOncePerModification.setDefaultSearchEngine", "Brave");
 
