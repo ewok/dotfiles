@@ -61,10 +61,10 @@
 
 - name: "Download VieB"
   ansible.builtin.get_url:
-    url: "https://github.com/Jelmerro/Vieb/releases/download/9.6.0/Vieb-9.6.0.AppImage"
+    url: "https://github.com/Jelmerro/Vieb/releases/download/9.7.0/Vieb-9.7.0.AppImage"
     dest: "~/.local/share/appimages/vieb.AppImage"
     mode: "0755"
-    checksum: "sha256: 5ea98676fe4e58aad05a52f5c60ecb528bf00464c3779b6c89af4253665c48e4"
+    checksum: "sha256: d784ae6b3779993bdd6e70b65bbd3ee3c6a7269786b188af91dd8afb9656e968"
 
 - name: Provide icons
   ansible.builtin.file:
