@@ -5,3 +5,10 @@
 - name: "Add subuids and subgids"
   ansible.builtin.command: "usermod --add-subuids 100000-165535 --add-subgids 100000-165535 {{ conf.username }}"
   become: true
+
+- name: "Add user to a docker group"
+  become: true
+  ansible.builtin.user:
+    name: "{{ conf.username }}"
+    groups: docker
+    append: true
