@@ -14,7 +14,7 @@
                              :width 40
                              :hide_root_folder false
                              :signcolumn :yes
-                             :float {:enable true
+                             :float {:enable false
                                      :quit_on_focus_loss false
                                      :open_win_config #(let [min 30
                                                              max 50
