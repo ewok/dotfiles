@@ -3,26 +3,24 @@
 {:config #(let [bookmacro (require :bookmacro)]
             (bookmacro.setup)
             (map! :n :<leader>ml vim.cmd.MacroSelect {:silent true}
-                  "Load a macro to a registry")
+                  "Load into registry")
             (map! :n :<leader>me vim.cmd.MacroExec {:silent true}
-                  "Execute a macro from BookMacro")
-            (map! :n :<leader>ma vim.cmd.MacroAdd {:silent true}
-                  "Add a macro to BookMacro")
+                  "Execute a macro")
+            (map! :n :<leader>ms vim.cmd.MacroAdd {:silent true}
+                  "Save macro from registry")
             (map! :n :<leader>mmm vim.cmd.MacroEdit {:silent true}
-                  "Modify a macro from BookMacro")
+                  "Modify macro")
             (map! :n :<leader>mmd vim.cmd.MacroDescEdit {:silent true}
-                  "Modify a description of a macro from BookMacro")
+                  "Modify description")
             (map! :n :<leader>mmr vim.cmd.MacroRegEdit {:silent true}
-                  "Modify a macro from register")
+                  "Modify macro in register")
             (map! :n :<leader>mx vim.cmd.MacroDel {:silent true}
-                  "Delete a macro from BookMacro")
+                  "Delete a macro")
             (map! :n :<leader>mEa vim.cmd.MacroExport {:silent true}
-                  "Export BookMacro to a JSON file")
+                  "Export all macros")
             (map! :n :<leader>mEm vim.cmd.MacroExportTo {:silent true}
-                  "Export a macro(1) to a JSON file")
+                  "Export a macro(1)")
             (map! :n :<leader>mIa vim.cmd.MacroImport {:silent true}
-                  "Import BookMacro with a JSON file")
+                  "Import all macros")
             (map! :n :<leader>mIm vim.cmd.MacroImportFrom {:silent true}
-                  "Import a macro(1) from a JSON file")
-            (map! :n :<leader>mX vim.cmd.MacroErase {:silent true}
-                  "Erase all macros from The Book"))}
+                  "Import a macro(1)"))}
