@@ -26,8 +26,12 @@ if command -v chromium &>/dev/null; then
     BROWSERS+="chromium|"
 fi
 
-if command -v firefox &>/dev/null; then
-    BROWSERS+="firefox|firefox-work|"
+if [[ -x {{ conf.folders.bin }}/firefox ]]; then
+    BROWSERS+="firefox|"
+fi
+
+if [[ -x {{ conf.folders.bin }}/firefox-work ]]; then
+    BROWSERS+="firefox-work|"
 fi
 
 CMD=$(echo "${BROWSERS}log" | {{ conf.folders.bin }}/rofi_run -dmenu -i -l 20 -p "Open url in:" -sep "|")

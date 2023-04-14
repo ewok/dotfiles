@@ -37,3 +37,10 @@
   loop:
     - "~/.cache/FiraMono.zip"
     - "~/.cache/FiraCode.zip"
+
+- name: Disable bitmap fonts
+  ansible.builtin.file:
+    src: "/usr/share/fontconfig/conf.avail/70-no-bitmaps.conf"
+    dest: "/etc/fonts/conf.d/70-no-bitmaps.conf"
+    state: link
+  become: true
