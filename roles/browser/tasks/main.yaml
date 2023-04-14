@@ -5,11 +5,11 @@
 - name: "Install firefox"
   ansible.builtin.include_tasks: "firefox.yaml"
 
-- name: "Install vieb"
-  ansible.builtin.include_tasks: "vieb.yaml"
+# - name: "Install vieb"
+#   ansible.builtin.include_tasks: "vieb.yaml"
 
-- name: "Install qutebrowser"
-  ansible.builtin.include_tasks: "qutebrowser.yaml"
+# - name: "Install qutebrowser"
+#   ansible.builtin.include_tasks: "qutebrowser.yaml"
 
 - name: "Create dirs"
   ansible.builtin.file:
