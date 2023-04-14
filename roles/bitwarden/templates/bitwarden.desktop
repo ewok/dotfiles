@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=rofi-rbw
+Exec=bitwarden-desktop
 Name=Bitwarden
 Icon=bitwarden
 Shortcut=b

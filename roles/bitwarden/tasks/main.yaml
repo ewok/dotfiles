@@ -45,7 +45,7 @@
         url: "https://vault.bitwarden.com/download/?app=desktop&platform=linux"
         dest: "~/.local/share/appimages/bitwarden.AppImage"
         mode: "0755"
-        checksum: "sha256: ee41252c1aec7c80232471b7c0771d5e775cdff30c2b235b01d47afc6fa15d1f"
+        checksum: "sha256: 77a1309495105313f4418af5dc6d309fc5f60bdbdf1ffd71f4903531da473668"
 
     - name: "Download cli"
       ansible.builtin.get_url:
