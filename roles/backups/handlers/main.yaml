@@ -1,0 +1,7 @@
+- name: Reload restic
+  become: true
+  ansible.builtin.service:
+    name: restic-backup.timer
+    state: started
+    enabled: true
+  when: "ansible_distribution == 'Archlinux'"

@@ -1,6 +1,6 @@
 [Install]
 WantedBy=timers.target
-WantedBy=ac.target
+#WantedBy=ac.target
 
 [Timer]
 OnCalendar=daily
@@ -10,6 +10,6 @@ RandomizedDelaySec=3600
 
 [Unit]
 Description=Restic backup timer
-Requisite=ac.target
-PartOf=ac.target
+#Requisite=ac.target
+#PartOf=ac.target
 

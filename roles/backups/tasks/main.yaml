@@ -11,6 +11,23 @@
   loop:
     - {src: "restic-backup", dest: "/usr/bin/restic-backup"}
 
+- name: If Arch
+  when: ansible_distribution == "Archlinux"
+  become: true
+  block:
+
+    - name: "Provide templates"
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+      become: true
+      loop:
+        - {src: "restic-backup.service", dest: "/etc/systemd/system/restic-backup.service"}
+        - {src: "restic-backup.timer", dest: "/etc/systemd/system/restic-backup.timer"}
+      notify: Reload restic
+
+
 - name: If Void
   when: ansible_distribution == "Void"
   become: true

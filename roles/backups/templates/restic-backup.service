@@ -8,4 +8,4 @@ IOSchedulingClass=idle
 [Unit]
 Description=Restic backup
 Wants=network-online.target
-Requisite=ac.target
+#Requisite=ac.target
