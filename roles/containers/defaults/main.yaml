@@ -1,5 +1,5 @@
 ---
-packages_archlinux: [podman]
+packages_archlinux: [docker]
 
 packages_debian: []
 
