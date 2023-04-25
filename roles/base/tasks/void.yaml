@@ -49,7 +49,7 @@
     - video
     - input
 
-- name: "Provide timezon"
+- name: "Provide timezone"
   ansible.builtin.file:
     src: "/usr/share/zoneinfo/{{ conf.timezone }}"
     dest: "/etc/localtime"

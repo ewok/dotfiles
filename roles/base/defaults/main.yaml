@@ -2,6 +2,14 @@
 packages_archlinux:
   - base-devel
   - community/btop
+  - git
+  - curl
+  - zip
+  - unzip
+  - tar
+  - xz
+  - ncurses-base
+  - ncurses-term
 
 packages_debian: []
 

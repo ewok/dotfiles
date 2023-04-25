@@ -3,3 +3,8 @@
   ansible.builtin.command: "xbps-reconfigure -f glibc-locales"
   when: "ansible_distribution == 'Void'"
   become: true
+
+- name: "Reconfigure locales"
+  ansible.builtin.command: "localge-gen"
+  when: "ansible_distribution == 'Archlinux'"
+  become: true
