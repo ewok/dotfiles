@@ -18,6 +18,7 @@
     - {dir: "~/.config/gtk-3.0"}
     - {dir: "~/.config/gtk-2.0/"}
     - {dir: "~/.config/autorandr"}
+    - {dir: "~/.config/solaar"}
     - {dir: "~/.local/share/applications/favorites"}
 
 - name: "Provide configs"

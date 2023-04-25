@@ -33,7 +33,7 @@ packages_archlinux:
   - xdg-user-dirs
   - xdotool
   - xkb-switch-i3
-  - xorg-apps
+  # - xorg-apps
   - xorg-server
   - xorg-xinit
   - xss-lock
