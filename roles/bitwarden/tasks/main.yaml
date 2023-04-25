@@ -11,6 +11,7 @@
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.local/share/appimages"}
     - {dir: "~/.local/share/applications/favorites"}
+    - {dir: "~/.config/rbw"}
 
 - name: "Provide configs"
   ansible.builtin.template:
