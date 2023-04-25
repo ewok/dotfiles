@@ -20,6 +20,16 @@
     - {src: "syncthing-gtk", dest: "~/.config/syncthing-gtk/config.json"}
     - {src: "i3_autostart", dest: "~/.config/i3/autostart.d/syncthing-gtk.conf"}
 
+- name: If Arch
+  when: ansible_distribution == "Archlinux"
+  become: true
+  block:
+
+    - name: Enable service
+      ansible.builtin.service:
+        name: syncthing@ataranchiev
+        state: started
+        enabled: true
 
 - name: If Void
   when: ansible_distribution == "Void"
