@@ -39,6 +39,7 @@
   loop:
     - {src: "update-nvim", dest: "{{ conf.folders.bin }}/update-nvim"}
     - {src: "nvim", dest: "{{ conf.folders.bin }}/nvim"}
+    - {src: "nvim", dest: "{{ conf.folders.bin }}/vim"}
     - {src: "lazygit", dest: "{{ conf.folders.bin }}/gg"}
     - {src: "nvim-clean-cache", dest: "{{ conf.folders.bin }}/nvim-clean-cache"}
   tags:
@@ -80,8 +81,8 @@
     - nvim-config
     - nvim-config-reset
 
-- name: "Download coursier"
-  ansible.builtin.get_url:
-    url: "https://git.io/coursier-cli"
-    dest: "{{ conf.folders.bin }}/coursier"
-    mode: "0755"
+      #- name: "Download coursier"
+      #  ansible.builtin.get_url:
+      #    url: "https://git.io/coursier-cli"
+      #    dest: "{{ conf.folders.bin }}/coursier"
+      #    mode: "0755"

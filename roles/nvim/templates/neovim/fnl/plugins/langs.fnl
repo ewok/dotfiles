@@ -1,6 +1,8 @@
 (local {: pack} (require :lib))
 
-[;; Ansible
+[;; CSV
+ (pack :chrisbra/csv.vim {:config false})
+ ;; Ansible
  (pack :mfussenegger/nvim-ansible {:config false})
  ;; Markdown
  (pack :gpanders/vim-medieval

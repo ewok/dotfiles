@@ -1,8 +1,54 @@
 (local {: map! : toggle_sidebar} (require :lib))
 
 (fn config []
-  (let [nvim-tree (require :nvim-tree)]
-    (nvim-tree.setup {:open_on_tab false
+  (let [nvim-tree (require :nvim-tree)
+        on_attach (fn [bufnr]
+                    (let [api (require :nvim-tree.api)
+                          opts #{:desc (.. "nvim-tree: " $1)
+                                 :buffer bufnr
+                                 :noremap true
+                                 :silent true
+                                 :nowait true}]
+                      (vim.keymap.set :n :<CR> api.node.open.edit (opts :Open))
+                      (vim.keymap.set :n :o api.node.open.edit (opts :Open))
+                      (vim.keymap.set :n :l api.node.open.edit (opts :Open))
+                      (vim.keymap.set :n "<C-]>" api.tree.change_root_to_node
+                                      (opts :CD))
+                      (vim.keymap.set :n :C api.tree.change_root_to_node
+                                      (opts :CD))
+                      (vim.keymap.set :n :v api.node.open.vertical
+                                      (opts "Open: Vertical Split"))
+                      (vim.keymap.set :n :s api.node.open.horizontal
+                                      (opts "Open: Horizontal Split"))
+                      (vim.keymap.set :n :t api.node.open.tab
+                                      (opts "Open: New Tab"))
+                      (vim.keymap.set :n :h api.node.navigate.parent_close
+                                      (opts "Close Directory"))
+                      (vim.keymap.set :n :<Tab> api.node.open.preview
+                                      (opts "Open Preview"))
+                      (vim.keymap.set :n :I api.tree.toggle_gitignore_filter
+                                      (opts "Toggle Git Ignore"))
+                      (vim.keymap.set :n :H api.tree.toggle_hidden_filter
+                                      (opts "Toggle Dotfiles"))
+                      (vim.keymap.set :n :r api.tree.reload (opts :Refresh))
+                      (vim.keymap.set :n :R api.tree.reload (opts :Refresh))
+                      (vim.keymap.set :n :a api.fs.create (opts :Create))
+                      (vim.keymap.set :n :d api.fs.remove (opts :Delete))
+                      (vim.keymap.set :n :m api.fs.rename (opts :Rename))
+                      (vim.keymap.set :n :M api.fs.rename_sub
+                                      (opts "Rename: Omit Filename"))
+                      (vim.keymap.set :n :x api.fs.cut (opts :Cut))
+                      (vim.keymap.set :n :c api.fs.copy.node (opts :Copy))
+                      (vim.keymap.set :n :p api.fs.paste (opts :Paste))
+                      (vim.keymap.set :n "[g" api.node.navigate.git.prev
+                                      (opts "Prev Git"))
+                      (vim.keymap.set :n "[g" api.node.navigate.git.next
+                                      (opts "Next Git"))
+                      (vim.keymap.set :n :u api.tree.change_root_to_parent
+                                      (opts :Up))
+                      (vim.keymap.set :n :q api.tree.close (opts :Close))))]
+    (nvim-tree.setup {: on_attach
+                      :open_on_tab false
                       :disable_netrw false
                       :hijack_netrw false
                       :hijack_cursor true
@@ -51,37 +97,7 @@
                                                           :width window-w
                                                           :height window-h
                                                           :focusable false
-                                                          :anchor :NE})}
-                             :mappings {:custom_only true
-                                        :list [{:key [:<CR>] :action :edit}
-                                               {:key [:o] :action :edit}
-                                               {:key [:l] :action :edit}
-                                               {:key ["<C-]>"] :action :cd}
-                                               {:key [:C] :action :cd}
-                                               {:key [:v] :action :vsplit}
-                                               {:key [:s] :action :split}
-                                               {:key [:t] :action :tabnew}
-                                               {:key [:h] :action :close_node}
-                                               {:key [:<Tab>] :action :preview}
-                                               {:key [:I]
-                                                :action :toggle_ignored}
-                                               {:key [:H]
-                                                :action :toggle_dotfiles}
-                                               {:key [:r] :action :refresh}
-                                               {:key [:R] :action :refresh}
-                                               {:key [:a] :action :create}
-                                               {:key [:d] :action :remove}
-                                               {:key [:m] :action :rename}
-                                               {:key [:M] :action :full_rename}
-                                               {:key [:x] :action :cut}
-                                               {:key [:c] :action :copy}
-                                               {:key [:p] :action :paste}
-                                               {:key ["[g"]
-                                                :action :prev_git_item}
-                                               {:key ["]g"]
-                                                :action :next_git_item}
-                                               {:key [:u] :action :dir_up}
-                                               {:key [:q] :action :close}]}}
+                                                          :anchor :NE})}}
                       :diagnostics {:enable true
                                     :show_on_dirs true
                                     :icons {:hint conf.icons.Hint

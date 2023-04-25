@@ -86,13 +86,27 @@
       ;; Horizontal terminal at the bottom
       (map! :n :<leader>ot horizontal-terminal {:silent true}
             "Open bottom or vertical terminal")
-      (map! [:n :t] :<c-space> horizontal-terminal {:silent true}
-            "Toggle bottom or vertical terminal")
       ;; Float terminal
       (map! :n :<leader>of float-terminal {:silent true}
-            "Open floating terminal")
-      (map! [:n :t] :<c-cr> float-terminal {:silent true}
-            "Toggle floating terminal")
+            "Open floating terminal") ; (map! [:n :t] :<c-cr> float-terminal {:silent true} ;       "Toggle floating terminal")
+      (map! :t :<c-space> horizontal-terminal {:silent true}
+            "Toggle bottom or vertical terminal")
+      (map! :n :<leader>tt
+            #(let [h vim.g.tth
+                   notify (require :notify)]
+               (if h
+                   (do
+                     (set vim.g.tth false)
+                     (notify :Floating :INFO {:title :Terminal}))
+                   (do
+                     (set vim.g.tth true)
+                     (notify :Horizontal :INFO {:title :Terminal}))))
+            {:silent true} "Toggle terminal direction(float/horizontal)")
+      (map! :n :<c-space>
+            #(let [h vim.g.tth]
+               (if h (horizontal-terminal) (float-terminal)))
+            {:silent true} "Toggle bottom or vertical terminal")
+      ;; (map! [:n :t] :<f12> float-terminal {:silent true} ;       "Toggle floating terminal")
       ;; Lazygit file history
       ;; (map! :n :<leader>glf #(let [lazygit (: terms :new
       ;;                                         {:cmd (.. "lazygit log -f "
