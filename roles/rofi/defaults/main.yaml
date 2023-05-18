@@ -1,6 +1,4 @@
 ---
-packages_archlinux: [rofi]
-
-packages_debian: []
+packages_archlinux: [rofi, extra/libqalculate]
 
 packages_void: [rofi]

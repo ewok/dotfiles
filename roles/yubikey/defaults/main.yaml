@@ -8,8 +8,6 @@ packages_archlinux:
   - yubikey-manager
   - seahorse
 
-packages_debian: []
-
 packages_void:
   - gnome-keyring
   - libgnome-keyring

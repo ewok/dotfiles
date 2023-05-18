@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=Edit Dotfiles
-Exec={{ conf.terminal }} -e nvim ~/dotfiles
+Exec={{ conf.terminal }} -e nvim ~/os-config/local_vars.yaml
 Icon=config
 Shortcut=e

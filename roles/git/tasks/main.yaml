@@ -18,8 +18,8 @@
     dest: "{{ item.dest }}"
     mode: "0755"
   loop:
-    - {src: "90_git-aliases.fish", dest: "~/.config/fish/conf.d/90_git-aliases.fish"}
     - {src: "sign", dest: "{{ conf.folders.bin }}/sign"}
+    - {src: "90_git-aliases.fish", dest: "~/.config/fish/conf.d/90_git-aliases.fish"}
 
 - name: Ensure files are populated from templates
   ansible.builtin.template:

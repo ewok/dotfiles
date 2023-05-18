@@ -65,7 +65,7 @@ unit = "GB"
 warning = 20
 {% else %}
 [[block]]
-alert = 10
+# alert = 10
 block = "disk_space"
 format = "  / $available "
 info_type = "available"
@@ -204,7 +204,8 @@ signal = 4
 {% if ansible_distribution == "Void" %}
 name = "material-nf"
 {% else %}
-icons = "material-nf"
+# https://github.com/greshake/i3status-rust/blob/master/files/icons/awesome6.toml
+icons = "awesome6"
 {% endif %}
 
 [icons.overrides]

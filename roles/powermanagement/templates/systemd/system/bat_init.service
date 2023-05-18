@@ -1,0 +1,11 @@
+[Unit]
+Description=Init Battery target
+After=multi-user.target tlp.service
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/run-on-bat /usr/local/bin/ac_bat_target bat_start
+
+[Install]
+WantedBy=multi-user.target

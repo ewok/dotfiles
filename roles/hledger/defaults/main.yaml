@@ -1,6 +1,4 @@
 ---
 packages_archlinux: [hledger-bin]
 
-packages_debian: []
-
 packages_void: [hledger]

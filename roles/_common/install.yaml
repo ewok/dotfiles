@@ -1,11 +1,19 @@
 ---
+
 - name: "Install packages Arch"
   kewlfft.aur.aur:
     name: "{{ packages_archlinux }}"
     use: yay
   become: true
   become_user: aur_builder
-  when: packages_archlinux|length > 0 and ansible_distribution == "Archlinux"
+  when: packages_archlinux|default([])|length > 0 and ansible_distribution == "Archlinux"
+
+- name: "Remove packages Arch"
+  ansible.builtin.pacman:
+    name: "{{ packages_remove_archlinux }}"
+    state: absent
+  become: true
+  when: packages_remove_archlinux|default([])|length > 0 and ansible_distribution == "Archlinux"
 
 - name: "Install packages Debian"
   ansible.builtin.apt:
@@ -13,7 +21,15 @@
     state: present
     update_cache: false
   become: true
-  when: packages_debian|length > 0 and ansible_distribution == "Debian"
+  when: packages_debian|default([])|length > 0 and ansible_distribution == "Debian"
+
+- name: "Remove packages Debian"
+  ansible.builtin.apt:
+    name: "{{ packages_debian }}"
+    state: absent
+    update_cache: false
+  become: true
+  when: packages_remove_debian|default([])|length > 0 and ansible_distribution == "Debian"
 
 - name: "Install packages Void"
   community.general.xbps:
@@ -21,4 +37,12 @@
     state: present
     update_cache: false
   become: true
-  when: packages_void|length > 0 and ansible_distribution == "Void"
+  when: packages_void|default([])|length > 0 and ansible_distribution == "Void"
+
+- name: "Remove packages Void"
+  community.general.xbps:
+    name: "{{ packages_void }}"
+    state: absent
+    update_cache: false
+  become: true
+  when: packages_remove_void|default([])|length > 0 and ansible_distribution == "Void"

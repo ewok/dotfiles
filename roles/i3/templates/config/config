@@ -383,7 +383,7 @@ client.background       $base07
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 include ~/.config/i3/autostart.d/*.conf
 
-exec_always --no-startup-id caffeine start
+exec_always --no-startup-id pgrep caffeine-indica || caffeine-indicator
 exec_always --no-startup-id pgrep xkb-switch || xkb-switch --i3
 exec_always --no-startup-id flameshot
 exec_always --no-startup-id {{ conf.folders.bin }}/set-touchpad-natural

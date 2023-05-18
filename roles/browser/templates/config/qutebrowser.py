@@ -214,8 +214,8 @@ c.window.title_format = (
 )
 
 c.url.searchengines = {
-    "DEFAULT": "https://www.google.com/search?q={}",
-    "d": "https://duckduckgo.com/?q={}",
+    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "g": "https://www.google.com/search?q={}",
     "y": "https://www.youtube.com/results?search_query={}",
     "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
     "l": "https://www.ldoceonline.com/dictionary/{}",

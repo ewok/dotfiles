@@ -1,6 +1,2 @@
 ---
 packages_archlinux: [1password, 1password-cli]
-
-packages_debian: []
-
-packages_void: []

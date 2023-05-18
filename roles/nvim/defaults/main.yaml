@@ -12,6 +12,9 @@ packages_archlinux:
   - yq
   - fzf
 
+packages_remove_archlinux:
+  - vim
+
 packages_debian:
   - silversearcher-ag
   - ripgrep

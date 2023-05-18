@@ -7,4 +7,3 @@ function vifm
 
     cd "$dst"
 end
-

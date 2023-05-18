@@ -18,16 +18,16 @@ case "$1" in
       dm-tool switch-to-greeter
       ;;
   suspend)
-      $BLURLOCK && loginctl suspend
+      $BLURLOCK && systemctl suspend
       ;;
   # hibernate)
   #     $BLURLOCK && qsudo ZZZ
   #     ;;
   reboot)
-      loginctl reboot
+      systemctl reboot
       ;;
   shutdown)
-      loginctl poweroff
+      systemctl poweroff
       ;;
   *)
       echo "== ! i3exit: missing or invalid argument ! =="

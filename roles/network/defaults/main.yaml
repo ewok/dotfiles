@@ -12,8 +12,6 @@ packages_archlinux:
   - whois
   - net-tools
 
-packages_debian: []
-
 packages_void:
   - NetworkManager
   - NetworkManager-openvpn

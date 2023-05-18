@@ -10,4 +10,3 @@ if status --is-interactive; or status --is-login
     end;
   end
 end
-

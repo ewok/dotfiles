@@ -1,6 +1,4 @@
 ---
-packages_archlinux: [keepassxc]
-
-packages_debian: []
+packages_archlinux: [keepassxc, aur/cryptomator-bin]
 
 packages_void: [keepassxc]

@@ -9,15 +9,15 @@
     mode: "0755"
   loop:
     - {dir: "{{ conf.folders.bin }}"}
-    - {dir: "~/.config/i3"}
+    - {dir: "~/.config/autorandr"}
     - {dir: "~/.config/fish/conf.d"}
-    - {dir: "~/.config/pcmanfm/default"}
+    - {dir: "~/.config/gtk-2.0/"}
+    - {dir: "~/.config/gtk-3.0"}
+    - {dir: "~/.config/i3"}
     - {dir: "~/.config/i3status-rust"}
     - {dir: "~/.config/nitrogen"}
     - {dir: "~/.config/parcellite"}
-    - {dir: "~/.config/gtk-3.0"}
-    - {dir: "~/.config/gtk-2.0/"}
-    - {dir: "~/.config/autorandr"}
+    - {dir: "~/.config/pcmanfm/default"}
     - {dir: "~/.config/solaar"}
     - {dir: "~/.local/share/applications/favorites"}
 
@@ -27,17 +27,17 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
+    - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
     - {src: "config/config", dest: "~/.config/i3/config"}
-    - {src: "config/pcmanfm.conf", dest: "~/.config/pcmanfm/default/pcmanfm.conf"}
+    - {src: "config/gtk2.ini", dest: "~/.gtkrc-2.0"}
+    - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
     - {src: "config/i3status-config.toml", dest: "~/.config/i3status-rust/config-default.toml"}
     - {src: "config/nitrogen.cfg", dest: "~/.config/nitrogen/nitrogen.cfg"}
     - {src: "config/parcelliterc", dest: "~/.config/parcellite/parcelliterc"}
-    - {src: "config/gtk2.ini", dest: "~/.gtkrc-2.0"}
-    - {src: "config/gtk3.ini", dest: "~/.config/gtk-3.0/settings.ini"}
-    - {src: "config/xresources", dest: "~/.Xresources"}
-    - {src: "config/autorandr", dest: "~/.config/autorandr/settings.ini"}
+    - {src: "config/pcmanfm.conf", dest: "~/.config/pcmanfm/default/pcmanfm.conf"}
     - {src: "config/solaar_config.yaml", dest: "~/.config/solaar/config.yaml"}
     - {src: "config/solaar_rules.yaml", dest: "~/.config/solaar/rules.yaml"}
+    - {src: "config/xresources", dest: "~/.Xresources"}
     # - {src: "config/xinitrc", dest: "~/.xinitrc"}
     # - {src: "config/99_startx.fish", dest: "~/.config/fish/conf.d/99_startx.fish"}
 
@@ -66,7 +66,6 @@
         name: dbus
         state: started
         enabled: true
-      when: ansible_distribution == "Void"
       become: true
 
     - name: "Enable elogind"
@@ -74,7 +73,6 @@
         name: elogind
         state: started
         enabled: false
-      when: ansible_distribution == "Void"
       become: true
 
     - name: "Enable lightdm"
@@ -82,7 +80,6 @@
         name: lightdm
         state: started
         enabled: true
-      when: ansible_distribution == "Void"
       become: true
 
     - name: "Add dbus to i3.desktop"
@@ -95,9 +92,25 @@
         backrefs: true
       become: true
 
-    - name: "Udev rule"
-      ansible.builtin.template:
-        src: "config/80-keyb.rules"
-        dest: "/etc/udev/rules.d/80-keyb.rules"
+- name: "Udev rule"
+  ansible.builtin.template:
+    src: "config/80-keyb.rules"
+    dest: "/etc/udev/rules.d/80-keyb.rules"
+  become: true
+  notify: Reload udev
+
+- name: "If Archlinux"
+  when: ansible_distribution == "Archlinux"
+  block:
+    - name: "Enable lightdm"
+      ansible.builtin.systemd:
+        name: lightdm
+        state: started
+        enabled: true
       become: true
-      notify: Reload udev
+
+    - name: Add pacman hook
+      ansible.builtin.template:
+        src: config/i3status-rust.hook
+        dest: /etc/pacman.d/hooks/i3status-rust.hook
+      become: true

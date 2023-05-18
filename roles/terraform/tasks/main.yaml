@@ -10,6 +10,7 @@
   loop:
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
+    - {dir: "~/.local/src/tgenv"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -18,7 +19,10 @@
     mode: "0644"
   loop:
     - {src: "90_tfenv_init.fish", dest: "~/.config/fish/conf.d/90_tfenv_init.fish"}
-#
+    - {src: "tgenv.PKGBUILD", dest: "~/.local/src/tgenv/PKGBUILD"}
+    - {src: "tgenv.install", dest: "~/.local/src/tgenv/tgenv.install"}
+  notify: "Install tgenv"
+
 # - name: "Provide scripts"
 #   ansible.builtin.template:
 #     src: "{{ item.src }}"
@@ -26,3 +30,17 @@
 #     mode: "0755"
 #   loop:
 #     - {src: "tfenv", dest: ""}
+
+- name: If Arch
+  when: ansible_distribution == "Archlinux"
+  become: true
+  block:
+    - name: "Add user to a tfenv group"
+      become: true
+      ansible.builtin.user:
+        name: "{{ conf.username }}"
+        groups: "{{ item }}"
+        append: true
+      loop:
+        - tfenv
+        - tgenv

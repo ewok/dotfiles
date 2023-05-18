@@ -53,7 +53,7 @@
         url: "https://vault.bitwarden.com/download/?app=cli&platform=linux"
         dest: "~/.local/share/bw.zip"
         mode: "0644"
-        checksum: "sha256: ada7c8a08cb5dfa93748f7a266cf1a2485851dbbc4f3de33ee99c050f2f93183"
+        checksum: "sha256: 7333bf62c228f3347bda1d7c00fb34749df6095b923554726b7c7ff97aa096b7"
 
     - name: "Unpack bw.zip"
       ansible.builtin.unarchive:

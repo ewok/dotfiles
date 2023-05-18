@@ -1,3 +1,4 @@
+---
 - name: "Create dirs"
   ansible.builtin.file:
     dest: "{{ item.dir }}"
@@ -28,8 +29,9 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "config/firefox.desktop", dest: "~/.local/share/applications/firefox.desktop"}
+    # - {src: "config/firefox-fav.desktop", dest: "~/.local/share/applications/favorites/browser.desktop"}
     - {src: "config/firefox-work.desktop", dest: "~/.local/share/applications/firefox-work.desktop"}
+    - {src: "config/firefox.desktop", dest: "~/.local/share/applications/firefox.desktop"}
     - {src: "config/tridactyl.json", dest: "~/.mozilla/native-messaging-hosts/tridactyl.json"}
     - {src: "config/tridactylrc", dest: "~/.config/tridactyl/tridactylrc"}
 
@@ -99,7 +101,7 @@
     mode: "0644"
   become: true
 
-- name: "Configure LibreWolf profile"
+- name: "Configure Firefox profile"
   ansible.builtin.copy:
     content: |
       [Install0000000000000000]
@@ -125,7 +127,7 @@
     dest: "~/.mozilla/firefox/profiles.ini"
     mode: "0644"
 
-- name: "Configure LibreWolf profile 2"
+- name: "Configure Firefox profile 2"
   ansible.builtin.copy:
     content: |
       [0000000000000000]
@@ -193,3 +195,20 @@
     url: "https://github.com/tridactyl/native_messenger/releases/download/0.3.8/native_main-Linux"
     dest: "{{ conf.folders.bin }}/native_main"
     mode: "0755"
+
+
+- name: Ensure bin directory structure exists
+  ansible.builtin.file:
+    path: "{{ conf.folders.bin }}/{{ item.path }}"
+    state: directory
+    mode: "0755"
+  with_community.general.filetree: "{{ role_path }}/templates/bin_firefox"
+  when: item.state == 'directory'
+
+- name: Ensure scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ conf.folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin_firefox'
+  when: item.state == 'file'

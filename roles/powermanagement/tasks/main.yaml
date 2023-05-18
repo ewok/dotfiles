@@ -10,10 +10,79 @@
   become: true
   loop:
     - {dir: "/usr/local/bin"}
-    - {dir: "/etc/run_on.ac"}
-    - {dir: "/etc/run_on.bat"}
 
-- name: "Provide configs"
+- name: "If Void"
+  when: ansible_distribution == "Void"
+  block:
+
+    - name: "Create dirs"
+      ansible.builtin.file:
+        dest: "{{ item.dir }}"
+        state: directory
+        mode: "0755"
+      become: true
+      loop:
+        - {dir: "/etc/run_on.ac"}
+        - {dir: "/etc/run_on.bat"}
+
+    - name: "Provide configs(Void)"
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+      become: true
+      loop:
+        - {src: "elogin_logind.conf", dest: "/etc/elogind/logind.conf"}
+        - {src: "init-triggers.sh", dest: "/etc/init-triggers.sh"}
+
+    - name: "Enable tlp"
+      community.general.runit:
+        name: tlp
+        state: started
+        enabled: true
+      become: true
+
+- name: "If Archlinux"
+  when: ansible_distribution == "Archlinux"
+  block:
+
+    - name: "Create dirs"
+      ansible.builtin.file:
+        dest: "{{ item.dir }}"
+        state: directory
+        mode: "0755"
+      become: true
+      loop:
+        - {dir: "/etc/systemd/sleep.conf.d"}
+        - {dir: "/etc/systemd/logind.conf.d"}
+        - {dir: "/etc/systemd/system"}
+
+    - name: "Provide configs"
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+      become: true
+      loop:
+        - {src: "systemd/logind.conf.d/laptop.conf", dest: "/etc/systemd/logind.conf.d/laptop.conf"}
+        - {src: "systemd/sleep.conf.d/laptop.conf", dest: "/etc/systemd/sleep.conf.d/laptop.conf"}
+        - {src: "systemd/system/ac.target", dest: "/etc/systemd/system/ac.target"}
+        - {src: "systemd/system/bat.target", dest: "/etc/systemd/system/bat.target"}
+        - {src: "systemd/system/ac_init.service", dest: "/etc/systemd/system/ac_init.service"}
+        - {src: "systemd/system/bat_init.service", dest: "/etc/systemd/system/bat_init.service"}
+
+    - name: "Enable services"
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      become: true
+      loop:
+        - tlp
+        - ac_init
+        - bat_init
+
+- name: "Provide configs(Common)"
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -21,9 +90,6 @@
   become: true
   loop:
     - {src: "tlp.conf", dest: "/etc/tlp.conf"}
-    - {src: "elogin_logind.conf", dest: "/etc/elogind/logind.conf"}
-      # TODO: Not sure yet
-    - {src: "init-triggers.sh", dest: "/etc/init-triggers.sh"}
 
 - name: "Provide scripts"
   ansible.builtin.template:
@@ -33,15 +99,6 @@
   become: true
   loop:
     - {src: "ac_bat_target", dest: "/usr/local/bin/ac_bat_target"}
-
-- name: "Enable tlp"
-  community.general.runit:
-    name: tlp
-    state: started
-    enabled: true
-  when: ansible_distribution == "Void"
-  become: true
-
 
 - name: "Udev rule"
   copy:

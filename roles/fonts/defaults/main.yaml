@@ -1,10 +1,11 @@
 ---
 packages_archlinux:
-  - ttf-ancient-fonts
   - noto-fonts-emoji
-
-packages_debian: []
+  - ttf-ancient-fonts
+  - ttf-font-awesome
 
 packages_void:
-  - google-fonts-ttf
+  - font-awesome6
   - freefont-ttf
+  - google-fonts-ttf
+  - noto-fonts-emoji

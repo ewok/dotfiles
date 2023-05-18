@@ -5,8 +5,6 @@ packages_archlinux:
   - community/fennel
     #  - clj-kondo-bin
 
-packages_debian: []
-
 packages_void:
   - babashka
   - clojure

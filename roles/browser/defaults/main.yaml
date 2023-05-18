@@ -1,12 +1,10 @@
 ---
 packages_archlinux:
   - google-chrome
-  # - qutebrowser
+  - qutebrowser
   - python-adblock
   - python-tldextract
-  - firefox
-
-packages_debian: []
+  # - firefox
 
 packages_void:
   # TODO: via src or sth

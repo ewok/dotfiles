@@ -2,14 +2,14 @@
 - name: "Install"
   ansible.builtin.include_tasks: "install.yaml"
 
-- name: "Install firefox"
-  ansible.builtin.include_tasks: "firefox.yaml"
+# - name: "Install firefox"
+#   ansible.builtin.include_tasks: "firefox.yaml"
 
 # - name: "Install vieb"
 #   ansible.builtin.include_tasks: "vieb.yaml"
 
-# - name: "Install qutebrowser"
-#   ansible.builtin.include_tasks: "qutebrowser.yaml"
+- name: "Install qutebrowser"
+  ansible.builtin.include_tasks: "qutebrowser.yaml"
 
 - name: "Create dirs"
   ansible.builtin.file:
@@ -18,12 +18,12 @@
     mode: "0755"
   loop:
     - {dir: "{{ conf.folders.bin }}"}
-    - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.config/bash/profile.d"}
-    - {dir: "~/.local/share/applications/"}
-    - {dir: "~/Downloads"}
+    - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.local/share/appimages/"}
+    - {dir: "~/.local/share/applications/"}
     - {dir: "~/.vieb/"}
+    - {dir: "~/Downloads"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -32,6 +32,7 @@
     mode: "0644"
   loop:
     - {src: "config/50_browser.sh", dest: "~/.config/bash/profile.d/50_browser.sh"}
+    - {src: "config/bm-fav.desktop", dest: "~/.local/share/applications/favorites/bm-fav.desktop"}
     - {src: "config/org.custom.choose.browser.desktop", dest: "~/.local/share/applications/org.custom.choose.browser.desktop"}
 
 - name: Ensure bin directory structure exists

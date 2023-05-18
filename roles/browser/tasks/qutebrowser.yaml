@@ -13,10 +13,10 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
-    - {src: "config/qb.desktop", dest: "~/.local/share/applications/qb.desktop"}
     - {src: "config/qb-work.desktop", dest: "~/.local/share/applications/qb-work.desktop"}
-    - {src: "config/qutebrowser-fav.desktop", dest: "~/.local/share/applications/favorites/qutebrowser.desktop"}
+    - {src: "config/qb.desktop", dest: "~/.local/share/applications/qb.desktop"}
+    - {src: "config/qutebrowser-fav.desktop", dest: "~/.local/share/applications/favorites/browser.desktop"}
+    - {src: "config/qutebrowser.py", dest: "~/.config/qutebrowser/config.py"}
 
 - name: "Cleanup configs"
   become: true
@@ -26,3 +26,19 @@
     mode: "0644"
   loop:
     - "/usr/share/applications/org.qutebrowser.qutebrowser.desktop"
+
+- name: Ensure bin directory structure exists
+  ansible.builtin.file:
+    path: "{{ conf.folders.bin }}/{{ item.path }}"
+    state: directory
+    mode: "0755"
+  with_community.general.filetree: "{{ role_path }}/templates/bin_qute"
+  when: item.state == 'directory'
+
+- name: Ensure scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ conf.folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin_qute'
+  when: item.state == 'file'

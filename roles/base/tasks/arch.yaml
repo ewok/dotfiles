@@ -27,8 +27,6 @@
     content: |
       en_US.UTF-8 UTF-8
       ru_RU.UTF-8 UTF-8
-      ky_KG.UTF-8 UTF-8
     mode: "0644"
   notify: "Reconfigure locales"
   become: true
-

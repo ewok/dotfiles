@@ -5,8 +5,6 @@ packages_archlinux:
   - tlp-rdw
   - powertop
 
-packages_debian: []
-
 packages_void:
   - tlp
   - tlpui

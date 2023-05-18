@@ -1,7 +1,7 @@
 ---
-packages_archlinux: []
-
-packages_debian: []
+packages_archlinux:
+  - community/dbeaver
+  - aur/slack-desktop
 
 packages_void:
   - flatpak

@@ -3,4 +3,3 @@ if status --is-interactive
     source (starship init fish --print-full-init | psub)
   end
 end
-

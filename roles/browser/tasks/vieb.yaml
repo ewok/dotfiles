@@ -5,8 +5,8 @@
     mode: "0755"
   loop:
     - {dir: "{{ conf.folders.bin }}"}
-    - {dir: "~/.local/share/icons/hicolor"}
     - {dir: "~/.local/share/appimages/"}
+    - {dir: "~/.local/share/icons/hicolor"}
     - {dir: "~/.vieb/"}
 
 - name: "Provide configs"
@@ -15,8 +15,8 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "config/vieb.desktop", dest: "~/.local/share/applications/vieb.desktop"}
     - {src: "config/vieb-work.desktop", dest: "~/.local/share/applications/vieb-work.desktop"}
+    - {src: "config/vieb.desktop", dest: "~/.local/share/applications/vieb.desktop"}
     - {src: "config/viebrc", dest: "~/.vieb/viebrc"}
 
 - name: "Download VieB"
@@ -40,4 +40,20 @@
     dest: '~/.local/share/icons/hicolor/{{ item.path }}'
     mode: "0644"
   with_community.general.filetree: '{{ role_path }}/files/hicolor'
+  when: item.state == 'file'
+
+- name: Ensure bin directory structure exists
+  ansible.builtin.file:
+    path: "{{ conf.folders.bin }}/{{ item.path }}"
+    state: directory
+    mode: "0755"
+  with_community.general.filetree: "{{ role_path }}/templates/bin_vieb"
+  when: item.state == 'directory'
+
+- name: Ensure scripts are populated from templates
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    dest: '{{ conf.folders.bin }}/{{ item.path }}'
+    mode: "0755"
+  with_community.general.filetree: '{{ role_path }}/templates/bin_vieb'
   when: item.state == 'file'

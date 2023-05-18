@@ -2,8 +2,3 @@
 packages_archlinux:
   - community/bitwarden
   - community/bitwarden-cli
-
-packages_debian: []
-
-packages_void: []
-  # - rofi-rbw

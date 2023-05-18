@@ -1,11 +1,17 @@
 ---
+packages_remove_archlinux:
+  - xdg-desktop-portal
+  - xdg-desktop-portal-gtk
+  - xdg-desktop-portal-gnome
+  - xf86-video-intel
+
 packages_archlinux:
   - adapta-gtk-theme
   - aur/dracula-gtk-theme
   - autorandr
   - autotiling
   - betterlockscreen
-  - caffeine-ng
+  - aur/caffeine
   - dunst
   - flameshot
   - gvfs
@@ -33,16 +39,61 @@ packages_archlinux:
   - xdg-user-dirs
   - xdotool
   - xkb-switch-i3
-  # - xorg-apps
   - xorg-server
   - xorg-xinit
+  - xf86-input-void
+  - xf86-video-fbdev
+  - libva-intel-driver
+  - intel-media-driver
+  - extra/xorg-bdftopcf
+  - extra/xorg-iceauth
+  - extra/xorg-mkfontscale
+  - extra/xorg-sessreg
+  - extra/xorg-setxkbmap
+  - extra/xorg-smproxy
+  - extra/xorg-x11perf
+  - extra/xorg-xauth
+  - extra/xorg-xbacklight
+  - extra/xorg-xcmsdb
+  - extra/xorg-xcursorgen
+  - extra/xorg-xdpyinfo
+  - extra/xorg-xdriinfo
+  - extra/xorg-xev
+  - extra/xorg-xgamma
+  - extra/xorg-xhost
+  - extra/xorg-xinput
+  - extra/xorg-xkbcomp
+  - extra/xorg-xkbevd
+  - extra/xorg-xkbprint
+  - extra/xorg-xkbutils
+  - extra/xorg-xkill
+  - extra/xorg-xlsatoms
+  - extra/xorg-xlsclients
+  - extra/xorg-xmodmap
+  - extra/xorg-xpr
+  - extra/xorg-xprop
+  - extra/xorg-xrandr
+  - extra/xorg-xrdb
+  - extra/xorg-xrefresh
+  - extra/xorg-xset
+  - extra/xorg-xsetroot
+  - extra/xorg-xvinfo
+  - extra/xorg-xwd
+  - extra/xorg-xwininfo
+  - extra/xorg-xwud
   - xss-lock
   - zathura
   - zathura-cb
   - zathura-djvu
   - zathura-pdf-mupdf
-
-packages_debian: []
+  - lightdm
+  - lightdm-gtk-greeter
+  - xdg-utils
+  - xdg-user-dirs
+  - qsudo
+  - seahorse
+  - lm_sensors
+  - libayatana-appindicator
 
 packages_void:
   # WM and tools
@@ -98,8 +149,5 @@ packages_void:
     # Passwords
   - qsudo
   - seahorse
-  # Fonts
-  - font-awesome6
-  - noto-fonts-emoji
-    # Other
+  # Other
   - lm_sensors

@@ -2,9 +2,13 @@
 - name: "Install"
   ansible.builtin.include_tasks: "install.yaml"
 
-- name: "Install aws-iam-authenticator from github"
-  ansible.builtin.get_url:
-    url: "https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
-    dest: "{{ conf.folders.bin }}/aws-iam-authenticator"
-    mode: "0755"
-    checksum: "sha256: b192431c22d720c38adbf53b016c33ab17105944ee73b25f485aa52c9e9297a7"
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Install aws-iam-authenticator from github"
+      ansible.builtin.get_url:
+        url: "https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
+        dest: "{{ conf.folders.bin }}/aws-iam-authenticator"
+        mode: "0755"
+        checksum: "sha256: b192431c22d720c38adbf53b016c33ab17105944ee73b25f485aa52c9e9297a7"

@@ -1,11 +1,11 @@
 ---
 packages_archlinux:
   - git-crypt
-  - git-trim
-  - pass-git-helper
   - git-extras
   - git-filter-repo
-packages_debian: []
+  - git-trim
+  - pass-git-helper
+
 packages_void:
   - git-crypt
   - pass-git-helper

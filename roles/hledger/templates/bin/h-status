@@ -18,13 +18,14 @@
 
 (def current-month (.format today formatter))
 (def next-month (.format next-month-first-day formatter))
+(def current-month-first-day (.format (-> today (.withDayOfMonth 1)) formatter))
 
 
 (def exp-inc (csv/read-csv (:out (shell/sh "hledger" "-f" journal-file
                                            "-s" "bal" "--budget"
                                            "-E"
                                            "^exp" "^inc"
-                                           "-b" current-month "-e" next-month
+                                           "-b" current-month-first-day "-e" next-month
                                            "-M" "-1"
                                            "-X" "USD"
                                            "--no-total"

@@ -10,6 +10,7 @@ packages_archlinux:
   - xz
   - ncurses-base
   - ncurses-term
+  - inetutils
 
 packages_debian: []
 

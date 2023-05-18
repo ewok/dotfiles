@@ -6,4 +6,3 @@ if test -z $TB
   {% endif %}
   set -gx SSH_ASKPASS_REQUIRE prefer
 end
-

@@ -13,12 +13,24 @@
     - {dir: "~/.config/i3/autostart.d/"}
     - {dir: "~/.local/share/appimages/"}
 
-- name: "Download"
-  ansible.builtin.get_url:
-    url: "https://github.com/cryptomator/cryptomator/releases/download/1.7.3/cryptomator-1.7.3-x86_64.AppImage"
-    dest: "~/.local/share/appimages/cryptomator.AppImage"
-    mode: "0755"
-    checksum: "sha256: 2e20bddb9f79f974faf2506d3b7bce7b8bd5d39e5c53ca55b93d293df80ef314"
+- name: "If Void"
+  when: ansible_os_family == "Void"
+  block:
+
+    - name: "Download"
+      ansible.builtin.get_url:
+        url: "https://github.com/cryptomator/cryptomator/releases/download/1.7.3/cryptomator-1.7.3-x86_64.AppImage"
+        dest: "~/.local/share/appimages/cryptomator.AppImage"
+        mode: "0755"
+        checksum: "sha256: 2e20bddb9f79f974faf2506d3b7bce7b8bd5d39e5c53ca55b93d293df80ef314"
+
+    - name: "Provide scripts"
+      ansible.builtin.copy:
+        content: |
+          #!/usr/bin/env bash
+          ~/.local/share/appimages/cryptomator.AppImage $@
+        dest: "{{ conf.folders.bin }}/cryptomator"
+        mode: "0755"
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -28,11 +40,3 @@
   loop:
     - {src: "settings.json", dest: "~/.config/Cryptomator/settings.json"}
     - {src: "i3_autostart", dest: "~/.config/i3/autostart.d/cryptomator.conf"}
-
-- name: "Provide scripts"
-  ansible.builtin.copy:
-    content: |
-      #!/usr/bin/env bash
-      ~/.local/share/appimages/cryptomator.AppImage $@
-    dest: "{{ conf.folders.bin }}/cryptomator"
-    mode: "0755"

@@ -51,6 +51,14 @@
   when: ansible_distribution == "Void"
   become: true
 
+- name: "Enable pcscd"
+  ansible.builtin.systemd:
+    name: pcscd
+    state: started
+    enabled: true
+  when: ansible_distribution == "Archlinux"
+  become: true
+
 - name: Pam
   become: true
   block:

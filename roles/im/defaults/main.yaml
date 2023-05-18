@@ -3,8 +3,6 @@ packages_archlinux:
   - telegram-desktop
   - skypeforlinux
 
-packages_debian: []
-
 packages_void:
   - telegram-desktop
   - telegram-tg

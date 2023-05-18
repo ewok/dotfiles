@@ -2,8 +2,6 @@
 packages_archlinux:
   - syncthing
 
-packages_debian: []
-
 packages_void:
   - syncthing
   - syncthing-gtk

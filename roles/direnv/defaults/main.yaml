@@ -2,7 +2,5 @@
 packages_archlinux:
   - community/direnv
 
-packages_debian: []
-
 packages_void:
   - direnv

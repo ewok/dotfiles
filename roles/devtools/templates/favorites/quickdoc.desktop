@@ -1,6 +1,11 @@
 [Desktop Entry]
 Type=Application
-Name=DBeaver CE
-Exec=flatpak run com.github.mdh34.quickdocs
+Name=Quickdocs
+{% if ansible_distribution == "Void" %}
 Icon=com.github.mdh34.quickdocs
+Exec=flatpak run com.github.mdh34.quickdocs
+{% else %}
+Icon=quickdocs
+Exec=quickdocs
+{% endif %}
 Shortcut=dq

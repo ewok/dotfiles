@@ -10,8 +10,6 @@ packages_archlinux:
   - aur/archivemount-git
   - aur/epr-git
 
-packages_debian: []
-
 packages_void:
   - zip
   - vifm

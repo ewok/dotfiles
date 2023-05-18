@@ -12,3 +12,14 @@
     name: "{{ conf.username }}"
     groups: docker
     append: true
+
+- name: "If Archlinux"
+  when: ansible_distribution == "Archlinux"
+  block:
+
+    - name: "Enable docker"
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+      become: true

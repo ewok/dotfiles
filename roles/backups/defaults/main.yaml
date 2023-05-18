@@ -1,6 +1,4 @@
 ---
 packages_archlinux: [rclone, restic]
 
-packages_debian: []
-
 packages_void: [rclone, restic]

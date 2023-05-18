@@ -1,5 +1,6 @@
 ---
 packages_archlinux:
+  - wireplumber
   - pipewire
   - pipewire-pulse
   - pipewire-alsa
@@ -15,8 +16,6 @@ packages_archlinux:
   - gst-plugins-base
   - gst-plugins-ugly
   - playerctl
-
-packages_debian: []
 
 packages_void:
   - pipewire

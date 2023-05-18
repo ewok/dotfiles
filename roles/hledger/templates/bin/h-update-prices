@@ -17,7 +17,7 @@
                              true)
           [:rates]))
 
-(def ex (get-ex-rate "USD" "RUB,KGS,AED,PHP,EUR"))
+(def ex (get-ex-rate "USD" "RUB,KGS,AED,PHP,EUR,KZT"))
 
 (def rates (for [i ex] (let [date (name (key i))] (for [y (val i)]
                                                     (let [currency (name (key y))

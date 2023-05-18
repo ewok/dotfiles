@@ -1,6 +1,4 @@
 ---
 packages_archlinux: [docker]
 
-packages_debian: []
-
 packages_void: [docker]

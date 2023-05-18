@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+{% if ansible_distribution == "Void" %}
 # Structure:
 # /etc/run_on.ac/<service>.(start|stop)
 # /etc/run_on.bat/<service>.(start|stop)
@@ -45,3 +46,26 @@ case "$1" in
     echo "No command"
     exit 2
 esac
+{% else %}
+case "$1" in
+  ac_start)
+    /usr/bin/systemctl start ac.target
+    # sudo -u {{ conf.username }} /usr/bin/systemctl --user start ac.target
+    ;;
+  ac_stop)
+    /usr/bin/systemctl stop ac.target
+    # sudo -u {{ conf.username }} /usr/bin/systemctl --user stop ac.target
+    ;;
+  bat_start)
+    /usr/bin/systemctl start bat.target
+    # sudo -u {{ conf.username }} /usr/bin/systemctl --user start battery.target
+    ;;
+  bat_stop)
+    /usr/bin/systemctl stop bat.target
+    # sudo -u {{ conf.username }} /usr/bin/systemctl --user stop battery.target
+    ;;
+  *)
+    echo "No command"
+    exit 2
+esac
+{% endif %}

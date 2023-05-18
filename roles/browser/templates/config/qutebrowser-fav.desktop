@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=choose-fx
+Exec=choose-qute
 Name=Quick Browser
-Icon=firefox
+Icon=Qutebrowser
 Shortcut=q

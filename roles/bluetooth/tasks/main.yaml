@@ -10,13 +10,6 @@
   loop:
     - {dir: "~/.config/i3/autostart.d/"}
 
-- name: "Provide configs"
-  ansible.builtin.copy:
-    content: "exec_always --no-startup-id pgrep blueberry-tray || /usr/bin/blueberry-tray"
-    dest: "~/.config/i3/autostart.d/bluetooth.conf"
-    mode: "0644"
-  when: ansible_distribution == "Archlinux"
-#
 - name: "If Void"
   when: ansible_distribution == "Void"
   block:
@@ -49,3 +42,20 @@
       become: true
       loop:
         - "bluetooth"
+
+- name: "If Archlinux"
+  when: ansible_distribution == "Archlinux"
+  block:
+
+    - name: "Enable bluetoothd"
+      ansible.builtin.systemd:
+        name: bluetooth
+        state: started
+        enabled: true
+      become: true
+
+    - name: "Provide configs"
+      ansible.builtin.copy:
+        content: "exec_always --no-startup-id blueman-applet"
+        dest: "~/.config/i3/autostart.d/bluetooth.conf"
+        mode: "0644"

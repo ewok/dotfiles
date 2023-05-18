@@ -21,12 +21,16 @@
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
         mode: "0644"
-      become: true
       loop:
         - {src: "restic-backup.service", dest: "/etc/systemd/system/restic-backup.service"}
         - {src: "restic-backup.timer", dest: "/etc/systemd/system/restic-backup.timer"}
       notify: Reload restic
 
+    - name: Start service
+      ansible.builtin.service:
+        name: restic-backup.timer
+        state: started
+        enabled: true
 
 - name: If Void
   when: ansible_distribution == "Void"

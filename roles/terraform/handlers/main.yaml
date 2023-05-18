@@ -1,0 +1,4 @@
+---
+- name: "Install tgenv"
+  ansible.builtin.shell: "cd ~/.local/src/tgenv && makepkg -si --noconfirm"
+  when: ansible_distribution == "Archlinux"

@@ -3,7 +3,5 @@ packages_archlinux:
   - kubectl
   - kubectx
 
-packages_debian: []
-
 packages_void:
   - kubectl

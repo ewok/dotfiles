@@ -9,8 +9,6 @@ packages_archlinux:
   - community/global
   - aur/viddy
 
-packages_debian: []
-
 packages_void:
   - fish-shell
   - zoxide
