@@ -28,8 +28,8 @@
     - name: Enable service
       ansible.builtin.service:
         name: syncthing@ataranchiev
-        state: started
-        enabled: true
+        state: stopped
+        enabled: false
 
 - name: If Void
   when: ansible_distribution == "Void"

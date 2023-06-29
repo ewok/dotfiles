@@ -29,7 +29,7 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    # - {src: "config/firefox-fav.desktop", dest: "~/.local/share/applications/favorites/browser.desktop"}
+    - {src: "config/firefox-fav.desktop", dest: "~/.local/share/applications/favorites/browser.desktop"}
     - {src: "config/firefox-work.desktop", dest: "~/.local/share/applications/firefox-work.desktop"}
     - {src: "config/firefox.desktop", dest: "~/.local/share/applications/firefox.desktop"}
     - {src: "config/tridactyl.json", dest: "~/.mozilla/native-messaging-hosts/tridactyl.json"}
@@ -189,6 +189,8 @@
       name: "addon@darkreader.org.xpi"
     - url: "https://tridactyl.cmcaine.co.uk/betas/tridactyl-latest.xpi"
       name: "tridactyl.vim.betas@cmcaine.co.uk.xpi"
+    - url: "https://addons.mozilla.org/firefox/downloads/file/3546070/xbs-1.5.2.xpi"
+      name: "{019b606a-6f61-4d01-af2a-cea528f606da}.xpi"
 
 - name: "Install native messenger"
   ansible.builtin.get_url:

@@ -1,2 +1,2 @@
 ---
-packages_archlinux: [aur/tfenv, aur/helmenv-bin, aur/tgenv]
+packages_archlinux: [aur/tfenv, aur/helmenv-bin]

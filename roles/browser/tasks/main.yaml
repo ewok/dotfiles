@@ -2,14 +2,17 @@
 - name: "Install"
   ansible.builtin.include_tasks: "install.yaml"
 
-# - name: "Install firefox"
-#   ansible.builtin.include_tasks: "firefox.yaml"
+- name: "Install firefox"
+  ansible.builtin.include_tasks: "firefox.yaml"
+  when: conf.browser == "firefox"
 
-# - name: "Install vieb"
-#   ansible.builtin.include_tasks: "vieb.yaml"
+- name: "Install vieb"
+  ansible.builtin.include_tasks: "vieb.yaml"
+  when: conf.browser == "vieb"
 
 - name: "Install qutebrowser"
   ansible.builtin.include_tasks: "qutebrowser.yaml"
+  when: conf.browser == "qutebrowser"
 
 - name: "Create dirs"
   ansible.builtin.file:
