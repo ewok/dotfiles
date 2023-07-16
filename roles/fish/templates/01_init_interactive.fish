@@ -21,6 +21,8 @@ if status is-interactive
   {% if ansible_distribution == "MacOSX" %}
   # TODO: Move it to some role
   alias assume="source /opt/homebrew/bin/assume.fish"
+  # TODO: Move to some role
+  export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
   {% endif %}
 
 end
