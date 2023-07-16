@@ -4,6 +4,7 @@ function fish_greeting
     if test -t 2
       {% if ansible_distribution == "Void" %}
         sudo sv s /var/service/* | grep -v 'run:' >&2
+      {% elif ansible_distribution == "MacOSX" %}
       {% else %}
         systemctl --state=failed --no-legend --no-pager >&2
         systemctl --user --state=failed --no-legend --no-pager >&2

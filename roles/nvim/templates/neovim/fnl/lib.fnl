@@ -53,7 +53,7 @@
   (let [options (or ?options {})
         options (collect [k v (pairs options)]
                   (match k
-                    :require* (values :config #(require ,v))
+                    :require* (values :config #(require ',v))
                     _ (values k v)))]
     (doto options (tset 1 identifier))))
 

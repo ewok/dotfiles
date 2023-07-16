@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
+{% if ansible_distribution == "MacOSX" %}
+DATE=gdate
+{% else %}
+DATE=date
+{% endif %}
+
 h \
   -s bal \
   --pretty-tables \
   --budget -E \
   ^exp \
   not:tag:clopen \
-  -b $(date +%Y-%m --date="last month") \
-  -e $(date +%Y-%m --date="next month") \
+  -b $($DATE +%Y-%m --date="last month") \
+  -e $($DATE +%Y-%m --date="next month") \
   -M --real $@ | rg -v 'Budget performance' | rg --color=always --passthru '\d\d\d%'

@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+{% if ansible_distribution == "MacOSX" %}
+DATE=gdate
+{% else %}
+DATE=date
+{% endif %}
+
 h 2022 bal \
   ^exp not:tag:clopen \
   --pretty-tables \
@@ -12,4 +18,4 @@ h bal -ATM \
   --pretty-tables \
   -X USD --sort \
   -b 2023-01 \
-  -e "$(date +%Y-%m --date="next month")"
+  -e "$($DATE +%Y-%m --date="next month")"

@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
+{% if ansible_distribution == "MacOSX" %}
+DATE=gdate
+{% else %}
+DATE=date
+{% endif %}
+
 echo "********************************************************************************"
 echo Goals:
 h \
   bal \
   --pretty-tables \
-  -e $(date +%Y-%m --date="next month") \
+  -e $($DATE +%Y-%m --date="next month") \
   ^assets:goals $@
 echo
 
@@ -14,6 +20,6 @@ echo Assets:
 h \
   bal \
   --pretty-tables \
-  -e $(date +%Y-%m --date="next month") \
+  -e $($DATE +%Y-%m --date="next month") \
   ^assets:asset $@
 echo

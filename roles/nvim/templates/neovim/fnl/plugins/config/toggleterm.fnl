@@ -89,7 +89,7 @@
       ;; Float terminal
       (map! :n :<leader>of float-terminal {:silent true}
             "Open floating terminal") ; (map! [:n :t] :<c-cr> float-terminal {:silent true} ;       "Toggle floating terminal")
-      (map! :t :<c-space> horizontal-terminal {:silent true}
+      (map! :t :<c-t> horizontal-terminal {:silent true}
             "Toggle bottom or vertical terminal")
       (map! :n :<leader>tt
             #(let [h vim.g.tth
@@ -102,7 +102,7 @@
                      (set vim.g.tth true)
                      (notify :Horizontal :INFO {:title :Terminal}))))
             {:silent true} "Toggle terminal direction(float/horizontal)")
-      (map! :n :<c-space>
+      (map! :n :<c-t>
             #(let [h vim.g.tth]
                (if h (horizontal-terminal) (float-terminal)))
             {:silent true} "Toggle bottom or vertical terminal")

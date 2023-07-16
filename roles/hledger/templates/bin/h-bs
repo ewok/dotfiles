@@ -8,7 +8,7 @@ h \
   --no-total \
   --pretty-tables \
   --real \
-  ^assets:cash $@
+  ^assets:cash ^liabilities $@
 
 # to show tend
 # with total

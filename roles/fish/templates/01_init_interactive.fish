@@ -17,4 +17,10 @@ if status is-interactive
   if command -vq -- bat
     alias cat "bat"
   end
+
+  {% if ansible_distribution == "MacOSX" %}
+  # TODO: Move it to some role
+  alias assume="source /opt/homebrew/bin/assume.fish"
+  {% endif %}
+
 end

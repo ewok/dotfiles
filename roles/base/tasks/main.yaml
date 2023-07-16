@@ -44,10 +44,10 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   loop:
-    - {src: "bash_profile", dest: "~/.bash_profile"}
+    - {src: "profile", dest: "~/.bash_profile"}
     - {src: "profile", dest: "~/.profile"}
     - {src: "bashrc", dest: "~/.bashrc"}
-    - {src: "10-base.sh", dest: "~/.config/bash/profile.d/10-base.sh"}
+    - {src: "10-base.sh", dest: "~/.config/bash/rc.d/10-base.sh"}
 
 - name: "Provide configs"
   ansible.builtin.template:
@@ -55,5 +55,6 @@
     dest: "{{ item.dest }}"
     mode: "0644"
   become: true
+  when: ansible_distribution != "MacOSX"
   loop:
     - {src: "10-sudoers", dest: "/etc/sudoers.d/10-sudoers"}

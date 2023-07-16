@@ -14,7 +14,14 @@ if [ -d $HOME/.config/bash/rc.d/ ]; then
   unset f
 fi
 
+{% if ansible_distribution == "MacOSX" %}
+if [[ $(ps -p $PPID -o comm=) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
+then
+  exec /opt/homebrew/bin/fish
+fi
+{% else %}
 if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
 then
   exec fish
 fi
+{% endif %}

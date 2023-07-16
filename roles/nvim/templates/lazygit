@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
+{% if ansible_distribution == "MacOSX" %}
+exec -a "$0" "/opt/homebrew/bin/lazygit" "$@"
+{% else %}
 exec -a "$0" "/usr/bin/lazygit" "$@"
+{% endif %}
 
