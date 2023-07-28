@@ -1,12 +1,12 @@
 ---
 packages_archlinux:
-  - community/fish
-  - community/zoxide
-  - community/exa
-  - community/bat
-  - community/dfc
-  - community/fd
-  - community/global
+  - fish
+  - zoxide
+  - exa
+  - bat
+  - dfc
+  - fd
+  - global
   - aur/viddy
 
 packages_void:

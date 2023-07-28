@@ -1,12 +1,12 @@
 (local installer_resources {:lsp [:ansible-language-server
                                   :bash-language-server
                                   :clojure-lsp
-                                  :fennel-language-server
+                                  ; :fennel-language-server
                                   :jq
                                   :json-lsp
                                   :lua-language-server
                                   :pyright
-                                  :rnix-lsp
+                                  ; :rnix-lsp
                                   :terraform-ls
                                   :ltex-ls
                                   :zk]

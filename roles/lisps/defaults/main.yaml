@@ -1,8 +1,8 @@
 ---
 packages_archlinux:
   - aur/babashka-bin
-  - community/clojure
-  - community/fennel
+  - clojure
+  - fennel
     #  - clj-kondo-bin
 
 packages_void:

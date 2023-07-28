@@ -1,12 +1,12 @@
 ---
 packages_archlinux:
-  - extra/zip
-  - community/vifm
-  - extra/unzip
-  - extra/p7zip
-  - community/sshfs
-  - community/curlftpfs
-  - community/trash-cli
+  - zip
+  - vifm
+  - unzip
+  - p7zip
+  - sshfs
+  - curlftpfs
+  - trash-cli
   - aur/archivemount-git
   - aur/epr-git
 

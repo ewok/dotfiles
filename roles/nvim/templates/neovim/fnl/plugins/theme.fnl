@@ -42,7 +42,13 @@
                                                            :variables :none}
                                               :diagnostics {:darker true
                                                             :undercurl true}})
-                              (onedark.load))})]
+                              (onedark.load))})
+            (pack :cormacrelf/dark-notify
+                  {:config #(let [dn (require :dark_notify)
+                                  onedark (require :onedark)]
+                              (dn.run {:onchange (fn [mode]
+                                                   (onedark.setup {:style mode})
+                                                   (onedark.load))}))})]
   :onedark-one [(pack :NTBBloodbath/doom-one.nvim
                       {:init #(do
                                 (set vim.g.doom_one_cursor_coloring true)

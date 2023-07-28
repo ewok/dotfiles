@@ -1,4 +1,4 @@
 ---
 packages_archlinux:
-  - community/bitwarden
-  - community/bitwarden-cli
+  - bitwarden
+  - bitwarden-cli

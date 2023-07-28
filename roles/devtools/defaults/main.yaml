@@ -1,6 +1,6 @@
 ---
 packages_archlinux:
-  - community/dbeaver
+  - dbeaver
   - aur/slack-desktop
 
 packages_void:

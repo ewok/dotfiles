@@ -1,6 +1,6 @@
 ---
 packages_archlinux:
-  - community/direnv
+  - direnv
 
 packages_void:
   - direnv

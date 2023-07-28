@@ -2,4 +2,4 @@
 
 {:cmd [:terraform-ls :serve]
  :filetypes [:terraform :terraform-vars]
- :root_dir (util.root_pattern :.git :.root)}
+ :root_dir (util.root_pattern :.root :.terraform :.git)}

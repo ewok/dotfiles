@@ -8,7 +8,9 @@ if [ -z "$HOSTNAME" ]; then
   export HOSTNAME=$(uname -n)
 fi
 
-{%- if ansible_distribution != 'MacOSX' %}
+{% if ansible_distribution == 'MacOSX' %}
+export PATH="/opt/homebrew/sbin:$PATH"
+{% else %}
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_MEASUREMENT=ru_RU.UTF-8
@@ -17,13 +19,13 @@ export LC_NUMERIC=ru_RU.UTF-8
 export LC_PAPER=ru_RU.UTF-8
 export LC_TIME=ru_RU.UTF-8
 export GTK_THEME=Adapta-Nokto
-{%- endif %}
+{% endif %}
 
 export PATH=~/.local/bin:~/bin:~/.bin:$PATH
 
 export FZF_LEGACY_KEYBINDINGS=0
 export OPEN_CMD=open
 
-{%- if ansible_distribution == 'Void' %}
+{% if ansible_distribution == 'Void' %}
 export XBPS_DISTDIR="{{ conf.void_distdir }}"
-{%- endif %}
+{% endif %}
