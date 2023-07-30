@@ -25,6 +25,7 @@
                                            "-s" "bal" "--budget"
                                            "-E"
                                            "^exp" "^inc"
+                                           "^lia"
                                            "-b" current-month-first-day "-e" next-month
                                            "-M" "-1"
                                            "-X" "USD"
@@ -59,10 +60,12 @@
 (def expenses (Float/parseFloat (get-val exp-inc "expenses" 2)))
 (def planned-expenses (Float/parseFloat (get-val exp-inc "expenses" 3)))
 (def current-cash (Float/parseFloat (get-val asset "assets:cash" 2)))
+(def current-loan (Float/parseFloat (get-val exp-inc "liabilities" 2)))
+(def planned-loan (Float/parseFloat (get-val exp-inc "liabilities" 3)))
 
 ; money = Current Cash + Planned Revenue - Planned Expenses - Received Income + (Expenses if <= Planned Expenses)
 (def money
-  (+ current-cash planned-revenue
+  (+ current-cash planned-revenue planned-loan current-loan
      (- planned-expenses)
      (- received-revenue)
      (if (<= expenses planned-expenses) expenses planned-expenses)))
@@ -80,7 +83,7 @@
 (println (format "Today is day %s of %s days, which is %.2f%%\n" day days_in_month (float (* 100 (/ day days_in_month)))))
 
 (print-red-if-negative money "Money:                    %.2f USD\n")
-(print-red-if-negative (+ current-cash planned-revenue (- received-revenue)) "Just money + income:      %.2f USD\n")
+(print-red-if-negative (+ current-cash planned-revenue (- current-loan) (- received-revenue)) "Just money + income:      %.2f USD\n")
 (print-red-if-negative current-cash "Just money(end of month): %.2f USD\n\n")
 
 (print-red-if-negative planned-revenue "Planned income:           %.2f")
@@ -90,7 +93,7 @@
                            (* 100)) "(%.2f%%)\n")
 
 (print-red-if-negative planned-expenses "Planned expenses:         %.2f")
-(print-red-if-negative expenses "  Expenses:                 %.2f")
+(print-red-if-negative expenses  "  Expenses:                 %.2f")
 (print-red-if-negative (-> expenses
                            (/ planned-expenses)
                            (* 100)) "(%.2f%%)\n\n")
