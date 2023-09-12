@@ -48,6 +48,7 @@
     - {src: "profile", dest: "~/.profile"}
     - {src: "bashrc", dest: "~/.bashrc"}
     - {src: "10-base.sh", dest: "~/.config/bash/rc.d/10-base.sh"}
+    - {src: "10-base.sh", dest: "~/.config/bash/profile.d/10-base.sh"}
 
 - name: "Provide configs"
   ansible.builtin.template:

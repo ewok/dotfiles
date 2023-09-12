@@ -20,18 +20,24 @@
         actions (require :telescope.actions)
         builtin (require :telescope.builtin)]
     (telescope.setup {:defaults {: vimgrep_arguments
-                                 :prompt_prefix " "
-                                 :selection_caret " "
-                                 :entry_prefix " "
-                                 :multi_icon " "
+                                 ; :prompt_prefix " "
+                                 ; :selection_caret " "
+                                 ; :entry_prefix " "
+                                 ; :multi_icon " "
                                  :color_devicons true
                                  :file_ignore_patterns [:node_modules]
                                  :layout_strategy :flex
                                  :set_env {:COLORTERM :truecolor}
                                  :layout_config {:flex {:height 0.95
-                                                               :width 0.95
-                                                               :flip_columns 130
-                                                               :prompt_position :bottom}}
+                                                        :width 0.95
+                                                        :flip_columns 130
+                                                        :prompt_position :bottom
+                                                        :horizontal {:width 0.99
+                                                                     :height 0.95
+                                                                     :preview_width 0.5}
+                                                        :vertical {:width 0.99
+                                                                   :height 0.99
+                                                                   :preview_height 0.7}}}
                                  :mappings {:i {:<c-j> actions.move_selection_next
                                                 :<c-k> actions.move_selection_previous
                                                 :<c-s> actions.select_horizontal
@@ -40,12 +46,11 @@
                                                 :<c-q> (+ actions.smart_send_to_qflist
                                                           actions.open_qflist)
                                                 :<c-i> (+ actions.toggle_selection
-                                                              actions.move_selection_previous)
-                                                :<esc> actions.close
-                                                }
+                                                          actions.move_selection_previous)
+                                                :<esc> actions.close}
                                             :n {:<esc> actions.close}}
-                                 :pickers {:buffers {:mappings {:i {:<c-d> :delete_buffer}
-                                                                :n {:dd :delete_buffer}}}}
+                                 :pickers {:buffers {:mappings {:i {:<c-d> :delete_buf}
+                                                                :n {:dd :delete_buf}}}}
                                  :extensions {:fzf {:fuzzy true
                                                     :override_generic_sorter true
                                                     :override_file_sorter true

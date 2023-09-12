@@ -11,6 +11,13 @@
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/bash/profile.d"}
 
+- name: "fnl mac os patch"
+  ansible.builtin.file:
+    dest: "~/.config/fnlm"
+    src: "~/.config/nvim"
+    state: link
+
+
 - name: "Provide configs"
   ansible.builtin.template:
     src: "{{ item.src }}"

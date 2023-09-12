@@ -66,4 +66,4 @@
                                       :row 0
                                       :col 1}})))
 
-{: config :event [:BufRead :BufNewFile]}
+{: config}

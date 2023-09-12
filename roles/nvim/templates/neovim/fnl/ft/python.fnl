@@ -1,5 +1,4 @@
 (local {: reg-ft} (require :lib))
-(local (wk-ok? wk) (pcall require :which-key))
 
 (reg-ft :python
         #(do
@@ -7,6 +6,7 @@
            (set vim.opt_local.shiftwidth 4)
            (set vim.opt_local.tabstop 4)
            (set vim.opt_local.softtabstop 4)
+           (local (wk-ok? wk) (pcall require :which-key))
            (when wk-ok?
              (wk.register {:ec {:name "Eval Comment[conjure]"}
                            :e {:name "Eval[conjure]"}

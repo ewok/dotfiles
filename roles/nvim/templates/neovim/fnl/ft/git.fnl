@@ -1,9 +1,9 @@
 (local {: reg-ft : map!} (require :lib))
-(local (wk-ok? wk) (pcall require :which-key))
 
 (reg-ft :floggraph #(do
                       (map! [:n] :q :<cmd>close<cr> {:silent true :buffer true}
                             :Close)
+                      (local (wk-ok? wk) (pcall require :which-key))
                       (when wk-ok?
                         (wk.register {:c {:name "[Git] Commit"}
                                       :c? ["[Git] Help"]
@@ -83,6 +83,7 @@
                      :Close)
                (map! [:n] :r "<cmd>WhichKey r<cr>" {:silent true :buffer true}
                      :Close)
+               (local (wk-ok? wk) (pcall require :which-key))
                (when wk-ok?
                  (wk.register {:c {:name "[Git] Commit"}
                                :c<space> ["[Git] Git commit_"]

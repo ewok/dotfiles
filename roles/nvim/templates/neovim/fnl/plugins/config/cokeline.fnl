@@ -44,16 +44,23 @@
                                              :bg win-bg
                                              :style :bold}]}
                      :default_hl {:fg win-fg :bg win-bg}
-                     :components [
-                                  {:text " " }
-                                  ; {:text conf.separator.right
-                                  ;  :fg win-fg
-                                  ;  :bg win-bg}
+                     :components [;{:text " "}
+                                  {:text (fn [buffer]
+                                           (if buffer.is_focused
+                                               conf.separator.left
+                                               " "))
+                                   :bg (fn [buffer]
+                                         (if buffer.is_focused
+                                             (active-bg) (inactive-bg)))
+                                   :fg (fn [buffer]
+                                         (if buffer.is_focused
+                                             (active-fg)
+                                             (inactive-fg)))}
                                   {:text (fn [buffer] buffer.devicon.icon)
                                    :fg (fn [buffer]
                                          (if buffer.is_focused
                                              (active-fg)
-                                             buffer.devicon.color)) }
+                                             buffer.devicon.color))}
                                   {:text (fn [buffer] buffer.unique_prefix)
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
@@ -80,24 +87,24 @@
                                    :style (fn [buffer]
                                             (if buffer.is_focused :bold nil))}
                                   {:text (fn [buffer]
-                                           (if buffer.is_readonly " 🔒" "")) }
+                                           (if buffer.is_readonly " 🔒" ""))}
                                   {:text (fn [buffer]
-                                           (if buffer.is_modified " ●" ""))
-                                   }
+                                           (if buffer.is_modified " ●" ""))}
                                   {:text (fn [buffer]
                                            (if buffer.is_focused
                                                conf.separator.left
-                                               conf.separator.alt_left))
+                                               " "))
                                    ; :fg win-fg
-                                   :bg (fn [buffer]
+                                   :fg (fn [buffer]
                                          (if buffer.is_focused
                                              (active-bg)
                                              (inactive-bg)))
-                                   ; :fg (fn [buffer]
-                                   ;       (if buffer.is_focused
-                                   ;           (active-bg)
-                                   ;           (inactive-bg)))
+                                   :bg (fn [buffer]
+                                         (if buffer.is_focused
+                                             (active-fg)
+                                             (inactive-fg)))
                                    ; :fg win-bg
-                                   :fg (inactive-bg)
+                                   ; :fg (inactive-bg)
                                    }]})))
+
 {: config : init}

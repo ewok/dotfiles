@@ -8,7 +8,8 @@
  ;; Mind
  (pack :phaazon/mind.nvim (require :plugins.config.mind))
  ;; Sessions
- (pack :olimorris/persisted.nvim (require :plugins.config.persisted))
+ (pack :stevearc/resession.nvim (require :plugins.config.resession))
+ ; (pack :olimorris/persisted.nvim (require :plugins.config.persisted))
  ;; Nice TODO-comments
  (pack :folke/todo-comments.nvim (require :plugins.config.todo-comments))
  ;; Search and Replace

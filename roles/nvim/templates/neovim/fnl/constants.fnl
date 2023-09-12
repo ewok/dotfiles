@@ -19,8 +19,8 @@
                 :rainbow_parents false
                 ; :leap or :hop
                 :motion_plugin :leap
-                ;; bufferline or cokeline or tabby or tabline
-                :bufferline_plugin :tabline
+                ;; bufferline or cokeline or tabby or tabline or lualine
+                :bufferline_plugin :lualine
                 :theme "{{ conf.theme.theme }}"
                 :spelllang [:nospell :en_us :ru_ru]
                 :large_file_size (* 1024 1024 20)})
@@ -52,49 +52,102 @@
 
 (tset icons :platform {:unix "" :dos "" :mac ""})
 
-(tset icons :diagnostic {:Error "" :Warn "" :Info "ﬤ" :Hint ""})
+;; Linux
+;; (tset icons :diagnostic {:Error "" :Warn "" :Info "ﬤ" :Hint ""})
 
-(tset icons :tag_level {:Fixme "ﰡ"
-                        :Hack "ﰠ"
-                        :Warn ""
-                        :Note "ﮉ"
-                        :Todo "ﮉ"
-                        :Perf "ﮉ"})
+;; MacOs
+(tset icons :diagnostic {:Error "" :Warn "" :Info "" :Hint ""})
 
-(tset icons :lsp_kind {:String ""
-                       :Number ""
+;; MacOs
+(tset icons :tag_level {:Fixme "☠"
+                        :Hack "✄"
+                        :Warn "☢"
+                        :Note "✐"
+                        :Todo "✓"
+                        :Perf "↻"})
+
+;; Linux
+;; (tset icons :tag_level {:Fixme "ﰡ"
+;;                         :Hack "ﰠ"
+;;                         :Warn ""
+;;                         :Note "ﮉ"
+;;                         :Todo "ﮉ"
+;;                         :Perf "ﮉ"})
+
+;; MacOs
+(tset icons :lsp_kind {:Array ""
                        :Boolean "◩"
-                       :Array ""
-                       :Object ""
-                       :Key ""
-                       :Null "ﳠ"
-                       :Text ""
-                       :Method ""
-                       :Function ""
-                       :Constructor ""
+                       :Class ""
+                       :Color ""
+                       :Constant ""
+                       :Constructor ""
+                       :Enum ""
+                       :EnumMember ""
+                       :Event ""
+                       :Field ""
+                       :File ""
+                       :Folder ""
+                       :Function "󰊕"
+                       :Interface ""
+                       :Key "󰌋"
+                       :Keyword ""
+                       :Method "󰆧"
+                       :Module ""
                        :Namespace ""
-                       :Field "ﰠ"
-                       :Variable "ﳋ"
-                       :Class ""
-                       :Interface ""
-                       :Module "ﰪ"
-                       :Property ""
-                       :Unit "塞"
-                       :Value ""
-                       :Enum ""
-                       :Keyword ""
-                       :Snippet ""
-                       :Color ""
-                       :File ""
-                       :Reference ""
-                       :Folder ""
-                       :EnumMember ""
-                       :Constant ""
-                       :Struct "﬌"
-                       :Event ""
-                       :Operator ""
-                       :TypeParameter ""})
+                       :Null "0"
+                       :Number ""
+                       :Object ""
+                       :Operator ""
+                       :Property ""
+                       :Reference ""
+                       :Snippet ""
+                       :String "󰉿"
+                       :Struct ""
+                       :Text ""
+                       :TypeParameter ""
+                       :Unit ""
+                       :Value ""
+                       :Variable ""})
 
+(tset icons :wk {
+      :breadcrumb " "
+      :separator " "
+      :group " "})
+
+;; Linux
+;; (tset icons :lsp_kind {:String ""
+;;                        :Number ""
+;;                        :Boolean "◩"
+;;                        :Array ""
+;;                        :Object ""
+;;                        :Key ""
+;;                        :Null "ﳠ"
+;;                        :Text ""
+;;                        :Method ""
+;;                        :Function ""
+;;                        :Constructor ""
+;;                        :Namespace ""
+;;                        :Field "ﰠ"
+;;                        :Variable "ﳋ"
+;;                        :Class ""
+;;                        :Interface ""
+;;                        :Module "ﰪ"
+;;                        :Property ""
+;;                        :Unit "塞"
+;;                        :Value ""
+;;                        :Enum ""
+;;                        :Keyword ""
+;;                        :Snippet ""
+;;                        :Color ""
+;;                        :File ""
+;;                        :Reference ""
+;;                        :Folder ""
+;;                        :EnumMember ""
+;;                        :Constant ""
+;;                        :Struct "﬌"
+;;                        :Event ""
+;;                        :Operator ""
+;;                        :TypeParameter ""})
 (local in-tmux? (exists? :$TMUX))
 
 (local lisp-langs [:clojure

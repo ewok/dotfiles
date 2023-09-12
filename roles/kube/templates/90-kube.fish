@@ -10,6 +10,7 @@ function __kubectl_abbr_init
     abbr -a kx kubectx
     abbr -a kens kubens
 
+    abbr -a kg  'kubectl get'
     abbr -a kga 'kubectl get all'
     abbr -a kgn 'kubectl get nodes'
     abbr -a kgS 'kubectl get services'

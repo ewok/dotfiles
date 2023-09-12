@@ -11,6 +11,7 @@
     - {dir: "{{ conf.folders.bin }}"}
     - {dir: "~/.config/fish/conf.d"}
     - {dir: "~/.local/src/tgenv"}
+    - {dir: "~/.terraform.d/plugin-cache"}
 
 - name: "Provide configs"
   ansible.builtin.template:

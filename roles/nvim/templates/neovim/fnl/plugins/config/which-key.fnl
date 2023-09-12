@@ -2,7 +2,7 @@
   (let [wk (require :which-key)]
     (wk.setup {:plugins {:presets {:operators false :motions true}
                          :spelling {:enabled true :suggestions 20}}
-               :icons {:breadcrumb " " :separator " " :group " "}
+               :icons {:breadcrumb conf.icons.wk.breadcrumb :separator conf.icons.wk.separator :group conf.icons.wk.group}
                :operators {:gc :Comments}
                :window {:border :single}})
     (wk.register {:8 "Dark/Light theme"
@@ -11,13 +11,12 @@
                   :fs {:name :Settings}
                   :g {:name :Git}
                   :gf {:name "Git Fetch"}
-                  :gh {:name :Hunk}
+                  :gh {:name "Git Hunk"}
                   :gl {:name "Git Log"}
                   :gt {:name "Git Toggle"}
                   :gp {:name "Git Push"}
                   :i {:name :Insert}
                   :l {:name :Lsp}
-                  :m {:name :MacroBook}
                   :mm {:name :Modify}
                   :mE {:name :Export}
                   :mI {:name :Import}

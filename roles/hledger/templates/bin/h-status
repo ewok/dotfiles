@@ -60,8 +60,8 @@
 (def expenses (Float/parseFloat (get-val exp-inc "expenses" 2)))
 (def planned-expenses (Float/parseFloat (get-val exp-inc "expenses" 3)))
 (def current-cash (Float/parseFloat (get-val asset "assets:cash" 2)))
-(def current-loan (Float/parseFloat (get-val exp-inc "liabilities" 2)))
-(def planned-loan (Float/parseFloat (get-val exp-inc "liabilities" 3)))
+(def current-loan (Float/parseFloat (let [cl (get-val exp-inc "liabilities" 2)] (if (nil? cl) "0" cl))))
+(def planned-loan (Float/parseFloat (let [pl (get-val exp-inc "liabilities" 3)] (if (nil? pl) "0" pl))))
 
 ; money = Current Cash + Planned Revenue - Planned Expenses - Received Income + (Expenses if <= Planned Expenses)
 (def money

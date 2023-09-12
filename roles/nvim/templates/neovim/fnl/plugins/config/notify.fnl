@@ -17,7 +17,7 @@
                                                                 {:focusable false}))
                         :icons {:ERROR conf.icons.diagnostic.Error
                                 :WARN conf.icons.diagnostic.Warn
-                                :INFO conf.icons.diagnostic.Hint}}]
+                                :INFO conf.icons.diagnostic.Info}}]
     (notify.setup notify-options)
     (set vim.notify notify)))
 

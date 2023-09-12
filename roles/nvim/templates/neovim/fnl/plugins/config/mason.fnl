@@ -18,7 +18,8 @@
                                      :codespell
                                      :hadolint
                                      :mypy
-                                     :tflint]
+                                     :tflint
+                                     :tfsec]
                             :formatter [:joker
                                         :black
                                         :markdownlint

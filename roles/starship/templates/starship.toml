@@ -1,10 +1,17 @@
 add_newline = false
 scan_timeout = 10
+format = '${env_var.PROJECT}$all'
 
 [custom.direnv]
-format = "[\\[direnv\\]]($style) "
-style = "fg:bold red"
+format = "[\\(direnv\\)]($style) "
+style = "red"
 when = "env | grep -E '^DIRENV_FILE='"
+
+[env_var.PROJECT]
+format = "[✳️  $env_value]($style): "
+style = "green"
+variable = 'PROJECT'
+# when = "env | grep -E '^PROJECT='"
 
 [battery]
 [[battery.display]]
@@ -61,5 +68,5 @@ format = "[[$symbol$status]]($style) "
 style = "bg:blue"
 
 [kubernetes]
-# format = '[⛵ $context ](dimmed green)'
+format = '[⛵ $context ](green)'
 disabled = false

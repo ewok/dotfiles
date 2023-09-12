@@ -79,7 +79,11 @@
                                           :direction :float
                                           :float_opts {:border (if conf.options.float_border
                                                                    :rounded
-                                                                   :none)}
+                                                                   :none)
+                                                       :width #(- vim.o.columns
+                                                                  4)
+                                                       :height #(- vim.o.lines
+                                                                   5)}
                                           :on_open open_callback_float
                                           :on_close close_callback})]
                             (: float :toggle nil :float))]
