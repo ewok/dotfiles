@@ -17,13 +17,13 @@
                 :auto_toggle_rnu true
                 :auto_hide_cursorline true
                 :rainbow_parents false
-                ; :leap or :hop
-                :motion_plugin :leap
-                ;; bufferline or cokeline or tabby or tabline or lualine
-                :bufferline_plugin :lualine
+                ; :leap or :hop :flash
+                :motion_plugin :flash
                 :theme "{{ conf.theme.theme }}"
                 :spelllang [:nospell :en_us :ru_ru]
-                :large_file_size (* 1024 1024 20)})
+                :large_file_size (* 1024 1024 20)
+                :direnv false
+                :snippets :vsnip})
 
 (local separator
        {:left "{{ conf.theme.separator_left }}"
@@ -94,7 +94,7 @@
                        :Method "󰆧"
                        :Module ""
                        :Namespace ""
-                       :Null "0"
+                       :Null :0
                        :Number ""
                        :Object ""
                        :Operator ""
@@ -109,10 +109,7 @@
                        :Value ""
                        :Variable ""})
 
-(tset icons :wk {
-      :breadcrumb " "
-      :separator " "
-      :group " "})
+(tset icons :wk {:breadcrumb " " :separator " " :group " "})
 
 ;; Linux
 ;; (tset icons :lsp_kind {:String ""

@@ -40,9 +40,19 @@ require("hotpot").setup({
 -- Load configuration
 require("init")
 -- Add plugins to table
+local ft_path = vim.fn.stdpath("config") .. "/fnl/ft"
+if vim.loop.fs_stat(ft_path) then
+  for file in vim.fs.dir(ft_path) do
+    file = file:match("^(.*)%.fnl$")
+    if file then
+      require("ft." .. file)
+    end
+  end
+end
+
 local plugins_path = vim.fn.stdpath("config") .. "/fnl/plugins"
 if vim.loop.fs_stat(plugins_path) then
-  for file in vim.fs.dir(plugins_path) do
+  for file in vim.fs.dir(plugins_path, { depth = 2 }) do
     file = file:match("^(.*)%.fnl$")
     if file then
       plugins[#plugins + 1] = require("plugins." .. file)
