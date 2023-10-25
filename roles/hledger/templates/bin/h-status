@@ -67,7 +67,7 @@
 (def money
   (+ current-cash planned-revenue planned-loan current-loan
      (- planned-expenses)
-     (- received-revenue)
+     (- (if (<= received-revenue planned-revenue) received-revenue planned-revenue))
      (if (<= expenses planned-expenses) expenses planned-expenses)))
 
 ; Add color to the output

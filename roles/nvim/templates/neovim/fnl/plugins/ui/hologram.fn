@@ -1,0 +1,3 @@
+(local {: pack} (require :lib))
+
+(pack :edluffy/hologram.nvim {:config true})

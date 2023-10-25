@@ -60,7 +60,7 @@
                       :system_open {:cmd nil :args []}
                       :view {:side :left
                              :width 40
-                             :hide_root_folder false
+                             ; :hide_root_folder false
                              :signcolumn :yes
                              :float {:enable false
                                      :quit_on_focus_loss false

@@ -1,0 +1,8 @@
+(local {: pack} (require :lib))
+
+(pack :jackMort/ChatGPT.nvim
+      {:event [:VeryLazy]
+       :config true
+       :dependencies [(pack :MunifTanjim/nui.nvim)
+                      (pack :nvim-lua/plenary.nvim)
+                      (pack :nvim-telescope/telescope.nvim)]})

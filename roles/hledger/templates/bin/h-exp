@@ -9,13 +9,13 @@ DATE=date
 h 2022 bal \
   ^exp not:tag:clopen \
   --pretty-tables \
-  -X USD --sort -ATM
+  --sort -ATM "$@"
 
 echo
 
 h bal -ATM \
   ^exp not:tag:clopen \
   --pretty-tables \
-  -X USD --sort \
+  --sort \
   -b 2023-01 \
-  -e "$($DATE +%Y-%m --date="next month")"
+  -e "$($DATE +%Y-%m --date="next month")" "$@"

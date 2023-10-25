@@ -22,9 +22,6 @@
                   :gp {:name "Git Push"}
                   :i {:name :Insert}
                   :l {:name :Lsp}
-                  :mm {:name :Modify}
-                  :mE {:name :Export}
-                  :mI {:name :Import}
                   :o {:name :Open}
                   :p {:name "Packer | Profiling"}
                   :r {:name :Replace :w "Replace Word To ..."}

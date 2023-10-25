@@ -18,8 +18,7 @@
   (map! :t :<C-Y> "<c-\\><c-n><C-Y>" {:silent true :buffer term.bufnr}
         :ScrollOneUp)
   (map! :n :<CR> :i {:silent true :buffer term.bufnr} :Enter)
-  (umap! :t :<esc>)
-  (vim.cmd :startinsert))
+  (umap! :t :<esc>))
 
 ; local function lazy_open_callback(term)
 (fn open_callback_lazygit [term]
@@ -37,7 +36,7 @@
 (fn config []
   (let [toggleterm (require :toggleterm)
         shell (if (= 1 (vim.fn.executable :fish)) :fish :bash)]
-    (toggleterm.setup {:start_in_insert false
+    (toggleterm.setup {:start_in_insert true
                        :shade_terminals true
                        :shading_factor -10
                        :persist_size false
@@ -79,9 +78,7 @@
                               (set vim.g.tth true)
                               (float-terminal))
             {:silent true} "Open floating terminal")
-      (map! :t :<c-space> horizontal-terminal {:silent true}
-            "Toggle bottom or vertical terminal")
-      (map! :n :<c-space>
+      (map! [:n :t] :<c-space>
             #(let [h vim.g.tth]
                (if h (float-terminal) (horizontal-terminal)))
             {:silent true} "Toggle bottom or vertical terminal")

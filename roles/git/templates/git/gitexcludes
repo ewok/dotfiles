@@ -2,4 +2,3 @@
 .mypy_cache/
 .out/
 .tmp/
-.terraform.lock.hcl

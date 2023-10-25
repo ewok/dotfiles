@@ -3,34 +3,38 @@
 (local installer_resources {:lsp [:ansible-language-server
                                   :bash-language-server
                                   :clojure-lsp
-                                  ; :fennel-language-server
+                                  :fennel-language-server
+                                  :gopls
                                   :jq
                                   :json-lsp
+                                  :ltex-ls
                                   :lua-language-server
                                   :pyright
-                                  ; :rnix-lsp
                                   :terraform-ls
-                                  :ltex-ls
                                   :zk]
-                            :linter [:yamllint
-                                     :markdownlint
+                            :linter [:ansible-lint
                                      :clj-kondo
-                                     :ansible-lint
-                                     :pylint
                                      :codespell
                                      :hadolint
+                                     :markdownlint
                                      :mypy
+                                     :pylint
+                                     :revive
+                                     :staticcheck
                                      :tflint
-                                     :tfsec]
-                            :formatter [:joker
+                                     :tfsec
+                                     :yamllint]
+                            :formatter [:autopep8
                                         :black
-                                        :markdownlint
-                                        :shfmt
+                                        :gofumpt
+                                        :goimports-reviser
+                                        :joker
                                         :jq
-                                        :autopep8
+                                        :markdownlint
+                                        :prettier
+                                        :shfmt
                                         :sql-formatter
-                                        :stylua
-                                        :prettier]})
+                                        :stylua]})
 
 (local installed-resources [])
 
