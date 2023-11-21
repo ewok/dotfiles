@@ -1,12 +1,13 @@
 (local {: reg-ft : map!} (require :lib))
 (fn set-abbr []
-  (vim.cmd "iabbrev <buffer> due: 📅")
-  (vim.cmd "iabbrev <buffer> start: 🛫")
-  (vim.cmd "iabbrev <buffer> st: 🛫")
-  (vim.cmd "iabbrev <buffer> every: 🔁")
-  (vim.cmd "iabbrev <buffer> rec: 🔁")
-  (vim.cmd "iabbrev <buffer> planned: ⏳")
-  (vim.cmd "iabbrev <buffer> pl: ⏳"))
+  ;; (vim.cmd "iabbrev <buffer> due: 📅")
+  ;; (vim.cmd "iabbrev <buffer> start: 🛫")
+  ;; (vim.cmd "iabbrev <buffer> st: 🛫")
+  ;; (vim.cmd "iabbrev <buffer> every: 🔁")
+  ;; (vim.cmd "iabbrev <buffer> rec: 🔁")
+  ;; (vim.cmd "iabbrev <buffer> planned: ⏳")
+  ;; (vim.cmd "iabbrev <buffer> pl: ⏳")
+  )
 
 (reg-ft :markdown #(do
                      (set vim.opt_local.expandtab true)

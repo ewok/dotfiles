@@ -10,6 +10,7 @@ fi
 
 {% if ansible_distribution == 'MacOSX' %}
 export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 {% else %}
 
 export LANG=en_US.UTF-8

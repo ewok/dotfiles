@@ -6,4 +6,4 @@
                 :toggler {:line :gcc :block :gcb}
                 :extra {:above :gck :below :gcj :eol :gcA}})))
 
-(pack :numToStr/Comment.nvim {: config :event [:InsertEnter]})
+(pack :numToStr/Comment.nvim {: config :event [:InsertEnter :BufReadPre]})

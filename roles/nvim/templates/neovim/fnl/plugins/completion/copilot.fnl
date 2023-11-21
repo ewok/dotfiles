@@ -8,7 +8,7 @@
                   ;;    #(set vim.b.copilot_suggestion_hidden true))
                   ;; (: cmp.event :on :menu_closed
                   ;;    #(set vim.b.copilot_suggestion_hidden false))
-                  (map! :n :<leader>cc "<cmd>Copilot toggle<cr>" {:silent true}
+                  (map! :n :<leader>tc "<cmd>Copilot toggle<cr>" {:silent true}
                         "Toggle Copilot")
                   (copilot.setup {:filetypes {:yaml true :markdown true}
                                   :suggestion {:enabled true

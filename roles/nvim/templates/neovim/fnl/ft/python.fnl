@@ -8,8 +8,10 @@
            (set vim.opt_local.softtabstop 4)
            (local (wk-ok? wk) (pcall require :which-key))
            (when wk-ok?
-             (wk.register {:ec {:name "Eval Comment[conjure]"}
+             (wk.register {:c {:name "Connect[conjure]"}
+                          :ec {:name "Eval Comment[conjure]"}
                            :e {:name "Eval[conjure]"}
                            :l {:name "Log[conjure]"}
                            :r {:name "Reset[conjure]"}}
                           {:prefix :<leader>c :mode :n :buffer 0}))))
+

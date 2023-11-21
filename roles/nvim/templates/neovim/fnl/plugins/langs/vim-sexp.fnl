@@ -97,7 +97,7 @@
                      (map! :n :me #(: element :activate) {:buffer true}
                            "Move Element")
                      (map! :n :mf #(: form :activate) {:buffer true}
-                           "Move Form")))))))
+                           "Move Form")) :lisp)))))
 
 ;; Lisps related
 (pack :guns/vim-sexp {: init : config :event [:BufReadPre :BufNewFile]})

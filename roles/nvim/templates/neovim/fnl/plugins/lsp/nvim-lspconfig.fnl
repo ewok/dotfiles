@@ -31,8 +31,8 @@
             "Show code action[LSP]"))
     (when client.server_capabilities.renameProvider
       (map! [:n] :<leader>cn #(vim.lsp.buf.rename) md "Variable renaming[LSP]"))
-    (when client.server_capabilities.documentFormattingProvider
-      (map! [:n] :<leader>cf #(vim.lsp.buf.format) md "Format buffer[LSP]"))
+    ; (when client.server_capabilities.documentFormattingProvider
+    (map! [:n] :<leader>cf #(vim.lsp.buf.format) md "Format buffer[LSP]") ; )
     (when client.server_capabilities.hoverProvider
       (do
         (map! [:n] :K #(vim.lsp.buf.hover) md "Show help information[LSP]")

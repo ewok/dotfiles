@@ -1,15 +1,14 @@
 (local {: pack : map! : get_buf_ft} (require :lib))
 
-(local fmt-white-list {:yaml true
-                       :python true
-                       :fennel true
-                       :go true
+(local fmt-white-list {:bash true
                        :clojure true
+                       :go true
+                       :lua true
                        :markdown true
+                       :python true
+                       :sh true
                        :sql true
                        :yaml true
-                       :sh true
-                       :bash true
                        :zsh true})
 
 (local hover-white-list {:markdown true})
@@ -55,7 +54,7 @@
                               ;; Python
                               null-ls.builtins.formatting.autopep8
                               null-ls.builtins.formatting.black
-                              null-ls.builtins.diagnostics.mypy
+                              ; null-ls.builtins.diagnostics.mypy
                               ;; Go
                               null-ls.builtins.formatting.gofmt
                               ;; SQL
@@ -66,4 +65,4 @@
                               (null-ls.builtins.formatting.stylua.with {:extra_args [:--indent-type=Spaces
                                                                                      :--indent-width=4]})]})))
 
-(pack :jose-elias-alvarez/null-ls.nvim {: config :event [:BufReadPre :BufNewFile]})
+(pack :nvimtools/none-ls.nvim {: config :event [:BufReadPre :BufNewFile]})

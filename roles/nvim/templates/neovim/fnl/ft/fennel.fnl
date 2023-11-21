@@ -1,4 +1,4 @@
-(local {: reg-ft : map!} (require :lib))
+(local {: reg-ft} (require :lib))
 
 (reg-ft :fennel
         #(do
@@ -13,3 +13,4 @@
                            :r {:name "Reset[conjure]"}
                            :t {:name "Test[conjure]"}}
                           {:prefix :<leader>c :mode :n :buffer 0}))))
+

@@ -8,9 +8,9 @@
   "Unmap keybinding"
   (vim.keymap.del mode lhs options))
 
-(lambda reg-ft [ft fun]
+(lambda reg-ft [ft fun ?postfix]
   "Register function for filetype"
-  (let [ft_name (.. :ft ft)]
+  (let [ft_name (.. :ft_ ft (if ?postfix ?postfix ""))]
     (vim.api.nvim_create_augroup ft_name {:clear true})
     (vim.api.nvim_create_autocmd [:FileType]
                                  {:pattern [ft] :callback fun :group ft_name})))
