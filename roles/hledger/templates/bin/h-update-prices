@@ -3,26 +3,29 @@
   (:require [cheshire.core :as json]
             [babashka.curl :as curl]))
 
+(def apiKey "{{ conf.exchange.api_key }}")
 (def end (.format (java.text.SimpleDateFormat. "yyyy-MM-dd") (java.util.Date.)))
 (def year (Integer/parseInt (subs end 0 4)))
 (def start (str year "-01-01"))
 
-(def url-base (format "https://api.exchangerate.host/timeseries?start_date=%s&end_date=%s" start end))
+(def url-base (format "http://api.exchangerate.host/timeframe?start_date=%s&end_date=%s" start end))
 
-(def url (str url-base "&base=%s&symbols=%s"))
-(def url-crypto (str url-base "&base=%s&symbols=%s&source=crypto"))
+(def url (str url-base "&currencies=%s,%s" "&access_key=" apiKey))
 
+(print url)
 (defn get-ex-rate [from to]
   (get-in (json/parse-string (:body (curl/get (format url from to)))
                              true)
-          [:rates]))
+          [:quotes]))
 
-(def ex (get-ex-rate "USD" "RUB,KGS,AED,PHP,EUR,KZT"))
+(def ex (get-ex-rate "USD" "RUB,KGS,AED,PHP,EUR,KZT")) ; #'get-ex/ex
+(print ex)
 
 (def rates (for [i ex] (let [date (name (key i))] (for [y (val i)]
                                                     (let [currency (name (key y))
                                                           rate (val y)]
-                                                      (format "P %s USD %s %s" date rate currency))))))
+                                                      (format "P %s USD %s %s" date rate (subs currency 3 6)))))))
+(print rates)
 
 (spit
  (format "%s/share/Fin/prices-%s" (System/getProperty "user.home") year)

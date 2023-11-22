@@ -1,7 +1,7 @@
 (local {: pack} (require :lib))
 
 (fn config []
-  (let [:git (require :git-conflict)]
+  (let [git (require :git-conflict)]
     (git.setup {:default_mappings {:ours :<leader>gco
                                    :theirs :<leader>gct
                                    :none :<leader>gcn

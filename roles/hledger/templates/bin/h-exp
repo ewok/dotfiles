@@ -7,7 +7,7 @@ DATE=date
 {% endif %}
 
 h 2022 bal \
-  ^exp not:tag:clopen \
+  ^exp ^equity:adj not:tag:clopen \
   --pretty-tables \
   --sort -ATM "$@"
 

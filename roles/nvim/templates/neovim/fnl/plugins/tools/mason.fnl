@@ -11,7 +11,8 @@
                                   :lua-language-server
                                   :pyright
                                   :terraform-ls
-                                  :zk]
+                                  :zk
+                                  :yaml-language-server]
                             :linter [:ansible-lint
                                      :clj-kondo
                                      :codespell

@@ -10,7 +10,7 @@ h \
   -s bal \
   --pretty-tables \
   --budget -E \
-  ^exp \
+  ^exp ^equity:adj \
   not:tag:clopen \
   -b $($DATE +%Y-%m --date="last month") \
   -e $($DATE +%Y-%m --date="next month") \

@@ -37,6 +37,22 @@
                               :refresh {:statusline 100
                                         :tabline 100
                                         :winbar 100}}
+                    :sections {:lualine_a [:mode]
+                               :lualine_b [:branch :diff :diagnostics]
+                               :lualine_c [:filename]
+                               :lualine_x [:encoding
+                                           :fileformat
+                                           :filetype
+                                           ;; Adding Yaml Companion result
+                                           (fn []
+                                             (let [yc (require :yaml-companion)
+                                                   schema (yc.get_buf_schema 0)]
+                                               (if (= (. schema :result 1 :name)
+                                                      :none)
+                                                   ""
+                                                   (. schema :result 1 :name))))]
+                               :lualine_y [:progress]
+                               :lualine_z [:location]}
                     :tabline {:lualine_a [:buffers]
                               :lualine_b []
                               :lualine_c []

@@ -27,7 +27,7 @@ h \
   -s bal \
   --pretty-tables \
   --budget -E \
-  ^exp \
+  ^exp ^equity:adj \
   -b $($DATE +%Y-%m) \
   -e $($DATE +%Y-%m --date="next month") \
   -M --real ${ARGS[@]} | rg -v 'Budget performance' | rg --color=always --passthru '\d\d\d%'
